@@ -917,7 +917,7 @@ struct asSMethodPtr
 		// as it would mean that the size of the method pointer cannot be determined.
 
 		int ERROR_UnsupportedMethodPtr[N-100];
-		return 0;
+		return asSFuncPtr{};
 	}
 };
 

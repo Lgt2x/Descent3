@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <algorithm>
 #include <errno.h>
 #include <Macros.h>
 #include "CZip.h"

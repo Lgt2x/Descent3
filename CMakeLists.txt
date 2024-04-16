@@ -5,7 +5,7 @@ MARK_AS_ADVANCED(CMAKE_BACKWARDS_COMPATIBILITY)
 # allow more human readable "if then else" constructs
 SET( CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE )
 
-
+set(CMAKE_CXX_STANDARD 98)
 
 PROJECT(Descent3)
 

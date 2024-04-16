@@ -27,7 +27,6 @@
 
 #define INFLATE_INPUT_BUFFER_MAX 16384
 #define DATA_CHUNK_SIZE	1024
-#define min(a,b)	( (a) < (b) ) ? (a) : (b)
 
 // ECD Offsets
 #define ECD_ESIG		0x00
@@ -75,6 +74,9 @@
 #define LFH_FNLN	0x1a
 #define LFH_XTRALN	0x1c
 #define LFH_NAME	0x1e
+
+#define min(a,b) ((a<b)?a:b)
+#define max(a,b) (((a)>(b))?(a):(b))
 
 ushort get_buffer_short(char *buf)
 {
@@ -775,3 +777,6 @@ int CompareZipFileName(const char* zipfile, const char* file)
 	}
 	return !*s1 && !*s2;
 }
+
+#undef min
+#undef max

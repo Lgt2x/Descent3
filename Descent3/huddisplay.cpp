@@ -222,7 +222,6 @@
 #include <stdarg.h>
 
 #ifdef __LINUX__
-#define min(a,b) ((a<b)?a:b) //why can't I find a min in Linux at all!?
 #elif defined(MACINTOSH)
 #include "Macros.h"
 #endif

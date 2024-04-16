@@ -14,8 +14,6 @@
 #include "byteswap.h"
 
 //#include <X11/Xatom.h>
-#define min(a,b) (((a)<(b))?(a):(b))
-#define max(a,b) (((a)>(b))?(a):(b))
 
 extern bool ddio_mouseGrabbed;
 

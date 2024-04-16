@@ -1308,7 +1308,7 @@ int bm_w (int handle,int miplevel)
 	}
 	if (GameBitmaps[handle].flags & BF_NOT_RESIDENT)
 		if (!bm_MakeBitmapResident(handle))
-			return NULL;
+			return 0;
 	if (!(GameBitmaps[handle].flags & BF_MIPMAPPED))
 		miplevel=0;
 	w=GameBitmaps[handle].width;
@@ -1788,7 +1788,7 @@ bool bm_CreateChunkedBitmap(int bm_handle, chunked_bitmap *chunk)
 	float fopt=128.0f;
 	int iopt;
 	//find the smallest dimension and base off that
-	int smallest = min(bw,bh);
+	int smallest = std::min(bw,bh);
 	if(smallest<=32)
 		fopt=32;
 	else

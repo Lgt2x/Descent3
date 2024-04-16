@@ -9,8 +9,6 @@
 #	include "linux/linux_fix.h"
 #	include "linux/dyna_xext.h"
 #	include "lnxscreenmode.h"
-#	define min(a,b) (((a)<(b))?(a):(b))
-#	define max(a,b) (((a)>(b))?(a):(b))
 #else
 #endif
 
@@ -1946,7 +1944,7 @@ void opengl_ChangeChunkedBitmap(int bm_handle, chunked_bitmap *chunk)
 	int iopt;
 
 	//find the smallest dimension and base off that
-	int smallest = min(bw,bh);
+	int smallest = std::min(bw,bh);
 
 	if(smallest<=32)
 		fopt=32;
@@ -3198,7 +3196,7 @@ void rend_DrawSpecialLine(g3Point *p0,g3Point *p1)
 		}
 
 		// Finally, specify a vertex
-		float z = max(0,min(1.0,1.0-(1.0/(pnt->p3_z+Z_bias))));
+		float z = std::max(0.,std::min(1.0,1.0-(1.0/(pnt->p3_z+Z_bias))));
 		dglVertex3f (pnt->p3_sx+x_add,pnt->p3_sy+y_add,-z);
 	}
 

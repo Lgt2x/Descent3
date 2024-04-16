@@ -442,8 +442,6 @@
 #include "mem.h"
 
 #ifdef __LINUX__
-#define min(a,b) ((a<b)?a:b)
-#define max(a,b) ((a>b)?a:b)
 #endif
 
 //DAJ vis_effect VisEffects[max_vis_effects];

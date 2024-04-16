@@ -167,12 +167,15 @@ bool ConfigItem::Create(NewUIGameWindow *parentwnd,int type,int flags,int x,int 
 		Int3();
 	}
 
-	if(type==CIT_SLIDER)//slider's need to have the label centered vertically
-		m_tLabel.Create(parentwnd,&UITextItem(label,UICOL_TEXT_NORMAL),x,y+7,UIF_FIT);
-	else{
+
+	if(type==CIT_SLIDER) {//slider's need to have the label centered vertically
+		UITextItem item = UITextItem(label,UICOL_TEXT_NORMAL);
+		m_tLabel.Create(parentwnd,&item,x,y+7,UIF_FIT);
+	}else{
 		if(!(m_iFlags&CIF_USEGROUP)){
 			//create a regular label
-			m_tLabel.Create(parentwnd,&UITextItem(label,UICOL_TEXT_NORMAL),x,y,UIF_FIT);
+			UITextItem item = UITextItem(label,UICOL_TEXT_NORMAL);
+			m_tLabel.Create(parentwnd,&item,x,y,UIF_FIT);
 		}else{
 			//save the label text
 			m_labeltext = mem_strdup(label);
@@ -613,7 +616,8 @@ void ConfigItem::UpdateSlider(int index,bool call_callback)
 	default:
 		Int3();//Get Jeff
 	}
-	m_tLabel2.SetTitle(&UITextItem(temp,UICOL_TEXT_NORMAL));
+	UITextItem item = UITextItem(temp,UICOL_TEXT_NORMAL);
+	m_tLabel2.SetTitle(&item);
 }
 
 void ConfigItem::UpdateOnOffButton(int index)
@@ -757,12 +761,15 @@ void ConfigItem::Add(int count, ... )
 		m_sList[0]->Create(m_hWnd,m_iID[0],m_X,m_Y,UIF_FIT);
 		char temp[10];
 		switch(m_iValueType){
-		case CIV_INT:
+		case CIV_INT: 
+		{
 			sprintf(temp,"%d",m_iInitial);
 			if(m_iFlags&CIF_PERCENT)
 				strcat(temp,"%");
 			break;
+		}
 		case CIV_FLOAT:
+		{
 			if(m_iFlags&CIF_NODECIMAL)
 				sprintf(temp,"%.0f",m_fInitial);
 			else
@@ -771,10 +778,12 @@ void ConfigItem::Add(int count, ... )
 				strcat(temp,"%");
 			break;
 		}
-		m_tLabel2.Create(m_hWnd,&UITextItem(temp,UICOL_TEXT_NORMAL),m_X+155,m_Y+7,UIF_FIT);
+		UITextItem item = UITextItem(temp,UICOL_TEXT_NORMAL);
+		m_tLabel2.Create(m_hWnd,&item,m_X+155,m_Y+7,UIF_FIT);
 		m_sList[0]->SetSelectChangeCallback(CISliderCallback,this);
 		break;
-	case CIT_ONOFFBUTTON:
+		}
+	case CIT_ONOFFBUTTON:{
 		//only 1 on/off button per config item
 		ASSERT(m_bCount==0);
 		//we need 2 text items ("On" and "Off")
@@ -810,7 +819,8 @@ void ConfigItem::Add(int count, ... )
 		else
 			m_bList[0]->SetTitle(m_tiList[0]);//Off
 		break;
-	case CIT_LISTBOX:
+	}
+	case CIT_LISTBOX:{
 		ASSERT(count>0);
 		ASSERT(m_lbCount==0);
 		//we need count text items (one for each item in list box)
@@ -850,7 +860,8 @@ void ConfigItem::Add(int count, ... )
 		m_lbList[0]->SetSelectChangeCallback(CIListBoxCallback,this);
 		m_lbList[0]->SetSelectedIndex(m_iInitial);
 		break;
-	case CIT_YESNOBUTTON:
+	}
+	case CIT_YESNOBUTTON:{
 		//only 1 yes/no button per config item
 		ASSERT(m_bCount==0);
 		//we need 2 text items ("Yes" and "No")
@@ -886,7 +897,9 @@ void ConfigItem::Add(int count, ... )
 		else
 			m_bList[0]->SetTitle(m_tiList[0]);//No
 		break;
+	}
 	case CIT_CHECKBOX:
+	{
 		//only 1 checkbox per config item
 		ASSERT(m_bCount==0);
 		//we need 4 text items (a checked and unchecked box hightlited and not)
@@ -929,7 +942,9 @@ void ConfigItem::Add(int count, ... )
 		//remove the title so it's not drawn
 		m_tLabel.Destroy();
 		break;
+	}
 	case CIT_RADIOBUTTON:
+	{
 		ASSERT(count>0);
 		ASSERT(m_rbCount==0);
 		//we need count text items
@@ -1021,6 +1036,7 @@ void ConfigItem::Add(int count, ... )
 		ASSERT( (m_iInitial>=0) && (m_iInitial<m_iNumIDs) );
 		m_rbList[m_iInitial]->Activate();
 		break;
+	}
 	default:
 		mprintf((0,"Bad ConfigItem Type in Add\n"));
 	}

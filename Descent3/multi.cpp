@@ -1694,7 +1694,6 @@
 void MultiProcessShipChecksum (MD5 *md5, int ship_index);
 
 #ifdef __LINUX__
-#define min(a,b) ((a<b)?a:b)
 #elif defined(MACINTOSH)
 #include "Macros.h"
 #endif

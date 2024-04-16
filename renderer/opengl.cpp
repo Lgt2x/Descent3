@@ -6,8 +6,6 @@
 #include "linux/dyna_xext.h"
 #include "lnxscreenmode.h"
 #include <X11/Xatom.h>
-#define min(a,b) (((a)<(b))?(a):(b))
-#define max(a,b) (((a)>(b))?(a):(b))
 #else
 #endif
 
