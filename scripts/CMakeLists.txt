@@ -90,8 +90,8 @@ FOREACH( SCRIPT ${SCRIPTS})
 
 ENDFOREACH()
 
-IF(UNIX)
-  SET(HOGBUILDCMD "${CMAKE_SOURCE_DIR}/scripts/hogutils/hogUtils-i686")
+IF(NOT UNIX)
+  # SET(HOGBUILDCMD "${CMAKE_SOURCE_DIR}/scripts/hogutils/hogUtils-i686")
   SET(HOGARCH "linux")
   IF(APPLE)
     SET(HOGBUILDCMD "${CMAKE_SOURCE_DIR}/scripts/hogutils/hogUtils-macosx")

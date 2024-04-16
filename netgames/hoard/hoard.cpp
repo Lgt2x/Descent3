@@ -1415,7 +1415,7 @@ void DisplayHUDScores(struct tHUDItem *hitem)
 	y1 -= ((height-3)/2.0);
 
 	DLLgrtext_SetColor(GR_RGB(128,128,128));
-	DLLgrtext_SetAlpha(min(alpha+30,255));
+	DLLgrtext_SetAlpha(std::min(alpha+30,255));
 	DLLgrtext_Printf(x1,y1,buffer);
 }
 

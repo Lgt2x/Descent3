@@ -1489,12 +1489,14 @@ void newuiSheet::Realize()
 		{
 		case GADGET_HGROUP:
 		case GADGET_GROUP:
+		{
 			horizontal_align = (desc->type == GADGET_GROUP) ? false : true;
 			gx = desc->parm.s[0]+m_sx;
 			gy = desc->parm.s[1]+m_sy;
 			if (desc->title) {
 				text = new UIText;
-				text->Create(m_parent, &UITextItem(MONITOR9_NEWUI_FONT, desc->title, NEWUI_MONITORFONT_COLOR), gx, gy);
+				auto item = UITextItem(MONITOR9_NEWUI_FONT, desc->title, NEWUI_MONITORFONT_COLOR);
+				text->Create(m_parent, &item, gx, gy);
 				desc->obj.gadget = text;
 
 			// determine pixel offset to first control if we stuffed the offset into desc->id (-1 = default)
@@ -1520,41 +1522,44 @@ void newuiSheet::Realize()
 			first_radio_index = -1;
 			last_toggle_index = -1;
 			break;
-
+		}
 		case GADGET_STATIC_TXT:
-			text = new UIText;
-			text->Create(m_parent, &UITextItem(MONITOR9_NEWUI_FONT, desc->title, NEWUI_MONITORFONT_COLOR),gx,gy);
+		{	text = new UIText;
+			auto textItem = UITextItem(MONITOR9_NEWUI_FONT, desc->title, NEWUI_MONITORFONT_COLOR);
+			text->Create(m_parent, &textItem,gx,gy);
 			if (horizontal_align) gx+= text->W()+2;
 			else gy+= text->H();
 			desc->obj.gadget = text;
 			break;
-
+		}
 		case GADGET_CHANGEABLE_TXT:
-			text = new UIText;
-			text->Create(m_parent, &UITextItem(MONITOR9_NEWUI_FONT, (const char *)desc->parm.p, NEWUI_MONITORFONT_COLOR), gx, gy);
+		{	text = new UIText;
+			auto textItem = UITextItem(MONITOR9_NEWUI_FONT, (const char *)desc->parm.p, NEWUI_MONITORFONT_COLOR);
+			text->Create(m_parent, &textItem, gx, gy);
 			if (horizontal_align) gx+= text->W()+2;
 			else gy+= text->H();
 			desc->obj.text = text;
 			break;
-
+		}
 		case GADGET_STATIC_BMP:
-			bmp = new UIStatic;
-			bmp->Create(m_parent, &UIBitmapItem(desc->parm.i), gx,gy,10,10);
+		{	bmp = new UIStatic;
+			auto bpmItem = UIBitmapItem(desc->parm.i);
+			bmp->Create(m_parent, &bpmItem, gx,gy,10,10);
 			if (horizontal_align) gx+= bmp->W()+2;
 			else gy+= bmp->H();
 			desc->obj.gadget = bmp;
 			break;
-
+		}
 		case GADGET_BUTTON:
-			btn = new newuiButton;
+		{	btn = new newuiButton;
 			btn->Create(m_parent, desc->id, desc->title, gx, gy, desc->parm.i);
 			if (horizontal_align) gx+= btn->W()+2;
 			else gy += btn->H();
 			desc->obj.button = btn;
 			break;
-		
+		}
 		case GADGET_CHECKBOX:
-			cbox = new newuiCheckBox;
+		{	cbox = new newuiCheckBox;
 			cbox->Create(m_parent, desc->id, desc->title, gx, gy, false);
 			if (!toggles_group) {
 				toggles_group  = true;
@@ -1566,9 +1571,9 @@ void newuiSheet::Realize()
 			else gy += cbox->H();
 			desc->obj.chbox = cbox;
 			break;
-		
+		}
 		case GADGET_RADIO:
-			if (first_radio_index == -1) first_radio_index = i;
+		{	if (first_radio_index == -1) first_radio_index = i;
 			radio = new newuiRadioButton;
 			radio->Create(m_parent, prev_radio, desc->id, desc->title, gx, gy, false);
 			if (m_gadgetlist[first_radio_index].parm.i == (i-first_radio_index)) {
@@ -1579,17 +1584,17 @@ void newuiSheet::Realize()
 			desc->obj.radio = radio;
 			prev_radio = radio;
 			break;
-		
+		}
 		case GADGET_LBUTTON:
-			btn = new newuiButton;
+		{	btn = new newuiButton;
 			btn->Create(m_parent, desc->id, desc->title, gx, gy, desc->parm.i | NEWUI_BTNF_LONG);
 			if (horizontal_align) gx+= btn->W()+2;
 			else gy += btn->H();
 			desc->obj.button = btn;
 			break;
-		
+		}
 		case GADGET_LCHECKBOX:
-			cbox = new newuiCheckBox;
+		{	cbox = new newuiCheckBox;
 			cbox->Create(m_parent, desc->id, desc->title, gx, gy, true);
 			if (!toggles_group) {
 				toggles_group  = true;
@@ -1601,9 +1606,9 @@ void newuiSheet::Realize()
 			else gy += cbox->H();
 			desc->obj.chbox = cbox;
 			break;
-		
+		}
 		case GADGET_LRADIO:
-			if (first_radio_index == -1) first_radio_index = i;
+		{	if (first_radio_index == -1) first_radio_index = i;
 			radio = new newuiRadioButton;
 			radio->Create(m_parent, prev_radio, desc->id, desc->title, gx, gy, true);
 			if (m_gadgetlist[first_radio_index].parm.i == (i-first_radio_index)) {
@@ -1614,9 +1619,9 @@ void newuiSheet::Realize()
 			desc->obj.radio = radio;
 			prev_radio = radio;
 			break;
-
+		}
 		case GADGET_HOTSPOT:
-			hot = new newuiHotspot;
+		{	hot = new newuiHotspot;
 			bval = desc->internal ? true : false;
 			hot->Create(m_parent, desc->id, desc->title, gx, gy, desc->parm.s[0], desc->parm.s[1], 
 				(bval && !hotspot_group) ? UIF_GROUP_START : (bval && hotspot_group) ? UIF_GROUP_END : 0);
@@ -1632,9 +1637,9 @@ void newuiSheet::Realize()
 			else gy += hot->H();
 			desc->obj.hot = hot;
 			break;
-
+		}
 		case GADGET_SLIDER:
-			slider = new newuiSlider;
+		{	slider = new newuiSlider;
 			slider->Create(m_parent, desc->id, desc->title, gx, gy, desc->parm.s[1]);
 			slider->SetPos(desc->parm.s[0]);
 			if (desc->internal) {
@@ -1644,11 +1649,11 @@ void newuiSheet::Realize()
 			else gy += slider->H() + 2;
 			desc->obj.slider = slider;
 			break;
-		
+		}
 		case GADGET_EDITBOX:
 		case GADGET_EDITBOXPASS:
 		case GADGET_EDITBOXNUM:
-			ASSERT(desc->internal);
+		{	ASSERT(desc->internal);
 			edit = new newuiEditBox;
 			flags = (desc->type == GADGET_EDITBOXPASS) ? UIED_PASSWORD : (desc->type == GADGET_EDITBOXNUM) ? UIED_NUMBERS : 0;
 
@@ -1670,9 +1675,9 @@ void newuiSheet::Realize()
 			else gy += edit->H() + 2;
 			desc->obj.edit = edit;
 			break;
-
+		}
 		case GADGET_LISTBOX:
-			lb = (newuiListBox *)desc->internal;
+		{	lb = (newuiListBox *)desc->internal;
 			ASSERT(lb);
 			lb->Move(gx, gy, lb->W(), lb->H());
 			m_parent->AddGadget(lb);
@@ -1680,8 +1685,8 @@ void newuiSheet::Realize()
 			else gy += lb->H() + 2;
 			desc->obj.lb = lb;
 			break;
-
-		case GADGET_COMBOBOX:
+		}
+		case GADGET_COMBOBOX:{
 			cb = (newuiComboBox *)desc->internal;
 			ASSERT(cb);
 			cb->Move(gx, gy, cb->W(), cb->H());
@@ -1690,7 +1695,7 @@ void newuiSheet::Realize()
 			else gy += cb->H() + 2;
 			desc->obj.cb = cb;
 			break;
-
+		}
 		default:
 			Int3();
 		}
@@ -1871,9 +1876,12 @@ void newuiSheet::UpdateChanges()
 			}
 			break;
 
-		case GADGET_CHANGEABLE_TXT:
-			desc->obj.text->SetTitle(&UITextItem(MONITOR9_NEWUI_FONT, (const char *)desc->parm.p, NEWUI_MONITORFONT_COLOR));
+		case GADGET_CHANGEABLE_TXT: {
+			auto descItem = UITextItem(MONITOR9_NEWUI_FONT, (const char *)desc->parm.p, NEWUI_MONITORFONT_COLOR);
+			desc->obj.text->SetTitle(&descItem);
 			break;
+
+		}
 		}
 		desc->changed = false;
 	}
@@ -2324,7 +2332,8 @@ newuiButton::newuiButton()
 
 void newuiButton::Create(UIWindow *menu, short id, const char *name, short x, short y, short flags)
 {
-	UIButton::Create(menu, id, &UITextItem(""), x, y, 10,8, flags | UIF_FIT);
+	auto emptyItem = UITextItem("");
+	UIButton::Create(menu, id, &emptyItem, x, y, 10,8, flags | UIF_FIT);
 
 	if (flags & NEWUI_BTNF_FRAMED) {
 		ASSERT(!(flags & NEWUI_BTNF_LONG));						// remove this if art is added.
@@ -2647,7 +2656,8 @@ void newuiCheckBox::Create(UIWindow *wnd, short id, const char *name, short x, s
 	m_bkg = Newui_resources.Load(is_long ? NEWUI_LCHKBTN_FILE : NEWUI_CHKBTN_FILE);
 	m_litbkg = Newui_resources.Load(is_long ? NEWUI_LCHKBTNLIT_FILE : NEWUI_CHKBTNLIT_FILE);
 
-	UICheckBox::Create(wnd, id, &UITextItem(""), x, y, 10, 8, UIF_FIT);
+	auto emptyItem = UITextItem("");
+	UICheckBox::Create(wnd, id, &emptyItem, x, y, 10, 8, UIF_FIT);
 	newuiButton::InitStates(name, is_long);
 }
 
@@ -2673,7 +2683,8 @@ void newuiRadioButton::Create(UIWindow *wnd, UIRadioButton *prev_rb, short id, c
 	m_bkg = Newui_resources.Load(is_long ? NEWUI_LBTN_FILE : NEWUI_BTN_FILE);
 	m_litbkg = Newui_resources.Load(is_long ? NEWUI_LCHKBTNLIT_FILE : NEWUI_CHKBTNLIT_FILE);
 
-	UIRadioButton::Create(wnd, prev_rb, id, &UITextItem(""), x, y, 10, 8, UIF_FIT);
+	auto emptyItem = UITextItem("");
+	UIRadioButton::Create(wnd, prev_rb, id, &emptyItem, x, y, 10, 8, UIF_FIT);
 	newuiButton::InitStates(name, is_long);
 }
 

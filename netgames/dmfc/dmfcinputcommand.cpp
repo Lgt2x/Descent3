@@ -876,7 +876,7 @@ void DMFCInputCommand_SetTeamName(char *input_string)
 	}
 
 	//parse team_name
-	if(!StringParseWord(input_string,s,min(MAX_TEAMNAME_LEN,20),&input_string)){
+	if(!StringParseWord(input_string,s,std::min(MAX_TEAMNAME_LEN,20),&input_string)){
 		basethis->DisplayInputCommandHelp(DTXT_IC_SETTEAMNAME);
 		return;
 	}

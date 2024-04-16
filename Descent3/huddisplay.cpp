@@ -1040,7 +1040,7 @@ void RenderHUDScore(tHUDItem *item)
 		int text_height=grfont_GetHeight(HUD_FONT);
 		sprintf(buf,"%d   ",Score_added);
 		w = RenderHUDGetTextLineWidth(buf);// * win_w/Game_window_w;
-		ubyte alpha = min(HUD_ALPHA,HUD_ALPHA * 4 * Score_added_timer / SCORE_ADDED_TIME);
+		ubyte alpha = std::min(static_cast<double>(HUD_ALPHA),HUD_ALPHA * 4 * Score_added_timer / SCORE_ADDED_TIME);
 		RenderHUDText(item->color,alpha,0,item->x-w-win_w,item->y+text_height,buf);
 		Score_added_timer -= Frametime;
 	}

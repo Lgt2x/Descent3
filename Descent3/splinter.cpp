@@ -24,7 +24,7 @@ void DrawSplinterObject (object *obj)
 	g3Point pnts[MAX_VERTS_PER_SPLINTER];
 	g3Point *pntlist[MAX_VERTS_PER_SPLINTER];
 
-	int limit=min(MAX_VERTS_PER_SPLINTER,sm->faces[facenum].nverts);
+	int limit=std::min(MAX_VERTS_PER_SPLINTER,static_cast<int>(sm->faces[facenum].nverts));
 	float lifenorm=1.0-((obj->lifetime-obj->lifeleft)/obj->lifetime);
 
 	rend_SetLighting(LS_NONE);

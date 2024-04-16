@@ -57,8 +57,8 @@
 #define ABS(a) ((a<0)?(-a):(a))
 
 #ifndef WIN32
-#define __min(a,b) std::min(a,b)
-#define __max(a,b) std::max(a,b)
+#define __min(a,b) (a<b?a:b)
+#define __max(a,b) (a>b?a:b)
 #endif
 
 #ifdef LINUX

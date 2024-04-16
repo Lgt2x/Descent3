@@ -1307,7 +1307,7 @@ void DrawVisLightningBolt (vis_effect *vis)
 
 	vector vecs[50];
 
-	num_segs=min(num_segs,50);
+	num_segs=std::min(num_segs,50);
 		
 	CreateLightningRodPositions (&vis->pos,&vis->end_pos,vecs,num_segs,lightning_mag,false);
 
@@ -2427,8 +2427,8 @@ void AttachRandomNapalmEffectsToObject (object *obj)
 
 	float size_scalar=obj->size/7.0;
 
-	size_scalar=max (1.0,size_scalar);
-	size_scalar=min (4.0,size_scalar);
+	size_scalar=std::max (1.0f,size_scalar);
+	size_scalar=std::min (4.0f,size_scalar);
 
 	// Create an explosion that follows every now and then
 	if ((ps_rand()%3)==0)

@@ -4973,7 +4973,7 @@ void DMFCBase::LossGuageFrame(void)
 	max_x = DLLRenderHUDGetTextLineWidth(DTXT_NETWORK_LOSS);
 	
 	DLLRenderHUDText(ping_color,255,2,0,y+10,DTXT_NETWORK_PING);
-	max_x = max(max_x,DLLRenderHUDGetTextLineWidth(DTXT_NETWORK_PING));
+	max_x = std::max(max_x,DLLRenderHUDGetTextLineWidth(DTXT_NETWORK_PING));
 
 	max_x += 10;
 	DLLRenderHUDText(loss_color,255,0,2+max_x,y,"%.2f%%",packetloss);

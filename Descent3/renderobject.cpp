@@ -1096,15 +1096,15 @@ bool SetupTerrainObject (object *obj)
 			scalar=GetTerrainDynamicScalar (&obj->pos,CELLNUM(obj->roomnum));
 			if (obj->effect_info && (obj->effect_info->type_flags & EF_VOLUME_LIT))
 			{
-				scalar_r=min(1,scalar+(obj->effect_info->dynamic_red));
-				scalar_g=min(1,scalar+(obj->effect_info->dynamic_green));
-				scalar_b=min(1,scalar+(obj->effect_info->dynamic_blue));
+				scalar_r=std::min(1.0f,scalar+(obj->effect_info->dynamic_red));
+				scalar_g=std::min(1.0f,scalar+(obj->effect_info->dynamic_green));
+				scalar_b=std::min(1.0f,scalar+(obj->effect_info->dynamic_blue));
 				// If this is a robot, make it at least 10% for each RGB component
 				if (obj->type==OBJ_ROBOT)
 				{
-					scalar_r=max(.1,scalar_r);
-					scalar_g=max(.1,scalar_g);
-					scalar_b=max(.1,scalar_b);
+					scalar_r=std::max(.1f,scalar_r);
+					scalar_g=std::max(.1f,scalar_g);
+					scalar_b=std::max(.1f,scalar_b);
 				}
 				if (obj->type==OBJ_PLAYER && ((Players[obj->id].flags & PLAYER_FLAGS_HEADLIGHT) || ((Game_mode & GM_MULTI) && (Netgame.flags & NF_BRIGHT_PLAYERS))))
 				{
@@ -1175,15 +1175,15 @@ bool SetupMineObject(object *objp)
 			else
 				GetRoomDynamicScalar (&vpos,&Rooms[objp->roomnum],&scalar_r,&scalar_g,&scalar_b);
 			
-			scalar_r=min(1,scalar_r+(objp->effect_info->dynamic_red));
-			scalar_g=min(1,scalar_g+(objp->effect_info->dynamic_green));
-			scalar_b=min(1,scalar_b+(objp->effect_info->dynamic_blue));
+			scalar_r=std::min(1.0f,scalar_r+(objp->effect_info->dynamic_red));
+			scalar_g=std::min(1.0f,scalar_g+(objp->effect_info->dynamic_green));
+			scalar_b=std::min(1.0f,scalar_b+(objp->effect_info->dynamic_blue));
 			// If this is a robot, make it at least 10% for each RGB component
 			if (objp->type==OBJ_ROBOT)
 			{
-				scalar_r=max(.1,scalar_r);
-				scalar_g=max(.1,scalar_g);
-				scalar_b=max(.1,scalar_b);
+				scalar_r=std::max(.1f,scalar_r);
+				scalar_g=std::max(.1f,scalar_g);
+				scalar_b=std::max(.1f,scalar_b);
 			}
 			
 			if (objp->type==OBJ_PLAYER && (Game_mode & GM_MULTI))
@@ -1198,12 +1198,12 @@ bool SetupMineObject(object *objp)
 				{
 					// Make this ship brighter based on its speed
 					float speed_norm;
-					speed_norm=min(vm_GetMagnitudeFast (&objp->mtype.phys_info.velocity)/20.0,1);
+					speed_norm=std::min(vm_GetMagnitudeFast (&objp->mtype.phys_info.velocity)/20.0,1.0);
 					speed_norm*=1;
 					speed_norm+=1;
-					scalar_r=min(1,scalar_r*speed_norm);
-					scalar_g=min(1,scalar_g*speed_norm);
-					scalar_b=min(1,scalar_b*speed_norm);
+					scalar_r=std::min(1.0f,scalar_r*speed_norm);
+					scalar_g=std::min(1.0f,scalar_g*speed_norm);
+					scalar_b=std::min(1.0f,scalar_b*speed_norm);
 				}
 			}
 			if (objp->type==OBJ_PLAYER && (Players[objp->id].flags & PLAYER_FLAGS_HEADLIGHT))
@@ -2271,8 +2271,8 @@ void DrawPlayerTypingIndicator (object *obj)
 		cc.cc_and = 0xFF;
 		cc.cc_or = 0;
 
-		int b_w = min(bm_w(bm_handle,0),32);
-		int b_h = min(bm_h(bm_handle,0),32);
+		int b_w = std::min(bm_w(bm_handle,0),32);
+		int b_h = std::min(bm_h(bm_handle,0),32);
 		bmw = b_w/2;
 		bmh = b_h/2;
 

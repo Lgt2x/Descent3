@@ -2626,7 +2626,7 @@ int AddWeaponAmmo (int slot,int weap_index,int ammo)
 	if((weap_index >= SECONDARY_INDEX) || wb->ammo_usage)
 	{
 		//figure out much ammo to add
-		int added = min(ship->max_ammo[weap_index] - player->weapon_ammo[weap_index],ammo);
+		int added = std::min(ship->max_ammo[weap_index] - player->weapon_ammo[weap_index],ammo);
 		//now add it
 		player->weapon_ammo[weap_index] += added;
 		return added;
@@ -2645,7 +2645,7 @@ bool AddPowerupEnergyToPlayer(int id)
 	if(Players[id].energy>=MAX_ENERGY)
 		return false;
 	float amount = 10.0f * Diff_general_scalar[DIFF_LEVEL];
-	curr_energy = min(MAX_ENERGY,curr_energy+amount);
+	curr_energy = std::min(static_cast<float>(MAX_ENERGY),curr_energy+amount);
 	Players[id].energy = curr_energy;
 	return true;
 }
@@ -2914,7 +2914,7 @@ bool HandleCommonPowerups(char *pname,msafe_struct *mstruct,ubyte *pickup)
 	{
 		handled = true;
 		float addval = ENERGY_BONUS * Diff_shield_energy_scalar[DIFF_LEVEL];
-		addval = min(addval,MAX_ENERGY-Players[pnum].energy);
+		addval = std::min(addval,MAX_ENERGY-Players[pnum].energy);
 		Players[pnum].energy += addval;
 		//Pick up if multiplayer or added
 		if ((Game_mode & GM_MULTI) || (addval > 0))

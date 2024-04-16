@@ -1476,7 +1476,7 @@ void MultiSendJoinObjects (int slot)
 	
 	while (objects_to_go>0)
 	{
-		int num_objects_this_packet=min (MAX_OBJECTS_PER_PACKET,objects_to_go);
+		int num_objects_this_packet=std::min (MAX_OBJECTS_PER_PACKET,objects_to_go);
 		int overflow=0;
 
 		count=0;
