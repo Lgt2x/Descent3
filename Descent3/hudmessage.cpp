@@ -322,34 +322,43 @@
  * $NoKeywords: $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-#include <ctype.h>
-#include "pstring.h"
-#include "grdefs.h"
-#include "hud.h"
-#include "game.h"
-#include "ddio.h"
-#include "gamefont.h"
-#include "newui.h"
-#include "multi.h"
-#include "player.h"
-#include "game2dll.h"
-#include "stringtable.h"
-#include "dedicated_server.h"
-#include "AppConsole.h"
-#include "demofile.h"
-#include "mem.h"
-#include "textaux.h"
-#include "3d.h"
-#include "marker.h"
-#include "controls.h"
-#include "Mission.h"
-#include "sounds.h"
-#include "hlsoundlib.h"
-#include "args.h"
+#include <ctype.h>                   // for isdigit, isalpha, ispunct, isspace
+#include <stdarg.h>                  // for va_end, va_list, va_start
+#include <stdio.h>                   // for NULL, snprintf, sprintf
+#include <stdlib.h>                  // for atoi
+#include <string.h>                  // for strcpy, strlen, strchr, memset
+#include "3d.h"                      // for g3Point, PF_PROJECTED, p3_z
+#include "Macros.h"                  // for stricmp
+#include "Mission.h"                 // for Current_mission
+#include "args.h"                    // for FindArg
+#include "cfile.h"                   // for CFILE, cf_ReadShort, cf_ReadString
+#include "controls.h"                // for ResumeControls, SuspendControls
+#include "d3events.h"                // for EVT_CLIENT_INPUT_STRING
+#include "ddio_common.h"             // for ddio_KeyDownTime, ddio_KeyFlush
+#include "dedicated_server.h"        // for Dedicated_server, PrintDedicated...
+#include "demofile.h"                // for DemoWriteHudMessage, DF_RECORDING
+#include "game.h"                    // for Gametime, Game_window_w, Max_win...
+#include "game2dll.h"                // for CallGameDLL, DLLInfo
+#include "gamefont.h"                // for HUD_FONT
+#include "grdefs.h"                  // for ddgr_color, GR_RGB, GR_BLACK
+#include "grtext.h"                  // for grfont_GetHeight, grtext_GetText...
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "hud.h"                     // for MsgListConsole, tMsgList, HUD_ME...
+#include "linux_fix.h"               // for strnicmp
+#include "marker.h"                  // for Marker_message, DropMarker, MAX_...
+#include "mem.h"                     // for mem_free, mem_malloc, mem_strdup
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for MultiSendRequestTypeIcon, MULTI_...
+#include "multi_external.h"          // for LR_SERVER, NETSEQ_PLAYING, NPF_C...
+#include "player.h"                  // for Players, Player_num, Team_game
+#include "player_external_struct.h"  // for MAX_PLAYERS
+#include "pserror.h"                 // for ASSERT, Int3
+#include "pstring.h"                 // for Pvsprintf
+#include "pstypes.h"                 // for ubyte
+#include "renderer.h"                // for rend_SetFlatColor, rend_DrawLine
+#include "sounds.h"                  // for SOUND_NONE_INDEX
+#include "stringtable.h"             // for TXT_HUDMSGPOPUP_TITLE, TXT_HUDSAY
+#include "textaux.h"                 // for textaux_WordWrap
 
 #define HUD_MESSAGE_NORMAL 0
 #define HUD_MESSAGE_BLINKING 1

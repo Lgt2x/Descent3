@@ -34,7 +34,6 @@
 
 #ifndef __DEBUGGRAPH_H_
 #define __DEBUGGRAPH_H_
-#include "grdefs.h"
 
 #define DGF_MULTIPLAYER 0x01  // used in multiplayer
 #define DGF_SINGLEPLAYER 0x02 // used in single player

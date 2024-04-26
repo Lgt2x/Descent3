@@ -40,18 +40,8 @@
  * $NoKeywords: $
  */
 
-#include "DDAccess.h"
-#include <stdlib.h>
-#include <stdarg.h>
-#include <math.h>
-
-#include "pserror.h"
-#include "pstring.h"
-#include "mono.h"
-#include "ddio.h"
-#include "application.h"
-#include "forcefeedback.h"
-#include "mem.h"
+#include <stdlib.h>         // for NULL
+#include "forcefeedback.h"  // for tDevice, FORCEPROJECT, tEffEnvelope, tEff...
 
 bool ddForce_found;   // a Force Feedback device was found
 bool ddForce_enabled; // Force Feedback is ready and can be used

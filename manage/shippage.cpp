@@ -201,22 +201,30 @@
 #include <windows.h>
 #endif
 
-#include "cfile.h"
-#include "manage.h"
-#include "ship.h"
 #include "shippage.h"
-#include "mono.h"
-#include "pserror.h"
-#include "polymodel.h"
-#include "ddio.h"
-#include "robotfire.h"
-#include "weaponpage.h"
-#include <string.h>
-#include "soundload.h"
-#include "sounds.h"
-#include "soundpage.h"
-#include "genericpage.h"
-#include "args.h"
+#include <fcntl.h>               // for SEEK_CUR, SEEK_SET
+#include <string.h>              // for strcpy, strlen, memset, memcpy
+#include "args.h"                // for FindArg, GameArgs
+#include "cfile.h"               // for cf_WriteByte, cf_ReadByte, cf_ReadFloat
+#include "ddio.h"                // for ddio_MakePath
+#include "genericpage.h"         // for mng_GetGuaranteedGenericPage
+#include "linux_fix.h"           // for stricmp
+#include "manage.h"              // for PAGETYPE_SHIP, Loading_addon_table
+#include "mono.h"                // for mprintf
+#include "object_external.h"     // for OBJ_POWERUP
+#include "objinfo.h"             // for Object_info, DEFAULT_LO_LOD_DISTANCE
+#include "polymodel.h"           // for LoadPolyModel, Poly_models, FreePoly...
+#include "polymodel_external.h"  // for poly_model
+#include "pserror.h"             // for ASSERT, Int3
+#include "pstypes.h"             // for ubyte
+#include "robotfirestruct.h"     // for MAX_WBS_PER_OBJ, otype_wb_info
+#include "ship.h"                // for Ships, FindShipName, ship, AllocShip
+#include "soundpage.h"           // for mng_GetGuaranteedSoundPage
+#include "sounds.h"              // for SOUND_NONE_INDEX
+#include "ssl_lib.h"             // for Sounds
+#include "weapon.h"              // for Weapons
+#include "weapon_external.h"     // for FUSION_INDEX, LASER_INDEX
+#include "weaponpage.h"          // for mng_GetGuaranteedWeaponPage
 
 // shippage commands that are read/written
 // A command is followed by a byte count describing how many bytes

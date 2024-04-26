@@ -443,8 +443,12 @@
  * $NoKeywords: $
  */
 
-#include "cfile.h"
-#include "room.h"
+#include <stdio.h>            // for snprintf
+#include <string.h>           // for strcat, NULL
+#include "../md5/md5.h"       // for MD5
+#include "cfile.h"            // for CFILE
+#include "room_external.h"    // for room
+#include "vecmat_external.h"  // for vector
 
 // Chunk types
 #define CHUNK_TEXTURE_NAMES "TXNM"
@@ -666,7 +670,6 @@ void ReadTextureList(CFILE *ifile);
 
 // Primarily for multiplayer, makes sure the client and server levels are the same
 
-#include "../md5/md5.h"
 extern MD5 *Level_md5;
 inline void RestartLevelMD5() {
   if (Level_md5)
@@ -734,7 +737,7 @@ inline void GetLevelMD5Sum(unsigned char digest[16]) {
   }
   Level_md5->MD5Final(digest);
 }
-#include <string.h>
+
 inline char *GetCurrentSumString() {
   static char output_buf[100];
   output_buf[0] = '\0';

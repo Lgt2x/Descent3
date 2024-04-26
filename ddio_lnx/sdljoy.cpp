@@ -66,16 +66,16 @@
  * $NoKeywords: $
  */
 
-#include "joystick.h"
-#include "pserror.h"
-#include "pstypes.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "SDL.h"
-
-// rcg06182000 need this for specific joystick stuff.
-#include "args.h"
+#include <stdio.h>         // for NULL
+#include <stdlib.h>        // for atoi
+#include <string.h>        // for memset, memcpy, strncpy
+#include "SDL.h"           // for SDL_INIT_JOYSTICK, SDL_InitSubSystem, SDL_...
+#include "SDL_events.h"    // for SDL_EventState, SDL_EventType, SDL_IGNORE
+#include "SDL_joystick.h"  // for SDL_JoystickGetAxis, SDL_NumJoysticks, SDL...
+#include "SDL_stdinc.h"    // for Uint8
+#include "args.h"          // for FindArgChar, GameArgs
+#include "joystick.h"      // for tJoystick, tJoyInfo, MAX_JOYSTICKS, tJoyPos
+#include "mono.h"          // for mprintf
 
 //	---------------------------------------------------------------------------
 //	globals

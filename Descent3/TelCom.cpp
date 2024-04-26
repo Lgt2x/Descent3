@@ -492,36 +492,51 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include "mono.h"
-#include "renderer.h"
-#include "render.h"
-#include "ddio.h"
-#include "descent.h"
-#include "game.h"
-#include "cfile.h"
-#include "application.h"
 #include "TelCom.h"
-#include "TelComEffects.h"
-#include "Briefing.h"
-#include "TelComAutoMap.h"
-#include "TelComCargo.h"
-#include "TelComGoals.h"
-#include "mem.h"
-#include "Mission.h"
-#include "stringtable.h"
-#include "multi.h"
-#include "ship.h"
-#include "polymodel.h"
-#include "localization.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "textaux.h"
-#include "psrand.h"
-#include "controls.h"
-#include "d3music.h"
+#include <stdlib.h>              // for NULL, atexit
+#include <string.h>              // for strcpy, memcpy, strcat
+#include "3d.h"                  // for g3_EndFrame, g3_StartFrame
+#include "Briefing.h"            // for ParseBriefing
+#include "Controller.h"          // for gameController
+#include "Macros.h"              // for stricmp
+#include "Mission.h"             // for Current_level, LVLFLAG_BRIEFING
+#include "TelComAutoMap.h"       // for TelComAutoMap
+#include "TelComCargo.h"         // for TelComCargo
+#include "TelComEffects.h"       // for SendEventToEffect, CreateBitmapEffect
+#include "TelComEfxStructs.h"    // for TCBMPDESC, TC_BMP_STATIC, TCBGD_COLOR
+#include "TelComGoals.h"         // for TelComGoalStatus
+#include "application.h"         // for oeApplication
+#include "cfile.h"               // for cfexist
+#include "controls.h"            // for Control_poll_flag, Controller
+#include "d3music.h"             // for D3MusicDoFrame, tMusicSeqInfo
+#include "ddio.h"                // for timer_GetTime, ddio_MouseGetState
+#include "ddio_common.h"         // for KEY_STATE, ddio_KeyFlush, KEY_ESC
+#include "descent.h"             // for Descent, D3_DEFAULT_ZOOM
+#include "game.h"                // for Render_preferred_state, GM_MULTI
+#include "gamefont.h"            // for BBRIEF_FONT_INDEX, BIG_BRIEFING_FONT
+#include "gametexture.h"         // for FindTextureName, GetTextureBitmap
+#include "grtext.h"              // for grtext_Printf, grtext_SetFont, grtex...
+#include "hlsoundlib.h"          // for Sound_system, hlsSystem
+#include "linux_fix.h"           // for _MAX_FNAME, Sleep
+#include "localization.h"        // for Localization_GetLanguage
+#include "manage_external.h"     // for IGNORE_TABLE
+#include "mem.h"                 // for mem_free, mem_malloc
+#include "mono.h"                // for mprintf
+#include "multi.h"               // for Multi_bail_ui_menu
+#include "object_external.h"     // for OBJ_PLAYER
+#include "player.h"              // for Player_num, Players, Default_ship_pe...
+#include "polymodel.h"           // for GetPolymodelPointer, PageInPolymodel
+#include "polymodel_external.h"  // for poly_model, MAX_SUBOBJECTS
+#include "pserror.h"             // for ASSERT, Int3, Error
+#include "psrand.h"              // for ps_rand, ps_srand, RAND_MAX
+#include "renderer.h"            // for rend_SetFiltering, rend_DrawScaledBi...
+#include "ship.h"                // for Ships, MAX_SHIPS, SHIP_PYRO_ID, Allo...
+#include "soundload.h"           // for FindSoundName
+#include "ssl_lib.h"             // for MAX_GAME_VOLUME
+#include "stringtable.h"         // for TXT, TXT_SELECTSHIP, TXT_TCPLEASEWAIT
+#include "textaux.h"             // for textaux_CopyTextLine, textaux_WordWrap
+#include "vecmat.h"              // for vm_AnglesToMatrix, vm_MakeIdentity
+#include "vecmat_external.h"     // for matrix, IDENTITY_MATRIX, vector, angle
 
 #define FRAME_RATE 30.0f
 #define TCPE_TIME 0.5f

@@ -88,16 +88,22 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-
-#include "forcefeedback.h"
 #include "D3ForceFeedback.h"
-#include "pserror.h"
-#include "mono.h"
-#include "weapon.h"
-#include "ddio.h"
-#include "psrand.h"
-#include "rocknride.h"
+#include <stdlib.h>           // for NULL, atexit
+#include <string.h>           // for memset
+#include "cfile.h"            // for cfexist, cf_CopyFile
+#include "ddio.h"             // for ddio_DeleteFile, ddio_MakePath
+#include "forcefeedback.h"    // for FF_NOMINALMAX, tFFB_Effect, ddio_Create...
+#include "linux_fix.h"        // for _MAX_PATH
+#include "manage.h"           // for LocalD3Dir
+#include "manage_external.h"  // for IGNORE_TABLE
+#include "mono.h"             // for mprintf
+#include "object_external.h"  // for MT_PHYSICS
+#include "pserror.h"          // for ASSERT
+#include "psrand.h"           // for ps_rand
+#include "rocknride.h"        // for RocknRide_enabled, RNR_UpdateForceFeedb...
+#include "vecmat.h"           // for vm_MatrixMulVector, vm_NormalizeVector
+#include "weapon.h"           // for Weapons, weapon, MAX_WEAPONS, WF_MICROWAVE
 
 extern float Gametime;
 

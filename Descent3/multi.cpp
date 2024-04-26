@@ -1642,79 +1642,81 @@
  *
  */
 
-#include "pstypes.h"
-#include "pserror.h"
-#include "player.h"
-#include "game.h"
 #include "multi.h"
-#include "multi_client.h"
-#include "multi_server.h"
-#include "ddio.h"
-#include "hud.h"
-#include "robotfire.h"
-#include "ship.h"
-#include "descent.h"
-#include "damage.h"
-#include "gamesequence.h"
-#include "objinfo.h"
-#include "gametexture.h"
-#include "room.h"
-#include "game2dll.h"
-#include "viseffect.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "fireball.h"
-#include "Mission.h"
-#include "LoadLevel.h"
-#include "gamecinematics.h"
-#include "init.h"
+#include <stdio.h>                     // for snprintf
+#include <string.h>                    // for memcpy, strlen, strcpy, memset
+#include <algorithm>                   // for min
+#include "../md5/md5.h"                // for MD5
+#include "Inventory.h"                 // for Inventory, INVRESET_ALL, INVRE...
+#include "LoadLevel.h"                 // for Level_md5
+#include "Mission.h"                   // for ShowProgressScreen, Current_mi...
+#include "ObjScript.h"                 // for InitObjectScripts
+#include "PHYSICS.H"                   // for do_physics_sim
+#include "SmallViews.h"                // for GetSmallViewer, SVW_LEFT, SVW_...
+#include "aistruct_external.h"         // for AIN_USER_DEFINED
+#include "attach.h"                    // for AttachObject, UnattachFromParent
+#include "audiotaunts.h"               // for taunt_DelayTime, taunt_SetDela...
+#include "cfile.h"                     // for cfclose, cf_GetfileCRC, cfopen
+#include "cockpit.h"                   // for FreeCockpit, InitCockpit
+#include "d3events.h"                  // for EVT_CLIENT_GAMECOLLIDE, EVT_CL...
+#include "damage.h"                    // for ApplyDamageToPlayer, KillObject
+#include "damage_external.h"           // for PD_NONE, GD_PHYSICS
+#include "ddio.h"                      // for timer_GetTime, ddio_MakePath
+#include "debuggraph.h"                // for DebugGraph_Add, DebugGraph_Update
+#include "dedicated_server.h"          // for Dedicated_server, PrintDedicat...
+#include "demofile.h"                  // for DF_RECORDING, Demo_flags, Demo...
+#include "descent.h"                   // for Base_directory, SetFunctionMode
+#include "doorway.h"                   // for DF_LOCKED, DoorwayActivate
+#include "fireball.h"                  // for Fireballs
+#include "fireball_external.h"         // for BLAST_RING_INDEX, BLUE_BLAST_R...
+#include "fix.h"                       // for angle
+#include "game.h"                      // for Gametime, GM_MULTI, Game_mode
+#include "game2dll.h"                  // for DLLInfo, CallGameDLL, GameDLLI...
+#include "gamesequence.h"              // for SetGameState, tGameState
+#include "gametexture.h"               // for FindTextureName, GameTextures
+#include "grdefs.h"                    // for GR_RGB, ddgr_color
+#include "hlsoundlib.h"                // for Sound_system, hlsSystem
+#include "hud.h"                       // for AddHUDMessage, GetHUDMode, Set...
+#include "init.h"                      // for LastPacketReceived, ServerTimeout
+#include "levelgoal.h"                 // for Level_goals, levelgoals
+#include "levelgoal_external.h"        // for LO_SET_SPECIFIED, LO_CLEAR_SPE...
+#include "linux_fix.h"                 // for _MAX_PATH, Sleep, strnicmp
+#include "manage.h"                    // for LocalCustomSoundsDir
+#include "manage_external.h"           // for PAGENAME_LEN, IGNORE_TABLE
+#include "marker.h"                    // for MarkerMessages
+#include "mission_download.h"          // for msn_DoAskForURL, msn_DoCurrMsn...
+#include "mono.h"                      // for mprintf
+#include "multi_client.h"              // for SavedMoves, MAX_SAVED_MOVES
+#include "multi_dll_mgr.h"             // for CallMultiDLL, ScoreAPIGameOver
+#include "multi_server.h"              // for MultiSendReliablyToAllExcept
+#include "multi_world_state.h"         // for WS_BUDDYBOTUPDATE, WS_END, RCF...
+#include "object.h"                    // for Objects, ObjGet, ObjSetPos
+#include "object_lighting.h"           // for ObjGetLightInfo
+#include "objinfo.h"                   // for Object_info, MAX_OBJECT_IDS
+#include "osiris_share.h"              // for COM_DO_ACTION, gb_com
+#include "player.h"                    // for Players, Player_num, PlayerMov...
+#include "player_external.h"           // for PW_PRIMARY, PLAYER_FLAGS_DEAD
+#include "player_external_struct.h"    // for MAX_PLAYERS, CALLSIGN_LEN, player
+#include "pserror.h"                   // for ASSERT, Int3, Error
+#include "psrand.h"                    // for ps_srand
+#include "pstypes.h"                   // for ubyte, ushort, uint, sbyte
+#include "robotfire.h"                 // for WBFireBattery
+#include "robotfirestruct.h"           // for otype_wb_info, dynamic_wb_info
+#include "robotfirestruct_external.h"  // for DWBF_QUAD
+#include "room.h"                      // for Rooms, ChangeRoomFaceTexture
+#include "ship.h"                      // for Ships, FindShipName, MAX_SHIPS
+#include "soundload.h"                 // for FindSoundName
+#include "sounds.h"                    // for SOUND_NONE_INDEX, SOUND_WALL_FADE
+#include "spew.h"                      // for MAX_SPEW_EFFECTS, SpewCreate
+#include "stringtable.h"               // for TXT_DS_ENDINGLEVEL, TXT_MLTDIS...
+#include "vecmat.h"                    // for vm_AnglesToMatrix, vm_ExtractA...
+#include "viseffect.h"                 // for CreateRandomSparks, VisEffectC...
+#include "viseffect_external.h"        // for VF_PLANAR, VF_REVERSE, VIS_FIR...
+#include "weapon.h"                    // for ReleaseGuidedMissile, ReleaseU...
+#include "weapon_external.h"           // for LASER_INDEX, CONCUSSION_INDEX
+#include "weather.h"                   // for Weather
 
-#include "sounds.h"
-#include "weapon.h"
-#include "stringtable.h"
-
-#include "dedicated_server.h"
-#include "demofile.h"
-#include "args.h"
-
-#include "ui.h"
-#include "newui.h"
-#include "multi_dll_mgr.h"
-#include "BOA.h"
-#include "attach.h"
-#include "mission_download.h"
-// #include "gamespy.h"
-#include "multi_world_state.h"
-#include "ObjScript.h"
-#include "audiotaunts.h"
-#include "marker.h"
-#include "weather.h"
-#include "doorway.h"
-#include "object_lighting.h"
-#include "spew.h"
-#include "PHYSICS.H"
-#include "SmallViews.h"
-#include "demofile.h"
-#include "debuggraph.h"
-#include "levelgoal.h"
-#include "osiris_share.h"
-#include "cockpit.h"
-#include "hud.h"
-
-#include <string.h>
-#include <memory.h>
-#include <stdlib.h>
-
-#include "psrand.h"
-
-#include "../md5/md5.h"
 void MultiProcessShipChecksum(MD5 *md5, int ship_index);
-
-#if defined(MACINTOSH)
-#include "Macros.h"
-#endif
-
-#include <algorithm>
 
 player_pos_suppress Player_pos_fix[MAX_PLAYERS];
 

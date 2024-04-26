@@ -91,28 +91,23 @@
  *
  * $NoKeywords: $
  */
+
 #include "module.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "ddio.h"
+#include <ctype.h>            // for isalpha, tolower, toupper
+#include <dlfcn.h>            // for dlopen, dlclose, dlerror, dlsym, RTLD_G...
+#include <glob.h>             // for glob, globfree, GLOB_MARK, GLOB_NOSPACE
+#include <stdarg.h>           // for va_arg, va_end, va_list, va_start
+#include <string.h>           // for strcat, strcpy, strlen, strncpy
+#include <unistd.h>           // for NULL, chdir, getcwd
+#include "linux/linux_fix.h"  // for _MAX_PATH, stricmp, _MAX_EXT, _MAX_FNAME
+#include "mono.h"             // for mprintf
+#include "pserror.h"          // for ASSERT
 
 #ifdef __LINUX__
 bool mod_FindRealFileNameCaseInsenstive(const char *directory, const char *filename, char *new_filename);
 #endif
 
-#ifdef MACINTOSH
-#include <Files.h>
-#include <CodeFragments.h>
-#endif
-#include "module.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#if defined(__LINUX__)
-#include "linux/linux_fix.h"
-#endif
+
 #if defined(WIN32) // INSTEAD OF MAKING MODULE HAVE DEPENDENCIES, PUT THE 2 DDIO FUNCTIONS I NEED HERE
 // Split a pathname into its component parts
 void dd_SplitPath(const char *srcPath, char *path, char *filename, char *ext) {
@@ -618,18 +613,6 @@ int mod_GetLastError(void) {
 }
 
 #ifdef __LINUX__
-#include <assert.h>
-#include <stdarg.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <utime.h>
-#include <glob.h>
-#include <string.h>
-#include <errno.h>
-#include <signal.h>
-#include <ctype.h>
 
 void dd_GetWorkingDir(char *path, int len);
 bool dd_SetWorkingDir(const char *path);

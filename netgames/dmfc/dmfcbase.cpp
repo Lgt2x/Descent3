@@ -467,14 +467,49 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include "dmfcinputcommands.h"
-
-#include <stdlib.h>
-#include <stdarg.h>
-#include <algorithm>
+#include <ctype.h>                   // for tolower, isdigit
+#include <stdarg.h>                  // for va_arg, va_end, va_list, va_start
+#include <stdio.h>                   // for snprintf
+#include <stdlib.h>                  // for NULL, free, malloc, atoi
+#include <string.h>                  // for strcpy, strlen, memcpy, memset
+#include <time.h>                    // for tm, localtime, time, time_t
+#include <algorithm>                 // for max
+#include <cmath>                     // for floor
+#include "Inventory.h"               // for INVRESET_ALL, INVRESET_DEATHSPEW
+#include "Macros.h"                  // for stricmp
+#include "Mission.h"                 // for level_info, tMission
+#include "args.h"                    // for MAX_ARGS, MAX_CHARS_PER_ARG
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE, BITMAP_FORMAT...
+#include "cfile.h"                   // for CFILE
+#include "controls.h"                // for game_controls
+#include "dmfcinputcommands.h"       // for DMFCInputCommand_AllowTeamChange
+#include "dmfcinternal.h"            // for DMFCBase, MenuItem, mprintf, DIS...
+#include "gamedll_header.h"          // for DPrintf, DLLgrtext_SetAlpha, DLL...
+#include "gamefont.h"                // for HUD_FONT_INDEX, MENU_FONT_INDEX
+#include "gametexture.h"             // for TF_ANIMATED, texture
+#include "grdefs.h"                  // for GR_RGB, ddgr_color, GR_COLOR_BLUE
+#include "hud.h"                     // for HUD_ITEM_CUSTOMTEXT, HUDTEXT_CEN...
+#include "linux_fix.h"               // for _MAX_PATH
+#include "manage_external.h"         // for IGNORE_TABLE
+#include "multi_external.h"          // for LR_SERVER, NF_PEER_PEER, NF_TIMER
+#include "networking.h"              // for network_address, NP_TCP, NP_NONE
+#include "object.h"                  // for HANDLE_OBJNUM_MASK
+#include "object_external.h"         // for OBJECT_HANDLE_NONE, OBJ_OBSERVER
+#include "object_external_struct.h"  // for object, MAX_OBJECTS
+#include "objinfo.h"                 // for MAX_OBJECT_IDS, object_info
+#include "osiris_share.h"            // for tOSIRISModuleInit
+#include "player_external.h"         // for PLAYER_FLAGS_DEAD, PLAYER_FLAGS_...
+#include "player_external_struct.h"  // for player
+#include "polymodel_external.h"      // for poly_model
+#include "pstypes.h"                 // for ubyte, ushort
+#include "renderer.h"                // for AT_CONSTANT_TEXTURE, LS_NONE
+#include "room_external.h"           // for room
+#include "ship.h"                    // for ship
+#include "terrain.h"                 // for terrain_segment
+#include "vclip.h"                   // for vclip
+#include "viseffect_external.h"      // for vis_effect
+#include "weapon.h"                  // for MAX_WEAPONS, weapon
+class IMenuItem;
 
 char **DMFCStringTable;
 int DMFCStringTableSize = 0;
@@ -767,7 +802,7 @@ void DMFCBase::SaveSettings(void) {
 //	Initialized all the functions for a multiplayer game...must be first thing called
 #ifndef MACINTOSH
 void DMFCBase::LoadFunctions(int *api_func) {
-#include "dmfcdllinit.h"
+#include "dmfcdllinit.h" // IWYU pragma: keep
 }
 #endif
 

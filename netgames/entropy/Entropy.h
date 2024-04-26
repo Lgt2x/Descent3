@@ -26,6 +26,7 @@ OSIRIS functions to control them.
 */
 #include "osiris_share.h"
 #include "d3events.h"
+#include "idmfc.h"                   // for IDMFC
 
 /*
 =====================================================================

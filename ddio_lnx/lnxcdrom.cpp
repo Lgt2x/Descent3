@@ -86,22 +86,20 @@
  * $NoKeywords: $
  */
 
-#include <sys/mount.h>
-#include <sys/types.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <unistd.h>
-#include <SDL.h>
-#include "mem.h"
-#include "mono.h"
-#include "ddio.h"
-#include "debug.h"
-#include "pserror.h"
-#include "loki_utils.h"
+#include <SDL.h>         // for SDL_INIT_CDROM, SDL_Init, SDL_QuitSubSystem
+#include <alloca.h>      // for alloca
+#include <assert.h>      // for assert
+#include <fcntl.h>       // for open, O_CREAT, O_RDONLY, O_TRUNC, O_WRONLY
+#include <stdio.h>       // for fgetc, EOF, FILE
+#include <stdlib.h>      // for atexit
+#include <string.h>      // for strcpy, strcmp
+#include <sys/stat.h>    // for fstat, stat
+#include <unistd.h>      // for close, NULL, read, write, off_t
+#include "SDL_cdrom.h"   // for CDstatus, SDL_CDName, SDL_CDNumDrives, SDL_C...
+#include "ddio.h"        // for ddio_RemoveDir, ddio_GetCDDrive
+#include "loki_utils.h"  // for loki_getmountpoint
+#include "mono.h"        // for mprintf
+#include "pserror.h"     // for Int3
 
 #define VD_LSN 16         // first logical sector of volume descriptor table
 #define CDROM_LSECSZ 2048 // initial logical sector size of a CDROM

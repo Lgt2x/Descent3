@@ -50,8 +50,6 @@
 struct tGauge;
 struct tGaugePos;
 
-#include "vecmat.h"
-
 //	rendering functions
 
 //	shield gauge handlers (one for number, one for status)

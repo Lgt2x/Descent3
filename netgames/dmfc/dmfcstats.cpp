@@ -142,15 +142,20 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-
-#ifdef MACINTOSH
-#include <stdlib.h>
-#endif
-
-#include <algorithm>
+#include <stdio.h>                   // for snprintf
+#include <stdlib.h>                  // for free, malloc
+#include <string.h>                  // for strcpy, NULL, memcpy, strlen
+#include <algorithm>                 // for min
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE
+#include "dmfcinternal.h"            // for CDmfcStats, DMFCBase, STATE_INGAME
+#include "gamedll_header.h"          // for DLLRenderHUDText, DLLRenderHUDGe...
+#include "gamefont.h"                // for HUD_FONT_INDEX
+#include "grdefs.h"                  // for GR_WHITE, GR_GREEN, GR_RGB16
+#include "hud.h"                     // for DEFAULT_HUD_WIDTH
+#include "object_external.h"         // for OBJ_PLAYER
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"                 // for ubyte, ushort
+#include "vclip.h"                   // for vclip
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

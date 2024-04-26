@@ -61,17 +61,10 @@
  */
 
 #include "NewPyroGauges.h"
-#include "gauges.h"
-#include "gamefont.h"
-#include "game.h"
-#include "hud.h"
-#include "grdefs.h"
-#include "bitmap.h"
-#include "player.h"
-#include "polymodel.h"
-#include "3d.h"
-#include "renderer.h"
-#include "gametexture.h"
+#include "3d.h"               // for g3_ProjectPoint, g3_RotatePoint, g3Point
+#include "gametexture.h"      // for FindTextureName, GetTextureBitmap
+#include "pserror.h"          // for Int3
+#include "vecmat_external.h"  // for vector
 
 //	how long it takes for a weapon gauge to fade out/in
 #define GAUGE_WEAPON_FADE_TIME 1.0f

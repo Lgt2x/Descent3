@@ -38,10 +38,9 @@
  */
 
 #include "ssl_lib.h"
-#include "pserror.h"
-#include "pstring.h"
-
-#include <string.h>
+#include <stdarg.h>   // for va_end, va_list, va_start
+#include <string.h>   // for strcat, strlen, strcpy, NULL
+#include "pstring.h"  // for Pvsprintf
 
 llsSystem::llsSystem() {
   m_lib_error_code = SSL_OK;

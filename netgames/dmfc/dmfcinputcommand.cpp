@@ -114,11 +114,21 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-
-#include <algorithm>
+#include <ctype.h>                   // for isdigit
+#include <stdio.h>                   // for snprintf
+#include <stdlib.h>                  // for atoi, atof
+#include <string.h>                  // for strlen
+#include <algorithm>                 // for min
+#include "Macros.h"                  // for stricmp
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE
+#include "dmfcinternal.h"            // for DMFCBase, DTXT_MNUOFF, DTXT_MNUON
+#include "gamedll_header.h"          // for DLLAddHUDMessage, DPrintf, DLLMu...
+#include "linux_fix.h"               // for strnicmp
+#include "multi_external.h"          // for LR_SERVER, NF_KILLGOAL, NF_TIMER
+#include "object_external.h"         // for OBJ_OBSERVER
+#include "object_external_struct.h"  // for object
+#include "player_external.h"         // for OBSERVER_MODE_ROAM, OBSERVER_MOD...
+#include "pstypes.h"                 // for ubyte
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

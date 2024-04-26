@@ -265,23 +265,23 @@
  * $NoKeywords: $
  */
 
-#include "grdefs.h"
-#include "pstypes.h"
 #include "gametexture.h"
-#include "mono.h"
-#include "bitmap.h"
-#include "pserror.h"
-#include "vclip.h"
-#include "texture.h"
-#include "game.h"
-#include "bumpmap.h"
-#include <stdlib.h>
-#include <string.h>
-#include "procedurals.h"
-#include "ddio.h"
-#include "config.h"
-#include "args.h"
-#include "mem.h"
+#include <stdlib.h>       // for NULL, atexit
+#include <string.h>       // for strcpy, memcpy, memset, strlen, strncpy
+#include "args.h"         // for FindArg
+#include "bitmap.h"       // for GameBitmaps, bm_AllocBitmap, bm_FreeBitmap
+#include "bumpmap.h"      // for bump_AllocBumpmap, bump_FreeBumpmap, bump_data
+#include "config.h"       // for Detail_settings
+#include "ddio.h"         // for timer_GetTime
+#include "game.h"         // for FrameCount, Gametime
+#include "linux_fix.h"    // for stricmp, strnicmp
+#include "mem.h"          // for mem_free, mem_malloc, Mem_low_memory_mode
+#include "mono.h"         // for mprintf
+#include "procedurals.h"  // for EvaluateProcedural, InitProcedurals, Defaul...
+#include "pserror.h"      // for ASSERT
+#include "pstypes.h"      // for sbyte, ushort
+#include "renderer.h"     // for TEXTURE_HEIGHT, TEXTURE_WIDTH
+#include "vclip.h"        // for PageInVClip, GameVClips, vclip, AllocLoadVClip
 
 int Num_textures = 0;
 texture GameTextures[MAX_TEXTURES];

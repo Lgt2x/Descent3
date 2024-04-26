@@ -17,12 +17,11 @@
  */
 #pragma once
 
-#include <array>
-#include <cstdint>
-#include <filesystem>
-#include <vector>
+#include <array>    // for array
+#include <cstdint>  // for uint32_t
+#include <iosfwd>   // for ostrea
 
-#include "IOOps.h"
+#include <vector>   // for vector
 
 namespace D3 {
 

@@ -38,21 +38,20 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
 #include "debuggraph.h"
-#include "grdefs.h"
-#include "mono.h"
-#include <memory.h>
-#include "pserror.h"
-#include "bitmap.h"
-#include "renderer.h"
-#include "pstypes.h"
-#include "stringtable.h"
-#include "newui.h"
-#include "newui_core.h"
-#include "mem.h"
-#include <string.h>
-#include "game.h"
+#include <stdio.h>        // for snprintf
+#include <stdlib.h>       // for NULL, atexit
+#include <string.h>       // for strncpy, memcpy, memset
+#include "bitmap.h"       // for BAD_BITMAP_HANDLE, bm_AllocBitmap, bm_FreeB...
+#include "game.h"         // for GM_MULTI, Game_mode
+#include "grdefs.h"       // for GR_RGB, GR_RGB16, ddgr_color, OPAQUE_FLAG
+#include "mem.h"          // for mem_malloc, mem_free
+#include "newui_core.h"   // for newuiTiledWindow, newuiSheet
+#include "pserror.h"      // for Error, ASSERT
+#include "pstypes.h"      // for ubyte, ushort
+#include "renderer.h"     // for rend_SetFiltering, rend_DrawLine, rend_Draw...
+#include "stringtable.h"  // for TXT_OK
+#include "ui.h"           // for UID_OK
 
 #define DATA_TYPE_INT 0
 #define DATA_TYPE_FLOAT 1

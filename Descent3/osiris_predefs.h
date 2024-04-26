@@ -173,8 +173,13 @@
 #ifndef __OSIRIS_PREDEF_H_
 #define __OSIRIS_PREDEF_H_
 
-#include "osiris_dll.h"
-#include "cfile.h"
+#include <stddef.h>                  // for NULL, size_t
+#include "cfile.h"                   // for CFILE
+#include "object_external.h"         // for OBJECT_HANDLE_NONE
+#include "object_external_struct.h"  // for object
+#include "osiris_share.h"            // for tOSIRISEventInfo, ray_info
+#include "pstypes.h"                 // for ubyte, sbyte, ushort
+#include "vecmat_external.h"         // for vector, matrix
 
 //	osipf_CallObjectEvent
 //	Sends an event to an object.  Returns true if the default action should

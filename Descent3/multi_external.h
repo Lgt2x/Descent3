@@ -118,6 +118,7 @@
 #include "descent.h" //for MSN_NAMELEN
 #include "byteswap.h"
 #include <cassert>
+#include "vecmat_external.h"            // for vector, matrix, operator*
 
 #define NETGAME_NAME_LEN 32
 #define NETGAME_SCRIPT_LEN 32

@@ -179,45 +179,59 @@
  * $NoKeywords: $
  */
 
-#include "gamesave.h"
-#include "descent.h"
-#include "cfile.h"
-#include "Mission.h"
-#include "gamesequence.h"
-#include "gameevent.h"
-#include "gameloop.h"
-#include "game.h"
-#include "object.h"
-#include "objinfo.h"
-#include "gametexture.h"
-#include "bitmap.h"
-#include "ship.h"
-#include "door.h"
-#include "stringtable.h"
-#include "soar.h"
-#include "weapon.h"
-#include "vclip.h"
-#include "viseffect.h"
-#include "room.h"
-#include "trigger.h"
-#include "spew.h"
-#include "doorway.h"
-#include "AIMain.h"
-#include "mem.h"
-#include "osiris_dll.h"
-#include "terrain.h"
-#include <string.h>
-#include "levelgoal.h"
-#include "aistruct.h"
-#include "matcen.h"
-#include "pilot.h"
-#include "marker.h"
-#include "d3music.h"
-#include "weather.h"
-#include "cockpit.h"
-#include "hud.h"
-
-#include <algorithm>
+#include <string.h>                  // for NULL, strcpy, memcpy, memset
+#include <algorithm>                 // for min
+#include "AIMain.h"                  // for AIDestroyObj
+#include "Inventory.h"               // for Inventory, INVRESET_ALL
+#include "Mission.h"                 // for Current_mission, LoadMission
+#include "ObjScript.h"               // for FreeObjectScripts, FreeScriptsFo...
+#include "aistruct.h"                // for ai_dynamic_path, AIDynamicPath
+#include "bitmap.h"                  // for bm_AllocLoadBitmap, bm_FindBitma...
+#include "cfile.h"                   // for cf_ReadInt, cf_ReadBytes, cf_Rea...
+#include "cockpit.h"                 // for FreeCockpit, InitCockpit
+#include "d3music.h"                 // for D3MusicSetRegion
+#include "door.h"                    // for FindDoorName, Doors, MAX_DOORS
+#include "doorway.h"                 // for Active_doorways, Num_active_door...
+#include "game.h"                    // for FrameCount, Gametime
+#include "gameevent.h"               // for ClearAllEvents
+#include "gameloop.h"                // for InitCameraViews
+#include "gamesave.h"                // for LGS_OK, gs_ReadShort, gs_ReadByte
+#include "gamesequence.h"            // for LoadAndStartCurrentLevel, SetCur...
+#include "gametexture.h"             // for FindTextureName, MAX_TEXTURES
+#include "hud.h"                     // for CloseShipHUD, InitShipHUD, LGSGa...
+#include "levelgoal.h"               // for Level_goals, levelgoals
+#include "linux_fix.h"               // for _MAX_PATH, strcmpi
+#include "manage.h"                  // for mng_LoadAddonPages
+#include "marker.h"                  // for MAX_MARKER_MESSAGE_LENGTH
+#include "matcen.h"                  // for Matcen, matcen
+#include "mem.h"                     // for mem_malloc, mem_free
+#include "mono.h"                    // for mprintf
+#include "object.h"                  // for Objects, ObjDelete, LRT_LIGHTMAPS
+#include "object_external.h"         // for OBJ_NONE, OBJ_PLAYER, OBJ_DOOR
+#include "object_external_struct.h"  // for MAX_OBJECTS, effect_info_s, ROOM...
+#include "objinfo.h"                 // for FindObjectIDName, MAX_OBJECT_IDS
+#include "osiris_dll.h"              // for OEM_LEVELS, OEM_OBJECTS, OEM_TRI...
+#include "pilot.h"                   // for IncrementPilotRestoredGamesForMi...
+#include "player.h"                  // for Player_num, Players, InitPlayerN...
+#include "player_external_struct.h"  // for player, MAX_PLAYERS
+#include "polymodel.h"               // for PageInPolymodel, ComputeDefaultSize
+#include "polymodel_external.h"      // for MAX_POLY_MODELS, PMF_NOT_RESIDENT
+#include "pserror.h"                 // for Int3, Error, ASSERT
+#include "pstypes.h"                 // for ubyte, ushort, sbyte, PSPATHNAME...
+#include "robotfirestruct.h"         // for dynamic_wb_info
+#include "room.h"                    // for Rooms, MAX_ROOMS, ComputeRoomBou...
+#include "room_external.h"           // for FF_TEXTURE_CHANGED, RF_DOOR
+#include "ship.h"                    // for FindShipName, DEFAULT_SHIP, MAX_...
+#include "spew.h"                    // for MAX_SPEW_EFFECTS, SpewEffects
+#include "stringtable.h"             // for TXT_ILLEGALSAVEGAME
+#include "terrain.h"                 // for TERRAIN_DEPTH, TERRAIN_SIZE, TER...
+#include "trigger.h"                 // for object, Triggers, Num_triggers
+#include "vclip.h"                   // for PageInVClip
+#include "vecmat_external.h"         // for vector, matrix
+#include "viseffect.h"               // for VisEffectAllocate, VisEffectLink
+#include "viseffect_external.h"      // for vis_effect, VIS_FIREBALL, axis_b...
+#include "weapon.h"                  // for Weapons, FindWeaponName, MAX_WEA...
+#include "weather.h"                 // for Weather
 
 void PageInAllData();
 

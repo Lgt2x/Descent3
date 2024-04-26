@@ -121,9 +121,16 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-
-#include <string.h>
+#include <stdio.h>        // for snprintf
+#include <string.h>       // for NULL, strcpy
+#include "UIlib.h"        // for UI_CHECKBOX_OFF_CHAR, UI_RADIO_OFF_CHAR
+#include "ddio_common.h"  // for KEY_ENTER, KEY_SPACEBAR
+#include "grdefs.h"       // for GR_DARKGRAY, GR_RGB, GR_BLACK, GR_LIGHTGRAY
+#include "pserror.h"      // for ASSERT, Int3
+#include "ui.h"           // for UIButton, UIRadioButton, UICheckBox, UI_BTS...
+#include "uidraw.h"       // for ui_DrawLTBox, ui_GetTextWidth, ui_DrawSetTe...
+#include "uires.h"        // for UIItem, tUIDrawClass, UITextItem
+#include "uisys.h"        // for PT_IN_GADGET, UI_input, UILMSEBTN, LOCK_FOCUS
 
 #ifdef __LINUX__
 int UIButton::m_ButtonFont;

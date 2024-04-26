@@ -16,33 +16,41 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdlib.h>
-#include <memory.h>
-
-#include <limits>
-
-#include "object.h"
-#include "PHYSICS.H"
-#include "collide.h"
-#include "findintersection.h"
-#include "vecmat.h"
-#include "game.h"
-#include "terrain.h"
-#include "descent.h"
-#include "weapon.h"
-#include "polymodel.h"
-#include "fireball.h"
-#include "damage.h"
-#include "gameevent.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "viseffect.h"
-#include "multi.h"
-#include "attach.h"
-#include "D3ForceFeedback.h"
-#include "player.h"
-#include "demofile.h"
-#include "vibeinterface.h"
+#include <stdlib.h>                     // for NULL, abs, labs
+#include <cmath>                        // for fabs, abs, exp, fabsf
+#include <limits>                       // for numeric_limits
+#include "D3ForceFeedback.h"            // for ForceEffectsPlay, FORCE_TEST_...
+#include "PHYSICS.H"                    // for DoPhysLinkedFrame, PHYSICS_UN...
+#include "aistruct_external.h"          // for AIF_REPORT_NEW_ORIENT
+#include "attach.h"                     // for AttachUpdateSubObjects
+#include "collide.h"                    // for collide_object_with_wall, col...
+#include "demofile.h"                   // for DF_PLAYBACK, Demo_flags
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for HIT_NONE, FQ_CHECK_OBJS, HIT_...
+#include "fireball.h"                   // for DestroyObject
+#include "fix.h"                        // for angle, FixSin, PI
+#include "game.h"                       // for Frametime, Gametime, GM_MULTI
+#include "gametexture.h"                // for GameTextures, TF_LAVA, TF_VOL...
+#include "linux_fix.h"                  // for _finite
+#include "mono.h"                       // for mprintf, DebugBlockPrint
+#include "multi.h"                      // for Netgame
+#include "multi_external.h"             // for LR_SERVER
+#include "object.h"                     // for Objects, ObjSetPos, SetObject...
+#include "object_external.h"            // for OBJ_PLAYER, PF_GRAVITY, OBJ_W...
+#include "object_external_struct.h"     // for object, ROOMNUM_OUTSIDE, CELLNUM
+#include "objinfo.h"                    // for OIF_IGNORE_FORCEFIELDS_AND_GLASS
+#include "player.h"                     // for Player_object, Players, Playe...
+#include "polymodel.h"                  // for Poly_models, SetModelAnglesAn...
+#include "polymodel_external.h"         // for poly_model, MAX_SUBOBJECTS
+#include "pserror.h"                    // for ASSERT, Int3
+#include "pstypes.h"                    // for ubyte
+#include "room.h"                       // for Rooms, Highest_room_index
+#include "terrain.h"                    // for TERRAIN_WIDTH, TERRAIN_DEPTH
+#include "vecmat.h"                     // for vm_NormalizeVector, Zero_vector
+#include "vecmat_external.h"            // for operator*, vector, operator+=
+#include "vibeinterface.h"              // for VIBE_DoForce
+#include "viseffect.h"                  // for VisEffectDelete, VisEffectRelink
+#include "viseffect_external.h"         // for VF_DEAD, vis_effect
 
 // Global variables for physics system
 ubyte Default_player_terrain_leveling = 0;

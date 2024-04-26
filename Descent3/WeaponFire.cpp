@@ -901,49 +901,74 @@
  * $NoKeywords: $
  */
 
-#include "weapon.h"
-#include "descent.h"
-#include "weapon.h"
-#include "polymodel.h"
-#include "room.h"
-#include "object.h"
-#include "terrain.h"
-#include "player.h"
-#include "hud.h"
-#include "hlsoundlib.h"
-#include "gameevent.h"
-#include "polymodel.h"
-#include "lighting.h"
-#include "fireball.h"
-#include <string.h>
-#include <stdlib.h>
-#include "findintersection.h"
-#include "robotfire.h"
-#include "AIMain.h"
-#include "controls.h"
-#include "damage.h"
-#include "sounds.h"
-#include "viseffect.h"
-#include "vclip.h"
-#include "SmallViews.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "stringtable.h"
-#include "multi.h"
-#include "game2dll.h"
-#include "gameloop.h"
-#include "collide.h"
-#include "demofile.h"
-#include "difficulty.h"
-#include "D3ForceFeedback.h"
-#include "config.h"
-#include "ObjScript.h"
-#include "doorway.h"
-#include "psrand.h"
-#include "BOA.h"
-#include "vibeinterface.h"
-
-#include <algorithm>
+#include <stdlib.h>                     // for NULL, abs
+#include <algorithm>                    // for min
+#include <cmath>                        // for abs, fabs
+#include "3d.h"                         // for g3_RotatePoint, g3_DrawPoly
+#include "AIMain.h"                     // for AIObjEnemy, AINotify, AITurnT...
+#include "BOA.h"                        // for BOA_IsVisible
+#include "D3ForceFeedback.h"            // for DoForceForRecoil
+#include "Macros.h"                     // for stricmp
+#include "ObjScript.h"                  // for InitObjectScripts
+#include "SmallViews.h"                 // for CreateSmallView, GetSmallViewer
+#include "aistruct_external.h"          // for AIF_TEAM_MASK, AIF_TEAM_REBEL
+#include "args.h"                       // for FindArg
+#include "bitmap.h"                     // for bm_h, bm_w
+#include "collide.h"                    // for collide_two_objects, collide_...
+#include "config.h"                     // for Detail_settings
+#include "d3events.h"                   // for EVT_GAMEOBJECTSHIELDSCHANGED
+#include "damage.h"                     // for ApplyDamageToPlayer, AddToSha...
+#include "damage_external.h"            // for PD_ENERGY_WEAPON
+#include "demofile.h"                   // for DemoWriteObjWeapFireFlagChanged
+#include "descent.h"                    // for D3_DEFAULT_FOV
+#include "difficulty.h"                 // for DIFF_LEVEL, Diff_ai_min_fire_...
+#include "difficulty_external.h"        // for MAX_DIFFICULTY_LEVELS
+#include "doorway.h"                    // for DoorwayGetPosition
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, HIT_NONE, FQ_I...
+#include "fireball.h"                   // for DrawColoredDisk, GetRandomSma...
+#include "fireball_external.h"          // for BLAST_RING_INDEX, CUSTOM_EXPL...
+#include "fix.h"                        // for FixCos, FixSin, angle
+#include "game.h"                       // for Gametime, GM_MULTI, Game_mode
+#include "game2dll.h"                   // for DLLInfo, CallGameDLL
+#include "gameevent.h"                  // for CreateNewEvent, FUSION_EFFECT
+#include "gameloop.h"                   // for Render_FOV
+#include "gametexture.h"                // for GetTextureBitmap, FindTexture...
+#include "grdefs.h"                     // for GR_RGB16, OPAQUE_FLAG
+#include "hlsoundlib.h"                 // for Sound_system, hlsSystem
+#include "hud.h"                        // for AddHUDMessage
+#include "mono.h"                       // for mprintf
+#include "multi.h"                      // for Netgame, MultiSendRequestToFire
+#include "multi_external.h"             // for LR_SERVER, NF_PERMISSABLE
+#include "object.h"                     // for Objects, ObjGet, OBJNUM, ObjG...
+#include "object_external.h"            // for OBJ_PLAYER, OBJ_WEAPON, OBJ_R...
+#include "object_external_struct.h"     // for object, light_info
+#include "objinfo.h"                    // for GENOBJ_CHAFFCHUNK, Object_info
+#include "player.h"                     // for Players, Player_num, Player_o...
+#include "player_external.h"            // for PW_PRIMARY, WFF_ON_OFF, PW_SE...
+#include "player_external_struct.h"     // for player_weapon, player
+#include "polymodel.h"                  // for Poly_models, DrawPolygonModel
+#include "polymodel_external.h"         // for poly_model, MAX_SUBOBJECTS
+#include "pserror.h"                    // for ASSERT
+#include "psrand.h"                     // for ps_rand, ps_srand, RAND_MAX
+#include "pstypes.h"                    // for ubyte
+#include "renderer.h"                   // for rend_SetAlphaType, rend_SetLi...
+#include "robotfire.h"                  // for WBFireBattery, WBIsBatteryReady
+#include "robotfirestruct.h"            // for otype_wb_info, dynamic_wb_info
+#include "robotfirestruct_external.h"   // for WBF_ON_OFF, WBF_SPRAY, DWBF_QUAD
+#include "room.h"                       // for Rooms
+#include "ship.h"                       // for SFF_ZOOM, Ships, ship, SFF_FU...
+#include "sounds.h"                     // for SOUND_NONE_INDEX, SOUND_MISSL...
+#include "ssl_lib.h"                    // for MAX_GAME_VOLUME, SND_PRIORITY...
+#include "stringtable.h"                // for TXT_WPNNOAMMO, TXT_WPNNOPROJ
+#include "vclip.h"                      // for GameVClips, vclip
+#include "vecmat.h"                     // for vm_GetMagnitudeFast, vm_Angle...
+#include "vecmat_external.h"            // for operator*, vector, operator+
+#include "vibeinterface.h"              // for VIBE_WeaponFire
+#include "viseffect.h"                  // for VisEffectCreate, VisEffects
+#include "viseffect_external.h"         // for VIS_FIREBALL, vis_effect, VF_...
+#include "weapon.h"                     // for Weapons, AutoSelectWeapon
+#include "weapon_external.h"            // for FLARE_INDEX
 
 bool AreObjectsAttached(const object *obj1, const object *obj2) {
   const bool f_o1_a = (obj1->flags & OF_ATTACHED) != 0;
@@ -2021,8 +2046,6 @@ int FireWeaponFromObject(object *obj, int weapon_num, int gun_num, bool f_force_
 // This define determines how wide this arc is
 #define ELECTRICAL_WIDTH .3f
 #define ELECTRICAL_ALPHA .2
-
-#include "args.h"
 
 // Draws a lighting like chain of electricity
 void DrawElectricalWeapon(object *obj) {

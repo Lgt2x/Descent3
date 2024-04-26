@@ -147,36 +147,48 @@
  */
 
 #include "TelComAutoMap.h"
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
-#include "cfile.h"
-#include "pserror.h"
-#include "ddio.h"
-#include "bitmap.h"
-#include "room.h"
-
-#include "TelCom.h"
-#include "TelComEffects.h"
-#include "renderer.h"
-#include "game.h"
-#include "mem.h"
-#include "stringtable.h"
-#include "lightmap_info.h"
-#include "lightmap.h"
-#include "controls.h"
-#include "terrain.h"
-#include "config.h"
-#include "gameloop.h"
-#include "multi.h"
-#include "fireball.h"
-#include "gamesequence.h"
-#include "Mission.h"
-#include "polymodel.h"
-#include "player.h"
-#include "marker.h"
-#include "hlsoundlib.h"
+#include <stdio.h>                   // for snprintf
+#include <string.h>                  // for memset, strlen, strncat
+#include "3d.h"                      // for g3Point, g3_DrawPoly, g3_RotateP...
+#include "Controller.h"              // for ct_packet, gameController
+#include "Mission.h"                 // for Level_info
+#include "TelCom.h"                  // for TelComEnableSystemKey, MONITOR_MAIN
+#include "TelComEffects.h"           // for CreateBackgroundEffect, CreateTe...
+#include "TelComEfxStructs.h"        // for TCBGD_COLOR, TCBKGDESC, TCTD_COLOR
+#include "application.h"             // for oeApplication
+#include "config.h"                  // for Detail_settings
+#include "controls.h"                // for DoMovement, PollControls, Resume...
+#include "ddio.h"                    // for timer_GetTime
+#include "ddio_common.h"             // for KEY_ESC, KEY_STATE
+#include "descent.h"                 // for Descent
+#include "fireball.h"                // for DrawColoredDisk
+#include "game.h"                    // for GM_MULTI, Game_mode, EndFrame
+#include "gamefont.h"                // for BRIEFING_FONT, HUD_FONT, BBRIEF_...
+#include "gameloop.h"                // for Render_zoom
+#include "gamesequence.h"            // for Game_interface_mode, GAME_INTERFACE
+#include "grdefs.h"                  // for GR_RGB, GR_BLACK
+#include "grtext.h"                  // for grtext_CenteredPrintf, grfont_Ge...
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "lightmap.h"                // for lm_data, lm_h, lm_w
+#include "lightmap_info.h"           // for LightmapInfo
+#include "marker.h"                  // for MarkerMessages
+#include "mem.h"                     // for mem_free, mem_malloc
+#include "multi.h"                   // for NetPlayers
+#include "multi_external.h"          // for NPF_CONNECTED
+#include "object.h"                  // for Objects, Viewer_object, Highest_...
+#include "object_external.h"         // for OBJ_MARKER, OBJ_OBSERVER, OBJ_PL...
+#include "object_external_struct.h"  // for object, OBJECT_OUTSIDE
+#include "player.h"                  // for Player_num, Players, Player_object
+#include "player_external_struct.h"  // for MAX_PLAYERS
+#include "polymodel.h"               // for DrawPolygonModel, FreePolyModel
+#include "pserror.h"                 // for ASSERT
+#include "renderer.h"                // for rend_SetFiltering, rend_SetAlpha...
+#include "room.h"                    // for Rooms, MAX_ROOMS, Highest_room_i...
+#include "room_external.h"           // for MAX_VERTS_PER_FACE, room, RF_EXT...
+#include "stringtable.h"             // for TXT_STRING_OFF, TXT_STRING_ON
+#include "terrain.h"                 // for Terrain_occlusion_checksum, Visi...
+#include "vecmat.h"                  // for vm_AnglesToMatrix, vm_ExtractAng...
+#include "vecmat_external.h"         // for operator*, vector, operator+=
 
 // Variables needed for automap
 vector AM_view_pos = {0, 0, 0};

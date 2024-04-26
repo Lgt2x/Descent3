@@ -90,14 +90,10 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include <string.h>
-
-#ifdef MACINTOSH
-#include <stdlib.h>
-#endif
+#include <stdlib.h>          // for free, malloc
+#include "dmfcinternal.h"    // for PInfo, tPKillerInfo, DMFCBase, basethis
+#include "multi_external.h"  // for MultiAddFloat, MultiGetFloat, MultiAddByte
+#include "pstypes.h"         // for sbyte, ubyte, ushort
 
 PInfo::PInfo(int slot) {
   m_slot = slot;

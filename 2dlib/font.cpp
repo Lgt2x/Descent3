@@ -116,16 +116,19 @@
  * $NoKeywords: $
  */
 
-#include "pserror.h"
-#include "renderer.h"
-#include "gr.h"
-#include "mono.h"
-#include "cfile.h"
-#include "bitmap.h"
-#include "mem.h"
-
-#include <string.h>
-#include <stdlib.h>
+#include <stdlib.h>    // for NULL, atexit
+#include <string.h>    // for strcpy
+#include "Ddgr.h"      // for SURFFLAG_COLORKEY
+#include "Macros.h"    // for stricmp
+#include "bitmap.h"    // for bm_AllocBitmap, bm_data, bm_FreeBitmap
+#include "cfile.h"     // for cf_ReadByte, cf_ReadBytes, cf_ReadInt, cf_Read...
+#include "gr.h"        // for grFont, grMemorySurface, grSurface, MAX_FONTS
+#include "grdefs.h"    // for BPP_16, GR_COLOR_TO_16, GR_RGB, TRANSPARENT_CO...
+#include "mem.h"       // for mem_free_sub, mem_free, mem_malloc
+#include "mono.h"      // for mprintf
+#include "pserror.h"   // for ASSERT, Error, Int3
+#include "pstypes.h"   // for ubyte, ushort
+#include "renderer.h"  // for rend_DrawFontCharacter, rend_SetCharacterParam...
 
 #define FT_COLOR 1
 #define FT_PROPORTIONAL 2

@@ -142,44 +142,53 @@
 
 #ifdef NEWEDITOR
 #include "globals.h"
+#else
+#include "multi.h"
 #endif
 
 #include "matcen.h"
-#include "game.h"
-#include "sounds.h"
-#include "ssl_lib.h"
-#include "string.h"
-#include "soundload.h"
-#include "room.h"
-#include "object.h"
-#include "objinfo.h"
-#include "findintersection.h"
-#ifndef NEWEDITOR
-#include "multi.h"
-#endif
-#include <stdlib.h>
-#include "fireball.h"
-#include "weapon.h"
-#include "polymodel.h"
-#include "hlsoundlib.h"
-#include "viseffect.h"
-#include "viseffect_external.h"
-#include "damage.h"
-#include "PHYSICS.H"
-#include "mem.h"
-#include "ObjScript.h"
-#ifndef NEWEDITOR
-#include "player.h"
-#include "osiris_dll.h"
-#endif
-#include "psrand.h"
-#include "demofile.h"
-
-#if defined(MACINTOSH)
-#include "Macros.h"
-#endif
-
-#include <algorithm>
+#include <stdlib.h>                     // for NULL, atexit
+#include <algorithm>                    // for max
+#include "ObjScript.h"                  // for InitObjectScripts
+#include "PHYSICS.H"                    // for PhysicsDoSimLinear, PhysCalcG...
+#include "damage.h"                     // for ApplyDamageToPlayer
+#include "damage_external.h"            // for PD_ENERGY_WEAPON
+#include "demofile.h"                   // for DemoWrite3DSound, DF_RECORDING
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, HIT_NONE, FQ_I...
+#include "fireball.h"                   // for DrawColoredDisk
+#include "fireball_external.h"          // for LIGHTNING_BOLT_INDEX, SINE_WA...
+#include "game.h"                       // for Frametime, GM_MULTI, Game_mode
+#include "gametexture.h"                // for FindTextureName
+#include "grdefs.h"                     // for GR_RGB16
+#include "hlsoundlib.h"                 // for Sound_system, hlsSystem
+#include "linux_fix.h"                  // for strcmpi
+#include "mem.h"                        // for mem_free, mem_malloc
+#include "mono.h"                       // for mprintf
+#include "multi_external.h"             // for LR_SERVER, NETSEQ_PLAYING
+#include "object.h"                     // for ObjGet, Objects, ObjCreate
+#include "object_external.h"            // for OBJECT_HANDLE_NONE, MAX_OBJEC...
+#include "object_external_struct.h"     // for ROOMNUM_OUTSIDE, object
+#include "objinfo.h"                    // for Object_info, FindObjectIDName
+#include "osiris_dll.h"                 // for Osiris_CallLevelEvent
+#include "osiris_share.h"               // for EVT_MATCEN_CREATE, tOSIRISEve...
+#include "player.h"                     // for Player_object, Players
+#include "player_external_struct.h"     // for MAX_PLAYERS
+#include "polymodel.h"                  // for PageInPolymodel
+#include "polymodel_external.h"         // for MAX_POLY_MODELS
+#include "pserror.h"                    // for ASSERT, Int3
+#include "psrand.h"                     // for ps_rand, RAND_MAX
+#include "room.h"                       // for Rooms, Highest_room_index
+#include "room_external.h"              // for RF_EXTERNAL, room, face
+#include "soundload.h"                  // for FindSoundName
+#include "sounds.h"                     // for SOUND_NONE_INDEX
+#include "ssl_lib.h"                    // for SND_PRIORITY_NORMAL, pos_state
+#include "string.h"                     // for strlen, strcpy
+#include "terrain.h"                    // for GetTerrainRoomFromPos
+#include "vecmat.h"                     // for vm_NormalizeVector, vm_Vector...
+#include "viseffect.h"                  // for VisEffectCreate, VisEffects
+#include "viseffect_external.h"         // for vis_effect, MAX_VIS_EFFECTS
+#include "weapon.h"                     // for WeaponCalcGun
 
 // Beginning of the real file
 #define LEVEL_DATA_MATCEN_VERSION 1

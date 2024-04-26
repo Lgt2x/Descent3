@@ -90,10 +90,16 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include <stdlib.h>
+#include <stdio.h>                   // for snprintf
+#include <stdlib.h>                  // for rand, NULL, RAND_MAX
+#include <string.h>                  // for strcpy
+#include "dmfcinternal.h"            // for DMFCBase, PRec_GetPlayerSlot
+#include "gamedll_header.h"          // for DLLAddColoredHUDMessage, DLLAddH...
+#include "grdefs.h"                  // for GR_RGB
+#include "object_external.h"         // for OBJ_PLAYER, OBJ_BUILDING, OBJ_GHOST
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"                 // for uint
+#include "ssl_lib.h"                 // for MAX_GAME_VOLUME
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

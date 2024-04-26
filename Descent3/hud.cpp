@@ -411,34 +411,48 @@
  */
 
 #include "hud.h"
-#include "gauges.h"
-#include "grdefs.h"
-#include "game.h"
-#include "ddio.h"
-#include "player.h"
-#include "renderer.h"
-#include "descent.h"
-#include "object.h"
-#include "gamefont.h"
-#include "polymodel.h"
-#include "cockpit.h"
-#include "game2dll.h"
-#include "ship.h"
-#include "pilot.h"
-#include "mem.h"
-#include "d3music.h"
-#include "demofile.h"
-#include "stringtable.h"
-#include "pstring.h"
-#include "config.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-#include "gamecinematics.h"
-#include "CtlCfgElem.h"
-#include "ctlconfig.h"
+#include <stdio.h>                     // for NULL, sscanf, snprintf
+#include <stdlib.h>                    // for atoi
+#include <string.h>                    // for strcat, memset, strcpy, strlen
+#include "Controller.h"                // for CTLBINDS_PER_FUNC, ct_type
+#include "CtlCfgElem.h"                // for parse_config_data, tCfgDataParts
+#include "bitmap.h"                    // for bm_AllocLoadFileBitmap, bm_Fre...
+#include "cfile.h"                     // for cf_WriteShort, cf_ReadShort
+#include "cockpit.h"                   // for IsValidCockpit, RenderCockpit
+#include "config.h"                    // for Game_toggles
+#include "controls.h"                  // for Controller, ctfBANK_RIGHTAXIS
+#include "ctlconfig.h"                 // for CtlFindBinding, Cfg_joy_elements
+#include "d3events.h"                  // for EVT_CLIENT_HUD_INTERVAL
+#include "d3music.h"                   // for Game_music_info, D3MusicGetRegion
+#include "demofile.h"                  // for Demo_flags, DF_PLAYBACK, DF_RE...
+#include "game.h"                      // for Game_window_w, Game_window_h
+#include "game2dll.h"                  // for CallGameDLL, DLLInfo
+#include "gamecinematics.h"            // for Cinematic_inuse
+#include "gamefont.h"                  // for HUD_FONT
+#include "grdefs.h"                    // for GR_GREEN, GR_RED, GR_RGB, GR_BLUE
+#include "grtext.h"                    // for grtext_Flush, grtext_SetFontScale
+#include "linux_fix.h"                 // for strcmpi
+#include "manage_external.h"           // for IGNORE_TABLE
+#include "mem.h"                       // for mem_free, mem_malloc, mem_strdup
+#include "mono.h"                      // for mprintf, mprintf_at
+#include "object.h"                    // for Objects
+#include "object_external.h"           // for OBJ_GHOST, OBJ_OBSERVER, OBJ_P...
+#include "object_external_struct.h"    // for object
+#include "pilot.h"                     // for Current_pilot, PltWriteFile
+#include "pilot_class.h"               // for pilot
+#include "player.h"                    // for Players, Player_num
+#include "player_external.h"           // for PCBF_BANKLEFT, PW_PRIMARY, PCB...
+#include "player_external_struct.h"    // for player, player_weapon
+#include "polymodel.h"                 // for Poly_models
+#include "polymodel_external.h"        // for poly_model
+#include "pserror.h"                   // for Int3, ASSERT
+#include "pstring.h"                   // for CleanupStr
+#include "renderer.h"                  // for rend_DrawLine, rend_SetZBuffer...
+#include "robotfirestruct.h"           // for otype_wb_info, dynamic_wb_info
+#include "robotfirestruct_external.h"  // for DWBF_QUAD, MAX_WB_GUNPOINTS
+#include "ship.h"                      // for Ships, ship
+#include "stringtable.h"               // for TXT_DEMOPAUSED, TXT_ENABLED_CO...
+#include "weapon_external.h"           // for MASSDRIVER_INDEX
 
 //////////////////////////////////////////////////////////////////////////////
 //	constants

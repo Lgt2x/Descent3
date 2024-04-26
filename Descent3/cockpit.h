@@ -64,11 +64,10 @@
 #ifndef COCKPIT_H
 #define COCKPIT_H
 
-#include "pstypes.h"
-#include "vecmat.h"
-
-struct poly_model;
+#include "pstypes.h"          // for ushort
+#include "vecmat_external.h"  // for vector
 struct bsp_info;
+struct poly_model;
 
 //	renders the cockpit.
 void RenderCockpit();

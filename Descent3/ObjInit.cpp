@@ -598,27 +598,36 @@
  *
  * $NoKeywords: $
  */
-#include "objinit.h"
-#include "player.h"
-#include "ship.h"
-#include "pserror.h"
-#include "PHYSICS.H"
-#include "weapon.h"
-#include "AIMain.h"
-#include "fireball.h"
-#include "objinfo.h"
-#include "Mission.h"
-#include "robotfire.h"
-#include "door.h"
-#include "vclip.h"
-#include "polymodel.h"
-#include "robot.h"
-#include "sounds.h"
-#include "mem.h"
-#include "marker.h"
-// #include <malloc.h>
-#include <stdlib.h>
-#include "psrand.h"
+
+#include <stdlib.h>                  // for NULL
+#include <string.h>                  // for memset
+#include "AIMain.h"                  // for AIInit
+#include "PHYSICS.H"                 // for PHYSICS_UNLIMITED_BOUNCE
+#include "aistruct_external.h"       // for AS_ALERT
+#include "door.h"                    // for Doors, GetDoorImage, DF_BLASTABLE
+#include "fireball.h"                // for DEBRIS_LIFE, Fireballs
+#include "marker.h"                  // for Marker_polynum
+#include "mem.h"                     // for mem_malloc, mem_free, mem_size
+#include "object.h"                  // for SetObjectControlType, LRT_STATIC
+#include "object_external.h"         // for CT_NONE, MT_NONE, MT_PHYSICS
+#include "object_external_struct.h"  // for object, effect_info_s, polyobj_info
+#include "objinfo.h"                 // for Object_info, MAX_OBJECT_IDS, OIF...
+#include "objinit.h"                 // for ObjInit, ObjReInitAll
+#include "player.h"                  // for Players, Player_num, Player_object
+#include "player_external.h"         // for INITIAL_SHIELDS
+#include "polymodel.h"               // for PageInPolymodel, ComputeDefaultSize
+#include "polymodel_external.h"      // for poly_model
+#include "pserror.h"                 // for ASSERT, Int3
+#include "psrand.h"                  // for ps_rand, RAND_MAX
+#include "robotfire.h"               // for WBClearInfo
+#include "robotfirestruct.h"         // for dynamic_wb_info, MAX_WBS_PER_OBJ
+#include "ship.h"                    // for GetNextShip, Ships, ship
+#include "sounds.h"                  // for SOUND_NONE_INDEX
+#include "vclip.h"                   // for PageInVClip
+#include "vecmat.h"                  // for Identity_matrix
+#include "vecmat_external.h"         // for vector
+#include "weapon.h"                  // for WF_IMAGE_VCLIP, MAX_WEAPONS, WF_...
+
 // Allocate and initialize an effect_info struct for an object
 void ObjCreateEffectInfo(object *objp) {
   if (objp->effect_info)

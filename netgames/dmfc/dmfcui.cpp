@@ -115,9 +115,14 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
+#include <stddef.h>           // for NULL
+#include "DMFCKeyCodes.h"     // for K_ENTER
+#include "bitmap.h"           // for BAD_BITMAP_HANDLE, BITMAP_FORMAT_1555
+#include "dmfcinternal.h"     // for DMFCBase, DLLMAX_TEAMS, DLLMAX_PLAYERS
+#include "gamedll_header.h"   // for DLLDeleteUIItem, DLLRemoveUITextItem
+#include "manage_external.h"  // for IGNORE_TABLE
+#include "multi_external.h"   // for LR_SERVER
+#include "pstypes.h"          // for sbyte
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

@@ -333,35 +333,38 @@
 */
 
 #include "weapon.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "object.h"
-#include "3d.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include "bitmap.h"
-#include "vclip.h"
-#include "game.h"
-#include "polymodel.h"
-#include "player.h"
-#include "hud.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "objinfo.h"
-#include "gametexture.h"
-#include "ship.h"
-#include "gauges.h"
-#include "sounds.h"
-#include "stringtable.h"
-#include "Macros.h"
-#include "cfile.h"
-#include "AIMain.h"
+#include <string.h>                    // for memcpy, strlen, strncpy, memset
+#include <algorithm>                   // for min
+#include "3d.h"                        // for PF_PROJECTED, p3_z
+#include "AIMain.h"                    // for AINotify, AI_SOUND_SHORT_DIST
+#include "Macros.h"                    // for stricmp
+#include "aistruct.h"                  // for ain_hear
+#include "aistruct_external.h"         // for AIN_HEAR_NOISE
+#include "bitmap.h"                    // for bm_AllocLoadFileBitmap
+#include "cfile.h"                     // for CFILE, cf_ReadShort, cf_WriteS...
+#include "game.h"                      // for Gametime, Game_window_h, Game_...
+#include "gametexture.h"               // for LoadTextureImage, NOT_TEXTURE
+#include "grdefs.h"                    // for GR_RGB, ddgr_color
+#include "hlsoundlib.h"                // for Sound_system, hlsSystem
+#include "hud.h"                       // for AddHUDMessage, ResetReticle
+#include "linux_fix.h"                 // for strnicmp
+#include "object.h"                    // for Objects
+#include "object_external.h"           // for OBJ_PLAYER, OBJ_WEAPON
+#include "objinfo.h"                   // for Object_info, MAX_OBJECT_IDS
+#include "player.h"                    // for Players, Player_num, Player_ob...
+#include "player_external.h"           // for PW_SECONDARY, PW_PRIMARY
+#include "player_external_struct.h"    // for player
+#include "polymodel.h"                 // for LoadPolyModel, Poly_models
+#include "polymodel_external.h"        // for poly_model
+#include "pserror.h"                   // for ASSERT, Int3
+#include "pstypes.h"                   // for ushort
+#include "renderer.h"                  // for rend_SetZBufferState, g3Point
+#include "robotfirestruct_external.h"  // for MAX_WB_FIRING_MASKS, MAX_WB_GU...
+#include "ship.h"                      // for Ships, ship, MAX_SHIPS
+#include "sounds.h"                    // for SOUND_DO_NOT_HAVE_IT, SOUND_CH...
+#include "stringtable.h"               // for TXT_WPNNOTAVAIL, TXT, TXT_WPNS...
+#include "vclip.h"                     // for AllocLoadVClip, GameVClips
 
-#include <algorithm>
-
-// #include "samirlog.h"
 #define LOGFILE(_s)
 
 weapon Weapons[MAX_WEAPONS];

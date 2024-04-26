@@ -570,42 +570,50 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-
 #include "pilot.h"
-#include "mono.h"
-#include "renderer.h"
-#include "render.h"
-#include "ddio.h"
-#include "descent.h"
-#include "game.h"
-#include "cfile.h"
-#include "application.h"
-#include "manage.h"
-#include "newui.h"
-#include "grtext.h"
-#include "gamefont.h"
-#include "ConfigItem.h"
-#include "ctlconfig.h"
-#include "hud.h"
-#include "stringtable.h"
-#include "gametexture.h"
-#include "vclip.h"
-#include "hlsoundlib.h"
-#include "weapon.h"
-#include "config.h"
-#include "difficulty.h"
-#include "PilotPicsAPI.h"
-#include "pstring.h"
-#include "Mission.h"
-#include "mem.h"
-#include "polymodel.h"
-#include "audiotaunts.h"
-#include "streamaudio.h"
-#include "ship.h"
-#include "dedicated_server.h"
+#include <ctype.h>               // for toupper
+#include <stdio.h>               // for snprintf
+#include <stdlib.h>              // for NULL, atexit
+#include <string.h>              // for strcpy, strlen, strcat, strncpy, strcmp
+#include "3d.h"                  // for g3_EndFrame, g3_StartFrame
+#include "Controller.h"          // for ct_type, gameController, ct_config_data
+#include "Macros.h"              // for stricmp
+#include "Mission.h"             // for Current_mission, LVLFLAG_FINAL
+#include "PilotPicsAPI.h"        // for PPic_QueryPilot, PPic_FindClose, PPi...
+#include "audiotaunts.h"         // for taunt_Enable, taunt_AreEnabled, taun...
+#include "bitmap.h"              // for bm_FreeBitmap, BAD_BITMAP_HANDLE
+#include "cfile.h"               // for cf_ReadByte, cf_ReadInt, cfexist
+#include "controls.h"            // for Controller_needs, Controller, NUM_CO...
+#include "ctlconfig.h"           // for CtlConfig, CTLCONFIG_CONTROLLER, CTL...
+#include "ddio.h"                // for ddio_MakePath, ddio_DeleteFile, ddio...
+#include "dedicated_server.h"    // for Dedicated_server
+#include "descent.h"             // for Base_directory, D3_DEFAULT_ZOOM, Des...
+#include "fix.h"                 // for angle
+#include "game.h"                // for GM_MULTI, Game_mode
+#include "gametexture.h"         // for GameTextures, TF_ANIMATED, TF_TEXTUR...
+#include "grdefs.h"              // for GR_RGB, GR_RGB16, OPAQUE_FLAG
+#include "manage.h"              // for LocalCustomSoundsDir, LocalCustomGra...
+#include "manage_external.h"     // for PAGENAME_LEN, IGNORE_TABLE
+#include "mem.h"                 // for mem_malloc, mem_free, mem_strdup
+#include "mono.h"                // for mprintf
+#include "newui.h"               // for DoMessageBox, UICOL_TEXT_NORMAL, UIC...
+#include "newui_core.h"          // for newuiSheet, newuiTiledWindow, newuiC...
+#include "object_external.h"     // for OBJ_PLAYER
+#include "player.h"              // for Players
+#include "polymodel.h"           // for DrawPolygonModel, GetPolymodelPointer
+#include "polymodel_external.h"  // for poly_model, MAX_SUBOBJECTS, PEF_CUST...
+#include "pserror.h"             // for ASSERT, Error, Int3
+#include "pstring.h"             // for Psprintf
+#include "renderer.h"            // for rend_DrawLine, rend_SetZBufferState
+#include "ship.h"                // for Ships, FindShipName, MAX_SHIPS, DEFA...
+#include "streamaudio.h"         // for AudioStream
+#include "stringtable.h"         // for TXT_PLTERROR, TXT_ERROR, TXT_DELETE
+#include "ui.h"                  // for UID_OK, UID_CANCEL, UIStatic, UIF_FIT
+#include "uires.h"               // for UIBitmapItem, UITextItem
+#include "vclip.h"               // for FreeVClip, AllocLoadIFLVClip, SaveVClip
+#include "vecmat.h"              // for vm_AnglesToMatrix, vm_MatrixMul, vm_...
+#include "vecmat_external.h"     // for matrix, IDENTITY_MATRIX, vector
+#include "weapon.h"              // for SetAutoSelectPrimaryWpnIdx, SetAutoS...
 
 // some general defines
 #define IDP_SAVE 10

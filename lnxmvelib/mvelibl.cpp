@@ -30,17 +30,13 @@ static char notice1[] = "(c) 1997 Interplay Productions.  All Rights Reserved.\n
                         "Further, you may not reverse engineer, decompile or otherwise\n"
                         "attempt to derive source code of this material.\n";
 
-#include <sys/time.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-#include "mvelibi.h"
-#include "mvegfx.h"
 #include "mvelibl.h"
-
-#include "byteswap.h"
+#include <stdio.h>             // for NULL
+#include <stdlib.h>            // for free, malloc
+#include <string.h>            // for memcpy, memset, strcmp
+#include "SystemInterfaces.h"  // for ISysSoundBuffer, SysSoundCaps, SoundWA...
+#include "mvelibi.h"           // for MCMD_DATA, marg_nfDecomp, ioHdrRec
+#include "platform.h"          // for platform_timeGetTime
 
 static unsigned opt_fastmode = 0; // 0:normal, 1:even lines only, 2:dither between even/odd lines |4 to spread lines
 
@@ -49,7 +45,6 @@ unsigned opt_hscale_adj;
 
 #define logLabel(x)
 
-#include "snd8to16.h"
 // len always specifies length of destination in bytes.
 unsigned sndDecompM16(unsigned short *dst, unsigned char *src, unsigned len, unsigned state);
 unsigned sndDecompS16(unsigned short *dst, unsigned char *src, unsigned len, unsigned state);

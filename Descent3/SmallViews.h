@@ -66,7 +66,8 @@
  *
  */
 
-#include "descent.h"
+#include <stddef.h>   // for NULL
+#include "descent.h"  // for D3_DEFAULT_ZOOM
 
 // Values for the small view windows
 #define SVW_LEFT 0

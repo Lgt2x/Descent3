@@ -113,11 +113,11 @@
 #ifndef SHIP_H
 #define SHIP_H
 
-#include "pstypes.h"
-#include "manage.h"
-#include "object.h"
-#include "robotfirestruct.h"
-#include "player.h"
+#include "manage_external.h"         // for PAGENAME_LEN
+#include "object_external_struct.h"  // for physics_info
+#include "player_external_struct.h"  // for MAX_PLAYER_WEAPONS
+#include "pstypes.h"                 // for ubyte
+#include "robotfirestruct.h"         // for otype_wb_info
 
 #define MAX_SHIPS 30
 

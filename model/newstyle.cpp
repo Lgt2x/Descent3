@@ -77,30 +77,29 @@
  *
  */
 
-#include "pserror.h"
-#include "pstypes.h"
-
-#include "3d.h"
-#include "vecmat.h"
-#include "grdefs.h"
-#include "polymodel.h"
-#include "gametexture.h"
-#include "byteswap.h"
-#include "renderer.h"
-#include "lighting.h"
-#include "game.h"
-#include "render.h"
-#include "fireball.h"
-#include "lightmap_info.h"
-#include "lightmap.h"
-#include "lighting.h"
-#include "findintersection.h"
-
-#include <stdlib.h>
-#include <search.h>
-#include <string.h>
-
-#include "psrand.h"
+#include <stdlib.h>              // for qsort, NULL
+#include "3d.h"                  // for g3_RotatePoint, g3_SetTriangulationTest
+#include "bitmap.h"              // for bm_h, bm_w
+#include "findintersection.h"    // for PLAYER_SIZE_SCALAR
+#include "fireball.h"            // for Fireballs
+#include "fireball_external.h"   // for GRADIENT_BALL_INDEX
+#include "game.h"                // for Gametime, UseHardware
+#include "gametexture.h"         // for GameTextures, GetTextureBitmap, TF_S...
+#include "grdefs.h"              // for GR_RGB, GR_COLOR_BLUE, GR_COLOR_GREEN
+#include "lighting.h"            // for MAX_SPECULAR_INCREMENTS, Specular_ta...
+#include "lightmap.h"            // for GameLightmaps
+#include "lightmap_info.h"       // for LightmapInfo
+#include "object_external.h"     // for OBJ_POWERUP, OBJ_DEBRIS, OBJ_PLAYER
+#include "polymodel.h"           // for Polymodel_effect, Robot_points, Poly...
+#include "polymodel_external.h"  // for bsp_info, poly_model, polyface, POLY...
+#include "pserror.h"             // for ASSERT, Error
+#include "psrand.h"              // for ps_rand
+#include "pstypes.h"             // for ubyte, uint
+#include "render.h"              // for State_elements, SortStates
+#include "renderer.h"            // for rend_SetAlphaType, rend_SetLighting
+#include "room_external.h"       // for MAX_FACES_PER_ROOM
+#include "vecmat.h"              // for vm_DotProduct, vm_NormalizeVectorFast
+#include "vecmat_external.h"     // for vector, operator*, operator+, operator-
 
 static float face_depth[MAX_POLYGON_VECS];
 static ubyte triangulated_faces[MAX_FACES_PER_ROOM];

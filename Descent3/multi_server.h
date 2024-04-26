@@ -18,10 +18,11 @@
 
 #ifndef MULTI_SERVER_H
 
-#include "pstypes.h"
-#include "multi.h"
-#include "game2dll.h"
-// #include "gametrack.h"
+#include <stddef.h>                  // for NULL
+#include "game2dll.h"                // for dllinfo
+#include "multi_external.h"          // for MAX_NET_PLAYERS
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"                 // for ubyte
 
 extern int Join_response_strings[];
 

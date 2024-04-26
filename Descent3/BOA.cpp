@@ -119,26 +119,31 @@
  * $NoKeywords: $
  */
 
+#include "BOA.h"
+#include <stdio.h>                      // for snprintf
+#include <stdlib.h>                     // for NULL, abs
+#include <cmath>                        // for floor, fabs, abs
+#include "doorway.h"                    // for DoorwayPosition, DoorwayLocked
+#include "findintersection.h"           // for fvi_FindIntersection, MIN_BIG...
+#include "findintersection_external.h"  // for FQ_NO_RELINK, FQ_SOLID_PORTALS
+#include "gametexture.h"                // for GameTextures, TF_BREAKABLE
+#include "mem.h"                        // for mem_free, mem_malloc, mem_rea...
+#include "mono.h"                       // for mprintf
+#include "object.h"                     // for Objects, BigObjAdd, ObjSetAABB
+#include "object_external.h"            // for OBJ_NONE, OBJ_ROOM, OF_BIG_OB...
+#include "pserror.h"                    // for ASSERT, Int3
+#include "pstypes.h"                    // for ubyte, uint
+#include "room.h"                       // for Rooms, Highest_room_index
+#include "room_external.h"              // for room, RF_EXTERNAL, face, PF_T...
+#include "string.h"                     // for strlen, memset, strcat
+#include "vecmat.h"                     // for vm_MatrixMulVector, vm_Angles...
+
 #ifdef EDITOR
 #include "editor\d3edit.h"
 #endif
 #ifdef NEWEDITOR
 #include "neweditor\globals.h"
 #endif
-
-#include "BOA.h"
-#include "vecmat.h"
-#include "room.h"
-#include <string.h>
-#include <stdlib.h>
-#include <search.h>
-#include "object.h"
-#include "bsp.h"
-#include "pserror.h"
-#include "findintersection.h"
-#include "mem.h"
-#include "doorway.h"
-#include "string.h"
 
 #define BOA_VERSION 25
 

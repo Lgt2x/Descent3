@@ -117,9 +117,14 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-#include "Macros.h"
-#include <string.h>
+#include <string.h>       // for NULL
+#include "Macros.h"       // for CHECK_FLAG
+#include "UIlib.h"        // for UI_output
+#include "ddio.h"         // for timer_GetTime
+#include "ddio_common.h"  // for KEY_ENTER
+#include "pserror.h"      // for ASSERT
+#include "ui.h"           // for UIGadget, UIWindow, UIF_SLAVE, UIObject
+#include "uisys.h"        // for UI_input, UILMSEBTN, PT_IN_GADGET, UIKEY_CL...
 
 int UIGadget::m_LastKey = 0;
 int UIGadget::m_LastKeyCount = 0;

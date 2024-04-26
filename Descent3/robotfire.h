@@ -19,10 +19,8 @@
 #ifndef ROBOTFIRE_H_
 #define ROBOTFIRE_H_
 
-#include "robotfirestruct.h"
-#include "objinfo.h"
-#include "object.h"
-#include "ship.h"
+#include "object_external_struct.h"  // for object
+#include "robotfirestruct.h"         // for otype_wb_info
 
 void FireOnOffWeapon(object *obj);
 

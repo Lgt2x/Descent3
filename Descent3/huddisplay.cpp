@@ -220,30 +220,35 @@
  * $NoKeywords: $
  */
 
-#include "pstring.h"
-#include "hud.h"
-#include "grtext.h"
-#include "gamefont.h"
-#include "renderer.h"
-#include "pserror.h"
-#include "player.h"
-#include "game.h"
-#include "weapon.h"
-#include "gametexture.h"
-#include "stringtable.h"
-#include "ship.h"
-#include "config.h"
-#include "multi.h"
-#include "render.h"
-
-#include <stdio.h>
-#include <stdarg.h>
-
-#if defined(MACINTOSH)
-#include "Macros.h"
-#endif
-
-#include <algorithm>
+#include <stdarg.h>                  // for va_end, va_list, va_start
+#include <stdio.h>                   // for snprintf
+#include <algorithm>                 // for min
+#include <cmath>                     // for ceil, floor
+#include "Inventory.h"               // for MAX_UNIQUE_INVEN_ITEMS, Inventory
+#include "bitmap.h"                  // for bm_w, bm_h
+#include "fix.h"                     // for FixCos
+#include "game.h"                    // for Gametime, Max_window_w, Frametime
+#include "gamefont.h"                // for HUD_FONT
+#include "gametexture.h"             // for GetTextureBitmap
+#include "grdefs.h"                  // for ddgr_color
+#include "grtext.h"                  // for grtext_SetFlags, grtext_SetAlpha
+#include "hud.h"                     // for HUD_resources, sHUDResources
+#include "multi.h"                   // for Netgame
+#include "multi_external.h"          // for NF_USE_ROBOTS
+#include "object.h"                  // for Objects
+#include "object_external.h"         // for EF_CLOAKED, PF_GRAVITY
+#include "object_external_struct.h"  // for object
+#include "player.h"                  // for Player_num, Players, Score_added...
+#include "player_external.h"         // for PW_SECONDARY, PLAYER_FLAGS_INVUL...
+#include "player_external_struct.h"  // for player_weapon
+#include "pserror.h"                 // for ASSERT, Int3
+#include "pstring.h"                 // for Pvsprintf
+#include "pstypes.h"                 // for ubyte
+#include "renderer.h"                // for rend_SetAlphaType, rend_SetAlpha...
+#include "robotfirestruct.h"         // for otype_wb_info
+#include "ship.h"                    // for Ships, ship, SFF_TENTHS
+#include "stringtable.h"             // for TXT, TXT_CLK, TXT_HUDITM_ANTIGRAV
+#include "weapon.h"                  // for GetWeaponFromIndex, Static_weapo...
 
 //////////////////////////////////////////////////////////////////////////////
 //	Data

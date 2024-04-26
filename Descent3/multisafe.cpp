@@ -638,43 +638,64 @@
  * 24    12/30/98 12:09p Jason
  * added logfile
  */
-#include "multisafe.h"
-#include "weather.h"
-#include "room.h"
-#include "game.h"
-#include "multi.h"
-#include "damage.h"
-#include "hud.h"
-#include "doorway.h"
-#include "trigger.h"
-#include "gamepath.h"
-#include "AIGoal.h"
-#include "weapon.h"
-#include "spew.h"
-#include "hlsoundlib.h"
-#include "sounds.h"
-#include "ship.h"
-#include "player.h"
-#include "object_lighting.h"
-#include "soundload.h"
-#include "streamaudio.h"
-#include "gamesequence.h"
-#include "gameevent.h"
-#include "SmallViews.h"
-#include "difficulty.h"
-#include "door.h"
-#include "demofile.h"
-#include "stringtable.h"
-#include "d3music.h"
-#include "multi_world_state.h"
-#include "osiris_predefs.h"
-#include "viseffect.h"
-#include "levelgoal.h"
-#ifdef MACINTOSH
-#include "osiris_common.h" //DAJ explicit include so it know its here
-#endif
 
-#include <algorithm>
+#include "multisafe.h"
+#include <stdio.h>                     // for sprintf
+#include <string.h>                    // for NULL, strlen, strcpy, memset
+#include <algorithm>                   // for min
+#include "Inventory.h"                 // for Inventory
+#include "Macros.h"                    // for stricmp
+#include "SmallViews.h"                // for ClosePopupView, CreateSmallView
+#include "d3music.h"                   // for D3MusicSetRegion
+#include "damage.h"                    // for AddToShakeMagnitude, ApplyDama...
+#include "demofile.h"                  // for Demo_flags, DF_RECORDING, DF_P...
+#include "descent.h"                   // for D3_DEFAULT_ZOOM
+#include "difficulty.h"                // for DIFF_LEVEL, Diff_shield_energy...
+#include "doorway.h"                   // for KEY_FLAG, DoorwayActivate, Doo...
+#include "fireball_external.h"         // for THICK_LIGHTNING_INDEX
+#include "game.h"                      // for GM_MULTI, Game_mode, Game_wind...
+#include "gamesequence.h"              // for SetGameState, tGameState
+#include "hlsoundlib.h"                // for Sound_system, hlsSystem
+#include "hud.h"                       // for AddFilteredHUDMessage, AddHUDItem
+#include "levelgoal.h"                 // for Level_goals, levelgoals
+#include "levelgoal_external.h"        // for LO_SET_SPECIFIED, LGF_COMP_DES...
+#include "linux_fix.h"                 // for strnicmp
+#include "manage_external.h"           // for IGNORE_TABLE
+#include "mono.h"                      // for mprintf
+#include "multi.h"                     // for Netgame, NetPlayers, MultiEndL...
+#include "multi_external.h"            // for LR_SERVER, LR_CLIENT, NETSEQ_P...
+#include "multi_world_state.h"         // for RCF_LIGHTING, RCF_FOG, RCF_POR...
+#include "object.h"                    // for ObjGet, Objects, SetObjectDead...
+#include "object_external.h"           // for OBJ_PLAYER, OBJ_WEAPON, OBJ_PO...
+#include "object_external_struct.h"    // for light_info
+#include "object_lighting.h"           // for MakeObjectInvisible, MakeObjec...
+#include "objinfo.h"                   // for FindObjectIDName, Object_info
+#include "osiris_predefs.h"            // for osipf_SetPlayerControlMode
+#include "pilot.h"                     // for Current_pilot
+#include "pilot_class.h"               // for pilot
+#include "player.h"                    // for Players, Player_num, MakePlaye...
+#include "player_external.h"           // for MAX_ENERGY, MAX_SHIELDS, PLAYE...
+#include "player_external_struct.h"    // for MAX_PLAYERS, player
+#include "pserror.h"                   // for ASSERT, Int3
+#include "robotfirestruct.h"           // for otype_wb_info
+#include "robotfirestruct_external.h"  // for DWBF_QUAD
+#include "room.h"                      // for Rooms, SetRoomChangeOverTime
+#include "room_external.h"             // for PF_BLOCK, portal, PF_RENDER_FACES
+#include "ship.h"                      // for Ships, ship, SFF_TENTHS
+#include "soundload.h"                 // for FindSoundName
+#include "sounds.h"                    // for SOUND_POWERUP_PICKUP, SOUND_GA...
+#include "spew.h"                      // for SpewClearEvent, SpewCreate
+#include "ssl_lib.h"                   // for SND_PRIORITY_HIGHEST, SND_PRIO...
+#include "streamaudio.h"               // for StreamPlay
+#include "stringtable.h"               // for TXT, TXT_COUNTERMEASUREFULL
+#include "trigger.h"                   // for object, TriggerGetState, Trigg...
+#include "vecmat.h"                    // for Zero_vector, vm_VectorDistance...
+#include "vecmat_external.h"           // for vector
+#include "viseffect.h"                 // for VisEffectCreate, VisEffects
+#include "viseffect_external.h"        // for VF_ATTACHED, VF_LINK_TO_VIEWER
+#include "weapon.h"                    // for FindWeaponName, AddWeaponToPlayer
+#include "weapon_external.h"           // for CONCUSSION_INDEX, FRAG_INDEX
+#include "weather.h"                   // for SetLightningState, SetRainState
 
 /*
         The following functions have been added or modified by Matt and/or someone else other than Jason,

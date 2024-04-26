@@ -50,10 +50,13 @@
  * $NoKeywords: $
  */
 
-#include "streamaudio.h"
-#include "cfile.h"
-#include "pserror.h"
-#include <string.h>
+#include <stdio.h>        // for SEEK_CUR, SEEK_END, SEEK_SET
+#include <string.h>       // for NULL, memset, strlen, strcmp, strncpy
+#include "cfile.h"        // for cfclose, cfseek, cf_ReadByte, cf_WriteByte
+#include "mono.h"         // for mprintf
+#include "pserror.h"      // for ASSERT
+#include "pstypes.h"      // for ubyte, uint, sbyte
+#include "streamaudio.h"  // for OSFArchive, OSF_HDR_SIZE, OSF_HDR_TITLE_LEN
 
 OSFArchive::OSFArchive() {
   m_fp = NULL;

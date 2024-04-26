@@ -54,12 +54,13 @@
  * $NoKeywords: $
  */
 
-#include "mem.h"
-#include "bitmap.h"
-#include "pserror.h"
-#include "pstypes.h"
-#include "grdefs.h"
-#include <stdlib.h>
+#include <stdio.h>    // for SEEK_SET
+#include "bitmap.h"   // for bm_AllocBitmap, bm_data
+#include "cfile.h"    // for cf_ReadByte, cf_ReadShort, cf_ReadBytes, cfseek
+#include "grdefs.h"   // for GR_RGB16, OPAQUE_FLAG, NEW_TRANSPARENT_COLOR
+#include "mem.h"      // for mem_free, mem_malloc
+#include "mono.h"     // for mprintf
+#include "pstypes.h"  // for ubyte, ushort
 
 // load an 8bit pcx image
 int bm_pcx_8bit_alloc_file(CFILE *infile);

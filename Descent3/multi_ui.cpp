@@ -309,42 +309,54 @@
  *
  */
 
-#include "args.h"
-#include "ui.h"
-#include "newui.h"
-#include "game.h"
-#include "gamefont.h"
-#include "descent.h"
-#include "multi.h"
 #include "multi_ui.h"
-#include "multi_server.h"
-#include "multi_client.h"
-#include "networking.h"
-#include "player.h"
-#include "manage.h"
-#include "pilot.h"
-#include <stdlib.h>
-#include "ddio.h"
-#include "objinfo.h"
-#include "stringtable.h"
-#include "ConfigItem.h"
-#include "appdatabase.h"
+#include <stdio.h>                   // for snprintf
+#include <stdlib.h>                  // for atoi, NULL, size_t
+#include <string.h>                  // for strcpy, strlen, strchr, memset
+#include <algorithm>                 // for max
+#include "Macros.h"                  // for stricmp
+#include "Mission.h"                 // for Current_mission
+#include "appdatabase.h"             // for oeAppDatabase
+#include "args.h"                    // for FindArg, GameArgs
+#include "ddio.h"                    // for ddio_SplitPath, ddio_FindFileStart
+#include "ddio_common.h"             // for KEY_C, KEY_B, KEY_A, KEY_ESC, KEY_S
+#include "descent.h"                 // for Base_directory, Database
+#include "game.h"                    // for SetScreenMode, SM_MENU
+#include "gamefont.h"                // for BIG_BRIEFING_FONT, SMALL_FONT
+#include "grdefs.h"                  // for GR_LIGHTGRAY
+#include "grtext.h"                  // for grtext_GetTextLineWidth, grtext_...
+#include "linux_fix.h"               // for _MAX_PATH, strcmpi
+#include "manage_external.h"         // for IGNORE_TABLE
+#include "mem.h"                     // for mem_free, mem_malloc
+#include "menu.h"                    // for DisplayLevelWarpDlg
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for Netgame, MultiFlushAllIncomingBu...
+#include "multi_dll_mgr.h"           // for CallMultiDLL, LoadMultiDLL, Auto...
+#include "multi_external.h"          // for NF_ALLOW_MLOOK, NF_BRIGHT_PLAYERS
+#include "multi_save_settings.h"     // for MultiLoadSettings, MultiSaveSett...
+#include "networking.h"              // for network_address
+#include "newui.h"                   // for NewUIListBox, NewUIWindow, NewUI...
+#include "newui_core.h"              // for newuiTiledWindow, newuiSheet
+#include "object_external.h"         // for OBJ_POWERUP
+#include "object_external_struct.h"  // for MAX_OBJECTS
+#include "objinfo.h"                 // for Object_info, FindObjectIDName
+#include "pilot.h"                   // for Current_pilot
+#include "pilot_class.h"             // for pilot
+#include "player.h"                  // for PlayerSetShipPermission, PlayerI...
+#include "player_external_struct.h"  // for CALLSIGN_LEN
+#include "pserror.h"                 // for ASSERT
+#include "renderer.h"                // for rend_GetRenderState, rendering_s...
+#include "ship.h"                    // for Ships, MAX_SHIPS
+#include "stringtable.h"             // for TXT_CANCEL, TXT_DONE, TXT_OFF
+#include "ui.h"                      // for UIHotspot, UIF_FIT, UIText, UIF_...
+#include "uires.h"                   // for UITextItem
+class ConfigItem;
 
 // #define USE_DIRECTPLAY
 
 #ifdef USE_DIRECTPLAY
 #include "directplay.h"
 #endif
-
-#include "ship.h"
-
-#include "multi_dll_mgr.h"
-#include "Mission.h"
-#include "menu.h"
-
-#include "multi_save_settings.h"
-
-#include <algorithm>
 
 #define MAIN_MULTI_MENU_W 384
 #define MAIN_MULTI_MENU_H 256
@@ -785,8 +797,6 @@ int AutoConnectHeat() {
   }
   return MultiDLLGameStarting;
 }
-
-#include "mem.h"
 
 void DoMultiAllowed(void) {
   rendering_state rs;

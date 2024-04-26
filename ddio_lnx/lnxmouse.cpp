@@ -81,17 +81,14 @@
 //	Mouse Interface
 // ----------------------------------------------------------------------------
 
-#include <stdlib.h>
-#include <string.h>
-#include "pserror.h"
-#include "psclass.h"
-#include "mono.h"
-#include "ddio.h"
-#include "ddio_lnx.h"
-#include "application.h"
-#include "args.h"
-// #include "../lib/linux/dyna_xwin.h"
-#include "SDL.h"
+#include <string.h>      // for memset
+#include "SDL_events.h"  // for SDL_EventState, SDL_EventType, SDL_ENABLE
+#include "ddio.h"        // for timer_GetTime, N_MSEBTNS, MOUSE_CB, MOUSE_LB
+#include "ddio_lnx.h"    // for Lnx_app_obj
+#include "lnxapp.h"      // for oeLnxApplication
+#include "psclass.h"     // for tQueue
+#include "pserror.h"     // for ASSERT
+#include "pstypes.h"     // for ubyte
 
 bool ddio_mouseGrabbed = false;
 static bool DDIO_mouse_init = false;

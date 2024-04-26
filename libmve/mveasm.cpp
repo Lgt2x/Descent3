@@ -15,10 +15,9 @@
 ** attempt to derive source code of this material.
 **
 */
-#include "pstypes.h"
-#include "mvelibl.h"
-#include "mvelibi.h"
-#include <string.h>
+#include <string.h>   // for size_t, NULL
+#include "mvelibi.h"  // for IntelSwapper, SWIDTH, LOG2_SWIDTH, LOG2_SHEIGHT
+#include "mvelibl.h"  // for MVE_SetPalette, MVE_gfxSetSplit
 
 extern unsigned char *nf_buf_cur;
 extern unsigned char *nf_buf_prv;

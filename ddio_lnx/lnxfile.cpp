@@ -57,26 +57,22 @@
  * $NoKeywords: $
  */
 
-#include "ddio.h"
-#include "ddio_lnx.h"
-#include "pserror.h"
-#include "mem.h"
-#include "lnxfix.h"
-
-#include <stdlib.h>
-#include <stdarg.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <utime.h>
-#include <glob.h>
-#include <string.h>
-#include <errno.h>
-#include <signal.h>
-#include <dirent.h>
-#include <ctype.h>
+#include <assert.h>    // for assert
+#include <errno.h>     // for errno, EACCES, ESRCH
+#include <glob.h>      // for glob, globfree, GLOB_MARK, GLOB_NOSPACE, glob_t
+#include <signal.h>    // for kill
+#include <stdarg.h>    // for va_arg, va_end, va_list, va_start
+#include <stdio.h>     // for fclose, fgetc, fopen, fputc, FILE, fread, snpr...
+#include <stdlib.h>    // for rand
+#include <string.h>    // for strlen, strcpy, strcat, strncpy
+#include <sys/stat.h>  // for stat, chmod, st_mtime, S_IREAD, S_IWRITE, fstat
+#include <unistd.h>    // for NULL, pid_t, getpid, chdir, getcwd, rmdir, unlink
+#include <utime.h>     // for utimbuf, utime
+#include "ddio.h"      // for ddio_CheckLockFile, ddio_CleanPath, ddio_CopyF...
+#include "lnxfix.h"    // for stricmp
+#include "mem.h"       // for mem_free, mem_malloc, mem_strdup
+#include "mono.h"      // for mprintf
+#include "pserror.h"   // for ASSERT, Int3
 
 #define _MAX_DIR 256
 

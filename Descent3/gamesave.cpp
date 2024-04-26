@@ -264,43 +264,54 @@
  */
 
 #include "gamesave.h"
-#include "descent.h"
-#include "newui.h"
-#include "cfile.h"
-#include "Mission.h"
-#include "gamesequence.h"
-#include "gameevent.h"
-#include "gameloop.h"
-#include "game.h"
-#include "stringtable.h"
-#include "object.h"
-#include "objinfo.h"
-#include "gametexture.h"
-#include "bitmap.h"
-#include "ddio.h"
-#include "door.h"
-#include "doorway.h"
-#include "ship.h"
-#include "soar.h"
-#include "hud.h"
-#include "weapon.h"
-#include "viseffect.h"
-#include "room.h"
-#include "trigger.h"
-#include "spew.h"
-#include "osiris_dll.h"
-#include "levelgoal.h"
-#include "aistruct.h"
-#include <string.h>
-#include "matcen.h"
-#include "hud.h"
-#include "marker.h"
-#include "d3music.h"
-#include "weather.h"
+#include <fcntl.h>                   // for SEEK_SET
+#include <stdio.h>                   // for snprintf, fclose, fopen, FILE
+#include <string.h>                  // for NULL, strlen, strcpy, strcat
+#include "3d.h"                      // for g3_EndFrame, g3_StartFrame
+#include "Inventory.h"               // for Inventory
+#include "Mission.h"                 // for Current_mission
+#include "aistruct.h"                // for ai_dynamic_path, AIDynamicPath
+#include "bitmap.h"                  // for bm_DestroyChunkedBitmap, bm_Free...
+#include "cfile.h"                   // for cf_WriteInt, cf_WriteBytes, cf_W...
+#include "d3music.h"                 // for D3MusicGetPendingRegion, D3Music...
+#include "ddio.h"                    // for ddio_MakePath, ddio_DirExists
+#include "descent.h"                 // for Base_directory, GetFunctionMode
+#include "door.h"                    // for Doors, MAX_DOORS
+#include "doorway.h"                 // for MAX_ACTIVE_DOORWAYS, Active_door...
+#include "game.h"                    // for GM_MULTI, Game_mode, EndFrame
+#include "gameloop.h"                // for GameRenderWorld, Render_zoom
+#include "gamesequence.h"            // for SetGameState, tGameState
+#include "gametexture.h"             // for GameTextures, MAX_TEXTURES
+#include "hud.h"                     // for AddHUDMessage, SGSGameMessages
+#include "levelgoal.h"               // for Level_goals, levelgoals
+#include "linux_fix.h"               // for _MAX_PATH, strcmpi
+#include "marker.h"                  // for MAX_MARKER_MESSAGE_LENGTH
+#include "matcen.h"                  // for Matcen, Num_matcens, matcen
+#include "newui.h"                   // for DoMessageBox, DoEditDialog
+#include "newui_core.h"              // for newuiTiledWindow, newuiSheet
+#include "object.h"                  // for Viewer_object, Objects, Highest_...
+#include "object_external.h"         // for OBJ_NONE, OBJECT_HANDLE_NONE
+#include "objinfo.h"                 // for Object_info, MAX_OBJECT_IDS
+#include "osiris_dll.h"              // for Osiris_SaveSystemState
+#include "player.h"                  // for Current_waypoint, Players
+#include "player_external_struct.h"  // for MAX_PLAYERS, player
+#include "polymodel.h"               // for Poly_models
+#include "pserror.h"                 // for ASSERT, Int3
+#include "renderer.h"                // for rend_Flip, rend_Screenshot, chun...
+#include "robotfirestruct.h"         // for dynamic_wb_info, MAX_WBS_PER_OBJ
+#include "room.h"                    // for Rooms, MAX_ROOMS, Highest_room_i...
+#include "room_external.h"           // for FF_TEXTURE_CHANGED, RF_DOOR
+#include "ship.h"                    // for Ships, MAX_SHIPS
+#include "spew.h"                    // for SpewEffects, MAX_SPEW_EFFECTS
+#include "stringtable.h"             // for TXT_ERROR, TXT_CANCEL, TXT_CANT_...
+#include "trigger.h"                 // for object, Num_triggers, Triggers
+#include "ui.h"                      // for UID_CANCEL, UIGadget
+#include "uires.h"                   // for UIBitmapItem
+#include "viseffect.h"               // for VisEffects, Highest_vis_effect_i...
+#include "viseffect_external.h"      // for VIS_NONE, vis_effect
+#include "weapon.h"                  // for Weapons, MAX_WEAPONS
+#include "weather.h"                 // for Weather
 
-#ifdef MACINTOSH
-#include "ddio_mac.h"
-#endif
 // function prototypes.
 
 void SGSSnapshot(CFILE *fp);

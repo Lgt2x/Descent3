@@ -16,15 +16,21 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
 #include "attach.h"
-#include "terrain.h"
-#include "multi.h"
-#include "game.h"
-#include "demofile.h"
-#include "polymodel.h"
-#include "objinfo.h"
+#include <cmath>                 // for cos, sin
+#include "demofile.h"            // for DF_RECORDING, Demo_flags, DemoWriteA...
+#include "game.h"                // for GM_MULTI, Game_mode, Game_update_attach
+#include "mono.h"                // for mprintf
+#include "multi.h"               // for Netgame, MultiSendAttach, MultiSendA...
+#include "multi_external.h"      // for LR_SERVER
+#include "object.h"              // for ObjGet, ObjSetPos, SetObjectDeadFlag
+#include "object_external.h"     // for OF_ATTACHED, OBJECT_HANDLE_NONE, AT_...
+#include "objinfo.h"             // for Object_info
+#include "polymodel.h"           // for Poly_models, SetModelAnglesAndPos
+#include "polymodel_external.h"  // for poly_model, MAX_SUBOBJECTS
+#include "pserror.h"             // for ASSERT, Int3
+#include "terrain.h"             // for GetTerrainRoomFromPos
+#include "vecmat.h"              // for vm_NormalizeVector, vm_TransposeMatrix
 
 /*	// Determines the necessary orientation and position of the moving object
         f_use_uvec = true;

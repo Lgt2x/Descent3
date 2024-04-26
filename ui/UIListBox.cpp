@@ -156,11 +156,23 @@
  *
  * $NoKeywords: $
  */
+ 
+#include <math.h>         // for abs
+#include <stdio.h>        // for snprintf
+#include <stdlib.h>       // for NULL, abs
+#include <string.h>       // for strcmp
+#include "UIlib.h"        // for UI_DOWN_ARROW_CHAR, UI_UP_ARROW_CHAR
+#include "ddio_common.h"  // for KEY_DOWN, KEY_PAGEDOWN, KEY_PAGEUP, KEY_UP
+#include "grdefs.h"       // for ddgr_color, GR_WHITE, GR_DARKGRAY
+#include "linux_fix.h"    // for stricmp
+#include "mono.h"         // for mprintf
+#include "pserror.h"      // for ASSERT
+#include "pstypes.h"      // for ubyte
+#include "ui.h"           // for UIListBox, LISTBOX_BUFFER_SIZE, UIGadget
+#include "uidraw.h"       // for ui_DrawBox, ui_ResetTextClip, ui_SetTextClip
+#include "uires.h"        // for UITextItem, UIItem, tUIDrawClass
+#include "uisys.h"        // for UI_TIME, SCREEN_TO_GAD_X, SCREEN_TO_GAD_Y
 
-#include "UIlib.h"
-
-#include <stdlib.h>
-#include <string.h>
 
 #define SCROLL_BUTTON_GAP 4
 

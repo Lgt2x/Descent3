@@ -463,19 +463,30 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
 #include "AIGoal.h"
-#include "aistruct.h"
-#include "aipath.h"
-#include "object.h"
-#include "game.h"
-#include "terrain.h"
-#include "objinfo.h"
-#include "AIMain.h"
-#include "room.h"
-#include "psrand.h"
-#include "BOA.h"
-#include "findintersection.h"
+#include <stdlib.h>                     // for NULL
+#include "AIMain.h"                     // for AINotify, AIStatusCircleFrame
+#include "BOA.h"                        // for BOA_INDEX
+#include "aipath.h"                     // for AIPathAllocPath, AIPathFreePath
+#include "aistruct.h"                   // for ai_dynamic_path, goal, AI_INV...
+#include "aistruct_external.h"          // for GF_NONFLUSHABLE, GF_OBJ_IS_TA...
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_IGNORE_NON_...
+#include "game.h"                       // for Gametime
+#include "mono.h"                       // for mprintf
+#include "object.h"                     // for ObjGet, OBJNUM
+#include "object_external.h"            // for OBJECT_HANDLE_NONE, OBJ_GHOST
+#include "objinfo.h"                    // for Object_info, NUM_ANIMS_PER_CLASS
+#include "player.h"                     // for Players
+#include "player_external.h"            // for PLAYER_FLAGS_DEAD, PLAYER_FLA...
+#include "pserror.h"                    // for ASSERT, Int3
+#include "psrand.h"                     // for ps_rand, RAND_MAX
+#include "robotfirestruct.h"            // for MAX_WBS_PER_OBJ
+#include "robotfirestruct_external.h"   // for WBF_ON_OFF, WBF_SPRAY
+#include "room.h"                       // for Rooms
+#include "terrain.h"                    // for ComputeTerrainSegmentCenter
+#include "vecmat.h"                     // for vm_VectorDistance
+#include "vecmat_external.h"            // for vector, operator!=
 
 extern int AI_unique_goal_id;
 

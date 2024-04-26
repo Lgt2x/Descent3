@@ -43,7 +43,7 @@
 #ifndef _AMBIENT_H
 #define _AMBIENT_H
 
-#include "manage.h"
+#include "manage_external.h"  // for PAGENAME_LEN
 
 // An Ambient Sound Element, one part of an Ambient Sound Pattern (ASP)
 typedef struct {

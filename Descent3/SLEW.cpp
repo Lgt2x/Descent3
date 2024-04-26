@@ -194,22 +194,25 @@
 
 #ifdef _DEBUG
 
+#include <stdlib.h>                     // for NULL
+#include "ddio_common.h"                // for ddio_KeyDownTime, KEY_LBRACKET
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for FQ_IGNORE_RENDER_THROUGH_PORTALS
+#include "game.h"                       // for Frametime
+#include "mono.h"                       // for mprintf, mprintf_at
+#include "object.h"                     // for ObjSetOrient, ObjSetPos, OBJNUM
+#include "object_external.h"            // for OF_OUTSIDE_MINE
+#include "object_external_struct.h"     // for object, ROOMNUM_OUTSIDE
+#include "room.h"                       // for FindPointRoom
+#include "slew.h"                       // for SLEW_KEY, SLEW_MOVE, SLEW_ROTATE
+#include "terrain.h"                    // for TERRAIN_SIZE, TERRAIN_WIDTH
+#include "vecmat.h"                     // for operator*, vm_AnglesToMatrix
+#include "vecmat_external.h"            // for operator*, vector, matrix
+
 #ifdef EDITOR
 #include "editor\mainfrm.h"
 #include "editor\d3edit.h"
 #endif
-
-#include <stdlib.h>
-#include "descent.h"
-#include "slew.h"
-#include "vecmat.h"
-#include "ddio.h"
-#include "object.h"
-#include "mono.h"
-#include "game.h"
-#include "joystick.h"
-#include "findintersection.h"
-#include "room.h"
 
 // variables for slew system
 

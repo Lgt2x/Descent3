@@ -43,6 +43,10 @@
 
 #include "osiris_share.h"
 #include "d3events.h"
+#include "object_external_struct.h"
+#include "idmfc.h"
+#include "module.h"
+
 
 // Setup and processing functions
 void AnarchyGameInit(int teams);

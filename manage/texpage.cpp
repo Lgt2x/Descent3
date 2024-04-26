@@ -261,20 +261,22 @@
 #include <windows.h>
 #endif
 
-#include "cfile.h"
-#include "manage.h"
-#include "gametexture.h"
-#include "bitmap.h"
-#include "mono.h"
-#include "pserror.h"
 #include "texpage.h"
-#include <string.h>
-#include "vclip.h"
-#include "ddio.h"
-#include "args.h"
-#include "sounds.h"
-#include "soundpage.h"
-#include "soundload.h"
+#include <stdio.h>        // for SEEK_CUR, SEEK_SET
+#include <string.h>       // for strcpy, NULL, memcpy, memset, strlen
+#include "args.h"         // for FindArg, GameArgs
+#include "bitmap.h"       // for BITMAP_NAME_LEN, GameBitmaps
+#include "cfile.h"        // for cf_WriteByte, cf_ReadByte, cf_ReadFloat
+#include "ddio.h"         // for ddio_MakePath
+#include "gametexture.h"  // for GameTextures, TF_PROCEDURAL, LoadTextureImage
+#include "linux_fix.h"    // for stricmp, strnicmp
+#include "manage.h"       // for PAGETYPE_TEXTURE, Loading_addon_table, mng_...
+#include "mem.h"          // for mem_free, mem_malloc
+#include "mono.h"         // for mprintf
+#include "pserror.h"      // for ASSERT, Int3
+#include "soundpage.h"    // for mng_GetGuaranteedSoundPage
+#include "ssl_lib.h"      // for Sounds
+#include "vclip.h"        // for GameVClips
 
 // Texpage commands that are read/written
 // A command is followed by a byte count describing how many bytes
@@ -1242,8 +1244,6 @@ void mng_LoadLocalTexturePage(CFILE *infile) {
   } else
     mprintf((0, "Could not load texpage named %s!\n", texpage1.tex_struct.name));
 }
-
-#include "mem.h"
 
 // First searches through the texture index to see if the texture is already
 // loaded.  If not, searches in the table file and loads it.

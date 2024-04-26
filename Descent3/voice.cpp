@@ -59,11 +59,16 @@
  * $NoKeywords: $
  */
 #include "voice.h"
-#include "streamaudio.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include <stdlib.h>
-#include <string.h>
+#include <stdlib.h>           // for atexit
+#include <string.h>           // for strcpy
+#include "hlsoundlib.h"       // for Sound_system, hlsSystem
+#include "linux_fix.h"        // for _MAX_PATH
+#include "manage_external.h"  // for IGNORE_TABLE
+#include "mono.h"             // for mprintf
+#include "pstypes.h"          // for ubyte
+#include "soundload.h"        // for FindSoundName
+#include "ssl_lib.h"          // for MAX_GAME_VOLUME
+#include "streamaudio.h"      // for StreamGetSoundHandle, StreamPlay, Strea...
 
 #define MOTHERLOAD_STRING "Cheater!"
 #define MOTHERLOAD_FLAGS VF_POWERUP | VF_PLAYTABLE

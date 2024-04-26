@@ -101,17 +101,16 @@
  */
 
 #include "ship.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "object.h"
-#include "3d.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include "polymodel.h"
-#include "player.h"
-#include "robotfire.h"
+#include <stdio.h>            // for NULL
+#include <string.h>           // for memset
+#include "linux_fix.h"        // for stricmp
+#include "object.h"           // for Objects
+#include "object_external.h"  // for OBJ_PLAYER
+#include "objinfo.h"          // for DEFAULT_LO_LOD_DISTANCE, DEFAULT_MED_LO...
+#include "player.h"           // for Players
+#include "polymodel.h"        // for LoadPolyModel
+#include "pserror.h"          // for ASSERT, Int3
+#include "robotfire.h"        // for WBClearInfo
 
 #define DEFAULT_SHIP_SIZE 4.0
 

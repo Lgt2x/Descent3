@@ -98,16 +98,14 @@
 #ifndef DAMAGE_H
 #define DAMAGE_H
 
-#include "damage_external.h"
-#include "vecmat.h"
-#include "DeathInfo.h"
+#include <stddef.h>           // for NULL
+#include "vecmat_external.h"  // for vector
+struct object;  // lines 109-109
+struct room;  // lines 110-110
 
 // Maximum damage magnitude
 #define MAX_DAMAGE_MAG 20.0f
 #define MAX_EDRAIN_MAG 18.0f
-
-struct object;
-struct room;
 
 //	Applies damage to a player object, returns true if damage is applied.
 bool ApplyDamageToPlayer(object *playerobj, object *killer, int damage_type, float damage_amount, int server_says = 0,

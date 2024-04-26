@@ -187,11 +187,13 @@
 #ifndef NEWUI_H
 #define NEWUI_H
 
-#if defined(__LINUX__)
-#include "linux/linux_fix.h" //fix some of the stricmp's
-#endif
-
-#include "newui_core.h"
+#include <stddef.h>      // for NULL
+#include "bitmap.h"      // for chunked_bitmap
+#include "grdefs.h"      // for GR_RGB, ddgr_color
+#include "newui_core.h"  // for newuiTiledWindow
+#include "pstypes.h"     // for PSPATHNAME_LEN, PSFILENAME_LEN, ubyte
+#include "ui.h"          // for tUIClass, UIF_PROCESS_MENU, uiNewClass, UIBu...
+#include "uires.h"       // for UIBitmapItem, UIItem, UITextItem (ptr only)
 
 // flags for creating a newui window
 #define NUWF_TITLENONE 0x00000000    // don't display a title bar

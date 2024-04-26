@@ -84,17 +84,18 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <ctype.h>
-#include "game.h"
-#include "descent.h"
-#include "mono.h"
-#include "cfile.h"
 #include "localization.h"
-#include "mem.h"
-#include "ddio.h"
+#include <ctype.h>      // for tolower, toupper
+#include <stdio.h>      // for NULL, sprintf
+#include <stdlib.h>     // for atexit
+#include <string.h>     // for strlen, strcpy, strcat, strncmp
+#include "cfile.h"      // for cfopen, cf_ReadString, cfclose, cfeof, CFILE
+#include "ddio.h"       // for ddio_MakePath, ddio_SplitPath
+#include "linux_fix.h"  // for _MAX_PATH, _MAX_FNAME
+#include "mem.h"        // for mem_free, mem_malloc
+#include "mono.h"       // for mprintf
+#include "pserror.h"    // for ASSERT, Int3
+#include "pstypes.h"    // for sbyte, ubyte
 
 typedef struct {
   char *tag;

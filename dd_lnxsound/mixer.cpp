@@ -16,13 +16,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <memory.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "mono.h"
-#include "ssl_lib.h"
-#include "mixer.h"
-#include "pserror.h"
+#include <stdio.h>    // for NULL
+#include <stdlib.h>   // for free, malloc
+#include <string.h>   // for memset
+#include "mixer.h"    // for sound_buffer_info, software_mixer, SSF_PLAY_STR...
+#include "mono.h"     // for mprintf
+#include "pserror.h"  // for ASSERT, Int3
+#include "ssl_lib.h"  // for Sounds, SIF_STREAMING_16_M, SIF_STREAMING_16_S
 
 #define MIN_SOUND_MIX_VOLUME 0.0f
 #define MAX_WRITE_AHEAD 0.04f // Seconds to write ahead of the play position (in seconds)

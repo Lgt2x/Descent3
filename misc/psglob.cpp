@@ -36,12 +36,7 @@
  */
 
 #include "psglob.h"
-#include <stdlib.h>
-#include <ctype.h>
-
-#ifdef __LINUX__
-#include <ctype.h>
-#endif
+#include <ctype.h>  // for tolower
 
 // Returns 1 if string contains globbing characters in it
 int PSGlobHasPattern(char *string) {

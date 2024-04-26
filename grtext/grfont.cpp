@@ -107,18 +107,21 @@
  * $NoKeywords: $
  */
 
-#include "grtextlib.h"
-#include "cfile.h"
-#include "bitmap.h"
-#include "pserror.h"
-#include "renderer.h"
-#include "mem.h"
-#include "ddio.h"
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
+#include <ctype.h>                   // for toupper
+#include <stdio.h>                   // for NULL, fwrite, FILE, fclose, fopen
+#include <stdlib.h>                  // for atexit
+#include <string.h>                  // for strcpy
+#include "bitmap.h"                  // for bm_data, bm_rowsize, bm_AllocBitmap
+#include "cfile.h"                   // for cf_ReadByte, cf_ReadBytes, cf_Re...
+#include "ddio_common.h"             // for ddio_KeyToAscii
+#include "grdefs.h"                  // for NEW_TRANSPARENT_COLOR, OPAQUE_FLAG
+#include "grtext.h"                  // for FT_PROPORTIONAL, tFontFileInfo
+#include "grtextlib.h"               // for grfont_BltChar, tCharBlt
+#include "mem.h"                     // for mem_free, mem_malloc
+#include "mono.h"                    // for mprintf
+#include "pserror.h"                 // for ASSERT, Error, Int3
+#include "pstypes.h"                 // for ubyte, ushort, sbyte
+#include "renderer.h"                // for rend_DrawFontCharacter, rend_Dra...
 
 const int MAX_FONTS = 16, MAX_FONT_BITMAPS = 32;
 

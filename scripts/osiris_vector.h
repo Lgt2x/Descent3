@@ -21,6 +21,7 @@
 
 #include <math.h>
 #include <time.h>
+#include <string.h>
 
 #include "vecmat_external.h"
 

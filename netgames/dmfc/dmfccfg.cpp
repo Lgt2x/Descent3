@@ -48,13 +48,14 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-
-#ifdef MACINTOSH
-#include <stdlib.h>
-#endif
+#include <ctype.h>           // for isspace, toupper
+#include <stdio.h>           // for snprintf
+#include <stdlib.h>          // for malloc, NULL, free
+#include <string.h>          // for strcpy, strlen
+#include "Macros.h"          // for stricmp
+#include "cfile.h"           // for CFILE
+#include "dmfcinternal.h"    // for CRegistry, tRecord, tKey, REGT_STRING
+#include "gamedll_header.h"  // for DLLOpenCFILE, DLLcf_WriteString, DLLcfclose
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

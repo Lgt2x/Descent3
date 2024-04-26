@@ -60,19 +60,22 @@
  *
  * $NoKeywords: $
  */
+ 
 #include "BriefingParse.h"
-#include "TelComEffects.h"
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include "cfile.h"
-#include "pserror.h"
-#include "game.h"
-#include "mem.h"
-#include "voice.h"
-#include "streamaudio.h"
-#include "ddio.h"
-
+#include <ctype.h>          // for isspace, isdigit, isalnum
+#include <stdio.h>          // for EOF
+#include <stdlib.h>         // for NULL, atof, atoi
+#include <string.h>         // for strcpy, strlen, memcpy
+#include "TelCom.h"         // for MAX_TELCOM_SCREENS
+#include "TelComEffects.h"  // for BUTT_NEXTPAGE, CLICKTYPE_CLICKUP, BUTT_DO...
+#include "cfile.h"          // for CFILE, CFileFlags, cfclose, cfeof, cfgetc
+#include "gamefont.h"       // for BBRIEF_FONT_INDEX, BRIEF_FONT_INDEX
+#include "grdefs.h"         // for GR_RGB
+#include "linux_fix.h"      // for stricmp, strnicmp, _MAX_PATH
+#include "mem.h"            // for mem_free, mem_malloc
+#include "mono.h"           // for mprintf
+#include "pserror.h"        // for Int3, ASSERT
+#include "voice.h"          // for VF_16BIT, VF_8BIT, VF_COMPRESSED, VF_FORCE
 //	constructor
 CBriefParse::CBriefParse() {
   AddTextEffect = NULL;

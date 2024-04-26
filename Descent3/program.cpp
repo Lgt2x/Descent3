@@ -60,10 +60,9 @@
  */
 
 #include "program.h"
-#include "pserror.h"
-#include "descent.h"
-
-#include "appdatabase.h"
+#include "descent.h"      // for Database, PRODUCT_NAME
+#include "lnxdatabase.h"  // for oeLnxAppDatabase
+#include "pserror.h"      // for Error, Int3
 
 program_version Program_version;
 

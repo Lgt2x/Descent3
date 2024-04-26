@@ -59,21 +59,20 @@
 #include <process.h>
 #endif
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#ifdef __LINUX__
-//sorry, I'm lazy, I guess we could copy the defines
-//that we need to transalte winsock->linux into this header...but no need to now
-#include "inetgetfile.h"
-#endif
-
-#ifdef MACINTOSH
-#include "macsock.h"
-#endif
-
-#include "CFtp.h"
+#include <arpa/inet.h>     // for htons
+#include <netdb.h>         // for gethostbyname, getservbyname, hostent, ser...
+#include <netinet/in.h>    // for sockaddr_in, in_addr, INADDR_ANY
+#include <stdio.h>         // for snprintf, fclose, fopen, fwrite
+#include <stdlib.h>        // for atoi
+#include <string.h>        // for strcpy, strchr, memcpy, strlen, strncpy
+#include <sys/select.h>    // for select, FD_SET, FD_ZERO, fd_set
+#include <sys/socket.h>    // for recv, shutdown, AF_INET, getsockname, socket
+#include <sys/time.h>      // for timeval
+#include <unistd.h>        // for NULL, close
+#include "SDL_platform.h"  // for __LINUX__
+#include "SDL_thread.h"    // for SDL_CreateThread, SDL_Thread
+#include "inetgetfile.h"   // for CFtpGet, WSAGetLastError, INVALID_SOCKET
+#include "linux_fix.h"     // for strnicmp
 
 #ifdef __LINUX__
 void *FTPObjThread( void * obj )

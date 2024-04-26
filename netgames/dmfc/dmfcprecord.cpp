@@ -82,11 +82,13 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include <stdlib.h>
-#include <string.h>
+#include <stdlib.h>                  // for NULL, free, malloc
+#include <string.h>                  // for memcpy, memset, strcmp, strcpy
+#include "dmfcinternal.h"            // for MAX_PLAYER_RECORDS, DMFCBase
+#include "multi_external.h"          // for MultiAddByte, MultiGetByte, Mult...
+#include "networking.h"              // for network_address, network_protocol
+#include "player_external_struct.h"  // for player
+#include "pstypes.h"                 // for ubyte
 
 player_record Player_records[MAX_PLAYER_RECORDS];
 int Pnum_to_PRec[DLLMAX_PLAYERS];

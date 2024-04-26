@@ -44,15 +44,22 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <math.h>
-#include "idmfc.h"
-#include "Entropystr.h"
-#include "EntropyAux.h"
+#include <stdio.h>                   // for snprintf, NULL
+#include <stdlib.h>                  // for rand, RAND_MAX, atoi
+#include "DMFC.h"                    // for ASSERT, UID_OK, DLLmprintf, Int3
+#include "DMFCKeyCodes.h"            // for K_ENTER
+#include "EntropyAux.h"              // for SendVirusCreate, PaintRoomWithTe...
+#include "Entropystr.h"              // for TXT_STARTGAME, TXT_VIRUSCREDIT
+#include "gamedll_header.h"          // for DLLCreateNewUITextItem, DLLDelet...
+#include "gametexture.h"             // for texture, TF_ALPHA
+#include "grdefs.h"                  // for GR_WHITE, GR_RED
+#include "idmfc.h"                   // for IDMFC
+#include "multi_external.h"          // for LR_SERVER
+#include "multi_world_state.h"       // for RCF_TEXTURE
+#include "object_external.h"         // for MT_PHYSICS, OBJECT_HANDLE_NONE
+#include "object_external_struct.h"  // for object, ROOMNUM_OUTSIDE
+#include "room_external.h"           // for FF_GOALFACE, FF_TEXTURE_CHANGED
+#include "vecmat_external.h"         // for vector
 
 extern IDMFC *DMFCBase;
 extern room *dRooms;

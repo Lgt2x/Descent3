@@ -54,14 +54,17 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-#include "grtext.h"
-#include "mem.h"
-#include "textaux.h"
-
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
+#include <stdio.h>    // for NULL
+#include <string.h>   // for memset, strlen, memcpy
+#include "grdefs.h"   // for GR_GREEN, ddgr_color, GR_COLOR_BLUE, GR_COLOR_G...
+#include "grtext.h"   // for grfont_GetHeight, grtext_Reset, grtext_SetFont
+#include "mem.h"      // for mem_free, mem_malloc
+#include "pserror.h"  // for ASSERT
+#include "pstypes.h"  // for ubyte
+#include "textaux.h"  // for textaux_WordWrap
+#include "ui.h"       // for UIConsoleGadget, UIConsole, UIWindow, UIGadget
+#include "uidraw.h"   // for ui_DrawBox, ui_DrawSetFont, ui_DrawString, ui_G...
+#include "uires.h"    // for UIPrimativeItem
 
 #define CONSOLE_LINE_FILLER 128
 

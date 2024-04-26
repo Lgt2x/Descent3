@@ -44,14 +44,13 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-#include <string.h>
-#if defined(MACOSX)
-#include <malloc/malloc.h>
-#else
-#include <malloc.h>
-#endif
-#include "mem.h"
+#include <string.h>   // for NULL, strcpy, strlen
+#include "grdefs.h"   // for ddgr_color
+#include "mem.h"      // for mem_free, mem_malloc
+#include "pserror.h"  // for ASSERT
+#include "ui.h"       // for UIGroup, UIStatic, UIText, UIWindow (ptr only)
+#include "uidraw.h"   // for ui_DrawLine, ui_DrawSetAlpha, ui_GetTextHeight
+#include "uires.h"    // for UITextItem
 
 //	----------------------------------------------------------------------------
 //	UIGroup

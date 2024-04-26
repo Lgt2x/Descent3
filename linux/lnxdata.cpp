@@ -41,19 +41,16 @@
  * $NoKeywords: $
  */
 
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <pwd.h>
-#include <sys/types.h>
-
-#include "appdatabase.h"
-#include "linux/lnxdatabase.h"
-#include "pserror.h"
-#include "mono.h"
-#include "pserror.h"
-#include "registry.h"
-#include "loki_utils.h"
+#include <pwd.h>                // for getpwuid, passwd
+#include <stdio.h>              // for snprintf
+#include <string.h>             // for strlen, strncpy
+#include <unistd.h>             // for NULL, geteuid, size_t
+#include "linux/lnxdatabase.h"  // for oeLnxAppDatabase
+#include "loki_utils.h"         // for loki_getprefpath
+#include "mono.h"               // for mprintf
+#include "pserror.h"            // for ASSERT
+#include "pstypes.h"            // for ulong
+#include "registry.h"           // for CRegistry, REGT_DWORD, REGT_STRING
 
 #define REGISTRY_FILENAME ".Descent3Registry"
 

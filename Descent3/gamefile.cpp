@@ -16,15 +16,11 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pstypes.h"
-#include "pserror.h"
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include "game.h"
 #include "gamefile.h"
+#include <stdio.h>      // for NULL
+#include <string.h>     // for memset
+#include "linux_fix.h"  // for stricmp
+#include "pserror.h"    // for ASSERT, Int3
 
 gamefile Gamefiles[MAX_GAMEFILES];
 int Num_gamefiles = 0;

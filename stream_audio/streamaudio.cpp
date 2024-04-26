@@ -164,15 +164,16 @@
  *
  * $NoKeywords: $
  */
+
 #include "streamaudio.h"
-#include "pserror.h"
-#include "cfile.h"
-#include "mem.h"
-#include "Macros.h"
-#include "ddio.h"
-#include <stdlib.h>
-#include <string.h>
-// #include "samirlog.h"
+#include <string.h>   // for memset
+#include "Adecode.h"  // for IAudioDecoder, CreateDecoder
+#include "Macros.h"   // for CHECK_FLAG
+#include "ddio.h"     // for timer_GetTime
+#include "mem.h"      // for mem_free, mem_malloc
+#include "mono.h"     // for mprintf
+#include "pserror.h"  // for ASSERT, Int3
+
 #define LOGFILE(_s)
 #if defined(MACINTOSH)
 typedef unsigned ReadFunction(void *data, void *buf, unsigned qty);

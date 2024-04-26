@@ -16,12 +16,14 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "RendererConfig.h"
+#include "RendererConfig.h" // IWYU pragma: keep
 #ifndef USE_SOFTWARE_TNL
 
-#include "3d.h"
-#include "HardwareInternal.h"
-#include <string.h>
+#include "3d.h"                // for p3_z, g3Point, p3_x, p3_y, CC_BEHIND
+#include "HardwareInternal.h"  // for View_matrix, Matrix_scale, View_position
+#include "pstypes.h"           // for ubyte
+#include "vecmat.h"            // for vm_NormalizeVector
+#include "vecmat_external.h"   // for vector, operator*, operator-, operator+
 
 extern vector Clip_plane_point;
 // code a point.  fills in the p3_codes field of the point, and returns the codes

@@ -16,12 +16,15 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "RendererConfig.h"
+#include "RendererConfig.h" // IWYU pragma: keep
 #ifndef USE_SOFTWARE_TNL
 
-#include "3d.h"
-#include "HardwareInternal.h"
-#include <string.h>
+#include <string.h>            // for memcpy, NULL
+#include "3d.h"                // for g3_GetModelViewMatrix, g3_DoneInstance
+#include "HardwareInternal.h"  // for Unscaled_matrix, View_position, gTrans...
+#include "pserror.h"           // for ASSERT
+#include "vecmat.h"            // for operator*, vm_AnglesToMatrix, vm_MakeI...
+#include "vecmat_external.h"   // for matrix, vector, operator*, operator-
 
 struct InstanceContext {
   matrix m_viewMatrix;     // matrix

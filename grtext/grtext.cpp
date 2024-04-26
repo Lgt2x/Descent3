@@ -146,18 +146,16 @@
  * $NoKeywords: $
  */
 
-#include "grtextlib.h"
-
-#include "renderer.h"
-#include "pserror.h"
-#include "pstring.h"
-#include "mem.h"
-
-#include <stdarg.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
+#include <ctype.h>      // for toupper, tolower
+#include <stdarg.h>     // for va_end, va_list, va_start
+#include <string.h>     // for memcpy, strlen, strchr, strstr, strcpy
+#include "grdefs.h"     // for ddgr_color, GR_COLOR_CHAR, GR_RGB, GR_BLACK
+#include "grtext.h"     // for GRTEXT_BUFLEN, tFontTemplate, GRTEXT_FORMAT_CHAR
+#include "grtextlib.h"  // for grfont_BltChar, tCharBlt
+#include "pserror.h"    // for ASSERT, Int3
+#include "pstring.h"    // for Pvsprintf
+#include "pstypes.h"    // for ubyte, sbyte
+#include "renderer.h"   // for rend_SetFlatColor, rend_SetAlphaType, rend_Se...
 
 #define CLIP_LEFT Grtext_left
 #define CLIP_TOP Grtext_top

@@ -16,13 +16,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pstypes.h"
-
 #include "special_face.h"
-#include "mono.h"
-#include <stdlib.h>
-#include <string.h>
-#include "mem.h"
+#include <string.h>   // for memset
+#include "mem.h"      // for mem_free, mem_malloc
+#include "pserror.h"  // for ASSERT, Int3
+#include "pstypes.h"  // for ushort
+#include "vecmat_external.h"  // for vector
+
 
 int Num_of_special_faces = 0;
 special_face SpecialFaces[MAX_SPECIAL_FACES];

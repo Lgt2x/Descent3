@@ -130,15 +130,24 @@
  * $NoKeywords: $
  */
 
-#include "DMFC.h"
-#include "gamedll_header.h"
-#include "dmfcinternal.h"
-
-#ifdef MACINTOSH
-#include <stdlib.h>
-#endif
-
-#include <algorithm>
+#include <stdarg.h>                  // for va_arg, va_end, va_start
+#include <stdio.h>                   // for snprintf, va_list
+#include <stdlib.h>                  // for malloc, NULL, free
+#include <string.h>                  // for strcpy, memset, memcpy, strcat
+#include <algorithm>                 // for min
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE
+#include "dmfcinternal.h"            // for MenuItem, DMFCBase, mprintf, MIT...
+#include "gamedll_header.h"          // for DLLAddHUDMessage, DLLgrtext_GetT...
+#include "gamefont.h"                // for HUD_FONT_INDEX
+#include "grdefs.h"                  // for GR_RGB, ddgr_color
+#include "idmfc.h"                   // for IMenuItem
+#include "multi_external.h"          // for LR_SERVER
+#include "object_external.h"         // for OBJ_OBSERVER
+#include "object_external_struct.h"  // for object
+#include "player_external.h"         // for OBSERVER_MODE_ROAM, OBSERVER_MOD...
+#include "player_external_struct.h"  // for MAX_TEAMS
+#include "pstypes.h"                 // for ubyte
+#include "renderer.h"                // for AT_CONSTANT_TEXTURE, LS_NONE
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

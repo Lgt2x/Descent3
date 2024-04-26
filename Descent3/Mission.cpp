@@ -636,41 +636,50 @@
  *
  * $NoKeywords: $
  */
+
 #include "Mission.h"
-#include "3d.h"
-#include "LoadLevel.h"
-#include "pserror.h"
-#include "cfile.h"
-#include "gamefont.h"
-#include "grdefs.h"
-#include "descent.h"
-#include "ddio.h"
-#include "movie.h"
-#include "program.h"
-#include "object.h"
-#include "objinit.h"
-#include "ObjScript.h"
-#include "application.h"
-#include "TelCom.h"
-#include "game.h"
-#include "cinematics.h"
-#include "player.h"
-#include "gamesequence.h"
-#include "mem.h"
-#include "newui.h"
-#include "stringtable.h"
-#include "AppConsole.h"
-#include "pstring.h"
-#include "dedicated_server.h"
-#include "osiris_dll.h"
-#include "mission_download.h"
-#include "manage.h"
-#include <string.h>
-#include <stdlib.h>
-#include "ship.h"
-#include "BOA.h"
-#include "terrain.h"
-#include "multi.h"
+#include <stdio.h>             // for snprintf
+#include <stdlib.h>            // for NULL, atoi, atexit
+#include <string.h>            // for strcpy, memset, strlen, strcat, strncpy
+#include "3d.h"                // for PF_PROJECTED, p3_z
+#include "BOA.h"               // for BOAGetMineChecksum, BOA_vis_checksum
+#include "LoadLevel.h"         // for CHUNK_OBJECTS, CHUNK_ROOMS, CHUNK_SCRI...
+#include "ObjScript.h"         // for AssignScriptsForLevel
+#include "TelCom.h"            // for TelComShow, TS_MISSION
+#include "cfile.h"             // for cf_OpenLibrary, cf_CloseLibrary, cf_Re...
+#include "cinematics.h"        // for PlayMovie
+#include "ddio.h"              // for ddio_SplitPath, ddio_MakePath, ddio_Cr...
+#include "dedicated_server.h"  // for PrintDedicatedMessage, Dedicated_server
+#include "descent.h"           // for MSN_NAMELEN, GetMultiCDPath, Descent_o...
+#include "game.h"              // for Max_window_w, Max_window_h, EndFrame
+#include "gamefont.h"          // for MENU_FONT, BRIEFING_FONT, BIG_BRIEFING...
+#include "gamesequence.h"      // for SetCurrentLevel
+#include "grdefs.h"            // for FIXED_SCREEN_WIDTH, FIXED_SCREEN_HEIGHT
+#include "grtext.h"            // for grtext_SetColor, grtext_SetFont, grtex...
+#include "levelgoal.h"         // for Level_goals, levelgoals
+#include "linux_fix.h"         // for strcmpi, Sleep, _MAX_FNAME, _MAX_PATH
+#include "localization.h"      // for CreateStringTable, DestroyStringTable
+#include "manage.h"            // for LocalD3Dir, mng_SetAddonTable
+#include "manage_external.h"   // for IGNORE_TABLE
+#include "mem.h"               // for mem_free, mem_strdup, mem_error, mem_m...
+#include "mission_download.h"  // for MAX_MISSION_URL_COUNT, MAX_MISSION_URL...
+#include "mono.h"              // for mprintf
+#include "multi.h"             // for MultiSendHeartbeat
+#include "multi_external.h"    // for MAX_NET_PLAYERS
+#include "networking.h"        // for nw_DoNetworkIdle
+#include "newui.h"             // for DoMessageBox, DrawLargeBitmap, FreeLar...
+#include "newui_core.h"        // for MSGBOX_OK, SetUICallback, DEFAULT_UICA...
+#include "osiris_dll.h"        // for Osiris_CallLevelEvent, Osiris_ClearExt...
+#include "osiris_share.h"      // for tOSIRISEventInfo, EVT_LEVELEND, EVT_LE...
+#include "player.h"            // for PlayerIsShipAllowed, PlayerResetShipPe...
+#include "program.h"           // for PROGRAM
+#include "pserror.h"           // for ASSERT, Error, Int3
+#include "pstring.h"           // for CleanupStr
+#include "renderer.h"          // for rend_DrawPolygon2D, rend_SetFlatColor
+#include "ship.h"              // for FindShipName, MAX_SHIPS, Ships
+#include "stringtable.h"       // for TXT_MSN_LVLCOMMAND, TXT_MSN_LVLNUMINVALID
+#include "terrain.h"           // for GetTerrainGeometryChecksum, Terrain_ch...
+
 //	---------------------------------------------------------------------------
 //	Data
 //	---------------------------------------------------------------------------
@@ -1266,8 +1275,6 @@ void FreeMission() {
   Current_mission.hog = NULL;
   Current_level = NULL;
 }
-#include "localization.h"
-#include "levelgoal.h"
 // Load the text (goal strings) for a level
 void LoadLevelText(char *level_filename) {
   char pathname[_MAX_FNAME], filename[_MAX_FNAME];

@@ -55,22 +55,17 @@
 // Linux IO System Main Library Interface
 // ----------------------------------------------------------------------------
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include <unistd.h>
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#include <termios.h>
-
-#include "pserror.h"
-#include "application.h"
-#include "ddio_lnx.h"
-#include "ddio.h"
+#include <fcntl.h>                 // for open, O_NOCTTY, O_NONBLOCK, O_RDWR
+#include <stdarg.h>                // for va_end, va_list, va_start
+#include <stdio.h>                 // for snprintf, vsnprintf
+#include <string.h>                // for memset
+#include <termios.h>               // for termios, tcsetattr, TCSANOW, tcflush
+#include <unistd.h>                // for NULL, close, write
+#include "ddio.h"                  // for ddio_InternalClose, ddio_InternalInit
+#include "ddio_common.h"           // for tSerialPort, ddio_SerialClosePort
+#include "lnxapp.h"                // for oeLnxApplication
+#include "mono.h"                  // for mprintf
+#include "pstypes.h"               // for ubyte
 
 bool DDIO_init = false;
 oeLnxApplication *Lnx_app_obj = NULL;

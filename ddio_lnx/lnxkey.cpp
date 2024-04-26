@@ -49,28 +49,11 @@
 // ----------------------------------------------------------------------------
 //	Keyboard Interface
 // ----------------------------------------------------------------------------
-#include "pserror.h"
-#include "mono.h"
-#include "ddio.h"
-#include "ddio_lnx.h"
-#include "application.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <getopt.h>
-#include <signal.h>
-#include <fcntl.h>
-#include <termios.h>
-// #include <linux/kd.h>
-// #include <linux/vt.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-// #include <linux/keyboard.h>
-#include <sys/ioctl.h>
-#include <string.h>
-#include <sys/time.h>
-#include <sys/types.h>
-// #include <linux/unistd.h>
+#include "ddio.h"         // for ddio_InternalKeyClose, ddio_InternalKeyDown...
+#include "ddio_common.h"  // for ddio_init_info, DDIO_MAX_KEYS, ddio_KeyFrame
+#include "debug.h"        // for ddio_InternalKeyClose
+#include "lnxapp.h"       // for oeLnxApplication, APPFLAG_USESERVICE, tLnxA...
+#include "pstypes.h"      // for ubyte
 
 volatile struct tLnxKeys {
   union {

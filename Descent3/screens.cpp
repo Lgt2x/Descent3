@@ -186,23 +186,39 @@
  */
 
 #include "screens.h"
-#include "newui.h"
-#include "game.h"
-#include "ddio.h"
-#include "descent.h"
-#include "application.h"
-#include "gamefont.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "player.h"
-#include "Mission.h"
-#include "game2dll.h"
-#include "stringtable.h"
-#include "dedicated_server.h"
-#include "levelgoal.h"
-#include "sounds.h"
-#include "pilot.h"
-#include "joystick.h"
+#include <stdio.h>               // for snprintf, NULL
+#include <string.h>              // for memset, strcpy, strlen
+#include "Mission.h"             // for Level_info
+#include "application.h"         // for oeApplication
+#include "d3events.h"            // for EVT_CLIENT_GAMEPOSTLEVELRESULTS
+#include "ddio.h"                // for timer_GetTime, ddio_MouseGetState
+#include "ddio_common.h"         // for ddio_KeyFlush, ddio_KeyInKey, KEY_PR...
+#include "dedicated_server.h"    // for Dedicated_server
+#include "descent.h"             // for Descent
+#include "game.h"                // for Max_window_w, SetScreenMode, GM_MULTI
+#include "game2dll.h"            // for CallGameDLL, DLLInfo
+#include "gamefont.h"            // for BIG_BRIEFING_FONT, BRIEFING_FONT
+#include "grtext.h"              // for grtext_Printf, grtext_GetTextLineWidth
+#include "hlsoundlib.h"          // for Sound_system, hlsSystem
+#include "joystick.h"            // for joy_GetPos, JOYSTICK_1, tJoyPos, tJo...
+#include "levelgoal.h"           // for Level_goals, levelgoals
+#include "levelgoal_external.h"  // for LGF_ENABLED, LGF_TELCOM_LISTS, LO_GE...
+#include "mono.h"                // for mprintf
+#include "multi.h"               // for Multi_bail_ui_menu, Netgame
+#include "multi_external.h"      // for LR_SERVER
+#include "newui.h"               // for tLargeBitmap, LoadLargeBitmap, UICOL...
+#include "newui_core.h"          // for DoUIFrame, GetUIFrameResult, SetUICa...
+#include "object.h"              // for Objects
+#include "pilot.h"               // for Current_pilot
+#include "pilot_class.h"         // for pilot
+#include "player.h"              // for Player_num, Players
+#include "pserror.h"             // for Error
+#include "pstypes.h"             // for ubyte
+#include "renderer.h"            // for rend_Flip
+#include "soundload.h"           // for FindSoundName
+#include "sounds.h"              // for SOUND_LIGHTNING
+#include "stringtable.h"         // for TXT_PLRTITLE, TXT_HITAKEYORBUTTON
+#include "uisys.h"               // for ui_HideCursor, ui_ShowCursor
 
 #define LVLRES_FADEIN_TIME 0.50f
 #define TEXT_REDRAW_COUNT 6.0f

@@ -66,9 +66,11 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-
-#include <string.h>
+#include <string.h>  // for NULL
+#include "grdefs.h"  // for GR_WHITE, GR_LIGHTGRAY
+#include "ui.h"      // for UIStatic, UIProgress, UIText, UIGadget, UIWindow...
+#include "uidraw.h"  // for ui_DrawBox, ui_DrawRect
+#include "uires.h"   // for UIItem, UIPrimativeItem, UITextItem
 
 //	----------------------------------------------------------------------------
 //	UIText

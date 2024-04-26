@@ -18,17 +18,24 @@
 
 // AIGame3.cpp
 // 0.1
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "osiris_import.h"
-#include "osiris_common.h"
-#include "osiris_vector.h"
-#include "DallasFuncs.cpp"
 
-#include "AIGame3_External.h"
+#include <bits/std_abs.h>               // for abs
+#include <float.h>                      // for FLT_MAX
+#include <stdio.h>                      // for NULL
+#include <stdlib.h>                     // for rand, RAND_MAX
+#include <cmath>                        // for acos, abs
+#include "aistruct_external.h"          // for AS_ALERT, GF_KEEP_AT_COMPLETION
+#include "damage_external.h"            // for GD_ELECTRIC, GD_ENERGY, GD_FIRE
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_IGNORE_POWE...
+#include "module.h"                     // for STDCALL, STDCALLPTR
+#include "object_external.h"            // for OBJECT_HANDLE_NONE, MT_PHYSICS
+#include "osiris_common.h"              // for VF_GET, VF_SET, AIV_I_FLAGS
+#include "osiris_import.h"              // for Obj_Value, AI_Value, Game_Get...
+#include "osiris_vector.h"              // for vm_VectorNormalize, vm_Vector...
+#include "vecmat_external.h"            // for vector, operator*, operator+
+#include "DallasFuncs.cpp"              // for aSoundPlayObject, aLightningC...
+#include "AIGame3_External.h"           // for bot_com, ALIEN_COM_HUNT_TO_OBJ
 
-#include "module.h"
 
 #ifdef __cplusplus
 extern "C" {

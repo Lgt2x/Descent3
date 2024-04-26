@@ -281,9 +281,24 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
+#include <stdio.h>                   // for snprintf
+#include <string.h>                  // for strcpy, NULL, strncpy, memcpy
+#include "DMFCKeyCodes.h"            // for K_F6, K_DOWN, K_ENTER, K_ESC
+#include "Macros.h"                  // for stricmp
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE
+#include "controls.h"                // for game_controls
+#include "dmfcinternal.h"            // for DMFCBase, MenuItem, mprintf, PRe...
+#include "gamedll_header.h"          // for DLLFindSoundName, DLLPlay2dSound
+#include "gamefont.h"                // for SMALL_UI_FONT_INDEX
+#include "grdefs.h"                  // for GR_RGB, ddgr_color
+#include "manage_external.h"         // for IGNORE_TABLE
+#include "multi_external.h"          // for LR_SERVER, NETSEQ_PLAYING, NETSE...
+#include "object_external.h"         // for OBJ_OBSERVER, OBJ_PLAYER, OBJ_BU...
+#include "object_external_struct.h"  // for object
+#include "player_external.h"         // for PLAYER_FLAGS_DEAD, PLAYER_FLAGS_...
+#include "pstypes.h"                 // for ubyte, uint
+#include "ssl_lib.h"                 // for MAX_GAME_VOLUME
+#include "vecmat_external.h"         // for vector
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

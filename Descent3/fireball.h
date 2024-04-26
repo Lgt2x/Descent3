@@ -150,12 +150,11 @@
 
 #define FIREBALL_H
 
-#include "fireball_external.h"
-#include "object.h"
-#include "vecmat.h"
-#include "manage.h"
-#include "grdefs.h"
-#include "DeathInfo.h"
+#include "deathinfo_external.h"      // for DF_DEBRIS_SMOKES
+#include "manage_external.h"         // for PAGENAME_LEN
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"                 // for ubyte
+#include "vecmat_external.h"         // for vector
 
 #define PARTICLE_LIFE .5
 #define DEBRIS_LIFE 2.0

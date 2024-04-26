@@ -191,31 +191,21 @@
 #ifndef LINUX
 #include <new.h>
 #endif
-#if defined(MACOSX)
 
-#include <malloc/malloc.h>
-#else
-#include <malloc.h>
-#endif
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #ifdef WIN32
 #include <search.h>
 // Non-Linux Includes
 #include <windows.h>
 #include <crtdbg.h>
-#else
 #endif
 
-#include "init.h"
-#include "mem.h"
-#include "pserror.h"
-#include "pstypes.h"
-// #include "args.h"
-// #include "ddio.h"
-//
-// #define MEM_DEBUG
+#include <malloc.h>   // for malloc_usable_size
+#include <stdio.h>    // for NULL
+#include <stdlib.h>   // for free, malloc, realloc
+#include <string.h>   // for strdup
+#include "mem.h"      // for mem_GetTotalMemoryUsed, mem_Init, mem_dumpmallo...
+#include "mono.h"     // for mprintf
+#include "pserror.h"  // for Int3
 
 #ifdef MEM_USE_RTL
 #pragma message("mem.cpp: Compiling For Run-Time Library usage")

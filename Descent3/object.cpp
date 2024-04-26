@@ -1129,68 +1129,77 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <string.h> // for memset
-#include <stdio.h>
-
 #include "object.h"
-
-#include "pserror.h"
-#include "vecmat.h"
-#include "mono.h"
-
-#include "descent.h"
-#include "player.h"
-#include "slew.h"
-#include "game.h"
-#include "trigger.h"
-#include "PHYSICS.H"
-#include "collide.h"
-#include "door.h"
-#include "controls.h"
-#include "terrain.h"
-#include "polymodel.h"
-#include "gametexture.h"
-#include "ship.h"
-#include "soundload.h"
-#include "weapon.h"
-#include "objinit.h"
-#include "fireball.h"
-#include "hlsoundlib.h"
-#include "sounds.h"
-#include "AIMain.h"
-#include "room.h"
-#include "objinfo.h"
-#include "lighting.h"
-#include "findintersection.h"
-#include "lightmap_info.h"
-#include "object_lighting.h"
-#include "soar.h"
-#include "splinter.h"
-#include "ObjScript.h"
-#include "viseffect.h"
-#include "multi.h"
-#include "game2dll.h"
-#include "robot.h"
-#include "damage.h"
-#include "attach.h"
-#include "dedicated_server.h"
-#include "hud.h"
-#include "demofile.h"
-#include "rtperformance.h"
-#include "osiris_dll.h"
-#include "gameloop.h"
-#include "mem.h"
-#include "stringtable.h"
-#include "levelgoal.h"
-#include "psrand.h"
-#include "vibeinterface.h"
+#include <stdio.h>                   // for NULL
+#include <stdlib.h>                  // for atexit
+#include <string.h>                  // for memset
+#include <algorithm>                 // for min
+#include "AIMain.h"                  // for AIDoFrame, AIDestroyObj, AINotify
+#include "Inventory.h"               // for InventoryRemoveObject, Inventory
+#include "ObjScript.h"               // for FreeObjectScripts
+#include "PHYSICS.H"                 // for Physics_NumLinked, DoPhysLinkedF...
+#include "aistruct.h"                // for ai_frame, ain_hear
+#include "aistruct_external.h"       // for AS_ALERT, AIAF_LOOPING, AIN_HEAR...
+#include "attach.h"                  // for UnattachChildren, UnattachFromPa...
+#include "collide.h"                 // for CollideInit
+#include "controls.h"                // for ReadPlayerControls, game_controls
+#include "d3events.h"                // for EVT_GAMEDOCONTROLS, EVT_GAMEOBJC...
+#include "damage.h"                  // for AddToShakeMagnitude, ApplyDamage...
+#include "damage_external.h"         // for GD_FIRE, PD_NONE
+#include "dedicated_server.h"        // for Dedicated_server
+#include "demofile.h"                // for DemoWriteObjCreate, DF_PLAYBACK
+#include "descent.h"                 // for D3_DEFAULT_FOV, GetFunctionMode
+#include "door.h"                    // for RemapDoors
+#include "findintersection.h"        // for Fvi_recorded_faces, Fvi_num_reco...
+#include "fireball.h"                // for DoConcussiveForce, DoDyingFrame
+#include "fix.h"                     // for FixSin
+#include "game.h"                    // for Frametime, Gametime, GM_MULTI
+#include "game2dll.h"                // for DLLInfo, CallGameDLL
+#include "gameloop.h"                // for Render_FOV
+#include "grdefs.h"                  // for GR_RGB
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "hud.h"                     // for AddHUDMessage, AddPersistentHUDM...
+#include "levelgoal.h"               // for Level_goals, levelgoals
+#include "levelgoal_external.h"      // for LGF_COMP_DESTROY, LGF_COMP_ENTER
+#include "lighting.h"                // for BlendAllLightingEdges
+#include "mem.h"                     // for mem_free, mem_malloc
+#include "mono.h"                    // for mprintf, DebugBlockPrint, mprint...
+#include "multi.h"                   // for Netgame, MultiSendRemoveObject
+#include "multi_external.h"          // for LR_CLIENT, LR_SERVER, NETSEQ_LEV...
+#include "object_lighting.h"         // for ClearObjectLightmaps, DoObjectLight
+#include "objinfo.h"                 // for Object_info, FindObjectIDName
+#include "objinit.h"                 // for ObjInit
+#include "osiris_dll.h"              // for Osiris_CallEvent, Osiris_DetachS...
+#include "osiris_share.h"            // for tOSIRISEventInfo, EVT_CHANGESEG
+#include "player.h"                  // for Players, AFTERBURN_TIME, Player_num
+#include "player_external.h"         // for PLAYER_FLAGS_REARVIEW, PLAYER_FL...
+#include "player_external_struct.h"  // for player, MAX_PLAYERS
+#include "polymodel.h"               // for Poly_models, RemapPolyModels
+#include "polymodel_external.h"      // for poly_model, MAX_SUBOBJECTS, PMF_...
+#include "pserror.h"                 // for ASSERT, Error, Int3
+#include "robotfirestruct.h"         // for dynamic_wb_info, MAX_WBS_PER_OBJ
+#include "room.h"                    // for Rooms, ComputeRoomCenter, Highes...
+#include "room_external.h"           // for room, RF_SECRET, RF_FUELCEN, PF_...
+#include "rtperformance.h"           // for RTP_ENDINCTIME, RTP_STARTINCTIME
+#include "ship.h"                    // for RemapShips
+#include "slew.h"                    // for SlewFrame
+#include "soar.h"                    // for SoarTick, Soar_active
+#include "soundload.h"               // for RemapSounds
+#include "sounds.h"                  // for SOUND_NONE_INDEX, SOUND_REFUELING
+#include "splinter.h"                // for DoSplinterFrame
+#include "ssl_lib.h"                 // for SND_PRIORITY_HIGH, SND_PRIORITY_...
+#include "stringtable.h"             // for TXT_FOUND_SECRET, TXT_TIMEDEMO
+#include "terrain.h"                 // for Terrain_seg, TERRAIN_DEPTH, TERR...
+#include "trigger.h"                 // for object, CheckTrigger, TT_PASS_TH...
+#include "vecmat.h"                  // for vm_TransposeMatrix, vm_AnglesToM...
+#include "vibeinterface.h"           // for VIBE_DoControls
+#include "viseffect.h"               // for AttachRandomNapalmEffectsToObject
+#include "weapon.h"                  // for FireWeaponFromPlayer, FindWeapon...
 
 #ifdef EDITOR
 #include "editor\d3edit.h"
 #endif
 
-#include <algorithm>
 
 /*
  *  Global variables

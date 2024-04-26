@@ -16,20 +16,21 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#include "fireball.h"
-#include "object.h"
 #include "splinter.h"
-#include "polymodel.h"
-#include "renderer.h"
-#include "gametexture.h"
-
-#include "Macros.h"
-#include <stdlib.h>
-
-#include "psrand.h"
-
-#include <algorithm>
+#include <algorithm>             // for min
+#include "3d.h"                  // for g3_DrawPoly, g3_RotatePoint, p3_u, p3_v
+#include "fireball.h"            // for CreateFireball, GetRandomSmallExplosion
+#include "fireball_external.h"   // for BLACK_SMOKE_INDEX
+#include "gametexture.h"         // for GetTextureBitmap
+#include "object.h"              // for Objects, SetObjectDeadFlag
+#include "object_external.h"     // for CT_SPLINTER, OBJ_SPLINTER
+#include "polymodel.h"           // for Poly_models
+#include "polymodel_external.h"  // for bsp_info, poly_model
+#include "pserror.h"             // for ASSERT
+#include "psrand.h"              // for ps_rand
+#include "renderer.h"            // for g3Point, rend_SetAlphaType, rend_Set...
+#include "vecmat.h"              // for vm_MatrixMulVector
+#include "vecmat_external.h"     // for operator*, operator+=, vector
 
 // Given an object, renders the representation of this splinter
 void DrawSplinterObject(object *obj) {

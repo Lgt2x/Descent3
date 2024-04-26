@@ -253,24 +253,36 @@
  *
  */
 
-#include "multi.h"
-#include "multi_server.h"
-#include "player.h"
-#include "game.h"
-#include "ddio.h"
-#include "Mission.h"
-// #include "gametrack.h"
-#include "stringtable.h"
-#include "pilot.h"
-#include "ship.h"
-#include "args.h"
-
-#include "ui.h"
-#include "newui.h"
-#include "multi_dll_mgr.h"
-
-#include "LoadLevel.h"
-// #define USE_DIRECTPLAY
+#include <arpa/inet.h>                         // for htons
+#include <stdio.h>                             // for snprintf
+#include <string.h>                            // for memcpy, strlen, strcpy
+#include "/home/louis/dev/Descent3/md5/md5.h"  // for MD5
+#include "LoadLevel.h"                         // for AppendToLevelChecksum
+#include "Mission.h"                           // for ShowProgressScreen
+#include "args.h"                              // for FindArg
+#include "cfile.h"                             // for cfclose, cfopen, cfprintf
+#include "ddio.h"                              // for timer_GetTime
+#include "game.h"                              // for Game_mode, SetGamemode...
+#include "linux_fix.h"                         // for Sleep
+#include "manage_external.h"                   // for PAGENAME_LEN
+#include "mono.h"                              // for mprintf
+#include "multi.h"                             // for NetPlayers, Netgame
+#include "multi_external.h"                    // for MultiAddByte, MultiGet...
+#include "multi_server.h"                      // for JOIN_ANSWER_OK, Join_r...
+#include "networking.h"                        // for network_address, nw_Re...
+#include "object.h"                            // for Player_object, SetObje...
+#include "object_external.h"                   // for CT_NONE
+#include "pilot.h"                             // for Current_pilot
+#include "pilot_class.h"                       // for pilot
+#include "player.h"                            // for Player_num, Players
+#include "player_external_struct.h"            // for MAX_PLAYER_WEAPONS
+#include "polymodel.h"                         // for GetPolymodelPointer
+#include "polymodel_external.h"                // for poly_model
+#include "pserror.h"                           // for ASSERT
+#include "pstypes.h"                           // for ubyte, ushort
+#include "robotfirestruct_external.h"          // for MAX_WB_FIRING_MASKS
+#include "ship.h"                              // for FindShipName, Ships, ship
+#include "stringtable.h"                       // for TXT, TXT_MLTNOLEVELINFO
 
 #ifdef USE_DIRECTPLAY
 #include "directplay.h"
@@ -655,8 +667,6 @@ int MultiPollForLevelInfo() {
 
   return 0;
 }
-
-#include "polymodel.h"
 
 // Returns a unique value for this ship
 int MultiGetShipChecksum(int ship_index) {

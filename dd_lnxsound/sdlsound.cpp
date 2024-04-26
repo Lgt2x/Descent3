@@ -16,34 +16,24 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//	NEED THIS SINCE DDSNDLIB is a DD library.
-#include "DDAccess.h"
-
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <sys/ioctl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dlfcn.h>
-#include <stdarg.h>
-#include <errno.h>
-#include "cfile.h"
-#include "pserror.h"
-#include "mono.h"
-#include "soundload.h"
-#include "ssl_lib.h"
-#include "mem.h"
-#include "application.h"
-#include "linux/lnxsound.h"
-#include "ddlnxsound.h"
-#include "mixer.h"
-#include "ddio.h"
-#include "SDL.h"
-#include "SDL_thread.h"
-#include "args.h"
+#include <stdarg.h>           // for va_end, va_list, va_start
+#include <stdio.h>            // for NULL, vsnprintf
+#include <stdlib.h>           // for atoi
+#include "SDL_audio.h"        // for SDL_CloseAudio, SDL_OpenAudio, SDL_Paus...
+#include "SDL_stdinc.h"       // for Uint8
+#include "args.h"             // for FindArg, GetArg
+#include "ddio.h"             // for timer_GetMSTime
+#include "ddlnxsound.h"       // for SSF_UNUSED, SSF_PAUSED, SSF_PLAY_LOOPING
+#include "ddsndgeometry.h"    // for llsGeometry, tSoundMaterial
+#include "linux/lnxsound.h"   // for lnxsound, emulated_listener, lnxsound_E...
+#include "linux_fix.h"        // for GlobalFree, GlobalAlloc
+#include "mixer.h"            // for sound_buffer_info, software_mixer, tMix...
+#include "mono.h"             // for mprintf, mprintf_at
+#include "pserror.h"          // for Error, ASSERT
+#include "ssl_lib.h"          // for Sounds, SoundFiles, play_information
+#include "vecmat.h"           // for vm_NormalizeVector
+#include "vecmat_external.h"  // for vector, operator*, operator-
+class oeApplication;
 
 #define SOUNDLIB_SAMPLE_RATE 22050
 #define SOUNDLIB_SAMPLE_SIZE 16
@@ -803,7 +793,6 @@ static void StreamAudio(void *user_ptr, Uint8 *stream, int len) {
 
 ///////////////////////////////////////////////////////////////////////
 // llsGeometry
-#include "ddsndgeometry.h"
 
 // specify a sound library to associate geometry with
 bool llsGeometry::Init(llsSystem *snd_sys) { return false; }

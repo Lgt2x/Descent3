@@ -38,28 +38,9 @@
  * $NoKeywords: $
  */
 
-#include "pserror.h"
-#include "mono.h"
-#include "ddio.h"
-#include "ddio_lnx.h"
-#include "application.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <getopt.h>
-#include <signal.h>
-#include <fcntl.h>
-#include <termios.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/ioctl.h>
-#include <sys/time.h>
-#include <sys/types.h>
-// #include <linux/unistd.h>
-// #include <linux/keyboard.h>
-// #include <linux/kd.h>
-// #include <linux/vt.h>
+#include "ddio.h"         // for timer_GetTime
+#include "ddio_common.h"  // for DDIO_MAX_KEYS, ddio_init_info
+#include "pstypes.h"      // for ubyte
 
 extern volatile struct tLnxKeys {
   union {

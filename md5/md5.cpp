@@ -49,12 +49,12 @@
         documentation and/or software.
 */
 
-// md5 class include
 #include "md5.h"
-#include <byteswap.h>
-#include <string.h>
+#include <byteswap.h>  // for convert_le, INTEL_INT, INTEL_FLOAT, INTEL_SHORT
+#include <stdint.h>    // for uint32_t
+#include <stdio.h>     // for FILE
+#include <string.h>    // for memcpy, memset, NULL
 
-#include "stdio.h"
 static FILE *md5log = NULL;
 
 #define MD5_DEBUG_LOG 0

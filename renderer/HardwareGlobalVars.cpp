@@ -16,12 +16,12 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "RendererConfig.h"
+#include "RendererConfig.h" // IWYU pragma: keep
 #ifndef USE_SOFTWARE_TNL
 
-#include "3d.h"
-#include "HardwareInternal.h"
-#include <float.h>
+#include <float.h>            // for FLT_MAX
+#include "pstypes.h"          // for ubyte
+#include "vecmat_external.h"  // for vector, matrix
 
 vector View_position;
 float View_zoom;

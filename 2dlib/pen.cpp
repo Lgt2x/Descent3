@@ -91,8 +91,10 @@
  * $NoKeywords: $
  */
 
-#include "lib2d.h"
-#include "pserror.h"
+#include "gr.h"        // for grViewport
+#include "grdefs.h"    // for ddgr_color
+#include "pserror.h"   // for ASSERT
+#include "renderer.h"  // for rend_DrawLine, rend_SetFlatColor, rend_DrawCircle
 
 #define CLIP_LEFT (vp_InitLeft + vp_Left)
 #define CLIP_TOP (vp_InitTop + vp_Top)

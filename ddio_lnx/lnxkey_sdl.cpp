@@ -64,12 +64,13 @@
  * $NoKeywords: $
  */
 
-#include "SDL.h"
-#include "pserror.h"
-#include "mono.h"
-#include "ddio.h"
-#include "ddio_lnx.h"
-#include "application.h"
+#include "SDL_events.h"   // for SDL_EventState, SDL_EventType, SDL_ENABLE
+#include "SDL_keysym.h"   // for SDLKey, KMOD_ALT, KMOD_CTRL
+#include "SDL_video.h"    // for SDL_WM_GrabInput, SDL_GetVideoSurface, SDL_...
+#include "ddio.h"         // for timer_GetTime
+#include "ddio_common.h"  // for ddio_UpdateKeyState, DDIO_MAX_KEYS, KEY_ENTER
+#include "pserror.h"      // for ASSERT
+#include "pstypes.h"      // for ubyte
 
 #ifdef __PERMIT_GL_LOGGING
 void DGL_EnableLogging(int enable);

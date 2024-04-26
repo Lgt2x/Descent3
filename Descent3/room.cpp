@@ -397,33 +397,33 @@
  */
 
 #include "room.h"
-#include "mono.h"
-#include "vecmat.h"
-#include "gametexture.h"
-#include "manage.h"
-#include "renderer.h"
-#include "game.h"
-#include "render.h"
-#include "grdefs.h"
-#include <stdlib.h>
-#include <string.h>
-#include "terrain.h"
-#include "findintersection.h"
-#include "lightmap.h"
-#include "lightmap_info.h"
-#include "special_face.h"
-#include "mem.h"
-#include "doorway.h"
-#include "multi_world_state.h"
-#include "damage_external.h"
-#include "descent.h"
+#include <stdlib.h>                  // for NULL, atexit
+#include <string.h>                  // for memset
+#include <cmath>                     // for fabs, sqrt
+#include "bnode.h"                   // for BNode_FreeRoom, BNode_RemapTerra...
+#include "damage_external.h"         // for PD_NONE
+#include "descent.h"                 // for Katmai
+#include "findintersection.h"        // for fvi_QuickRoomCheck, MIN_BIG_OBJ_RAD
+#include "game.h"                    // for Gametime
+#include "gametexture.h"             // for GetTextureBitmap
+#include "lightmap_info.h"           // for BAD_LMI_INDEX, FreeLightmapInfo
+#include "mem.h"                     // for mem_free, mem_malloc
+#include "mono.h"                    // for mprintf
+#include "multi_world_state.h"       // for RCF_CHANGING_WIND_FOG, RCF_FOG
+#include "object.h"                  // for Objects, BigObjAdd, ObjCreate
+#include "object_external.h"         // for OBJ_ROOM, OF_BIG_OBJECT
+#include "object_external_struct.h"  // for ROOMNUM_OUTSIDE
+#include "pserror.h"                 // for ASSERT, Int3
+#include "special_face.h"            // for BAD_SPECIAL_FACE_INDEX, FreeSpec...
+#include "terrain.h"                 // for GetTerrainRoomFromPos
+#include "vecmat.h"                  // for vm_VectorDistance, vm_GetMagnitude
+
 #ifdef EDITOR
 #include "editor\editor_lighting.h"
 #endif
 #ifdef NEWEDITOR
 #include "neweditor\editor_lighting.h"
 #endif
-#include "bnode.h"
 
 // Global array of rooms
 room Rooms[MAX_ROOMS + MAX_PALETTE_ROOMS];
@@ -1088,7 +1088,7 @@ int CheckTransparentPoint(const vector *pnt, const room *rp, const int facenum) 
 
 // Computes a bounding sphere for the current room
 // Parameters: center - filled in with the center point of the sphere
-//		rp - the room we’re bounding
+//		rp - the room weï¿½re bounding
 // Returns: the radius of the bounding sphere
 float ComputeRoomBoundingSphere(vector *center, room *rp) {
   // This algorithm is from Graphics Gems I.  There's a better algorithm in Graphics Gems III that

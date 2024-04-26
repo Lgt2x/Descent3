@@ -289,25 +289,34 @@
  */
 
 #include "Inventory.h"
-
-#include "mono.h"
-#include "player.h"
-#include "pserror.h"
-#include "objinfo.h"
-#include "room.h"
-#include "weapon.h"
-#include "game.h"
-#include "multi.h"
-#include "osiris_dll.h"
-#include "mem.h"
-#include "ObjScript.h"
-#include "osiris_share.h"
-#include "stringtable.h"
-#include "hud.h"
-#include "hlsoundlib.h"
-#include "sounds.h"
-#include "AIMain.h"
-#include "levelgoal.h"
+#include <string.h>                  // for NULL, strcpy, strlen
+#include "AIMain.h"                  // for AINotify, AI_SOUND_SHORT_DIST
+#include "ObjScript.h"               // for InitObjectScripts
+#include "aistruct.h"                // for ain_hear
+#include "aistruct_external.h"       // for AIN_HEAR_NOISE
+#include "bitmap.h"                  // for GameBitmaps
+#include "game.h"                    // for GM_MULTI, Game_mode
+#include "gametexture.h"             // for GameTextures
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "hud.h"                     // for AddHUDMessage
+#include "levelgoal.h"               // for Level_goals, levelgoals
+#include "levelgoal_external.h"      // for LGF_COMP_DESTROY, LIT_OBJECT
+#include "mem.h"                     // for mem_strdup, mem_malloc, mem_free
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for Netgame, MultiSendGhostObject
+#include "multi_external.h"          // for LR_SERVER
+#include "object.h"                  // for ObjGet, Objects, ObjUnGhostObject
+#include "object_external.h"         // for OF_INPLAYERINVENTORY, OBJ_WEAPON
+#include "object_external_struct.h"  // for object
+#include "objinfo.h"                 // for Object_info, OIF_INVEN_NOREMOVE
+#include "osiris_dll.h"              // for Osiris_CallEvent
+#include "osiris_share.h"            // for INVAF_LEVELLAST, INVAF_NOTSPEWABLE
+#include "player.h"                  // for Player_num, Players
+#include "player_external_struct.h"  // for MAX_PLAYERS
+#include "pserror.h"                 // for ASSERT, Int3
+#include "sounds.h"                  // for SOUND_CHANGE_COUNTERMEASURE, SOU...
+#include "stringtable.h"             // for TXT_WPNSELECT
+#include "weapon.h"                  // for Weapons, CreateCountermeasureFro...
 
 // constructor
 Inventory::Inventory(void) {

@@ -73,20 +73,13 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
 #include "d3serial.h"
-#include "game.h"
-#include "debug.h"
-#include "descent.h"
-#include <time.h>
-#include "mono.h"
-#include "cfile.h"
-#include "program.h"
-
-#include <fcntl.h>
+#include <stdio.h>    // for snprintf
+#include <stdlib.h>   // for strtol
+#include <string.h>   // for strcpy, strlen
+#include <time.h>     // for time_t, NULL, time
+#include "debug.h"    // for Debug_MessageBox, OSMBOX_OK
+#include "descent.h"  // for PRODUCT_NAME
 
 #define SERIAL_NO_ERR 0
 #define SERIAL_EXPIRED 1

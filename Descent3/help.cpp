@@ -126,21 +126,11 @@
  */
 
 #include "help.h"
-#include "mono.h"
-#include "renderer.h"
-#include "render.h"
-#include "ddio.h"
-#include "descent.h"
-#include "game.h"
-#include "cfile.h"
-#include "application.h"
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include "newui.h"
-#include "grtext.h"
-#include "gamefont.h"
-#include "stringtable.h"
+#include <stdlib.h>       // for NULL
+#include "ddio_common.h"  // for KEY_F1
+#include "newui_core.h"   // for newuiTiledWindow, newuiSheet, NEWUIRES_FORC...
+#include "stringtable.h"  // for TXT, TXT_HELP, TXI_DISPLAYGAMEMSGCONSOLE
+#include "ui.h"           // for UID_CANCEL
 
 #define TITLETEXT TXT_HELP
 int HelpText[] = {TXI_ESC,

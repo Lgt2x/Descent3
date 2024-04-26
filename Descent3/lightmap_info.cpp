@@ -17,18 +17,16 @@
 */
 
 // Lightmap info
-#include "pstypes.h"
-
 #include "lightmap_info.h"
-#include "lightmap.h"
-#include "mono.h"
-#include "Ddgr.h"
-#include "grdefs.h"
-#include "renderer.h"
-#include <stdlib.h>
-#include <string.h>
-#include "mem.h"
-#include "dedicated_server.h"
+#include <stdlib.h>            // for NULL, atexit
+#include <string.h>            // for memcpy, memset
+#include "dedicated_server.h"  // for Dedicated_server
+#include "grdefs.h"            // for GR_16_TO_COLOR, GR_COLOR_BLUE, GR_COLO...
+#include "lightmap.h"          // for lm_data, BAD_LM_INDEX, lm_AllocLightmap
+#include "mem.h"               // for mem_free, mem_malloc
+#include "pserror.h"           // for ASSERT, Int3
+#include "pstypes.h"           // for ushort
+#include "renderer.h"          // for rend_FreePreUploadedTexture, MAP_TYPE_...
 
 int Num_of_lightmap_info = 0;
 lightmap_info *LightmapInfo = NULL;

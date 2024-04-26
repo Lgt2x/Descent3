@@ -19,10 +19,12 @@
 #ifndef SHIPPAGE_H
 #define SHIPPAGE_H
 
-#include "manage.h"
-#include "ship.h"
-#include "cfile.h"
-#include "pstypes.h"
+#include <stddef.h>                    // for NULL
+#include "cfile.h"                     // for CFILE
+#include "manage_external.h"           // for PAGENAME_LEN
+#include "player_external_struct.h"    // for MAX_PLAYER_WEAPONS
+#include "robotfirestruct_external.h"  // for MAX_WB_FIRING_MASKS, MAX_WB_GU...
+#include "ship.h"                      // for ship
 
 typedef struct {
   ship ship_struct;

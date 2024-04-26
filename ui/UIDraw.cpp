@@ -77,12 +77,15 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-#include "bitmap.h"
-#include "ddvid.h"
-#include "renderer.h"
-#include "grtext.h"
-#include "3d.h"
+#include "3d.h"        // for g3Point, PF_PROJECTED, p3_z
+#include "bitmap.h"    // for bm_h, bm_w
+#include "ddvid.h"     // for ddvid_GetAspectRatio, ddvid_GetVideoProperties
+#include "grdefs.h"    // for ddgr_color, TRANSPARENT_COLOR32
+#include "grtext.h"    // for grtext_Flush, grtext_SetParameters, grtext_Get...
+#include "pstypes.h"   // for ubyte
+#include "renderer.h"  // for rend_DrawLine, rend_SetFlatColor, rend_SetAlph...
+#include "uidraw.h"    // for UI_TEXTTYPE_SATURATE, UI_TEXTTYPE_SHADOW, ui_D...
+#include "uires.h"     // for UIBitmapItem
 
 //////////////////////////////////////////////////////////////////////////////
 //	VARIABLES

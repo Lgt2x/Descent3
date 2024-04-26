@@ -73,16 +73,25 @@
  *
  */
 
-#include <stdlib.h>
-#include <string.h>
-
 #include "ambient.h"
-
-#include "hlsoundlib.h"
-
-#include "room.h"
-#include "game.h"
-#include "psrand.h"
+#include <stdlib.h>                  // for atexit, NULL
+#include <string.h>                  // for strlen, strncmp
+#include "cfile.h"                   // for cf_ReadFloat, cf_ReadInt, cf_Wri...
+#include "ddio.h"                    // for ddio_MakePath
+#include "descent.h"                 // for Base_directory
+#include "game.h"                    // for Frametime
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "linux_fix.h"               // for _MAX_PATH, stricmp
+#include "mem.h"                     // for mem_free, mem_malloc
+#include "object.h"                  // for Viewer_object
+#include "object_external_struct.h"  // for OBJECT_OUTSIDE
+#include "pserror.h"                 // for Int3, ASSERT
+#include "psrand.h"                  // for ps_rand, RAND_MAX
+#include "pstypes.h"                 // for ubyte
+#include "room.h"                    // for Rooms
+#include "room_external.h"           // for room
+#include "soundload.h"               // for FindSoundName
+#include "ssl_lib.h"                 // for Sounds
 
 #define MAX_AMBIENT_SOUND_PATTERNS 100
 asp Ambient_sound_patterns[MAX_AMBIENT_SOUND_PATTERNS];
@@ -154,11 +163,6 @@ void InitAmbientSounds() {
     }
   }
 }
-
-#include "ddio.h"
-#include "soundload.h"
-#include "descent.h"
-#include "mem.h"
 
 // Close down ambient sound system and free data
 void FreeAmbientSoundData() {

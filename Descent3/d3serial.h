@@ -42,8 +42,6 @@
 #ifndef __SERIALIZE_H_
 #define __SERIALIZE_H_
 
-#include <time.h>
-
 #define DESC_ID_LEN 40       // how long the id string can be
 #define DESC_CHECKSUM_LEN 4  // checksum is 4 bytes
 #define DESC_SERIALNUM_LEN 4 // serialnum is 4 bytes

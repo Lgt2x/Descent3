@@ -100,22 +100,21 @@
  *
  * $NoKeywords: $
  */
-#include "mono.h"
-#include "renderer.h"
-#include "render.h"
-#include "ddio.h"
-#include "descent.h"
-#include "game.h"
-#include "cfile.h"
-#include "application.h"
-#include <stdlib.h>
-#include <string.h>
-#include "newui.h"
-#include "grtext.h"
-#include "gamefont.h"
-#include "stringtable.h"
-#include "ConfigItem.h" //for colors
-#include "mem.h"
+
+#include <stdio.h>        // for snprintf
+#include <string.h>       // for strcpy, strlen, strncpy
+#include "cfile.h"        // for cfexist
+#include "ddio.h"         // for ddio_SetWorkingDir, ddio_DirExists, ddio_Ma...
+#include "linux_fix.h"    // for _MAX_PATH, _MAX_FNAME, stricmp
+#include "manage.h"       // for LocalD3Dir
+#include "mem.h"          // for mem_free, mem_malloc, mem_strdup
+#include "mono.h"         // for mprintf
+#include "newui.h"        // for NewUIGameWindow, DoMessageBox, PFDF_FILEMUS...
+#include "newui_core.h"   // for newuiSheet, newuiListBox, newuiTiledWindow
+#include "pserror.h"      // for ASSERT, Int3
+#include "renderer.h"     // for rend_Flip
+#include "stringtable.h"  // for TXT_ERROR, TXT_ERRCHOOSEFILE, TXT_ERRFILENO...
+#include "ui.h"           // for UID_CANCEL, UID_OK, UIF_CENTER, UIF_PROCESS...
 
 newuiListBox *path_list = NULL;
 char *path_edit = NULL;

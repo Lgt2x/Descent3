@@ -624,52 +624,66 @@
  *
  */
 
-#include "args.h"
-#include "multi.h"
-#include "multi_server.h"
-#include "player.h"
-#include "game.h"
-#include "mono.h"
-#include "ddio.h"
-#include "hud.h"
-#include "pilot.h"
-#include "BOA.h"
-#include "LoadLevel.h"
-#include "Mission.h"
-#include "game2dll.h"
-#include "stringtable.h"
-
-// #define USE_DIRECTPLAY
-
 #ifdef USE_DIRECTPLAY
 #include "directplay.h"
 #endif
 
-#include "dedicated_server.h"
-#include "damage.h"
-// #include "gamespy.h"
-#include "multi_world_state.h"
-#include "ObjScript.h"
-#include "marker.h"
-#include "findintersection.h"
-#include "weapon.h"
-#include "weather.h"
-#include "doorway.h"
-#include "object_lighting.h"
-#include "ship.h"
-#include "pstring.h"
-#include "audiotaunts.h"
-
-#include "ui.h"
-#include "newui.h"
-#include "multi_dll_mgr.h"
-#include "spew.h"
-#include "psrand.h"
-#include "polymodel.h"
-#include "init.h"
-#include "../md5/md5.h"
-
-#include <algorithm>
+#include "multi_server.h"
+#include <stdio.h>                      // for snprintf, sprintf
+#include <stdlib.h>                     // for atof, atoi
+#include <string.h>                     // for memcpy, strcpy, NULL, strlen
+#include <algorithm>                    // for min
+#include "../md5/md5.h"                 // for MD5
+#include "BOA.h"                        // for BOA_IsVisible
+#include "LoadLevel.h"                  // for Level_md5
+#include "Mission.h"                    // for MAX_KEYWORDLEN, MissionGetKey...
+#include "ObjScript.h"                  // for InitObjectScripts
+#include "args.h"                       // for FindArg, GameArgs
+#include "audiotaunts.h"                // for taunt_SetDelayTime
+#include "d3events.h"                   // for EVT_CLIENT_GAMECOLLIDE, EVT_C...
+#include "damage_external.h"            // for PD_NONE
+#include "ddio.h"                       // for timer_GetTime
+#include "dedicated_server.h"           // for PrintDedicatedMessage, Dedica...
+#include "descent.h"                    // for SetFunctionMode, function_mode
+#include "doorway.h"                    // for doorway, DF_LOCKED
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_IGNORE_NON_...
+#include "game.h"                       // for Frametime, SetGamemodeScript
+#include "game2dll.h"                   // for DLLInfo, CallGameDLL, GetDLLN...
+#include "gametexture.h"                // for GameTextures
+#include "hud.h"                        // for AddHUDMessage
+#include "init.h"                       // for LastPacketReceived
+#include "manage_external.h"            // for PAGENAME_LEN
+#include "marker.h"                     // for MarkerMessages
+#include "mono.h"                       // for mprintf, mprintf_at
+#include "multi.h"                      // for NetPlayers, END_DATA, START_DATA
+#include "multi_dll_mgr.h"              // for CallMultiDLL, MT_EVT_FIRST_FRAME
+#include "multi_world_state.h"          // for WS_END, OCF_LIGHT_COLOR, OCF_...
+#include "networking.h"                 // for nw_SendReliable, network_address
+#include "newui.h"                      // for DoMessageBox, DoEditDialog
+#include "newui_core.h"                 // for MSGBOX_OK
+#include "object.h"                     // for Objects, HANDLE_OBJNUM_MASK
+#include "object_external.h"            // for OBJ_NONE, OF_DEAD, OF_CLIENT_...
+#include "object_lighting.h"            // for ObjGetLightInfo
+#include "objinfo.h"                    // for FindObjectIDName
+#include "pilot.h"                      // for Current_pilot
+#include "pilot_class.h"                // for pilot, PPIC_INVALID_ID
+#include "player.h"                     // for Players, Player_num, PlayerGe...
+#include "player_external.h"            // for PLAYER_FLAGS_DEAD, PLAYER_FLA...
+#include "player_external_struct.h"     // for MAX_PLAYERS
+#include "polymodel.h"                  // for Poly_models
+#include "polymodel_external.h"         // for poly_model
+#include "pserror.h"                    // for ASSERT
+#include "psrand.h"                     // for ps_rand, ps_srand
+#include "room.h"                       // for Rooms, Highest_room_index
+#include "room_external.h"              // for PF_CHANGED, FF_TEXTURE_CHANGED
+#include "ship.h"                       // for Ships, FindShipName, MAX_SHIPS
+#include "spew.h"                       // for SpewEffects, MAX_SPEW_EFFECTS
+#include "stringtable.h"                // for TXT, TXT_MULTI_RANKS, TXT_HAS...
+#include "terrain.h"                    // for GetTerrainRoomFromPos
+#include "vecmat_external.h"            // for operator*, operator+, vector
+#include "weapon.h"                     // for SECONDARY_INDEX
+#include "weather.h"                    // for Weather
 
 void MultiProcessShipChecksum(MD5 *md5, int ship_index);
 

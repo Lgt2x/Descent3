@@ -117,13 +117,11 @@
  * $NoKeywords: $
  */
 
-#include <string.h>
-
 #include "door.h"
-#include "pserror.h"
-#include "polymodel.h"
-#include "game.h"
-#include "doorway.h"
+#include <string.h>     // for memset, NULL
+#include "linux_fix.h"  // for stricmp
+#include "polymodel.h"  // for LoadPolyModel
+#include "pserror.h"    // for ASSERT, Int3
 
 //	---------------------------------------------------------------------------
 //	Globals

@@ -56,9 +56,9 @@
 #ifndef __INGAME_CINEMATICS_H_
 #define __INGAME_CINEMATICS_H_
 
-#include "vecmat_external.h"
-#include "gamecinematics_external.h"
-#include "hud.h"
+#include "gamecinematics_external.h"  // for tCannedCinematicInfo, tGameCine...
+#include "hud.h"                      // for tHUDMode
+#include "pstypes.h"                  // for ubyte
 
 //	Cinematic_Init
 //

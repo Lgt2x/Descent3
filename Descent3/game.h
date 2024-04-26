@@ -183,9 +183,9 @@
 #ifndef _GAME_H
 #define _GAME_H
 
-#include "pserror.h"
-#include "renderer.h"
-#include "object.h"
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"                 // for ubyte
+#include "renderer.h"                // for renderer_preferred_state, render...
 
 //	return 0 if we wan't to return to the menu, or return 1 if everything
 //	is okay. starts a new game based off the current mission.

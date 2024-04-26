@@ -193,11 +193,14 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-#include "pstypes.h"
-#include "manage.h"
-#include "object.h"
-#include "objinfo.h"
-#include "weapon_external.h"
+#include <stddef.h>                  // for NULL
+#include "cfile.h"                   // for CFILE
+#include "manage_external.h"         // for PAGENAME_LEN
+#include "object_external_struct.h"  // for object, light_info, physics_info
+#include "pstypes.h"                 // for ushort, ubyte
+#include "robotfirestruct.h"         // for otype_wb_info
+#include "vecmat_external.h"         // for vector
+#include "weapon_external.h"         // for BLACKSHARK_INDEX, CONCUSSION_INDEX
 
 #define MAX_PRIMARY_WEAPONS 10
 #define MAX_SECONDARY_WEAPONS 10

@@ -43,30 +43,15 @@
 
 // Keyboard handler for SVGAlib
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <stdarg.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <errno.h>
-#include <signal.h>
-#include <sys/stat.h>
-// #include <linux/keyboard.h>
-#include <sys/ioctl.h>
-#include <string.h>
-#include <sys/time.h>
-#include <sys/types.h>
-// #include <linux/unistd.h>
-#include <termios.h>
-#include <term.h>
-
-#include "ddio_common.h"
-#include "ddio.h"
-#include "mono.h"
+#include <signal.h>             // for sigaction, sigfillset, SIGINT, sa_han...
+#include <stdlib.h>             // for atexit, exit
+#include <termios.h>            // for termios, tcsetattr, TCSANOW, tcgetattr
+#include <unistd.h>             // for read, NULL
+#include "ddio.h"               // for timer_GetTime
+#include "ddio_common.h"        // for ddio_UpdateKeyState, KEY_LALT, KEY_LCTRL
+#include "debug.h"              // for ddio_InternalKeyClose
+#include "mono.h"               // for mprintf
+#include "pstypes.h"            // for ubyte
 
 // ##########################################################
 //  raw Interface Functions

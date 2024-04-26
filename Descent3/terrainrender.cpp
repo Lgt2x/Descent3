@@ -786,45 +786,52 @@
  *
  * $NoKeywords: $
  */
+
+#include <stdlib.h>                     // for qsort, NULL
+#include <algorithm>                    // for max
+#include "3d.h"                         // for p3_u, p3_v, g3_DrawPoly, g3_C...
+#include "bitmap.h"                     // for bm_h, bm_w
+#include "config.h"                     // for Detail_settings
+#include "descent.h"                    // for GetFunctionMode, function_mode
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for FQ_EXTERNAL_ROOMS_AS_SPHERE
+#include "fireball.h"                   // for DrawColoredRing, Fireballs
+#include "fireball_external.h"          // for LIGHTNING_ORIGIN_INDEXA, LIGH...
+#include "game.h"                       // for UseHardware, Frametime, GetFPS
+#include "gameloop.h"                   // for Rendering_main_view
+#include "gametexture.h"                // for GetTextureBitmap, GameTextures
+#include "grdefs.h"                     // for GR_RGB, GR_COLOR_BLUE, GR_COL...
+#include "mono.h"                       // for mprintf_at
+#include "object.h"                     // for Viewer_object, Objects, Highe...
+#include "object_external.h"            // for OBJ_ROOM, RT_NONE, OBJ_NONE
+#include "object_external_struct.h"     // for object, OBJECT_OUTSIDE, MAX_O...
+#include "player.h"                     // for Players
+#include "postrender.h"                 // for Num_postrenders, Postrender_list
+#include "pserror.h"                    // for ASSERT
+#include "psrand.h"                     // for ps_rand
+#include "pstypes.h"                    // for ubyte
+#include "render.h"                     // for OUTLINE_ON, OM_TERRAIN, State...
+#include "renderer.h"                   // for g3Point, rend_SetAlphaType
+#include "renderobject.h"               // for IsPointVisible, RenderObject
+#include "room.h"                       // for Rooms, MAX_ROOMS
+#include "room_external.h"              // for room, RF_EXTERNAL
+#include "terrain.h"                    // for Terrain_list, TERRAIN_WIDTH
+#include "vecmat.h"                     // for vm_AnglesToMatrix, vm_MatrixM...
+#include "vecmat_external.h"            // for vector, operator*, operator+
+#include "viseffect.h"                  // for VisEffects, DrawVisEffect
+#include "viseffect_external.h"         // for VF_WINDSHIELD_EFFECT, MAX_VIS...
+#include "weapon.h"                     // for Weapons, WF_ELECTRICAL, WF_ST...
+#include "weather.h"                    // for Weather, WEATHER_FLAGS_LIGHTNING
+
 #ifdef NEWEDITOR
 #include "neweditor\globals.h"
 void RenderMine(int viewer_roomnum, int flag_automap, int called_from_terrain, bool render_all, bool outline, bool flat,
                 prim *prim);
 #endif
-#include "terrain.h"
-#include "grdefs.h"
-#include "3d.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "renderer.h"
-#include "gametexture.h"
-#include "descent.h"
-#include "render.h"
-#include "game.h"
-#include "texture.h"
-#include "ddio.h"
-#include "polymodel.h"
-#include "lighting.h"
-#include "vecmat.h"
-#include "renderobject.h"
-#include "findintersection.h"
-#include "weapon.h"
-#include "weather.h"
-#include "viseffect.h"
 #ifdef EDITOR
 #include "editor\d3edit.h"
 #endif
-#include "fireball.h"
-#include <string.h>
-#include <stdlib.h>
-#include "config.h"
-#include "gameloop.h"
-#include "postrender.h"
-#include "Macros.h"
-#include "psrand.h"
-#include "player.h"
 
-#include <algorithm>
 
 #define TERRAIN_PERSPECTIVE_TEXTURE_DEPTH 1 * TERRAIN_SIZE
 #define LOD_ROW_SIZE (MAX_LOD_SIZE + 1)

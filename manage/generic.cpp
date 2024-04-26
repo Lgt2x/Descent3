@@ -355,21 +355,35 @@
 #include <windows.h>
 #endif
 
-#include "cfile.h"
-#include "manage.h"
-#include "genericpage.h"
-#include "soundpage.h"
-#include "weaponpage.h"
-#include "mono.h"
-#include "pserror.h"
-#include "polymodel.h"
-#include "ddio.h"
-#include <string.h>
-#include "robotfire.h"
-#include "weapon.h"
-#include "sounds.h"
-#include "mem.h"
-#include "args.h"
+#include <stdio.h>                     // for SEEK_CUR, SEEK_SET
+#include <string.h>                    // for strcpy, strlen, NULL, memcpy
+#include "aistruct.h"                  // for MAX_AI_SOUNDS
+#include "aistruct_external.h"         // for AI_NOTIFIES_ALWAYS_ON, AIF_AUT...
+#include "args.h"                      // for FindArg, GameArgs
+#include "cfile.h"                     // for cf_WriteByte, cf_ReadFloat
+#include "ddio.h"                      // for ddio_MakePath
+#include "deathinfo_external.h"        // for DF_UNUSED
+#include "genericpage.h"               // for mngs_generic_page, mng_AssignG...
+#include "linux_fix.h"                 // for stricmp, strnicmp
+#include "manage.h"                    // for PAGETYPE_GENERIC, Loading_addo...
+#include "manage_external.h" generic          // for PAGENAME_LEN
+#include "mem.h"                       // for mem_malloc, mem_free
+#include "mono.h"                      // for mprintf
+#include "object.h"                    // for LRT_STATIC, MAX_MODULENAME_LEN
+#include "object_external.h"           // for OBJ_NONE, OBJ_POWERUP, OBJ_BUI...
+#include "object_external_struct.h"    // for light_info
+#include "objinfo.h"                   // for NUM_ANIMS_PER_CLASS, NUM_MOVEM...
+#include "polymodel.h"                 // for LoadPolyModel, Poly_models
+#include "pserror.h"                   // for ASSERT, Int3
+#include "pstypes.h"                   // for ubyte, ushort
+#include "robotfirestruct.h"           // for MAX_WBS_PER_OBJ, otype_wb_info
+#include "robotfirestruct_external.h"  // for MAX_WB_FIRING_MASKS, MAX_WB_GU...
+#include "soundpage.h"                 // for mng_GetGuaranteedSoundPage
+#include "sounds.h"                    // for SOUND_NONE_INDEX
+#include "ssl_lib.h"                   // for Sounds
+#include "weapon.h"                    // for Weapons
+#include "weapon_external.h"           // for LASER_INDEX
+#include "weaponpage.h"                // for mng_GetGuaranteedWeaponPage
 
 #define GENERICFILE_VERSION 27
 

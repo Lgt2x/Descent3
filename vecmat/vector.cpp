@@ -146,14 +146,15 @@
  * $NoKeywords: $
  */
 
-#include <string.h>
-#include <stdlib.h>
-#include <math.h>
-
-#include "vecmat.h"
-#include "mono.h"
-#include "pserror.h"
-#include "psrand.h"
+#include <assert.h>           // for assert
+#include <stdlib.h>           // for NULL
+#include <string.h>           // for memset
+#include <cmath>              // for fabs, sqrt
+#include "fix.h"              // for FixCos, FixSin, FixAtan2, FixAcos
+#include "pserror.h"          // for ASSERT, Int3
+#include "psrand.h"           // for ps_rand, RAND_MAX
+#include "vecmat.h"           // for calc_det_value, operator*, operator*=
+#include "vecmat_external.h"  // for vector, vm_Dot3Vector, matrix, operator+=
 
 const vector Zero_vector = {0.0, 0.0, 0.0};
 const matrix Identity_matrix = IDENTITY_MATRIX;

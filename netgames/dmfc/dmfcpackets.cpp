@@ -106,13 +106,13 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-
-#ifdef MACINTOSH
-#include <stdlib.h>
-#endif
+#include <stdio.h>           // for snprintf
+#include <stdlib.h>          // for malloc
+#include <string.h>          // for strlen, memcpy, NULL, strcpy
+#include "dmfcinternal.h"    // for DMFCBase, tSPHandler, SP_SERVER, BLUE_TEAM
+#include "gamedll_header.h"  // for DLLMultiSendSpecialPacket, DLLMultiClien...
+#include "multi_external.h"  // for MultiAddByte, MultiGetByte, MAX_GAME_DAT...
+#include "pstypes.h"         // for ubyte
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

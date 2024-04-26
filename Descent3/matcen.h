@@ -19,9 +19,10 @@
 #ifndef _MATCEN_H_
 #define _MATCEN_H_
 
-#include "cfile.h"
-#include "vecmat.h"
-#include "matcen_external.h"
+#include "cfile.h"            // for CFILE
+#include "matcen_external.h"  // for MAX_PROD_TYPES, MAX_SPAWN_PNTS, MAX_MAT...
+#include "pstypes.h"          // for ubyte
+#include "vecmat_external.h"  // for vector
 
 #define MAX_MATCENS 60
 #define MAX_MATCEN_NAME_LEN 32

@@ -165,7 +165,9 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-#include "3d.h"
+#include "3d.h"               // for g3Point
+#include "pstypes.h"          // for ubyte
+#include "vecmat_external.h"  // for vector, matrix
 
 // Variables for debug/test
 #if (defined(_DEBUG) || defined(NEWEDITOR))

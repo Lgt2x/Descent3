@@ -121,24 +121,22 @@
  */
 
 //	ancillary includes
-#include "game.h"
-#include "vecmat.h"
-#include "ddio.h"
-#include "pserror.h"
-#include "object.h"
-#include "damage.h"
-#include "viseffect.h"
-#include "fireball.h"
 #include "spew.h"
-#include "weapon.h"
-#include "polymodel.h"
-
-//	ANSI C includes
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-
-#include "psrand.h"
+#include <stdlib.h>                  // for NULL
+#include "fireball.h"                // for NUM_FIREBALLS
+#include "fireball_external.h"       // for MED_SMOKE_INDEX
+#include "game.h"                    // for Gametime, Frametime
+#include "mono.h"                    // for mprintf
+#include "object.h"                  // for ObjGet
+#include "object_external.h"         // for OF_MOVED_THIS_FRAME, OF_POLYGON_...
+#include "object_external_struct.h"  // for object
+#include "polymodel.h"               // for Poly_models, SetModelAnglesAndPos
+#include "polymodel_external.h"      // for poly_model, MAX_SUBOBJECTS, SOF_...
+#include "pserror.h"                 // for ASSERT
+#include "psrand.h"                  // for RAND_MAX, ps_rand
+#include "viseffect.h"               // for VisEffectCreateControlled
+#include "viseffect_external.h"      // for VIS_FIREBALL
+#include "weapon.h"                  // for WeaponCalcGun
 
 #define MAX_SPEWS_PER_FRAME 5 // maximum number of spews 1 can emit per frame
 

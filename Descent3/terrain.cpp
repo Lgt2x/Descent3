@@ -16,32 +16,35 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
+#include "terrain.h"
+#include <string.h>            // for memset
+#include <algorithm>           // for max, min
+#include <cmath>               // for fabs, acos
+#include "cfile.h"             // for cf_ReadShort, cf_ReadByte, cf_ReadInt
+#include "dedicated_server.h"  // for Dedicated_server
+#include "fix.h"               // for FixCos, FixSin, PI
+#include "gametexture.h"       // for FindTextureName
+#include "lighting.h"          // for Float_to_ubyte
+#include "lightmap.h"          // for GameLightmaps, lm_data, lm_w, LF_CHANGED
+#include "mem.h"               // for mem_free, mem_malloc
+#include "mono.h"              // for mprintf
+#include "pserror.h"           // for ASSERT, Int3
+#include "psrand.h"            // for ps_rand
+#include "renderer.h"          // for g3Point
+#include "vecmat.h"            // for vm_GetNormal, vm_AddVectors, vm_Angles...
+#include "weather.h"           // for ResetWeather
+
 #ifdef NEWEDITOR
 #include "neweditor\globals.h"
 #else
 #include <stdlib.h>
 #endif
-#include "vecmat.h"
-#include "object.h"
-#include "mono.h"
-#include "terrain.h"
-#include "pserror.h"
-#include "texture.h"
-#include "bitmap.h"
-#include "gametexture.h"
-#include "lighting.h"
-#include "lightmap.h"
-#include "weather.h"
-#include <string.h>
-#include "mem.h"
-#include "Macros.h"
-#include "dedicated_server.h"
-#include "psrand.h"
+
 #ifdef EDITOR
 #include "editor\d3edit.h"
 #endif
 
-#include <algorithm>
 
 #define SKY_RADIUS 2500.0
 #define DEFAULT_LIGHT_SOURCE                                                                                           \

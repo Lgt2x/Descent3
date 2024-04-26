@@ -48,12 +48,14 @@
  * $NoKeywords: $
  */
 
-#include "vecmat.h"
-#include "terrain.h"
-#include "pstypes.h"
-#include "findintersection.h"
 #include "aiterrain.h"
-#include <string.h>
+#include <assert.h>                  // for assert
+#include <string.h>                  // for memset
+#include "fix.h"                     // for angle
+#include "object_external_struct.h"  // for CELLNUM, MAKE_ROOMNUM
+#include "pserror.h"                 // for ASSERT
+#include "pstypes.h"                 // for ubyte
+#include "terrain.h"                 // for TERRAIN_WIDTH, TERRAIN_SIZE, TER...
 
 #define AI_MAX_SEGS_CHECKED 200
 

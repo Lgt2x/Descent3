@@ -20,10 +20,10 @@
 #ifndef WEAPONPAGE_H
 #define WEAPONPAGE_H
 
-#include "manage.h"
-#include "weapon.h"
-#include "cfile.h"
-#include "pstypes.h"
+#include <stddef.h>           // for NULL
+#include "cfile.h"            // for CFILE
+#include "manage_external.h"  // for PAGENAME_LEN
+#include "weapon.h"           // for MAX_WEAPON_SOUNDS, weapon
 
 typedef struct {
   weapon weapon_struct;

@@ -117,8 +117,11 @@
 #ifndef _BOA_H__
 #define _BOA_H__
 
-#include "room.h"
-#include "terrain.h"
+#include <stddef.h>                  // for NULL
+#include "object_external_struct.h"  // for ROOMNUM_OUTSIDE, object
+#include "room.h"                    // for Highest_room_index, MAX_ROOMS
+#include "terrain.h"                 // for TERRAIN_REGION
+#include "vecmat_external.h"         // for vector
 
 #define MAX_PATH_PORTALS 40
 #define MAX_BOA_TERRAIN_REGIONS 8

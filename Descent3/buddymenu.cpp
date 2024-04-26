@@ -52,30 +52,31 @@
  * $NoKeywords: $
  */
 
-#include "help.h"
-#include "mono.h"
-#include "renderer.h"
-#include "render.h"
-#include "ddio.h"
-#include "descent.h"
-#include "game.h"
-#include "cfile.h"
-#include "application.h"
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include "newui.h"
-#include "grtext.h"
-#include "gamefont.h"
-#include "AIMain.h"
-#include "robot.h"
-#include "hud.h"
-#include "stringtable.h"
-#include "textaux.h"
-#include "multi.h"
-
-#include "osiris_share.h"
-#include "multi.h"
+#include <stdio.h>                   // for snprintf
+#include <string.h>                  // for memcpy, strlen
+#include "AIMain.h"                  // for AINotify, Buddy_handle
+#include "aistruct_external.h"       // for AIN_USER_DEFINED
+#include "ddio.h"                    // for ddio_MouseQueueFlush
+#include "ddio_common.h"             // for ddio_AsciiToKey, KEY_ESC, KEY_F4
+#include "game.h"                    // for GM_MULTI, Game_mode
+#include "gamefont.h"                // for MONITOR9_NEWUI_FONT
+#include "grtext.h"                  // for grtext_GetTextHeight, grtext_Set...
+#include "hud.h"                     // for AddHUDMessage
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for Netgame, END_DATA, START_DATA
+#include "multi_external.h"          // for MultiAddShort, MultiGetShort
+#include "networking.h"              // for nw_SendReliable
+#include "newui.h"                   // for DoEditDialog
+#include "newui_core.h"              // for newuiTiledWindow, newuiSheet
+#include "object.h"                  // for ObjGet
+#include "object_external_struct.h"  // for object
+#include "osiris_share.h"            // for gb_com, gb_menu, COM_GET_MENU
+#include "player.h"                  // for Player_num, Player_object
+#include "pserror.h"                 // for Int3, ASSERT
+#include "pstypes.h"                 // for ubyte
+#include "stringtable.h"             // for TXT_NOGUIDEBOT, TXT_ACCESSGUIDEBOT
+#include "textaux.h"                 // for textaux_WordWrap
+#include "ui.h"                      // for UID_CANCEL, UID_OK, N_WINDOW_ACCELS
 
 #define GB_MENU_REQ_TEXT 1
 #define GB_MENU_REQ_SELECT 2

@@ -22,13 +22,13 @@
  * $NoKeywords: $
  */
 
-#include "pserror.h"
-#include "ddvid.h"
-#include "application.h"
-#include "linux/lnxapp.h"
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <stdio.h>         // for NULL
+#include <stdlib.h>        // for atexit
+#include "ddvid.h"         // for ddvid_Close, ddvid_GetAspectRatio, ddvid_G...
+#include "linux/lnxapp.h"  // for oeLnxApplication
+#include "pstypes.h"       // for ubyte
+class oeApplication;
+
 #undef EGA
 // #include <vga.h>
 typedef struct {

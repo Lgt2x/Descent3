@@ -38,11 +38,10 @@
  * $NoKeywords: $
  */
 
-#include <string.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "pstring.h"
+#include <stdarg.h>   // for va_list, va_end, va_start
+#include <stdio.h>    // for NULL
+#include <string.h>   // for strlen, strchr, strcpy
+#include "pstring.h"  // for tStringTok, CleanupStr, Psprintf, Pvsprintf
 
 #ifdef __LINUX__
 #include "lnxfix.h"

@@ -165,13 +165,24 @@
  *
  * $NoKeywords: $
  */
-#include "UIlib.h"
-#include "application.h"
-#include "bitmap.h"
-#include "ddvid.h"
-#include "renderer.h"
-#include "psclass.h"
-#include "Macros.h"
+
+#include <stddef.h>       // for NULL
+#include "Macros.h"       // for CHECK_FLAG
+#include "UIlib.h"        // for tUIOutput, ui_KeyFlush
+#include "bitmap.h"       // for bm_FreeBitmap, bm_AllocLoadFileBitmap, bm_h
+#include "ddio.h"         // for timer_GetTime, ddio_MouseGetEvent, ddio_Mou...
+#include "ddio_common.h"  // for ddio_GetAdjKeyState, ddio_KeyFlush, ddio_Ke...
+#include "grdefs.h"       // for FIXED_SCREEN_HEIGHT, FIXED_SCREEN_WIDTH
+#include "mono.h"         // for mprintf
+#include "pserror.h"      // for ASSERT
+#include "renderer.h"     // for rend_DrawScaledBitmap, rend_SetAlphaType
+#include "ui.h"           // for UIWindow
+#include "uidraw.h"       // for ui_EndDraw, ui_StartDraw
+#include "uires.h"        // for UITextItem
+#include "uisys.h"        // for UIKEY_PRESSED, UIMSEBTN_PRESSED, tUIInput
+class oeApplication;
+
+
 #define UI_MOUSE_HOTX 2
 #define UI_MOUSE_HOTY 2
 #define UI_FRAMETIME 0.05

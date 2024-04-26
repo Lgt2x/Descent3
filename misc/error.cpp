@@ -64,16 +64,15 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-
-#include "mono.h"
-#include "pserror.h"
-#include "pstring.h"
-#include "debug.h"
-#include "application.h"
+#include <stdarg.h>      // for va_end, va_list, va_start
+#include <stdio.h>       // for snprintf, NULL
+#include <stdlib.h>      // for exit, atexit
+#include <string.h>      // for strncpy, strcpy, strlen
+#include "debug.h"       // for Debug_MessageBox, Debug_ErrorBox, OSMBOX_OK
+#include "debugbreak.h"  // for debug_break
+#include "mono.h"        // for mprintf
+#include "pserror.h"     // for SetDebugBreakHandlers, OutrageMessageBox
+#include "pstring.h"     // for Pvsprintf
 
 #define MAX_MSG_LEN 2000
 

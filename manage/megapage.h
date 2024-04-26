@@ -19,10 +19,9 @@
 #ifndef MEGACELLPAGE_H
 #define MEGACELLPAGE_H
 
-#include "manage.h"
-#include "megacell.h"
-#include "cfile.h"
-#include "pstypes.h"
+#include "cfile.h"            // for CFILE
+#include "manage_external.h"  // for PAGENAME_LEN
+#include "megacell.h"         // for MAX_MEGACELL_HEIGHT, MAX_MEGACELL_WIDTH
 
 typedef struct {
   megacell megacell_struct;

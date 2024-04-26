@@ -190,12 +190,9 @@
 #ifndef DDIO_H
 #define DDIO_H
 
-class oeApplication;
-
-#include <stdio.h>
-
-#include "pstypes.h"
-#include "ddio_common.h"
+#include <stdio.h>        // for NULL, FILE
+#include "ddio_common.h"  // for ddio_init_info
+#include "pstypes.h"      // for ubyte, longlong
 
 // ----------------------------------------------------------------------------
 //	Initialization and destruction functions

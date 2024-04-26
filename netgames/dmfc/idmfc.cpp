@@ -41,7 +41,8 @@
  */
 
 #include "idmfc.h"
-#include "dmfcinternal.h"
+#include <string.h>        // for strcmp
+#include "dmfcinternal.h"  // for MenuItem, CDmfcStats, DMFCBase, MIT_CUSTOM
 
 /*
 ***********************************************

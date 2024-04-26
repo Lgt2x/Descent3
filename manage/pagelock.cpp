@@ -175,21 +175,19 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
-#include "cfile.h"
-#include "manage.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "mono.h"
-#include "string.h"
-#include "mem.h"
-#include "ddio.h"
-
-#ifndef RELEASE
-#include <time.h>
-#endif
+#include <errno.h>      // for errno
+#include <stdio.h>      // for snprintf, NULL, remove, rename, fclose, fflush
+#include <time.h>       // for localtime, strftime, time, time_t
+#include "cfile.h"      // for cfclose, CFILE, cfopen, cf_WriteByte, cf_Read...
+#include "ddio.h"       // for ddio_MakePath
+#include "debug.h"      // for IDNO, IDYES
+#include "linux_fix.h"  // for stricmp, strupr
+#include "manage.h"     // for ErrorString, mngs_Pagelock, TableLockFilename
+#include "mem.h"        // for mem_free, mem_malloc
+#include "mono.h"       // for mprintf
+#include "pserror.h"    // for OutrageMessageBox, Int3, ASSERT, MBOX_YESNO
+#include "pstypes.h"    // for ubyte
+#include "string.h"     // for strcpy, strlen, memset
 
 #define CURRENT_TABLE_VERSION 22
 extern char *PageNames[];

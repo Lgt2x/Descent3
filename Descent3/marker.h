@@ -19,7 +19,7 @@
 #ifndef MARKER_H
 #define MARKER_H
 
-#include "player.h"
+#include "player_external_struct.h"  // for MAX_PLAYERS
 
 #define MAX_MARKER_MESSAGE_LENGTH 40
 

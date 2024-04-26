@@ -17,27 +17,37 @@
 */
 
 #include "robotfire.h"
-#include "object.h"
-#include "objinfo.h"
+#include <stdlib.h>                    // for NULL
+#include "AIMain.h"                    // for AINotify, Buddy_handle
+#include "PHYSICS.H"                   // for phys_apply_force
+#include "SmallViews.h"                // for CreateSmallView, SVF_BIGGER
+#include "aistruct.h"                  // for ain_hear
+#include "aistruct_external.h"         // for AIF_GB_MIMIC_PLAYER_FIRING_HACK
+#include "config.h"                    // for Game_toggles
+#include "demofile.h"                  // for DemoWrite3DSound, DF_RECORDING
+#include "descent.h"                   // for D3_DEFAULT_ZOOM
+#include "game.h"                      // for GM_MULTI, Game_mode, Gametime
+#include "hlsoundlib.h"                // for Sound_system, hlsSystem
+#include "mono.h"                      // for mprintf
+#include "multi.h"                     // for Netgame, MultiSendFirePlayerWB
+#include "multi_external.h"            // for NF_PERMISSABLE, LR_CLIENT, LR_...
+#include "object.h"                    // for Objects, OBJNUM, ObjGet, Viewe...
+#include "object_external.h"           // for OBJ_PLAYER, CT_AI, OBJ_ROBOT
+#include "objinfo.h"                   // for Object_info
+#include "player.h"                    // for Players, Player_num
+#include "player_external.h"           // for PW_PRIMARY
+#include "polymodel.h"                 // for Poly_models
+#include "polymodel_external.h"        // for poly_model
+#include "pserror.h"                   // for ASSERT
+#include "psrand.h"                    // for ps_rand, RAND_MAX
+#include "robotfirestruct_external.h"  // for DWBF_ANIM_FIRED, DWBF_ANIMATING
+#include "ship.h"                      // for Ships, ship
+#include "sounds.h"                    // for SOUND_NONE_INDEX
+#include "ssl_lib.h"                   // for SND_PRIORITY_HIGHEST, MAX_GAME...
+#include "vecmat_external.h"           // for vm_MakeZero, operator*, operat...
+#include "weapon.h"                    // for Weapons, FireWeaponFromObject
+#include "weapon_external.h"           // for LASER_INDEX, NAPALM_INDEX, OME...
 
-#include "config.h" // for game toggles.
-#include "objinfo.h"
-#include "weapon.h"
-#include "ship.h"
-#include "game.h"
-#include "polymodel.h"
-#include "sounds.h"
-#include "hlsoundlib.h"
-#include "multi.h"
-#include "player.h"
-#include "demofile.h"
-#include "SmallViews.h"
-#include "PHYSICS.H"
-#include "AIMain.h"
-
-#include <stdlib.h>
-
-#include "psrand.h"
 // Fires a multiplayer and AI on/off weapon
 void FireOnOffWeapon(object *objp) {
   if (objp->type == OBJ_PLAYER) {

@@ -16,7 +16,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "RendererConfig.h"
+#include "RendererConfig.h" // IWYU pragma: keep
 #ifdef USE_SOFTWARE_TNL
 
 #if defined(WIN32)

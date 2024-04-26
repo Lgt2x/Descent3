@@ -104,11 +104,15 @@
  * $NoKeywords: $
  */
 
-#include "gr.h"
-#include "lib2d.h"
-#include "renderer.h"
+#include <stddef.h>    // for NULL
+#include "Ddgr.h"      // for ddgr_surface
+#include "Macros.h"    // for SWAP
+#include "gr.h"        // for grViewport, grSurface, grFont, DEFAULT_FONT
+#include "grdefs.h"    // for GR_WHITE, ddgr_color, GR_RGB
+#include "lib2d.h"     // for gr_mem_surf_Clear, gr_mem_surf_Init
+#include "pserror.h"   // for ASSERT
+#include "renderer.h"  // for rend_FillRect, rend_GetPixel, rend_SetPixel
 
-#include "pserror.h"
 
 #define CLIP_LEFT (vp_InitLeft + vp_Left)
 #define CLIP_TOP (vp_InitTop + vp_Top)

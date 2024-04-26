@@ -48,13 +48,24 @@
  *
  * $NoKeywords: $
  */
-#include "TelComEffects.h"
-#include "textaux.h"
-#include "mem.h"
-#include "hlsoundlib.h"
-#include <string.h>
-
-#include <stdlib.h>
+#include <stdlib.h>            // for abs, NULL
+#include <string.h>            // for strcpy, strlen
+#include "TelCom.h"            // for TelComSendEvent, tTCEvent, MAX_TELCOM_...
+#include "TelComEffects.h"     // for BltBmpToScreen, tceffect, UploadChunk
+#include "TelComEfxStructs.h"  // for TC_BMPF_OUT, TC_NOEARLYRENDER, OBF_MOU...
+#include "bitmap.h"            // for bm_data, bm_w, bm_h, bm_ClearBitmap
+#include "cinematics.h"        // for FrameMovie, EndMovie
+#include "gamefont.h"          // for Game_fonts
+#include "grdefs.h"            // for GR_16_TO_COLOR, GR_RGB, GR_COLOR_BLUE
+#include "grtext.h"            // for grtext_Printf, grtext_SetAlpha, grfont...
+#include "hlsoundlib.h"        // for Sound_system, hlsSystem
+#include "mem.h"               // for mem_free, mem_malloc
+#include "mono.h"              // for mprintf
+#include "pserror.h"           // for ASSERT, Int3
+#include "pstypes.h"           // for ushort, ubyte
+#include "renderer.h"          // for rend_SetFiltering, rend_DrawScaledBitmap
+#include "ssl_lib.h"           // for MAX_GAME_VOLUME
+#include "textaux.h"           // for textaux_CopyTextLine
 
 int glitch_dx = 0, glitch_dy = 0;
 extern tceffect TCEffects[MAX_TCEFFECTS];

@@ -1084,60 +1084,83 @@
  * $NoKeywords: $
  */
 
-#include "pserror.h"
-#include "player.h"
-#include "game.h"
-#include "hud.h"
-#include "gauges.h"
-#include "Mission.h"
-#include "vecmat.h"
-#include "fireball.h"
-#include "polymodel.h"
-#include "findintersection.h"
-#include "hud.h"
-#include "splinter.h"
-#include "PHYSICS.H"
-#include "viseffect.h"
-#include "damage.h"
-#include "multi.h"
-#include "ship.h"
-#include "gameevent.h"
-#include "gameloop.h"
-#include "descent.h"
-#include "cockpit.h"
-#include "game2dll.h"
-#include "robotfire.h"
-#include "robot.h"
-#include "AIMain.h"
-#include "aipath.h"
-#include "AIGoal.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "sounds.h"
-#include "weapon.h"
-#include "stringtable.h"
-#include "pilot.h"
-#include "vclip.h"
-#include <stdlib.h>
-#include "objinit.h"
-#include "difficulty.h"
-#include "ddio.h"
-#include "ObjScript.h"
-#include "gamecinematics.h"
-#include "demofile.h"
-#include "psrand.h"
-#include "osiris_share.h"
-#include "config.h"
-#include "osiris_dll.h"
-#include "gamesequence.h"
-#include "rocknride.h"
-#include "vibeinterface.h"
-
-#ifdef MACINTOSH
-#include "Macros.h"
-#endif
-
-#include <algorithm>
+#include <stdio.h>                      // for snprintf
+#include <string.h>                     // for memset
+#include <algorithm>                    // for min, max
+#include <cmath>                        // for tan
+#include "AIGoal.h"                     // for GoalInitTypeGoals
+#include "AIMain.h"                     // for Buddy_handle, AINotify
+#include "Controller.h"                 // for gameController
+#include "Inventory.h"                  // for Inventory, INVRESET_ALL, INVF...
+#include "Macros.h"                     // for stricmp
+#include "ObjScript.h"                  // for InitObjectScripts
+#include "PHYSICS.H"                    // for phys_apply_force
+#include "aipath.h"                     // for AIPathInitPath
+#include "aistruct.h"                   // for AIC_STATIC, AI_INVALID_INDEX
+#include "aistruct_external.h"          // for AIT_AIS, AIF_DISABLE_FIRING
+#include "bitmap.h"                     // for bm_FreeBitmap
+#include "config.h"                     // for Game_toggles
+#include "controls.h"                   // for Controller
+#include "d3events.h"                   // for EVT_CLIENT_GAMEPLAYERENTERSOB...
+#include "damage.h"                     // for SetNapalmDamageEffect, MAX_DA...
+#include "ddio.h"                       // for timer_GetTime
+#include "ddio_common.h"                // for ddio_KeyFlush
+#include "demofile.h"                   // for Demo_flags, DF_PLAYBACK, Demo...
+#include "descent.h"                    // for D3_DEFAULT_ZOOM
+#include "difficulty_external.h"        // for MAX_DIFFICULTY_LEVELS
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for HIT_NONE, HIT_WALL, FQ_CHECK_...
+#include "fireball.h"                   // for CreateFireball, VISUAL_FIREBALL
+#include "fireball_external.h"          // for HOT_SPARK_INDEX, BIG_EXPLOSIO...
+#include "game.h"                       // for GM_MULTI, Game_mode, Gametime
+#include "game2dll.h"                   // for DLLInfo, CallGameDLL
+#include "gamecinematics.h"             // for Cinematic_GetOldHudMode, Cine...
+#include "gameevent.h"                  // for CreateNewEvent, FOV_CHANGE_EVENT
+#include "gameloop.h"                   // for Render_FOV, Render_zoom
+#include "gamesequence.h"               // for GetGameState, tGameState
+#include "gametexture.h"                // for GameTextures, TF_ANIMATED
+#include "grdefs.h"                     // for GR_RGB
+#include "hlsoundlib.h"                 // for Sound_system, hlsSystem
+#include "hud.h"                        // for AddHUDMessage, SetHUDMode
+#include "linux_fix.h"                  // for _finite
+#include "mono.h"                       // for mprintf
+#include "multi.h"                      // for Netgame, NetPlayers, MultiMak...
+#include "multi_external.h"             // for LR_SERVER, MAX_NET_PLAYERS
+#include "object.h"                     // for Objects, ObjSetPos, SetObject...
+#include "object_external.h"            // for OBJ_POWERUP, OBJ_PLAYER, OBJ_...
+#include "object_external_struct.h"     // for object, OBJECT_OUTSIDE, CELLNUM
+#include "objinfo.h"                    // for FindObjectIDName, Object_info
+#include "osiris_dll.h"                 // for Osiris_CallLevelEvent
+#include "osiris_share.h"               // for THIEFITEM_AUTOMAP, THIEFITEM_...
+#include "pilot.h"                      // for Current_pilot
+#include "pilot_class.h"                // for pilot
+#include "player.h"                     // for PlayerGetTeam, CONVERTER_SCALE
+#include "player_external.h"            // for PLAYER_FLAGS_DEAD, PLAYER_FLA...
+#include "player_external_struct.h"     // for MAX_PLAYERS, player, MAX_TEAMS
+#include "polymodel.h"                  // for PageInPolymodel, Poly_models
+#include "polymodel_external.h"         // for bsp_info, poly_model
+#include "pserror.h"                    // for ASSERT, Int3
+#include "psrand.h"                     // for ps_rand, RAND_MAX, ps_srand
+#include "pstypes.h"                    // for uint, ubyte, ushort
+#include "robotfire.h"                  // for FireOnOffWeapon, WBClearInfo
+#include "robotfirestruct.h"            // for MAX_WBS_PER_OBJ
+#include "robotfirestruct_external.h"   // for DWBF_QUAD
+#include "rocknride.h"                  // for RNR_UpdateGameStatus, RNRGSC_...
+#include "room.h"                       // for Rooms, MAX_ROOMS, Highest_roo...
+#include "room_external.h"              // for RF_WAYPOINT, room, RF_GOAL1
+#include "ship.h"                       // for Ships, FindShipName, ship
+#include "soundload.h"                  // for FindSoundName
+#include "sounds.h"                     // for SOUND_NONE_INDEX, SOUND_ENERG...
+#include "ssl_lib.h"                    // for MAX_GAME_VOLUME, Sounds
+#include "stringtable.h"                // for TXT_ENTEROBS, TXT_INVULNOFF
+#include "terrain.h"                    // for GetTerrainDynamicScalar, Terr...
+#include "vclip.h"                      // for FreeVClip, GameVClips, vclip
+#include "vecmat.h"                     // for vm_AnglesToMatrix, vm_MakeRan...
+#include "vecmat_external.h"            // for operator*, vector, vm_MakeZero
+#include "vibeinterface.h"              // for VIBE_PlayerRespawn
+#include "viseffect.h"                  // for VisEffects, CreateRandomSparks
+#include "weapon.h"                     // for HAS_FLAG, ClearPlayerFiring
+#include "weapon_external.h"            // for LASER_INDEX, CONCUSSION_INDEX
 
 player Players[MAX_PLAYERS];
 int Player_num;

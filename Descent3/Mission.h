@@ -167,8 +167,9 @@
 #ifndef MISSION_H
 #define MISSION_H
 
-#include "pstypes.h"
-#include "descent.h"
+#include <stddef.h>   // for NULL
+#include "descent.h"  // for MSN_NAMELEN
+#include "pstypes.h"  // for ubyte, ushort, PSPATHNAME_LEN
 
 //	*** CONSTANTS ***
 #define LOAD_PROGRESS_START 1

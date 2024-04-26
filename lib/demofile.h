@@ -106,6 +106,8 @@
 #ifndef _DEMO_FILE_HEADER_
 #define _DEMO_FILE_HEADER_
 
+#include "object_external_struct.h"  // for object
+
 extern char Demo_fname[_MAX_PATH * 2];
 
 extern unsigned int Demo_flags;

@@ -38,12 +38,10 @@
  * $NoKeywords: $
  */
 
-#include "debug.h"
-#include "mono.h"
-#include <assert.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h>       // for fprintf, stderr
+#include "debug.h"       // for Debug_ConsoleOpen, Debug_ConsoleInit, Debug_...
+#include "debugbreak.h"  // for debug_break
+#include "mono.h"        // for mprintf
 
 ///////////////////////////////////////////////////////////////////////////////
 

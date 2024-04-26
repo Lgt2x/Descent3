@@ -20,6 +20,7 @@
 #define __LINUX_FIX_H_
 
 #include <sys/stat.h>
+#include <strings.h>
 #include <math.h>
 
 #define LOKI_VERSION ""

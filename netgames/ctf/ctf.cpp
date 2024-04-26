@@ -84,12 +84,26 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include <string.h>
-
-#include "idmfc.h"
 #include "ctf.h"
-#include "CTFstr.h"
+#include <stdio.h>                   // for snprintf
+#include <string.h>                  // for strlen, memcpy, strcpy, NULL
+#include "CTFstr.h"                  // for TXT_DEATHS_SHORT, TXT_KILLS_SHORT
+#include "DMFC.h"                    // for DLLMAX_TEAMS, MAX_PLAYER_RECORDS
+#include "DMFCKeyCodes.h"            // for K_ESC, K_F6, K_F7, K_PAGEDOWN
+#include "Macros.h"                  // for stricmp
+#include "bitmap.h"                  // for BITMAP_FORMAT_1555, BAD_BITMAP_H...
+#include "cfile.h"                   // for CFILE
+#include "gamedll_header.h"          // for DLLcf_WriteString, DLLbm_FreeBitmap
+#include "gamefont.h"                // for SMALL_UI_FONT_INDEX, HUD_FONT_INDEX
+#include "grdefs.h"                  // for GR_RGB, GR_RGB16, GR_GREEN, OPAQ...
+#include "idmfc.h"                   // for IDMFC, IDmfcStats, CreateDMFC
+#include "manage_external.h"         // for IGNORE_TABLE
+#include "object_external.h"         // for OBJ_POWERUP, OBJECT_HANDLE_NONE
+#include "player_external_struct.h"  // for player
+#include "renderer.h"                // for AT_CONSTANT_TEXTURE, LS_NONE
+#include "room_external.h"           // for room
+#include "ssl_lib.h"                 // for MAX_GAME_VOLUME
+#include "vecmat_external.h"         // for vector
 
 IDMFC *DMFCBase;
 IDmfcStats *dstat;

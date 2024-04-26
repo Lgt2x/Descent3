@@ -111,16 +111,24 @@
 #include <process.h>
 #endif
 
-#ifdef MACINTOSH
-#include "macsock.h"
-#endif
-
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "inetgetfile.h"
-#include "Chttpget.h"
+#include <arpa/inet.h>     // for htons, inet_addr
+#include <ctype.h>         // for isdigit
+#include <errno.h>         // for EINPROGRESS
+#include <netdb.h>         // for gethostbyname, getservbyname, hostent, ser...
+#include <netinet/in.h>    // for sockaddr_in, INADDR_NONE
+#include <stdio.h>         // for fclose, fopen, fwrite, snprintf
+#include <stdlib.h>        // for atoi
+#include <string.h>        // for memcpy, strchr, strlen, memset, strcpy
+#include <sys/ioctl.h>     // for ioctl, FIONBIO
+#include <sys/select.h>    // for select, FD_SET, FD_ZERO, fd_set
+#include <sys/socket.h>    // for recv, connect, shutdown, AF_INET, send
+#include <sys/time.h>      // for timeval
+#include <unistd.h>        // for NULL, close
+#include "SDL_platform.h"  // for __LINUX__
+#include "SDL_thread.h"    // for SDL_WaitThread, SDL_CreateThread, SDL_Thread
+#include "inetgetfile.h"   // for ChttpGet, WSAGetLastError, HTTP_STATE_UNKN...
+#include "linux_fix.h"     // for strnicmp, Sleep
+#include "mem.h"           // for mem_free, mem_malloc
 
 #ifndef WIN32
 #include "mem.h"

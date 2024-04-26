@@ -16,10 +16,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
+#include <stdio.h>    // for size_t, va_list, vsnprintf
+#include <string.h>   // for strncpy, strlen
+#include <strings.h>  // for strcasecmp
 
 void _splitpath(const char *path, char *drive, char *dir, char *fname, char *ext);
 int _vsnprintf(char *buffer, size_t count, const char *format, va_list argptr);

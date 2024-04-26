@@ -117,10 +117,23 @@
  * $NoKeywords: $
  */
 
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include "dmfcinputcommands.h"
-#include "gamedll_header.h"
+#include <stddef.h>                  // for size_t
+#include "3d.h"                      // for g3Codes
+#include "Inventory.h"               // for Inventory (ptr only), tInvenList
+#include "cfile.h"                   // for CFILE
+#include "findintersection.h"        // for fvi_face_room_list, fvi_info
+#include "gamedll_header.h"          // for dllinfo, game_api
+#include "grdefs.h"                  // for ddgr_color
+#include "hud.h"                     // for tHUDItem
+#include "module.h"                  // for DLLFUNCEXPORT
+#include "networking.h"              // for network_address
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"                 // for ubyte, sbyte, ushort, uint
+#include "renderer.h"                // for g3Point, chunked_bitmap, rendere...
+#include "room_external.h"           // for room
+#include "spew.h"                    // for spewinfo
+#include "vecmat_external.h"         // for vector, matrix, angle, angvec
+#include "viseffect_external.h"      // for vis_effect
 
 // Determine if we are building the DLL, or not.  If we are building the DMFC
 // DLL, than we need to define some things

@@ -227,31 +227,29 @@
  * $NoKeywords: $
  */
 
-#include "pstypes.h"
-#include "pserror.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "ssl_lib.h"
-#include "object.h"
-#include "cfile.h"
-#include "ddio.h"
-#include "soundload.h"
-#include "weapon.h"
-#include "ship.h"
-#include "pstypes.h"
-#include "mem.h"
-#include "door.h"
-#include "room.h"
-#include "doorway.h"
+#include <stdio.h>                     // for NULL
+#include <string.h>                    // for memset, strncpy, strcat, strcpy
+#include "../Descent3/sounds.h"        // for NUM_STATIC_SOUNDS
+#include "../manage/soundpage.h"       // for mng_GetGuaranteedSoundPage
+#include "aistruct.h"                  // for MAX_AI_SOUNDS
+#include "ddio.h"                      // for ddio_SplitPath
+#include "door.h"                      // for Doors, door
+#include "doorway.h"                   // for doorway
+#include "gametexture.h"               // for GameTextures, MAX_TEXTURES
+#include "linux_fix.h"                 // for GlobalFree, stricmp, strnicmp
+#include "manage_external.h"           // for TBL_SOUND, PAGENAME_LEN
+#include "mono.h"                      // for mprintf
+#include "objinfo.h"                   // for Object_info, MAX_OBJECT_IDS
+#include "pserror.h"                   // for ASSERT, Int3
+#include "robotfirestruct.h"           // for MAX_WBS_PER_OBJ
+#include "robotfirestruct_external.h"  // for MAX_WB_FIRING_MASKS
+#include "room.h"                      // for Rooms, Highest_room_index
+#include "room_external.h"             // for RF_DOOR
+#include "ship.h"                      // for Ships, MAX_SHIPS
+#include "soundload.h"                 // for AllocSound, AllocSoundFile
+#include "ssl_lib.h"                   // for Sounds, SoundFiles, MAX_SOUNDS
+#include "weapon.h"                    // for Weapons, MAX_WEAPONS, MAX_WEAP...
 
-#if defined(WIN32) || defined(__LINUX__)
-#include "../manage/soundpage.h"
-#include "../Descent3/sounds.h"
-#elif defined(MACINTOSH)
-#include "sounds.h"
-#include "soundpage.h"
-#endif
 
 int Num_sounds = 0;
 int Num_sound_files = 0;

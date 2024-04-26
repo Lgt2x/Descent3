@@ -16,19 +16,14 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdlib.h>
-#include <string.h>
-#include "lightmap.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "bitmap.h"
-#include "mono.h"
-#include "mem.h"
-#ifndef __LINUX__
-#include "Macros.h"
-#endif
-
-#include <algorithm>
+#include <stdlib.h>    // for NULL, atexit
+#include <string.h>    // for memset
+#include <algorithm>   // for max
+#include "lightmap.h"  // for MAX_LIGHTMAPS, bms_lightmap, BAD_LM_INDEX, LF_...
+#include "mem.h"       // for mem_free, mem_malloc
+#include "mono.h"      // for mprintf
+#include "pserror.h"   // for Int3, ASSERT
+#include "pstypes.h"   // for ushort
 
 int Num_of_lightmaps = 0;
 static ushort Free_lightmap_list[MAX_LIGHTMAPS];

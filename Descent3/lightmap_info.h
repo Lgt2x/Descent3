@@ -39,9 +39,8 @@
 #define LIGHTMAP_INFO_H
 // Lightmap info header
 
-#include "pstypes.h"
-#include "pserror.h"
-#include "vecmat.h"
+#include "pstypes.h"          // for ubyte, ushort
+#include "vecmat_external.h"  // for vector
 
 #define BAD_LMI_INDEX 65535
 

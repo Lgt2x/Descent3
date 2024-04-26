@@ -76,16 +76,19 @@
 #include "..\neweditor\globals.h"
 #endif
 
-#include <stdlib.h>
-#include "object.h"
-#include "viseffect.h"
-#include "render.h"
-#include "renderobject.h"
-#include "room.h"
 #include "postrender.h"
-#include "config.h"
-#include "terrain.h"
-#include "renderer.h"
+#include "3d.h"                      // for g3_GetUnscaledMatrix, g3_GetView...
+#include "object.h"                  // for Objects
+#include "object_external_struct.h"  // for OBJECT_OUTSIDE, object
+#include "pserror.h"                 // for ASSERT
+#include "render.h"                  // for Num_fog_faces_to_render, Num_spe...
+#include "renderer.h"                // for rend_SetZBufferWriteMask, StateL...
+#include "renderobject.h"            // for RenderObject
+#include "room.h"                    // for Rooms, MAX_PALETTE_ROOMS, MAX_ROOMS
+#include "room_external.h"           // for room, RF_FOG, face
+#include "terrain.h"                 // for World_point_buffer
+#include "vecmat_external.h"         // for matrix, vector
+#include "viseffect.h"               // for DrawVisEffect, VisEffects
 
 postrender_struct Postrender_list[MAX_POSTRENDERS];
 int Num_postrenders = 0;

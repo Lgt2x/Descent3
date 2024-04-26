@@ -16,19 +16,24 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pserror.h"
-#include "pstypes.h"
-#include "vecmat.h"
-#include "polymodel.h"
-#include "findintersection.h"
-#include "game.h"
-
-#include <stdlib.h>
-#include <search.h>
-#include <string.h>
-#ifndef NED_PHYSICS
-#include "multi.h"
-#endif
+#include <stdlib.h>                     // for NULL
+#include "findintersection.h"           // for fvi_query_ptr, fvi_hit_data_ptr
+#include "findintersection_external.h"  // for FQ_OBJ_BACKFACE, HIT_SPHERE_2...
+#include "fix.h"                        // for FixCos, FixSin
+#include "game.h"                       // for GM_MULTI, Game_mode
+#include "gametexture.h"                // for GameTextures, TF_FLY_THRU
+#include "mono.h"                       // for mprintf
+#include "multi.h"                      // for Netgame
+#include "multi_external.h"             // for NF_USE_ACC_WEAP
+#include "object.h"                     // for Objects, Highest_object_index
+#include "object_external.h"            // for OBJ_BUILDING, OBJ_PLAYER, OBJ...
+#include "object_external_struct.h"     // for object
+#include "polymodel.h"                  // for Poly_models, DonePolyModelPos...
+#include "polymodel_external.h"         // for poly_model, bsp_info, MAX_SUB...
+#include "pserror.h"                    // for ASSERT
+#include "pstypes.h"                    // for uint
+#include "vecmat.h"                     // for vm_AnglesToMatrix, vm_Normali...
+#include "vecmat_external.h"            // for vector, operator*, operator-
 
 extern matrix View_matrix;
 extern vector View_position;

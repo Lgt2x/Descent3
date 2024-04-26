@@ -19,8 +19,8 @@
 #ifndef GAMEFILE_H
 #define GAMEFILE_H
 
-#include "pstypes.h"
-#include "manage.h"
+#include "manage_external.h"  // for PAGENAME_LEN
+#include "pstypes.h"          // for ubyte
 
 #ifdef MACINTOSH
 #define MAX_GAMEFILES 1300

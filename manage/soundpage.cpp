@@ -120,15 +120,19 @@
 #if defined(WIN32)
 #include <windows.h>
 #endif
-#include "cfile.h"
-#include "manage.h"
 #include "soundpage.h"
-#include "mono.h"
-#include "pserror.h"
-#include "soundload.h"
-#include "ddio.h"
-#include "args.h"
-#include <string.h>
+#include <stdio.h>      // for SEEK_CUR, SEEK_SET
+#include <string.h>     // for strcpy, NULL, memcpy, memset
+#include "args.h"       // for FindArg, GameArgs
+#include "cfile.h"      // for cf_WriteByte, cf_ReadInt, cf_WriteInt, cf_Rea...
+#include "ddio.h"       // for ddio_MakePath
+#include "linux_fix.h"  // for stricmp
+#include "manage.h"     // for PAGETYPE_SOUND, Loading_addon_table, mng_Push...
+#include "mono.h"       // for mprintf
+#include "pserror.h"    // for ASSERT, Int3
+#include "pstypes.h"    // for ubyte
+#include "soundload.h"  // for FindSoundName, AllocSound, LoadSoundFile
+
 // soundpage commands that are read/written
 // A command is followed by a byte count describing how many bytes
 // are in the data for the command

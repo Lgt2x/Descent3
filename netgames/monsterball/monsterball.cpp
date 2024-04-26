@@ -162,17 +162,32 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "idmfc.h"
 #include "monsterball.h"
-#include <string.h>
-#include "monsterstr.h"
-
-#ifdef MACINTOSH
-#include <stdlib.h>
-#endif
-
-#include <algorithm>
+#include <stdio.h>                      // for snprintf
+#include <stdlib.h>                     // for rand
+#include <string.h>                     // for strlen, memcpy, strcpy, NULL
+#include <algorithm>                    // for max, min
+#include "DMFC.h"                       // for DSTAT_LEVEL, ASSERT, MAX_PLAY...
+#include "DMFCKeyCodes.h"               // for K_ESC, K_F6, K_F7, K_PAGEDOWN
+#include "bitmap.h"                     // for BAD_BITMAP_HANDLE, BITMAP_FOR...
+#include "cfile.h"                      // for CFILE
+#include "findintersection.h"           // for fvi_info, fvi_query
+#include "findintersection_external.h"  // for HIT_NONE, FQ_CHECK_OBJS, FQ_I...
+#include "fireball_external.h"          // for SUN_CORONA_INDEX, HOT_SPARK_I...
+#include "gamedll_header.h"             // for DLLcf_WriteString, DLLgrtext_...
+#include "gamefont.h"                   // for SMALL_UI_FONT_INDEX, HUD_FONT...
+#include "grdefs.h"                     // for GR_RGB16, GR_RGB, OPAQUE_FLAG
+#include "idmfc.h"                      // for IDMFC, IDmfcStats, CreateDMFC
+#include "linux_fix.h"                  // for _finite
+#include "manage_external.h"            // for IGNORE_TABLE
+#include "monsterstr.h"                 // for TXT_BLUNDERS, TXT_PILOT, TXT_...
+#include "object_external.h"            // for OBJ_PLAYER, OBJECT_HANDLE_NONE
+#include "player_external.h"            // for PLAYER_FLAGS_DEAD, PLAYER_FLA...
+#include "player_external_struct.h"     // for player
+#include "renderer.h"                   // for AT_CONSTANT_TEXTURE, LS_NONE
+#include "room_external.h"              // for RF_SPECIAL1, room
+#include "ssl_lib.h"                    // for MAX_GAME_VOLUME
+#include "viseffect_external.h"         // for vis_effect, VF_LINK_TO_VIEWER
 
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;

@@ -26,6 +26,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "object_external.h"  // for OBJECT_HANDLE_NONE, OBJ_BUILDING, OBJ_C...
+#include "vecmat_external.h"  // for matrix, vector
 #include "osiris_import.h"
 #include "osiris_common.h"
 #include "DallasFuncs.cpp"

@@ -85,14 +85,18 @@
  * $NoKeywords: $
  */
 
-#include <string.h>
-#include <stdlib.h>
-
-#include "lib2d.h"
-#include "pserror.h"
-#include "bitmap.h"
-#include "texture.h"
-#include "renderer.h"
+#include <stdlib.h>    // for NULL, atexit
+#include <string.h>    // for memset, strncpy
+#include "Ddgr.h"      // for ddgr_surface, SURFTYPE_GENERIC, SURFTYPE_VIDEO...
+#include "Macros.h"    // for SET_MIN
+#include "bitmap.h"    // for bm_data, bm_h, bm_w, bm_bpp, bm_format, BITMAP...
+#include "fix.h"       // for FixToInt, fix, IntToFix
+#include "gr.h"        // for grSurface, SURFTYPE_MEMORY, ddgr_surface_node
+#include "grdefs.h"    // for BPP_16, ddgr_color, BPP_32, BPP_24, GR_16_TO_C...
+#include "lib2d.h"     // for gr_mem_surf_Blt, gr_mem_surf_Destroy, gr_mem_s...
+#include "pserror.h"   // for ASSERT, Int3
+#include "pstypes.h"   // for ushort, ubyte
+#include "renderer.h"  // for rend_SetSoftwareParameters, rend_FillRect, REN...
 
 inline unsigned XLAT_RGB_TO_16(ddgr_color c) {
   unsigned char r, g, b;

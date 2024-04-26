@@ -81,14 +81,14 @@
  * $NoKeywords: $
  */
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include <assert.h>
-#include "pstring.h"
-#include "gr.h"
-#include "mono.h"
-#include "renderer.h"
+#include <stdarg.h>    // for va_end, va_list, va_start
+#include <string.h>    // for strlen, strchr, strcpy
+#include "gr.h"        // for grViewport, grFont, grTextAlign, GR_VPCP_ALL
+#include "grdefs.h"    // for GR_RGB, GR_COLOR_CHAR
+#include "pserror.h"   // for Int3, ASSERT
+#include "pstring.h"   // for Pvsprintf
+#include "pstypes.h"   // for ubyte
+#include "renderer.h"  // for rend_SetFiltering, rend_SetZBufferState, rend_...
 
 #define CLIP_LEFT (vp_InitLeft + vp_Left)
 #define CLIP_TOP (vp_InitTop + vp_Top)

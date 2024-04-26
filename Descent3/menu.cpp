@@ -651,22 +651,38 @@
  *
  * $NoKeywords: $
  */
+ 
 #include "menu.h"
-#include "mmItem.h"
-#include "game.h"
-#include "gamesequence.h"
-#include "Mission.h"
-#include "multi_ui.h"
-#include "ctlconfig.h"
-#include "config.h"
-#include "gamesave.h"
-#include "demofile.h"
-#include "pilot.h"
-#include "LoadLevel.h"
-#include "stringtable.h"
-#include "mem.h"
-#include "args.h"
-#include "cinematics.h"
+#include <stdio.h>          // for snprintf
+#include <stdlib.h>         // for atoi
+#include <string.h>         // for NULL, strcpy, strlen, strtok, strcmp, strcat
+#include "Mission.h"        // for GetMissionInfo, Current_mission, tMission...
+#include "args.h"           // for FindArg, GameArgs
+#include "config.h"         // for OptionsMenu
+#include "ddio.h"           // for ddio_MakePath, ddio_FindFileClose, ddio_F...
+#include "ddio_common.h"    // for KEY_C, KEY_D, KEY_L, KEY_M, KEY_N, KEY_O
+#include "demofile.h"       // for Demo_restart, LoadDemoDialog
+#include "descent.h"        // for SetFunctionMode, function_mode
+#include "game.h"           // for SetGameMode, GM_NORMAL, GM_NONE, SetScree...
+#include "gamesave.h"       // for LoadGameDialog
+#include "gamesequence.h"   // for SimpleStartLevel
+#include "linux_fix.h"      // for strcmpi, _MAX_PATH, _MAX_FNAME, itoa
+#include "manage.h"         // for LocalLevelsDir
+#include "mem.h"            // for mem_free, mem_strdup, mem_malloc
+#include "mmItem.h"         // for mmInterface, MenuScene, OPTIONS_MUSIC_REGION
+#include "mono.h"           // for mprintf
+#include "multi_dll_mgr.h"  // for CallMultiDLL, LoadMultiDLL, Auto_login_addr
+#include "multi_ui.h"       // for AutoConnectLANIP, AutoConnectPXO, MultiDL...
+#include "networking.h"     // for TCP_active
+#include "newui.h"          // for DoWaitMessage, DoMessageBox, DoPathFileDi...
+#include "newui_core.h"     // for newuiTiledWindow, newuiSheet, newuiMessag...
+#include "pilot.h"          // for Current_pilot, PilotSelect, CurrentPilotU...
+#include "pilot_class.h"    // for pilot
+#include "player.h"         // for PlayerResetShipPermissions, PlayerSetShip...
+#include "renderer.h"       // for rend_Flip
+#include "ship.h"           // for Ships, MAX_SHIPS
+#include "stringtable.h"    // for TXT_ERROR, TXT_MENUNEWGAME, TXT_MENUQUIT
+#include "ui.h"             // for UID_OK, UID_CANCEL, UIED_NUMBERS
 
 #ifdef _WIN32
 #define USE_DIRECTPLAY
@@ -677,12 +693,7 @@
 #else
 bool Directplay_lobby_launched_game = false;
 #endif
-#include "multi_dll_mgr.h"
-#include "d3music.h"
-#include "newui_core.h"
 
-#include <string.h>
-#include <algorithm>
 
 #define IDV_QUIT 0xff
 //	Menu Item Defines

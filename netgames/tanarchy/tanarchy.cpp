@@ -76,11 +76,26 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include <string.h>
-#include "idmfc.h"
-#include "tanDMFC.h"
-#include "tanarchystr.h"
+#include <stdio.h>                   // for snprintf
+#include <string.h>                  // for strlen, memcpy, strcpy, memset
+#include "DMFC.h"                    // for DSTAT_LEVEL, MAX_PLAYER_RECORDS
+#include "DMFCKeyCodes.h"            // for K_ESC, K_F6, K_F7, K_PAGEDOWN
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE
+#include "cfile.h"                   // for CFILE
+#include "gamedll_header.h"          // for DLLcf_WriteString, DLLgrtext_Printf
+#include "gamefont.h"                // for SMALL_UI_FONT_INDEX, HUD_FONT_INDEX
+#include "grdefs.h"                  // for GR_RGB, GR_RGB16, OPAQUE_FLAG
+#include "idmfc.h"                   // for IDMFC, IDmfcStats, CreateDMFC
+#include "module.h"                  // for DLLFUNCCALL
+#include "multi_external.h"          // for MultiAddInt, MultiGetInt, MAX_GA...
+#include "object_external.h"         // for OBJ_BUILDING, OBJ_GHOST, OBJ_PLAYER
+#include "object_external_struct.h"  // for object
+#include "player_external_struct.h"  // for MAX_TEAMS, player
+#include "pstypes.h"                 // for ubyte, ushort
+#include "renderer.h"                // for AT_CONSTANT_TEXTURE, LS_NONE
+#include "tanDMFC.h"                 // for DLLGameClose, DLLGameInit, DLLGe...
+#include "tanarchystr.h"             // for TXT_PILOT, TXT_PING, TXT_TEAM
+
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;
 player *dPlayers;

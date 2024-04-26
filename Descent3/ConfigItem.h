@@ -56,7 +56,12 @@
 #ifndef __CONFIGITEM_H_
 #define __CONFIGITEM_H_
 
-#include "newui.h"
+#include "ui.h"  // for UIText, UIGroup, UIHotspot (ptr only), UIRadioButton...
+class NewUIButton;
+class NewUIGameWindow;
+class NewUIListBox;
+class NewUISlider;
+class UITextItem;
 
 #if defined(LINUX)
 void CIListBoxCallback(int ID, void *);

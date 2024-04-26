@@ -252,19 +252,15 @@
 #ifndef HUD_H
 #define HUD_H
 
-#include "pstypes.h"
-#include "grdefs.h"
+#include <stddef.h>   // for NULL
+#include "grdefs.h"   // for GR_RGB, ddgr_color, FIXED_SCREEN_HEIGHT, FIXED_...
+#include "pstypes.h"  // for ubyte, ushort, PSFILENAME_LEN
 
 #define MAX_HUD_MESSAGES 3
 #define HUD_MESSAGE_LENGTH 200
 #define HUD_TEXT_LENGTH 32
 #define DEFAULT_HUD_WIDTH (float)FIXED_SCREEN_WIDTH
 #define DEFAULT_HUD_HEIGHT (float)FIXED_SCREEN_HEIGHT
-
-struct object;
-struct poly_model;
-struct bsp_info;
-struct g3Point;
 
 //	type to pass to functions that draw stats
 typedef ushort tStatMask;

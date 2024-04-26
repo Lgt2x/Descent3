@@ -16,53 +16,70 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pstypes.h"
-#include "pserror.h"
-#include "game.h"
-#include "game2dll.h"
-#include "room.h"
-#include "object.h"
-#include "terrain.h"
-#include "player.h"
-#include "mono.h"
-#include "hud.h"
-#include "Inventory.h"
-#include "multi_server.h"
-#include "ship.h"
-#include "DllWrappers.h"
-#include "soundload.h"
-#include "spew.h"
-#include "objinfo.h"
-#include "module.h"
-#include "localization.h"
-#include "weapon.h"
-#include "voice.h"
-#include "gametexture.h"
-#include "Mission.h"
-#include "damage.h"
-#include "ui.h"
-#include "newui.h"
-#include "multi_dll_mgr.h"
-#include "controls.h"
-#include "gameloop.h"
-#include "gamesequence.h"
-#include "dedicated_server.h"
-#include "attach.h"
-#include "PilotPicsAPI.h"
-#include "vclip.h"
-#include "osiris_dll.h"
-#include "manage.h"
-#include "PHYSICS.H"
-#include "collide.h"
-#include "render.h"
-#include "audiotaunts.h"
-#include "polymodel.h"
-#include "osiris_share.h"
-#include "viseffect.h"
-#include "ObjScript.h"
-#include "args.h"
-
-#include <algorithm>
+#include <SDL_platform.h>            // for __LINUX__
+#include <stdio.h>                   // for snprintf
+#include <string.h>                  // for NULL, strcat, strlen, memset
+#include <algorithm>                 // for min
+#include "3d.h"                      // for g3_AddDeltaVec, g3_CalcPointDepth
+#include "DllWrappers.h"             // for ChangePlayerShipIndex, D3W_Play2...
+#include "Mission.h"                 // for Current_mission, Level_info
+#include "ObjScript.h"               // for InitObjectScripts
+#include "PHYSICS.H"                 // for phys_apply_force, phys_apply_rot
+#include "PilotPicsAPI.h"            // for PPic_GetBitmapHandle, PPic_GetPilot
+#include "args.h"                    // for FindArg, GameArgs
+#include "audiotaunts.h"             // for taunt_AreEnabled
+#include "bitmap.h"                  // for bm_AllocBitmap, bm_AllocLoadFile...
+#include "cfile.h"                   // for cf_CopyFile, cf_OpenLibrary, cf_...
+#include "collide.h"                 // for ConvertAxisAmountToEuler, Conver...
+#include "controls.h"                // for ResumeControls, SuspendControls
+#include "d3events.h"                // for EVT_GAMECHECKBAN, EVT_GAME_GET_P...
+#include "damage.h"                  // for ApplyDamageToPlayer
+#include "ddio.h"                    // for ddio_MakePath, ddio_DeleteFile
+#include "dedicated_server.h"        // for Dedicated_server, PrintDedicated...
+#include "descent.h"                 // for Base_directory, Descent3_temp_di...
+#include "findintersection.h"        // for fvi_FindIntersection, fvi_QuickD...
+#include "game.h"                    // for EndFrame, Frametime, Game_window_h
+#include "game2dll.h"                // for tDLLOptions, dllinfo, CallGameDLL
+#include "gamefont.h"                // for Game_fonts
+#include "gameloop.h"                // for GameFrame, GameRenderWorld, Rend...
+#include "gamesequence.h"            // for Game_interface_mode
+#include "gametexture.h"             // for FindTextureName, GameTextures
+#include "grdefs.h"                  // for ddgr_color
+#include "grtext.h"                  // for grfont_GetHeight, grtext_Centere...
+#include "hud.h"                     // for AddBlinkingHUDMessage, AddColore...
+#include "linux_fix.h"               // for _MAX_PATH
+#include "localization.h"            // for CreateStringTable, DestroyString...
+#include "manage.h"                  // for LocalD3Dir, mng_ClearAddonTables
+#include "module.h"                  // for mod_GetLastError, mod_GetSymbol
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for Netgame, Game_is_master_tracker_...
+#include "multi_dll_mgr.h"           // for ButtonCreate, CheckBoxCreate
+#include "multi_external.h"          // for NF_EXIT_NOW
+#include "multi_server.h"            // for GetRankIndex, MultiDisconnectPlayer
+#include "networking.h"              // for network_address, nw_GetHostAddre...
+#include "newui.h"                   // for DoMessageBox
+#include "newui_core.h"              // for DoUI, SetUICallback
+#include "object.h"                  // for ObjCreate, ObjSetPos, Objects
+#include "objinfo.h"                 // for FindObjectIDName, Object_info
+#include "osiris_dll.h"              // for Osiris_LoadMissionModule, Osiris...
+#include "osiris_share.h"            // for tOSIRISModuleInit
+#include "player.h"                  // for GetGoalRoomForTeam, IncTeamScore
+#include "player_external_struct.h"  // for MAX_PLAYERS
+#include "polymodel.h"               // for Poly_models
+#include "pserror.h"                 // for Int3, ASSERT, DebugBreak_callbac...
+#include "pstypes.h"                 // for ubyte
+#include "render.h"                  // for ResetFacings
+#include "renderer.h"                // for rend_DrawScaledBitmap, rend_Clea...
+#include "room.h"                    // for ComputeRoomCenter, Highest_room_...
+#include "ship.h"                    // for FindShipName, Ships
+#include "soundload.h"               // for FindSoundName
+#include "spew.h"                    // for SpewClearEvent, SpewCreate
+#include "terrain.h"                 // for Terrain_seg
+#include "uisys.h"                   // for ui_HideCursor, ui_ShowCursor
+#include "vclip.h"                   // for GameVClips
+#include "vecmat.h"                  // for calc_det_value, vm_AddVectors
+#include "viseffect.h"               // for AttachRandomNapalmEffectsToObject
+#include "weapon.h"                  // for CreateAndFireWeapon, FindWeaponName
 
 void SelectNextCameraView(int window);
 #define NUM_CAMERA_VIEWS 3

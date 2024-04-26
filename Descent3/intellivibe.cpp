@@ -42,7 +42,11 @@
  */
 
 #define DD_ACCESS_RING
-#include "vibeinterface.h"
+
+#include "controls.h"         // for game_controls
+#include "vecmat_external.h"  // for vector
+#include "vibeinterface.h"    // for VIBE_Close, VIBE_DoControls, VIBE_DoForce
+class oeApplication;
 
 #ifndef WIN32
 void VIBE_Init(oeApplication *app) {}
@@ -58,11 +62,6 @@ void VIBE_DoQuaterFrame(bool) {}
 void VIBE_DoForce(vector *) {}
 void VIBE_DoLevelEnd(void) {}
 #else
-
-#include "intellivibe.h"
-#include "module.h"
-#include "mono.h"
-#include "object_external_struct.h"
 
 static module IntelliVIBE_module = {NULL};
 static d3_intellivibe IntelliVIBE_state; // our current state

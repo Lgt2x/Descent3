@@ -98,10 +98,14 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include "d3events.h"
+#include "d3events.h"                // for EVT_CLIENT_GAMELEVELSTART, EVT_C...
+#include "dmfcinternal.h"            // for DMFCBase, mprintf, CM_BANNED
+#include "gamedll_header.h"          // for DLLMultiDisconnectPlayer, DLLMul...
+#include "multi_external.h"          // for LR_SERVER
+#include "networking.h"              // for network_address
+#include "object_external.h"         // for OBJ_WEAPON
+#include "object_external_struct.h"  // for object
+#include "vecmat_external.h"         // for vector
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

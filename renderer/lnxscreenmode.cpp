@@ -57,13 +57,11 @@
  * $NoKeywords: $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dlfcn.h>
-#include "lnxscreenmode.h"
-#include "pserror.h"
-#include "args.h"
+#include <stdio.h>          // for NULL, fprintf, stderr
+#include "SDL_video.h"      // for SDL_ListModes, SDL_FULLSCREEN, SDL_GetVid...
+#include "args.h"           // for FindArgChar
+#include "lnxscreenmode.h"  // for CLnxVideoModes
+#include "mono.h"           // for mprintf
 
 CLnxVideoModes LinuxVideoMode;
 

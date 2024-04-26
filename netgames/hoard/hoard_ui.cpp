@@ -60,11 +60,15 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include <string.h>
-#include "idmfc.h"
-#include "hoardstr.h"
-#include "hoardaux.h"
+#include <stdio.h>           // for snprintf
+#include "DMFC.h"            // for UICOL_TEXT_NORMAL, UID_OK, NEWUIRES_FORC...
+#include "DMFCKeyCodes.h"    // for K_ENTER
+#include "gamedll_header.h"  // for DLLCreateNewUITextItem, DLLDeleteUIItem
+#include "hoardaux.h"        // for SendGameConfig, tGameConfig
+#include "hoardstr.h"        // for TXT_RETURNTOGAME, TXT_GAMECONFIG, TXT_MI...
+#include "idmfc.h"           // for IDMFC
+#include "multi_external.h"  // for LR_SERVER
+
 extern IDMFC *DMFCBase;
 
 // Displays the Hoard game configuration dialog (Server)

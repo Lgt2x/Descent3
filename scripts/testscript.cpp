@@ -18,13 +18,12 @@
 
 // testscript.cpp
 // 0.1
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "osiris_import.h"
-#include "osiris_common.h"
+#include <stdio.h>            // for snprintf, NULL
+#include "module.h"           // for STDCALL, STDCALLPTR
+#include "object_external.h"  // for OBJ_PLAYER
+#include "osiris_common.h"    // for tOSIRISEventInfo, GR_RGB, CONTINUE_CHAIN
+#include "osiris_import.h"    // for mprintf, MSafe_GetValue, MSafe_CallFunc...
 
-#include "module.h"
 
 #ifdef __cplusplus
 extern "C" {

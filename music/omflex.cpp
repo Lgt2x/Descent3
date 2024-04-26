@@ -71,13 +71,15 @@
  * $NoKeywords: $
  */
 
-#include "music.h"
-#include "musiclib.h"
-#include "inffile.h"
-#include "mem.h"
-
-#include <string.h>
-#include <stdlib.h>
+#include <stdio.h>     // for sscanf
+#include <stdlib.h>    // for atoi
+#include <string.h>    // for strcmp, strchr
+#include "inffile.h"   // for InfFileError, InfFile
+#include "mem.h"       // for mem_free, mem_strdup
+#include "mono.h"      // for mprintf
+#include "music.h"     // for MAX_MUSIC_INSTRUCTIONS, OutrageMusicSeq, tMusi...
+#include "musiclib.h"  // for OMFCMD_COMPARE, OMFCMD_ENDSECTION, OMFCMD_LLPT
+#include "pserror.h"   // for Int3, ASSERT
 
 //	OMF INF FILE READ
 #define OMFFILEERR_ADDSECTION INFFILE_CUSTOM        // error adding section to list.

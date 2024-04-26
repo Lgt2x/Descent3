@@ -492,17 +492,15 @@
 #ifndef MULTI_H
 #define MULTI_H
 
-#include "pstypes.h"
-#include "vecmat_external.h"
-#include "object_external_struct.h"
-#include "object_external.h"
-#include "player_external.h"
-
-#if defined(__LINUX__)
-#include "linux/linux_fix.h"
-#endif
-
-#include "multi_external.h" //defines and structs are in here
+#include <stddef.h>                  // for NULL
+#include "byteswap.h"                // for convert_le, INTEL_SHORT
+#include "multi_external.h"          // for MAX_NET_PLAYERS, MAX_GAME_DATA_SIZE
+#include "networking.h"              // for network_address, SOCKET
+#include "object_external.h"         // for OBJ_WEAPON
+#include "object_external_struct.h"  // for object, MAX_OBJECTS
+#include "pstypes.h"                 // for ubyte, ushort, uint
+#include "room_external.h"           // for room
+#include "vecmat_external.h"         // for vector, matrix
 
 extern bool Multi_bail_ui_menu;
 #if defined(DEMO)

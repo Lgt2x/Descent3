@@ -35,15 +35,15 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
-#include <zlib.h>
-
-#include "unzip.h"
-
-#include <algorithm>
+#include <ctype.h>    // for toupper
+#include <stdio.h>    // for fclose, fread, fseek, fwrite, FILE, SEEK_SET
+#include <stdlib.h>   // for free, malloc, NULL
+#include <string.h>   // for memcpy, memcmp, strcpy, strlen, strrchr
+#include <zconf.h>    // for uInt, MAX_WBITS
+#include <zlib.h>     // for Z_OK, inflate, inflateEnd, Z_NO_FLUSH, Z_STREAM...
+#include <algorithm>  // for min
+#include "pstypes.h"  // for ubyte, uint, ushort
+#include "unzip.h"    // for ZIP, zipentry, CompareZipFileName
 
 #define INFLATE_INPUT_BUFFER_MAX 16384
 #define DATA_CHUNK_SIZE 1024

@@ -380,39 +380,39 @@
  *
  * $NoKeywords: $
  */
-#include <stdlib.h>
-
-#include "pserror.h"
-#include "grdefs.h"
-#include "mono.h"
-#include "cfile.h"
-
-#include "init.h"
-#include "game.h"
-#include "program.h"
+ 
 #include "descent.h"
-#include "menu.h"
-#include "Mission.h"
-#include "ddio.h"
-#include "controls.h"
-#include "Controller.h"
-#include "gamesequence.h"
-#include "stringtable.h"
-#include "dedicated_server.h"
-#include "networking.h"
-#include "hlsoundlib.h"
-#include "player.h"
-#include "pilot.h"
-#include "newui.h"
-#include "credits.h"
-#include "cinematics.h"
-#include "args.h"
-#include "multi_dll_mgr.h"
-#include "localization.h"
-#include "mem.h"
-#if defined(MACINTOSH) && defined(GAMERANGER)
-#include "GameRanger.h"
-#endif
+#include <ctype.h>                   // for tolower
+#include <stdio.h>                   // for snprintf
+#include <stdlib.h>                  // for NULL, atoi
+#include <string.h>                  // for strcat, strcpy, strchr
+#include "Inventory.h"               // for INVRESET_ALL, Inventory
+#include "Macros.h"                  // for stricmp
+#include "args.h"                    // for FindArg, GameArgs
+#include "cfile.h"                   // for cf_WriteString, cfexist, cfclose
+#include "cinematics.h"              // for PlayMovie
+#include "credits.h"                 // for Credits_Display
+#include "ddio.h"                    // for ddio_MakePath, ddio_GetCDDrive
+#include "ddio_common.h"             // for ddio_Frame
+#include "dedicated_server.h"        // for Dedicated_server
+#include "game.h"                    // for PlayGame, SetScreenMode, GM_MULTI
+#include "gamesequence.h"            // for SetGameState, tGameState
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "init.h"                    // for InitD3Systems1, InitD3Systems2
+#include "localization.h"            // for Localization_GetLanguage
+#include "manage.h"                  // for LocalD3Dir
+#include "menu.h"                    // for MainMenu
+#include "multi_dll_mgr.h"           // for FreeMultiDLL
+#include "networking.h"              // for nw_DoNetworkIdle
+#include "newui.h"                   // for DoMessageBox, UICOL_TEXT_NORMAL
+#include "newui_core.h"              // for SetUICallback, GetUICallback
+#include "player.h"                  // for Players
+#include "player_external_struct.h"  // for MAX_PLAYERS
+#include "program.h"                 // for ProgramVersion, Program_version
+#include "pserror.h"                 // for Error, Int3
+#include "renderer.h"                // for rend_Close, rend_Init
+#include "stringtable.h"             // for TXT_CDPROMPT, TXT_D3ERROR1, TXT_...
+
 //	---------------------------------------------------------------------------
 //	Variables
 //	---------------------------------------------------------------------------
@@ -788,8 +788,6 @@ void D3DeferHandler(bool is_active) {
 //	this is called when you hit a debug break!
 //	---------------------------------------------------------------------------
 #ifndef RELEASE
-#include "debug.h"
-#include "renderer.h"
 extern int rend_initted; // from game.cpp
 
 void D3DebugStopHandler() {

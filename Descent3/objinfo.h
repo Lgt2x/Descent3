@@ -310,9 +310,13 @@
 #ifndef _OBJINFO_H
 #define _OBJINFO_H
 
-#include "object.h"
-#include "manage.h"
-#include "DeathInfo.h"
+#include "aistruct.h"                // for MAX_AI_SOUNDS
+#include "manage_external.h"         // for PAGENAME_LEN
+#include "object.h"                  // for MAX_MODULENAME_LEN
+#include "object_external.h"         // for OBJ_ROBOT, ROBOT_GUIDEBOT, ROBOT...
+#include "object_external_struct.h"  // for physics_info, (anonymous), light...
+#include "pstypes.h"                 // for ubyte, uint
+#include "robotfirestruct.h"         // for otype_wb_info
 
 #ifdef NEWEDITOR
 #include "..\neweditor\ned_Object.h"

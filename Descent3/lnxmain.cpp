@@ -23,39 +23,30 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <ctype.h>
-#include <string.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <time.h>
+#include <SDL_error.h>     // for SDL_ClearError, SDL_GetError
+#include <SDL_events.h>    // for SDL_EventType, SDL_Event, SDL_SetEventFilter
+#include <signal.h>        // for sigaction, SIGABRT, SIGBUS, SIGFPE, SIGHUP
+#include <stdio.h>         // for fprintf, stderr, printf, setbuf, snprintf
+#include <stdlib.h>        // for getenv
+#include <string.h>        // for strcpy, memset, strlen
+#include <unistd.h>        // for NULL, _exit, sync, fork, getcwd, getpid
+#include "SDL.h"           // for SDL_Init, SDL_Quit, SDL_INIT_CDROM, SDL_IN...
+#include "application.h"   // for OEAPP_CONSOLE
+#include "args.h"          // for FindArgChar, FindArg, GameArgs, GatherArgs
+#include "descent.h"       // for Descent3, Database, Descent
+#include "init.h"          // for PreInitD3Systems
+#include "linux_fix.h"     // for LOKI_VERSION, _MAX_PATH
+#include "lnxapp.h"        // for APPFLAG_USESERVICE, oeLnxApplication, APPF...
+#include "lnxdatabase.h"   // for oeLnxAppDatabase
+#include "loki_utils.h"    // for loki_getdatapath, loki_initialize, loki_re...
+#include "osiris_share.h"  // for tOSIRISModuleInit
+#include "program.h"       // for D3_BUILD, D3_MAJORVER, D3_MINORVER
 
 #ifdef __PERMIT_MAKEHOG
 #include <dirent.h>
 #define _GNU_SOURCE
 #include <fnmatch.h>
 #include "hogfile.h"
-#endif
-
-#include "SDL.h"
-#include "program.h"
-#include "mono.h"
-#include "descent.h"
-#include "application.h"
-#include "appdatabase.h"
-#include "pserror.h"
-#include "args.h"
-#include "init.h"
-#include "renderer.h"
-
-#include "ddio.h"
-#include "ddvid.h"
-#include "osiris_dll.h"
-#include "loki_utils.h"
-
-#if defined(MACOSX)
-#include <SDL.h>
 #endif
 
 extern bool ddio_mouseGrabbed;

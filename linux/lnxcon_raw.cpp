@@ -39,21 +39,12 @@
  * $NoKeywords: $
  */
 
-#include "DDAccess.h"
-#include "application.h"
-#include "AppConsole.h"
-#include "TaskSystem.h"
-#include "mono.h"
-// #include "local_malloc.h"
-#include "pstring.h"
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <ctype.h>
-
-#include <algorithm>
+#include <ctype.h>       // for isalnum
+#include <stdarg.h>      // for va_end, va_list, va_start
+#include <stdio.h>       // for NULL, fflush, fprintf, stdout, vsnprintf
+#include <stdlib.h>      // for free, malloc
+#include <string.h>      // for memset, strcpy, strcat, strlen, strncpy
+#include "AppConsole.h"  // for CON_MAX_STRINGLEN
 
 static char *Con_raw_read_buf = NULL;                     // The next buffer of text from user input
 static char *Con_raw_inp_buf = NULL, Con_raw_inp_pos = 0; // Currently updating input buffer of text (and it's position)

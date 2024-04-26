@@ -43,6 +43,8 @@
 #ifndef AITERRAIN_H_
 #define AITERRAIN_H_
 
+#include "vecmat_external.h"  // for vector, angle, matrix
+
 typedef struct ground_information {
   float highest_y;
   float lowest_y;

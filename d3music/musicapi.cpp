@@ -16,10 +16,12 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "d3music.h"
-#include "music.h"
-#include "Macros.h"
-#include <limits>
+#include <limits>     // for numeric_limits
+#include "d3music.h"  // for tMusicSeqInfo, D3MusicToggle, CloseD3Music, D3M...
+#include "mono.h"     // for mprintf
+#include "music.h"    // for OutrageMusicSeq, oms_q_evt, OMS_THEME_TYPE_IDLE
+#include "psclass.h"  // for tQueue
+#include "pserror.h"  // for Int3
 
 #ifdef min
 #undef min

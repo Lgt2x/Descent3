@@ -19,17 +19,13 @@
 #ifndef DLLWRAPPERS_H_
 #define DLLWRAPPERS_H_
 
-#include "pserror.h"
-#include "cfile.h"
-#include "gamefont.h"
-#include "grdefs.h"
-#include "descent.h"
-#include "ddio.h"
-#include "movie.h"
-#include "program.h"
-#include "object.h"
-#include "hlsoundlib.h"
-#include "Inventory.h"
+#include <stddef.h>                  // for NULL
+#include "Inventory.h"               // for Inventory (ptr only), INVRESET_D...
+#include "cfile.h"                   // for CFILE
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"                 // for ushort
+#include "ssl_lib.h"                 // for MAX_GAME_VOLUME
+#include "vecmat_external.h"         // for vector, angvec, matrix
 
 // plays a 3dsound
 int D3W_Play3dSound(int sound_index, object *cur_obj, float volume = MAX_GAME_VOLUME, int flags = 0);

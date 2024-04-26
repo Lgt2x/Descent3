@@ -216,24 +216,22 @@
  * $NoKeywords: $
  */
 
-#include "terrain.h"
-#include "3d.h"
-#include "mono.h"
-#include "vecmat.h"
-#include "pserror.h"
-#include "pstypes.h"
-#include "descent.h"
-#include "game.h"
-#include "gameloop.h"
-#include <memory.h>
-#include <stdlib.h>
-#include <search.h>
-#include "config.h"
-#include "dedicated_server.h"
-
-#ifdef MACINTOSH
-#include <string.h>
-#endif
+#include <stdlib.h>                  // for qsort, NULL
+#include <string.h>                  // for memset
+#include <cmath>                     // for fabs
+#include "3d.h"                      // for g3_ProjectPoint, g3_CodePoint
+#include "config.h"                  // for Detail_settings
+#include "dedicated_server.h"        // for Dedicated_server
+#include "descent.h"                 // for function_mode
+#include "gameloop.h"                // for Render_zoom
+#include "mono.h"                    // for mprintf
+#include "object.h"                  // for Viewer_object
+#include "object_external_struct.h"  // for MAKE_ROOMNUM
+#include "pserror.h"                 // for ASSERT
+#include "pstypes.h"                 // for ubyte, ushort
+#include "renderer.h"                // for g3Point, rend_GetProjectionParam...
+#include "terrain.h"                 // for TERRAIN_WIDTH, MAX_TERRAIN_LOD
+#include "vecmat_external.h"         // for vector, operator*, operator+=
 
 int EvaluateBlock(int x, int z, int lod);
 

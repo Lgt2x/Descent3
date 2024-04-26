@@ -16,12 +16,18 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "RendererConfig.h"
+#include "RendererConfig.h" // IWYU pragma: keep
 #ifndef USE_SOFTWARE_TNL
 
-#include "3d.h"
-#include "HardwareInternal.h"
-#include "renderer.h"
+#include <stddef.h>            // for NULL
+#include "3d.h"                // for g3_ProjectPoint, PF_PROJECTED, g3_Rota...
+#include "HardwareInternal.h"  // for FreeTempPoint, CheckTempPoints, ClipLine
+#include "grdefs.h"            // for ddgr_color, GR_COLOR_BLUE, GR_COLOR_GREEN
+#include "pserror.h"           // for ASSERT
+#include "pstypes.h"           // for ubyte
+#include "renderer.h"          // for g3Point, rend_DrawLine, rend_SetTextur...
+#include "vecmat.h"            // for vm_AnglesToMatrix, vm_MatrixMulVector
+#include "vecmat_external.h"   // for operator*, vector, operator+, operator+=
 
 #define round(v) ((int)(((v) + 0.5f)))
 

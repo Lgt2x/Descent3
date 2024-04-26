@@ -16,12 +16,16 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "RendererConfig.h"
+#include "RendererConfig.h" // IWYU pragma: keep
 #ifndef USE_SOFTWARE_TNL
 
-#include "pserror.h"
-#include "3d.h"
-#include "HardwareInternal.h"
+#include "3d.h"                // for g3Point, p3_z, p3_a, p3_b, p3_g, p3_l
+#include "HardwareInternal.h"  // for MAX_POINTS_IN_POLY, Matrix_scale, Clip...
+#include "mono.h"              // for mprintf
+#include "pserror.h"           // for Int3, ASSERT
+#include "pstypes.h"           // for ubyte
+#include "vecmat.h"            // for vm_NormalizeVector
+#include "vecmat_external.h"   // for operator*, operator-, vector, operator+
 
 static int free_point_num = -1;
 static g3Point temp_points[MAX_POINTS_IN_POLY];

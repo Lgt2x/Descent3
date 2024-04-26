@@ -44,7 +44,8 @@
 #ifndef __TCAUTOMAP_H_
 #define __TCAUTOMAP_H_
 
-#include "TelCom.h"
+#include "TelCom.h"   // for tTelComInfo
+#include "pstypes.h"  // for ubyte
 
 // This is the function called by TelCom
 //  return true if TelCom should exit to TelCom Main Menu

@@ -252,15 +252,18 @@
 #ifndef __SSL_LIB_H__
 #define __SSL_LIB_H__
 
-#include "vecmat.h"
+#include <stddef.h>           // for NULL
+#include "pstypes.h"          // for ubyte, ushort
+#include "vecmat_external.h"  // for vector, matrix
+class llsGeometry;
+class oeApplication;
 
 #ifndef NEWEDITOR
-#include "manage.h"
+#include "manage_external.h"  // for PAGENAME_LEN
 #else
 #include "..\neweditor\ned_TableFile.h"
 #endif
 
-class oeApplication; // reference to oeApplication class.
 
 #define MAX_GAME_VOLUME (float)1.0 // helps against clipping
 
@@ -437,8 +440,6 @@ typedef struct t3dEnvironmentToggles {
 
 /////////////////////////////////////////////////////////////////////////////////
 // Looping constants
-
-class llsGeometry;
 
 class llsSystem {
 protected:

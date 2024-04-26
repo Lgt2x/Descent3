@@ -76,13 +76,10 @@
 #ifndef CFILE_H
 #define CFILE_H
 
-#include <cmath>
-#include <cstdint>
-#include <cstdio>
-
-#include "pstypes.h"
-
-struct library;
+#include <cmath>      // for double_t, float_t
+#include <cstdint>    // for int16_t, int32_t, int8_t
+#include <cstdio>     // for FILE, size_t
+#include "pstypes.h"  // for ubyte
 
 // The structure for a CFILE
 typedef struct CFILE {

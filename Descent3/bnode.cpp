@@ -96,21 +96,21 @@
  *
  * $NoKeywords: $
  */
-
-#ifdef MACINTOSH
-#include <string.h>
-#endif
-
-#include "memory.h"
+ 
 #include "bnode.h"
-#include "room.h"
-#include "mem.h"
-#include "vecmat.h"
-#include "terrain.h"
-#include "room.h"
-#include "findintersection.h"
-#include "BOA.h"
-#include "psrand.h"
+#include <string.h>                     // for NULL, memset
+#include <cmath>                        // for fabs
+#include "BOA.h"                        // for BOA_INDEX, BOA_num_terrain_re...
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for HIT_NONE, FQ_CHECK_OBJS, FQ_I...
+#include "mem.h"                        // for mem_free, mem_malloc
+#include "object_external_struct.h"     // for ROOMNUM_OUTSIDE
+#include "pserror.h"                    // for ASSERT
+#include "psrand.h"                     // for ps_rand
+#include "room.h"                       // for Highest_room_index, Rooms
+#include "room_external.h"              // for room, RF_EXTERNAL
+#include "terrain.h"                    // for GetTerrainRoomFromPos, TERRAI...
+#include "vecmat.h"                     // for vm_NormalizeVector
 
 bn_list BNode_terrain_list[8];
 bool BNode_allocated = false;

@@ -42,11 +42,19 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include <string.h>
-#include "idmfc.h"
-#include "Entropystr.h"
-#include "EntropyAux.h"
+#include <stdlib.h>                  // for rand, free, malloc
+#include "DMFC.h"                    // for BLUE_TEAM, RED_TEAM, SP_ALL, DLL...
+#include "EntropyAux.h"              // for PaintRoomWithTexture, RoomList
+#include "Entropystr.h"              // for TXT_VIRUS, TXT_PICKUPVIRUS
+#include "fireball_external.h"       // for HOT_SPARK_INDEX
+#include "gamedll_header.h"          // for DLLInvAddTypeID, DLLAddHUDMessage
+#include "idmfc.h"                   // for IDMFC
+#include "multi_external.h"          // for MultiAddByte, MultiAddInt, Multi...
+#include "multi_world_state.h"       // for RCF_GOALSPECIAL_FLAGS
+#include "object_external.h"         // for OBJ_POWERUP
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"                 // for ubyte
+#include "room_external.h"           // for RF_SPECIAL1, RF_SPECIAL2, RF_SPE...
 
 extern IDMFC *DMFCBase;
 extern room *dRooms;

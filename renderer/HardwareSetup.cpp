@@ -16,15 +16,15 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "RendererConfig.h"
+#include "RendererConfig.h" // IWYU pragma: keep
 #ifndef USE_SOFTWARE_TNL
 
-#include <stdlib.h>
-#include <string.h>
-#include "3d.h"
-#include "pserror.h"
-#include "HardwareInternal.h"
-#include "renderer.h"
+#include <stdlib.h>            // for atexit
+#include <string.h>            // for memset
+#include "3d.h"                // for g3_GetModelViewMatrix, g3_ResetFarClipZ
+#include "HardwareInternal.h"  // for Matrix_scale, Unscaled_matrix, View_ma...
+#include "renderer.h"          // for rend_GetAspectRatio, rend_GetProjectio...
+#include "vecmat_external.h"   // for operator*, matrix, vector
 
 // User-specified aspect ratio, stored as w/h
 static float sAspect = 0.0f;

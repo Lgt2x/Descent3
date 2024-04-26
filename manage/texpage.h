@@ -19,10 +19,12 @@
 #ifndef TEXPAGE_H
 #define TEXPAGE_H
 
-#include "manage.h"
-#include "cfile.h"
-#include "pstypes.h"
-#include "procedurals.h"
+#include <stddef.h>           // for NULL
+#include "cfile.h"            // for CFILE
+#include "gametexture.h"      // for texture
+#include "manage_external.h"  // for PAGENAME_LEN
+#include "procedurals.h"      // for MAX_PROC_ELEMENTS
+#include "pstypes.h"          // for ubyte, ushort
 
 typedef struct {
   char bitmap_name[PAGENAME_LEN];  // filename for the bitmap associated with this texture

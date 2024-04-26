@@ -156,9 +156,7 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
 
-#include "pstypes.h"
-
-#include "buildno.h"
+#include "pstypes.h"  // for ubyte
 
 #define D3_MAJORVER 0x1 // DESCENT 3 VERSION NUMBER
 #define D3_MINORVER 0x5

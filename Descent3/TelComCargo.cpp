@@ -78,30 +78,25 @@
  */
 
 #include "TelComCargo.h"
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
-#include "cfile.h"
-#include "pserror.h"
-#include "ddio.h"
-#include "bitmap.h"
-
-#include "TelCom.h"
-#include "renderer.h"
-#include "game.h"
-#include "mem.h"
-#include "stringtable.h"
-#include "Inventory.h"
-#include "player.h"
-#include "gametexture.h"
-#include "textaux.h"
-#include "TelComEfxStructs.h"
-#include "TelComEffects.h"
-#include "weapon.h"
-#include "hlsoundlib.h"
-
-#include <algorithm>
+#include <stdlib.h>            // for NULL
+#include <algorithm>           // for max
+#include "TelCom.h"            // for MONITOR_MAIN, TelcomRenderSetCallback
+#include "TelComEffects.h"     // for CreateBackgroundEffect, CreateTextEffect
+#include "TelComEfxStructs.h"  // for TCBGD_COLOR, TCBKGDESC, TCTD_COLOR
+#include "application.h"       // for oeApplication
+#include "ddio_common.h"       // for KEY_ESC, KEY_STATE
+#include "descent.h"           // for Descent
+#include "gamefont.h"          // for BRIEFING_FONT, BIG_BRIEFING_FONT, BBRI...
+#include "grdefs.h"            // for GR_RGB, GR_WHITE
+#include "grtext.h"            // for grtext_Printf, grtext_SetFont, grfont_...
+#include "hlsoundlib.h"        // for Sound_system, hlsSystem
+#include "player.h"            // for Player_num, Players
+#include "player_external.h"   // for INITIAL_ENERGY, INITIAL_SHIELDS
+#include "pserror.h"           // for ASSERT
+#include "pstypes.h"           // for ubyte
+#include "renderer.h"          // for rend_SetZBufferState, rend_SetAlphaType
+#include "stringtable.h"       // for TXT_TCCARGO
+#include "weapon.h"            // for MAX_STATIC_WEAPONS, PRIMARY_INDEX, SEC...
 
 #define TCBACK_BUTTON_X 500
 #define TCBACK_BUTTON_Y 350

@@ -77,7 +77,12 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
+#include <stddef.h>       // for NULL
+#include "ddio_common.h"  // for KEY_SPACEBAR
+#include "pserror.h"      // for ASSERT
+#include "ui.h"           // for UIHotspot, UIGadget, UIF_FIT, UIWindow (ptr...
+#include "uires.h"        // for UIItem, tUIDrawClass
+#include "uisys.h"        // for PT_IN_GADGET, UILMSEBTN, UI_input, LOCK_FOCUS
 
 //	----------------------------------------------------------------------------
 //	UIHotspot

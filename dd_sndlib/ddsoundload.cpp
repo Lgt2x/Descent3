@@ -95,17 +95,13 @@
 #include "linux/linux_fix.h"
 #endif
 
-#include "ssl_lib.h"
-#if defined(MACOSX)
-#include <sys/malloc.h>
-#else
-#include <malloc.h>
-#endif
-#include "cfile.h"
-#include "mem.h"
-#include "pserror.h"
-#include <string.h>
-#include "byteswap.h"
+#include <stdio.h>            // for SEEK_SET
+#include <string.h>           // for strcpy, NULL, memset
+#include "byteswap.h"         // for convert_le, INTEL_SHORT
+#include "cfile.h"            // for cf_ReadInt, cf_ReadShort, cfclose, cftell
+#include "mono.h"             // for mprintf
+#include "pstypes.h"          // for ubyte
+#include "ssl_lib.h"          // for MAX_SOUNDS, MAX_SOUND_FILES, SoundLoadFree
 
 sound_info Sounds[MAX_SOUNDS];
 sound_file_info SoundFiles[MAX_SOUND_FILES];

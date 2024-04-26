@@ -1507,42 +1507,58 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include "AIMain.h"
-#include "mono.h"
-#include "game.h"
-#include "weapon.h"
-#include "findintersection.h"
-#include "vecmat.h"
-#include "AIGoal.h"
-#include "terrain.h"
-#include "hlsoundlib.h"
-#include "sounds.h"
-#include "aiterrain.h"
-#include "weapon.h"
-#include "objinfo.h"
-#include "polymodel.h"
-#include "robotfire.h"
-#include "BOA.h"
-#include "player.h"
-#include "memory.h"
-#include "gamepath.h"
-#include "soundload.h"
-#include "damage.h"
-#include "aipath.h"
-#include "robot.h"
-#include "attach.h"
-#include "demofile.h"
-#include "matcen.h"
-#include "PHYSICS.H"
-#include "difficulty.h"
-#include "osiris_dll.h"
-#include "multi.h"
-#include "gamecinematics.h"
-#include "room.h"
-#include "psrand.h"
-#include "gametexture.h"
-#include "difficulty.h"
+#include <stdlib.h>                     // for NULL
+#include <string.h>                     // for memset
+#include <cmath>                        // for fabs, fabsf, exp
+#include "AIGoal.h"                     // for GoalAddGoal, GoalClearGoal
+#include "AIMain.h"                     // for AIDestroyObj, AIDoFrame, AIFi...
+#include "BOA.h"                        // for BOA_IsVisible, BOA_ComputeMin...
+#include "aipath.h"                     // for AIFindAltPath, AIPathFreePath
+#include "aistruct.h"                   // for ai_frame, AI_MEM_DEPTH, goal
+#include "aistruct_external.h"          // for AWARE_BARELY, ACTIVATION_BLEN...
+#include "aiterrain.h"                  // for ait_Init
+#include "attach.h"                     // for AttachObject, AttachUpdateSub...
+#include "damage.h"                     // for ApplyDamageToGeneric, ApplyDa...
+#include "damage_external.h"            // for GD_MELEE_ATTACK, PD_MELEE_ATTACK
+#include "demofile.h"                   // for DemoWrite3DSound, Demo_flags
+#include "difficulty.h"                 // for DIFF_LEVEL, Diff_ai_vis_dist
+#include "difficulty_external.h"        // for DIFFICULTY_HOTSHOT, DIFFICULT...
+#include "findintersection.h"           // for fvi_QuickDistObjectList, fvi_...
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_NO_RELINK
+#include "game.h"                       // for Gametime, GM_MULTI, Game_mode
+#include "gamecinematics.h"             // for Cinematic_inuse
+#include "gamepath.h"                   // for game_path, GamePaths
+#include "gametexture.h"                // for GameTextures, TF_FORCEFIELD
+#include "hlsoundlib.h"                 // for Sound_system, hlsSystem
+#include "matcen.h"                     // for Matcen_created
+#include "mono.h"                       // for mprintf, DebugBlockPrint
+#include "multi.h"                      // for MultiPlay3dSound, Netgame
+#include "multi_external.h"             // for LR_CLIENT, LR_SERVER, NF_DAMA...
+#include "object.h"                     // for ObjGet, OBJNUM, Objects, ObjS...
+#include "object_external.h"            // for CT_AI, OBJ_PLAYER, MT_WALKING
+#include "object_external_struct.h"     // for object, ROOMNUM_OUTSIDE, poly...
+#include "objinfo.h"                    // for Object_info, IS_GUIDEBOT, obj...
+#include "osiris_dll.h"                 // for Osiris_CallEvent, Osiris_Call...
+#include "osiris_share.h"               // for EVT_AI_NOTIFY, tOSIRISEventInfo
+#include "player.h"                     // for Players, Player_object, Num_t...
+#include "player_external.h"            // for PLAYER_FLAGS_DEAD, PLAYER_FLA...
+#include "player_external_struct.h"     // for MAX_PLAYERS
+#include "polymodel.h"                  // for Poly_models
+#include "polymodel_external.h"         // for poly_model
+#include "pserror.h"                    // for ASSERT, Int3
+#include "psrand.h"                     // for ps_rand, RAND_MAX
+#include "pstypes.h"                    // for ubyte, uint
+#include "robotfire.h"                  // for WBIsBatteryReady, WBFireBattery
+#include "robotfirestruct.h"            // for WB_MOVE_STILL, WB_MOVE_LEFT
+#include "robotfirestruct_external.h"   // for DWBF_ENABLED, WBF_ANIM_FULL
+#include "room.h"                       // for Rooms, Highest_room_index
+#include "room_external.h"              // for RF_EXTERNAL, MAX_VERTS_PER_FACE
+#include "sounds.h"                     // for SOUND_NONE_INDEX, SOUND_ENERG...
+#include "ssl_lib.h"                    // for SND_PRIORITY_NORMAL, SND_PRIO...
+#include "terrain.h"                    // for TERRAIN_REGION, ComputeTerrai...
+#include "vecmat.h"                     // for vm_NormalizeVector, Zero_vector
+#include "vecmat_external.h"            // for operator*, vector, operator-
+#include "weapon.h"                     // for WeaponCalcGun, ObjectsAreRelated
 
 // Define's
 #define MAX_SEE_TARGET_DIST 500.0f

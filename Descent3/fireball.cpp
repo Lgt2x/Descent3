@@ -578,45 +578,55 @@
  * rid of the object flag which used to indicate terrain.
  *
  */
-#include <memory.h>
-#include "pstypes.h"
-#include "pserror.h"
-#include "fireball.h"
-#include "vclip.h"
-#include "object.h"
-#include "cockpit.h"
-#include "game.h"
-#include "3d.h"
-#include "mono.h"
-#include "room.h"
-#include "polymodel.h"
-#include "objinfo.h"
-#include "gametexture.h"
-#include "splinter.h"
-#include "PHYSICS.H"
-#include "damage.h"
-#include "gameevent.h"
-#include "weapon.h"
-#include "viseffect.h"
-#include "spew.h"
-#include "hlsoundlib.h"
-#include "sounds.h"
-#include "gameloop.h"
-#include "multi.h"
-#include "AIGoal.h"
-#include "AIMain.h"
-#include "ship.h"
-#include "BOA.h"
-#include "demofile.h"
-#include "ObjScript.h"
-#include <stdlib.h>
-#include <string.h>
-#include "psrand.h"
-#if defined(MACINTOSH)
-#include "Macros.h"
-#endif
 
-#include <algorithm>
+#include "fireball.h"
+#include <stdlib.h>                     // for NULL, rand
+#include <string.h>                     // for memset
+#include <algorithm>                    // for min
+#include "3d.h"                         // for g3_RotatePoint, p3_u, p3_v
+#include "BOA.h"                        // for BOA_IsVisible
+#include "DeathInfo.h"                  // for DEATH_EXPL_SIZE
+#include "ObjScript.h"                  // for InitObjectScripts
+#include "PHYSICS.H"                    // for phys_apply_force, PhysCalcGround
+#include "bitmap.h"                     // for bm_h, bm_w, bm_data, BF_CHANGED
+#include "cockpit.h"                    // for StartCockpitShake
+#include "damage.h"                     // for AddToShakeMagnitude, ApplyDam...
+#include "damage_external.h"            // for GD_CONCUSSIVE, PD_CONCUSSIVE_...
+#include "demofile.h"                   // for DF_PLAYBACK, Demo_flags
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_NO_RELINK
+#include "fireball_external.h"          // for FT_EFFECT, FT_EXPLOSION, FT_S...
+#include "fix.h"                        // for FixCos, FixSin, angle
+#include "game.h"                       // for Gametime, GM_MULTI, Game_mode
+#include "gameevent.h"                  // for CreateNewEvent, RENDER_EVENT
+#include "gametexture.h"                // for SMALL_TEXTURE, TINY_TEXTURE
+#include "grdefs.h"                     // for GR_RGB, GR_RGB16, OPAQUE_FLAG
+#include "hlsoundlib.h"                 // for Sound_system, hlsSystem
+#include "linux_fix.h"                  // for stricmp
+#include "mono.h"                       // for mprintf
+#include "multi.h"                      // for Netgame, MultiSendObject
+#include "multi_external.h"             // for LR_SERVER, LR_CLIENT
+#include "object.h"                     // for Objects, ObjCreate, Viewer_ob...
+#include "object_external.h"            // for OF_USES_LIFELEFT, MT_PHYSICS
+#include "objinfo.h"                    // for Object_info, DSF_ONLY_IF_NO_1
+#include "player.h"                     // for PlayerScoreAdd, Player_object
+#include "player_external_struct.h"     // for MAX_PLAYER_WEAPONS, player
+#include "polymodel.h"                  // for Poly_models, GetPolymodelPointer
+#include "polymodel_external.h"         // for poly_model, bsp_info, MAX_SUB...
+#include "pserror.h"                    // for ASSERT, Error, Int3
+#include "psrand.h"                     // for ps_rand, RAND_MAX, ps_srand
+#include "pstypes.h"                    // for ubyte, ushort
+#include "renderer.h"                   // for rend_SetAlphaType, rend_SetZB...
+#include "ship.h"                       // for Ships
+#include "sounds.h"                     // for SOUND_ROBOT_EXPLODE_1, SOUND_...
+#include "spew.h"                       // for SpewCreate, spewinfo
+#include "ssl_lib.h"                    // for SND_PRIORITY_HIGH, SND_PRIORI...
+#include "terrain.h"                    // for GetTerrainGroundPoint, MAX_TE...
+#include "vclip.h"                      // for GameVClips, PageInVClip, vclip
+#include "vecmat.h"                     // for vm_VectorDistanceQuick, vm_No...
+#include "viseffect.h"                  // for VisEffects, VisEffectCreate
+#include "viseffect_external.h"         // for VIS_FIREBALL, VF_USES_LIFELEFT
+#include "weapon.h"                     // for DrawAlphaBlendedScreen, HAS_FLAG
 
 // If an objects size is bigger than this, we create size/threshold extra explosions
 #define EXTRA_EXPLOSION_THRESHOLD 15

@@ -19,9 +19,10 @@
 #ifndef AIPATH_H_
 #define AIPATH_H_
 
-#include "object.h"
-#include "pstypes.h"
-#include "aistruct.h"
+#include <stddef.h>                  // for NULL
+#include "aistruct.h"                // for ai_path_info, ai_frame
+#include "object_external_struct.h"  // for object
+#include "vecmat_external.h"         // for vector
 
 // Exported functions
 void AIPathMoveTurnTowardsNode(object *obj, vector *mdir, bool *f_moved);

@@ -16,12 +16,14 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "UIlib.h"
-#include "uisys.h"
-#include "pserror.h"
-#include "grtext.h"
-#include <string.h>
-#include "mem.h"
+#include <string.h>   // for strcpy, strlen
+#include "grdefs.h"   // for ddgr_color, GR_COLOR_BLUE, GR_COLOR_GREEN, GR_C...
+#include "mem.h"      // for mem_strdup, mem_free
+#include "pserror.h"  // for Error
+#include "pstypes.h"  // for ubyte
+#include "uidraw.h"   // for ui_DrawString, ui_DrawSetTextType, ui_DrawSetFont
+#include "uires.h"    // for UISnazzyTextItem, UITextItem, UIBitmapItem, UIP...
+#include "uisys.h"    // for UIFrameTime
 
 //@@void *UIItem::operator new(size_t mem, UIItem *item, tUIResClass class_type)
 //@@{

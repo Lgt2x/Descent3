@@ -88,9 +88,11 @@
  * $NoKeywords: $
  */
 #include "ddio.h"
-#include "joystick.h"
-#include "pserror.h"
-#include <stdlib.h>
+#include <stdlib.h>    // for atexit
+#include "joystick.h"  // for ddio_InternalJoyFrame, joy_Close, joy_Init
+#include "mono.h"      // for mprintf
+#include "pserror.h"   // for Error, ASSERT
+
 static bool DDIO_initialized = false;
 // ----------------------------------------------------------------------------
 //	Common initialization

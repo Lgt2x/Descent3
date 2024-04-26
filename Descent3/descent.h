@@ -128,8 +128,11 @@
 #ifndef _DESCENT_H
 #define _DESCENT_H
 
-#include <stdlib.h>
-#include "application.h"
+#include "application.h"  // for oeApplication
+#include "linux_fix.h"    // for _MAX_PATH
+class grScreen;
+class grViewport;
+class oeAppDatabase;
 
 // The name of this product
 #ifdef DEMO
@@ -146,11 +149,6 @@
 #else
 #define D3_DEFAULT_PORT 2092
 #endif
-
-class grScreen;
-class oeApplication;
-class oeAppDatabase;
-class grViewport;
 
 //	---------------------------------------------------------------------------
 //	Constants and Types

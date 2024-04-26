@@ -20,27 +20,26 @@
 #include "ddio_mac.h"
 #endif
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include <errno.h>
-#include <ctype.h>
 #ifndef __LINUX__
 // Non-Linux Build Includes
 #include <io.h>
-#else
-// Linux Build Includes
-#include "linux/linux_fix.h"
 #endif
 
-#include "byteswap.h"
-#include "pserror.h"
-#include "ddio.h"
-#include "psglob.h"
 #include "cfile.h"
-#include "hogfile.h" //info about library file
-#include "mem.h"
+#include <ctype.h>            // for isalpha, tolower, toupper
+#include <errno.h>            // for errno, EACCES
+#include <glob.h>             // for glob, globfree, GLOB_MARK, GLOB_NOSPACE
+#include <stdarg.h>           // for va_end, va_arg, va_start
+#include <stdlib.h>           // for atexit
+#include <string.h>           // for strcpy, strlen, strerror, strcat, strncpy
+#include "byteswap.h"         // for convert_le, INTEL_FLOAT, INTEL_INT, INT...
+#include "ddio.h"             // for ddio_SplitPath, ddio_MakePath, ddio_Get...
+#include "hogfile.h"          // for HOG_TAG_STR, ReadHogEntry, ReadHogHeader
+#include "linux/linux_fix.h"  // for _MAX_PATH, stricmp, _MAX_EXT, _chmod
+#include "mem.h"              // for mem_free, mem_malloc
+#include "mono.h"             // for mprintf
+#include "pserror.h"          // for ASSERT, Error, Int3
+#include "psglob.h"           // for PSGlobMatch, PSGlobHasPattern
 
 // Library structures
 typedef struct {
@@ -391,7 +390,6 @@ CFILE *open_file_in_lib(const char *filename) {
 }
 
 #ifdef __LINUX__
-#include <glob.h>
 
 static int globerrfn(const char *path, int err) {
   mprintf((0, "Error accessing %s: %s .... \n", path, strerror(err)));

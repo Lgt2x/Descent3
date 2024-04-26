@@ -87,23 +87,17 @@
  */
 
 #include "ConfigItem.h"
-#include "ddio.h"
-#include "newui.h"
-#include "application.h"
-#include "descent.h"
-#include "mono.h"
-#include "ddio.h"
-#include "gamefont.h"
-#include "multi_ui.h"
-#include "cfile.h"
-#include "mem.h"
-#include "game.h"
-#include "stringtable.h"
-
-#include <string.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include "stringtable.h"
+#include <stdarg.h>       // for va_arg, va_end, va_list, va_start
+#include <stdio.h>        // for snprintf
+#include <string.h>       // for strlen, strncat
+#include "gamefont.h"     // for SMALL_FONT
+#include "grtext.h"       // for grtext_GetTextLineWidth, grtext_SetFont
+#include "mem.h"          // for mem_malloc, mem_free, mem_strdup
+#include "mono.h"         // for mprintf
+#include "newui.h"        // for NewUISlider, NewUIButton, NewUIListBox, New...
+#include "pserror.h"      // for ASSERT, Int3
+#include "stringtable.h"  // for TXT_NO, TXT_OFF, TXT_ON, TXT_YES
+#include "uires.h"        // for UITextItem
 
 #define UI_CHECKBOX_OFF_CHAR 28
 #define UI_CHECKBOX_ON_CHAR 29

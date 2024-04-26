@@ -118,13 +118,13 @@
 #ifndef __TELCOM_EFFECTS_H_
 #define __TELCOM_EFFECTS_H_
 
-#include "pstypes.h"
-#include "renderer.h"
-#include "grdefs.h"
-#include "cinematics.h"
-#include "TelComEfxStructs.h"
-#include "TelCom.h"
-#include "vecmat_external.h"
+#include "TelCom.h"            // for tTCEvent, tTelComInfo
+#include "TelComEfxStructs.h"  // for LPTCBKGDESC, LPTCBMPDESC, LPTCBUTTONDESC
+#include "cinematics.h"        // for tCinematic
+#include "grdefs.h"            // for ddgr_color
+#include "pstypes.h"           // for ubyte
+#include "renderer.h"          // for chunked_bitmap
+#include "vecmat_external.h"   // for vector, matrix
 
 /*
 ***************************************************************************************

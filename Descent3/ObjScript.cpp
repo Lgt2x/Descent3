@@ -144,18 +144,13 @@
  */
 
 #include "ObjScript.h"
-
-#include "object.h"
-#include "objinfo.h"
-#include "Mission.h"
-#include "pserror.h"
-#include "trigger.h"
-#include "door.h"
-#include "game.h"
-#include "multi.h"
-#include "osiris_dll.h"
-
-#include <string.h>
+#include <string.h>           // for NULL
+#include "Mission.h"          // for FreeLevelScript
+#include "object.h"           // for Objects, Highest_object_index
+#include "object_external.h"  // for CT_AI, OBJ_NONE
+#include "osiris_dll.h"       // for Osiris_CallEvent, Osiris_BindScriptsToO...
+#include "osiris_share.h"     // for tOSIRISEventInfo, EVT_AI_INIT, EVT_CREATED
+#include "trigger.h"          // for trigger, Num_triggers, Triggers, object
 
 void InitTriggerScript(trigger *tp);
 void FreeTriggerScript(trigger *tp);

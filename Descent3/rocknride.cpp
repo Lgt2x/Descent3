@@ -40,15 +40,15 @@
  *
  * $NoKeywords: $
  */
-#include "mono.h"
-#include "ddio.h"
-#include "debug.h"
-#include "game.h"
-#include "pserror.h"
+
 #include "rocknride.h"
-#include <memory.h>
-#include <string.h>
-#include <stdlib.h>
+#include <stdlib.h>       // for atexit
+#include "ddio_common.h"  // for ddio_SerialClosePort, ddio_SerialOpenPort
+#include "game.h"         // for Gametime
+#include "mono.h"         // for mprintf
+#include "pserror.h"      // for ASSERT, Int3
+#include "vecmat.h"       // for vm_ExtractAnglesFromMatrix, vm_SinCos, vm_V...
+
 bool RocknRide_enabled = false;
 float RocknRide_lastcontroller_update = 0.0f;
 float RocknRide_lastforce_update = 0.0f;

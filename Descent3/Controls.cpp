@@ -404,40 +404,34 @@
  * $NoKeywords: $
  */
 
-#include "controls.h"
-
-#include "object.h"
-#include "pserror.h"
-#include "game.h"
-#include "ddio.h"
-#include "joystick.h"
-#include "descent.h"
-#include "mono.h"
-#include "weapon.h"
-#include "Controller.h"
-#include "Macros.h"
-#include "gamesequence.h"
-#include "pilot.h"
-#include "hud.h"
-#include "stringtable.h"
-#include "TelCom.h"
-#include "multi.h"
-#include "args.h"
-
-#include "player.h"
-
-#include "hlsoundlib.h"
-#include "sounds.h"
-#include "soundload.h"
-
-#include "rocknride.h"
-
-#include <stdlib.h>
-#include <memory.h>
-
-#ifdef MACINTOSH
-#include "insprocket.h"
-#endif
+#include <stdlib.h>           // for atof, NULL
+#include <string.h>           // for memset
+#include <cmath>              // for fabs
+#include "Controller.h"       // for ct_type, ct_format, gameController, ct_...
+#include "Inventory.h"        // for Inventory, CounterMeasuresSwitch, Inven...
+#include "args.h"             // for FindArg, GameArgs
+#include "controls.h"         // for game_controls, ctfFIREPRIMARY_BUTTON
+#include "ddio.h"             // for ddio_MouseQueueFlush, timer_GetTime
+#include "ddio_common.h"      // for ddio_KeyFlush, KEY_A, KEY_BACKSLASH
+#include "game.h"             // for Frametime
+#include "gamesequence.h"     // for Game_interface_mode, GAME_INTERFACE
+#include "hlsoundlib.h"       // for Sound_system, hlsSystem
+#include "hud.h"              // for AddHUDMessage, Doing_input_message
+#include "joystick.h"         // for JOYPOV_DOWN, JOYPOV_LEFT, JOYPOV_RIGHT
+#include "mono.h"             // for mprintf, mprintf_at
+#include "multi.h"            // for MultiSendRequestPlayTaunt
+#include "object_external.h"  // for OBJ_POWERUP
+#include "objinfo.h"          // for FindObjectIDName
+#include "pilot.h"            // for Current_pilot
+#include "pilot_class.h"      // for pilot, N_JOY_AXIS, N_MOUSE_AXIS
+#include "player.h"           // for Player_num, Players, DoEnergyToShields
+#include "player_external.h"  // for PLAYER_FLAGS_HEADLIGHT, PW_PRIMARY, PW_...
+#include "pserror.h"          // for Error
+#include "pstypes.h"          // for ubyte
+#include "rocknride.h"        // for RNR_UpdateControllerInfo
+#include "sounds.h"           // for SOUND_HEADLIGHT
+#include "stringtable.h"      // for TXT_WPNSELECT, TXT_ERRUNINITCNT, TXT_DO...
+#include "weapon.h"           // for SwitchPlayerWeapon
 
 float Key_ramp_speed = 0.5f;
 

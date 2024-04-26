@@ -187,34 +187,46 @@
  * $NoKeywords: $
  */
 
-#include "pstypes.h"
-#include "pserror.h"
-#include "grtext.h"
-#include "renderer.h"
 #include "gamecinematics.h"
-#include "vecmat.h"
-#include "mem.h"
-#include "gamepath.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "game.h"
-#include "AIGoal.h"
-#include "aipath.h"
-#include "objinfo.h"
-#include "player.h"
-#include "ddio.h"
-#include "gamefont.h"
-#include "AIMain.h"
-#include "controls.h"
-#include "d3music.h"
-#include "gamesequence.h"
-#include "demofile.h"
-#include "osiris_dll.h"
-#include "multi.h"
-#include "weapon.h"
-
-#include <algorithm>
+#include <stdio.h>                   // for NULL
+#include <stdlib.h>                  // for atexit
+#include <string.h>                  // for memcpy, memset, strlen
+#include <algorithm>                 // for min
+#include <cmath>                     // for fabs
+#include "AIGoal.h"                  // for GoalAddGoal, GoalInitTypeGoals
+#include "AIMain.h"                  // for AINotify
+#include "aipath.h"                  // for AIPathInitPath
+#include "aistruct.h"                // for path_information, AIC_STATIC
+#include "aistruct_external.h"       // for AIG_FOLLOW_PATH, GF_FORCE_AWARENESS
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE, bm_FreeBitmap
+#include "controls.h"                // for ResumeControls, SuspendControls
+#include "d3music.h"                 // for D3MusicStartCinematic, D3MusicSt...
+#include "ddio.h"                    // for ddio_InternalKeyState
+#include "ddio_common.h"             // for ddio_KeyFlush, DDIO_MAX_KEYS
+#include "demofile.h"                // for Demo_flags, DF_PLAYBACK, DF_RECO...
+#include "fix.h"                     // for angle
+#include "game.h"                    // for Gametime, Max_window_h, Max_wind...
+#include "gamefont.h"                // for BIG_BRIEFING_FONT
+#include "gamepath.h"                // for game_path, GamePaths
+#include "gamesequence.h"            // for SetGameState, tGameState
+#include "grdefs.h"                  // for GR_RGB16, OPAQUE_FLAG, GR_RGB
+#include "grtext.h"                  // for grtext_SetFont, grtext_CenteredP...
+#include "mem.h"                     // for mem_free, mem_strdup
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for MultiEndLevel
+#include "object.h"                  // for ObjGet, ObjSetPos, Objects, ObjS...
+#include "object_external.h"         // for OBJECT_HANDLE_NONE, OBJ_CAMERA
+#include "object_external_struct.h"  // for object, MAX_OBJECTS
+#include "osiris_dll.h"              // for Osiris_CallLevelEvent
+#include "osiris_share.h"            // for tOSIRISEventInfo, EVT_PLAYER_MOV...
+#include "player.h"                  // for Player_object, Player_num, Players
+#include "player_external.h"         // for PLAYER_FLAGS_THRUSTED, PLAYER_FL...
+#include "pserror.h"                 // for ASSERT, Error
+#include "pstypes.h"                 // for ubyte, ushort, uint
+#include "renderer.h"                // for rend_SetFiltering, rend_SetZBuff...
+#include "vecmat.h"                  // for vm_VectorToMatrix, vm_Orthogonalize
+#include "vecmat_external.h"         // for vector, operator-, vm_MakeZero
+#include "weapon.h"                  // for ClearPlayerFiring
 
 #ifdef _DEBUG
 bool Cinematics_enabled = true;

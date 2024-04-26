@@ -118,28 +118,35 @@
  *
  */
 
-#include <stdio.h>
-
-#include "pstypes.h"
-#include "mem.h"
-#include "args.h"
-#include "descent.h"
-#include "networking.h"
-#include "multi.h"
-#include "ui.h"
-#include "newui.h"
-#include "ddio.h"
-#include "stringtable.h"
-#include "multi_dll_mgr.h"
-// #include "inetgetfile.h"
-#include "grtext.h"
-#include "Mission.h"
 #include "mission_download.h"
-#include "renderer.h"
-
-#ifndef MACINTOSH
-#include "unzip.h"
-#endif
+#include <SDL_platform.h>    // for __LINUX__
+#include <ctype.h>           // for tolower
+#include <stdio.h>           // for snprintf, NULL
+#include <string.h>          // for strcat, memcpy, strlen, strcpy, strrchr
+#include "Mission.h"         // for D3MissionsDir
+#include "application.h"     // for oeApplication
+#include "args.h"            // for FindArg, GameArgs
+#include "cfile.h"           // for cfexist, cf_GetfileCRC, cf_IsFileInHog
+#include "ddio.h"            // for ddio_DeleteFile, ddio_MakePath, timer_Ge...
+#include "ddio_common.h"     // for KEY_ENTER, KEY_ESC
+#include "descent.h"         // for GetMultiCDPath, Descent
+#include "grdefs.h"          // for GR_GREEN
+#include "grtext.h"          // for grtext_GetTextLineWidth
+#include "manage.h"          // for LocalD3Dir
+#include "mem.h"             // for mem_free, mem_strdup
+#include "mono.h"            // for mprintf
+#include "multi.h"           // for END_DATA, Netgame, START_DATA, MultiProc...
+#include "multi_external.h"  // for MultiAddByte, MultiGetByte, MAX_GAME_DAT...
+#include "networking.h"      // for network_address, nw_Send, nw_Receive
+#include "newui.h"           // for NewUIGameWindow, NewUIListBox, DoMessageBox
+#include "newui_core.h"      // for DoUIFrame, DoUI, MSGBOX_OK, MSGBOX_YESNO
+#include "pserror.h"         // for ASSERT
+#include "pstypes.h"         // for ubyte, PSPATHNAME_LEN, ushort
+#include "renderer.h"        // for rend_Flip
+#include "stringtable.h"     // for TXT_CANCEL, TXT_ERROR, TXT_FMTCANTDNLD
+#include "ui.h"              // for UIConsoleGadget, UIText, UIF_CENTER, UIH...
+#include "uires.h"           // for UITextItem
+#include "unzip.h"           // for ZIP, CompareZipFileName, zipentry
 
 int Got_url;
 msn_urls msn_URL = {"", {"", "", "", "", ""}};

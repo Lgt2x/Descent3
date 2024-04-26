@@ -16,15 +16,19 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "object.h"
 #include "marker.h"
-#include "polymodel.h"
-#include "player.h"
-#include "multi.h"
-#include "game.h"
-#ifdef _DEBUG
-#include "AIMain.h"
-#endif
+#include <stdio.h>            // for sscanf
+#include <string.h>           // for strcpy, strcmp
+#include "AIMain.h"           // for AI_debug_robot_index
+#include "game.h"             // for GM_MULTI, Game_mode
+#include "mono.h"             // for mprintf
+#include "multi.h"            // for MultiSendRequestForMarker
+#include "object.h"           // for Objects, ObjCreate, ObjDelete, Highest_...
+#include "object_external.h"  // for OBJ_MARKER, OBJ_PLAYER
+#include "player.h"           // for Player_object, Player_num, Players
+#include "polymodel.h"        // for LoadPolyModel
+#include "pserror.h"          // for ASSERT
+
 
 int Marker_polynum;
 int Marker_message = 0;

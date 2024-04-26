@@ -154,6 +154,7 @@
  * $NoKeywords: $
  */
 
+class pilot;
 DLLGetMultiAPI = (GetMultiAPI_fp)api_func;
 DLLGetMultiAPI(&API);
 DLLSetUITextItemText = (SetUITextItemText_fp)API.fp[0];

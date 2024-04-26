@@ -61,7 +61,13 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
+#include <stddef.h>       // for NULL
+#include "ddio_common.h"  // for KEY_LEFT, KEY_RIGHT
+#include "grdefs.h"       // for GR_DARKGRAY
+#include "pserror.h"      // for ASSERT
+#include "ui.h"           // for UISlider, UIGadget, UIWindow (ptr only)
+#include "uires.h"        // for UIItem, UIPrimativeItem
+#include "uisys.h"        // for SCREEN_TO_GAD_X, UILMSEBTN, LOCK_FOCUS, UI_...
 
 //	Construction and destruction
 

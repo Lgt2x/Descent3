@@ -19,8 +19,8 @@
 #ifndef GAMEEVENT_H
 #define GAMEEVENT_H
 
-#include "game.h"
-#include "object.h"
+#include "object_external.h"  // for OBJECT_HANDLE_NONE
+#include "pstypes.h"          // for ubyte
 
 #define MAX_EVENTS 500
 

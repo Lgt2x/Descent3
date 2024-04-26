@@ -131,24 +131,38 @@
  * $NoKeywords: $
  */
 
-#include "player.h"
-#include "object.h"
-#include "hud.h"
-#include "weapon.h"
-#include "hlsoundlib.h"
-#include "game.h"
-#include "ddio.h"
-#include "soundload.h"
-#include "sounds.h"
-#include "damage.h"
-#include "rtperformance.h"
-#include "object_lighting.h"
-#include "gamesequence.h"
-#include "multi.h"
-#include "stringtable.h"
-#include "ship.h"
-#include "render.h"
-#include "renderer.h"
+#include <stdio.h>                     // for snprintf
+#include <string.h>                    // for memcmp, strcpy, strlen, NULL
+#include "Inventory.h"                 // for Inventory, INVF_MISSIONITEM
+#include "damage.h"                    // for ApplyDamageToPlayer
+#include "damage_external.h"           // for PD_ENERGY_WEAPON
+#include "ddio_common.h"               // for ddio_KeyToAscii
+#include "game.h"                      // for GM_MULTI, Game_mode
+#include "gamesequence.h"              // for GAME_LEVEL_WARP, Game_interfac...
+#include "gametexture.h"               // for FindTextureName, GameTextures
+#include "grdefs.h"                    // for GR_RGB
+#include "hlsoundlib.h"                // for Sound_system, hlsSystem
+#include "hud.h"                       // for AddHUDMessage, Hud_stat_mask
+#include "multi.h"                     // for MultiSendMessageFromServer
+#include "multi_external.h"            // for LR_SERVER
+#include "object.h"                    // for Objects, Player_object, SetObj...
+#include "object_external.h"           // for OBJ_POWERUP, OBJ_WEAPON, EF_CL...
+#include "object_external_struct.h"    // for MAX_OBJECTS, object
+#include "object_lighting.h"           // for MakeObjectInvisible, MakeObjec...
+#include "objinfo.h"                   // for FindObjectIDName
+#include "player.h"                    // for Player_num, Players, MakePlaye...
+#include "player_external.h"           // for PLAYER_FLAGS_INVULNERABLE
+#include "player_external_struct.h"    // for MAX_PLAYER_WEAPONS
+#include "pstypes.h"                   // for ubyte
+#include "robotfirestruct_external.h"  // for DWBF_QUAD
+#include "room.h"                      // for MAX_ROOMS, Rooms
+#include "room_external.h"             // for RF_SECRET
+#include "rtperformance.h"             // for USE_RTP
+#include "ship.h"                      // for Ships
+#include "sounds.h"                    // for SOUND_CHEATER
+#include "stringtable.h"               // for TXT_ALLROBOTSDEAD, TXT_ALLWEAPONS
+#include "weapon.h"                    // for FindWeaponName, HAS_FLAG
+#include "weapon_external.h"           // for LASER_INDEX, SUPER_LASER_INDEX
 
 #define CHEATSPOT 14
 bool IsCheater = false;

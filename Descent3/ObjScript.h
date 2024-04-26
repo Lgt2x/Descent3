@@ -97,10 +97,6 @@
 #ifndef OBJSCRIPT_H
 #define OBJSCRIPT_H
 
-#include "pstypes.h"
-#include "d3x_op.h"
-#include "vecmat.h"
-
 struct object;
 struct trigger;
 

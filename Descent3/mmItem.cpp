@@ -110,19 +110,27 @@
  */
 
 #include "mmItem.h"
-#include "game.h"
-#include "program.h"
-#include "descent.h"
-#include "cinematics.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "d3music.h"
-
-#include "ddio.h"
-// #include <malloc.h>
-#include "mem.h"
-
-#include <string.h>
+#include <string.h>           // for NULL, strcat, strcpy
+#include "application.h"      // for oeApplication
+#include "cfile.h"            // for cfexist
+#include "cinematics.h"       // for EndMovie, FrameMovie, StartMovie
+#include "d3music.h"          // for D3MusicStart, D3MusicStop, D3MusicSetRe...
+#include "ddio.h"             // for timer_GetTime, ddio_MakePath
+#include "descent.h"          // for Descent, Base_directory
+#include "game.h"             // for EndFrame, Max_window_h, Max_window_w
+#include "grtext.h"           // for grtext_Printf, grtext_Flush, grtext_Set...
+#include "hlsoundlib.h"       // for Sound_system, hlsSystem
+#include "linux_fix.h"        // for _MAX_PATH
+#include "manage_external.h"  // for IGNORE_TABLE
+#include "mem.h"              // for mem_free, mem_strdup
+#include "newui_core.h"       // for SetUICallback, DoUIFrame, DEFAULT_UICAL...
+#include "program.h"          // for Program_version, DEVELOPMENT_VERSION
+#include "pserror.h"          // for Error, Int3
+#include "pstypes.h"          // for ubyte
+#include "renderer.h"         // for rend_Flip
+#include "soundload.h"        // for FindSoundName
+#include "uidraw.h"           // for ui_DrawSetFont, ui_DrawSetTextType, ui_...
+#include "uisys.h"            // for UI_TIME, PT_IN_GADGET, UILMSEBTN, UI_input
 
 // externed from newui.cpp
 extern int UI_frame_result;
@@ -299,8 +307,6 @@ void mmItem::OnDraw() {
 
 //////////////////////////////////////////////////////////////////////////////
 //	MAIN MENU INTERFACE CODE
-
-#include "stdlib.h" //need this to get _MAX_PATH, which really ought to be in ddio.h
 
 bool static_menu_background = false;
 

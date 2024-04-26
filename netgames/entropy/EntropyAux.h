@@ -19,6 +19,8 @@
 #ifndef __ENTROPY_AUX_H__
 #define __ENTROPY_AUX_H__
 
+#include "player_external_struct.h"  // for MAX_PLAYERS
+
 /*
 =====================================================================
 Entropy Special Packet IDs

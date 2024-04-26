@@ -62,7 +62,13 @@
 #ifndef NEWUI_CORE_H
 #define NEWUI_CORE_H
 
-#include "ui.h"
+#include <stddef.h>   // for NULL
+#include "grdefs.h"   // for GR_GREEN, GR_BLACK, GR_RGB
+#include "pstypes.h"  // for ushort, sbyte
+#include "ui.h"       // for UIF_CUSTOMF, UIGadget, UIWindow, UIButton, UITe...
+
+class UIBitmapItem;
+class UISnazzyTextItem;
 
 #define N_NEWUI_BMPS 32  // number of ui bitmaps.
 #define N_NEWUI_SHEETS 8 // number of sheets allowed in a menu.

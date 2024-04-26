@@ -348,6 +348,8 @@
 #include "difficulty_external.h"
 #include "gamecinematics_external.h"
 #include "player_external.h"
+#include "pstypes.h"  // for ubyte
+
 
 // =======================================================================
 // Event return values (OR these if needed)

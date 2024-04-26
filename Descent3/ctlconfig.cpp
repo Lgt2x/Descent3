@@ -277,24 +277,36 @@
  *
  * $NoKeywords: $
  */
+
 #include "ctlconfig.h"
-#include "CtlCfgElem.h"
-#include "ctlconfigtxt.h"
-#include "game.h"
-#include "weapon.h"
-#include "pilot.h"
-#include "bitmap.h"
-#include "multi.h"
-#include "gameloop.h"
-#include "gamefont.h"
-#include "D3ForceFeedback.h"
-#include "hlsoundlib.h"
-#include "ddio.h"
-#ifdef MACINTOSH
-#include "insprocket.h" //DAJ
-#include "maccontroller.h"
-#endif
-#include <string.h>
+#include <stdio.h>            // for snprintf
+#include <string.h>           // for NULL, strcpy
+#include "Controller.h"       // for ct_type, gameController, NULL_CONTROLLER
+#include "CtlCfgElem.h"       // for cfg_element, parse_config_data, unify_c...
+#include "D3ForceFeedback.h"  // for ForceDisable, ForceDisableAutoCenter
+#include "Macros.h"           // for CHECK_FLAG
+#include "controls.h"         // for Controller, Controller_needs, ctfAFTERB...
+#include "ctlconfigtxt.h"     // for CtlText_Accelerate, CtlText_Afterburn
+#include "ddio_common.h"      // for KEY_C, KEY_CTRLED
+#include "descent.h"          // for GetFunctionMode, function_mode
+#include "forcefeedback.h"    // for ddio_ff_GetInfo, ddio_ffjoy_SupportAuto...
+#include "game.h"             // for SetScreenMode, Frametime, GetScreenMode
+#include "gamefont.h"         // for MONITOR9_NEWUI_FONT
+#include "gameloop.h"         // for Skip_render_game_frame, GameFrame
+#include "grdefs.h"           // for GR_RGB
+#include "hlsoundlib.h"       // for Sound_system, hlsSystem
+#include "mono.h"             // for mprintf
+#include "newui_core.h"       // for newuiSheet, newuiLargeMenu, newuiButton
+#include "pilot.h"            // for Current_pilot, PltWriteFile
+#include "pilot_class.h"      // for pilot, N_JOY_AXIS, N_MOUSE_AXIS, cntrldata
+#include "pserror.h"          // for ASSERT, Int3
+#include "pstypes.h"          // for ubyte, sbyte, ushort
+#include "stringtable.h"      // for TXT, TXT_CANCEL, TXT_OK, TXT_RESETTODEF...
+#include "ui.h"               // for UIText, UID_OK, UID_CANCEL, UIGadget
+#include "uires.h"            // for UITextItem
+#include "uisys.h"            // for UIFrameTime
+#include "weapon.h"           // for GetAutoSelectPrimaryWpnIdx, GetAutoSele...
+
 //////////////////////////////////////////////////////////////////////////////
 #define IDV_KCONFIG 10
 #define IDV_CCONFIG 11

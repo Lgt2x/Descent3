@@ -95,18 +95,19 @@
  *
  */
 
-#include <stdlib.h>
-
-#include "pserror.h"
-#include "renderer.h"
-#include "3d.h"
 #include "scorch.h"
-#include "room.h"
-#include "config.h"
-#include "object_external_struct.h" //for ROOMNUM_OUTSIDE macro
-#include "psrand.h"
-
-#include <algorithm>
+#include <algorithm>                 // for max
+#include "3d.h"                      // for g3Point, g3_CalcPointDepth, g3_D...
+#include "config.h"                  // for Detail_settings
+#include "gametexture.h"             // for GetTextureBitmap, GameTextures
+#include "object_external_struct.h"  // for ROOMNUM_OUTSIDE
+#include "pserror.h"                 // for ASSERT
+#include "psrand.h"                  // for ps_rand
+#include "pstypes.h"                 // for sbyte, ubyte
+#include "renderer.h"                // for rend_SetZBias, rend_SetZBufferWr...
+#include "room.h"                    // for Rooms
+#include "room_external.h"           // for FF_SCORCHED, face, room
+#include "vecmat.h"                  // for vm_GetNormalizedDir, vm_VectorAn...
 
 // Structure for storing scorch marks
 typedef struct {

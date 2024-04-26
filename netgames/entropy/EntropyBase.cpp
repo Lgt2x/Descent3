@@ -95,12 +95,36 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h" //included by all mods, it includes all needed headers, etc.
-#include <string.h>
-#include "idmfc.h" //dmfc! (required)
-#include "Entropy.h"
-#include "Entropystr.h" //our string table for Entropy
-#include "EntropyAux.h"
+#include <stdio.h>                   // for snprintf
+#include <stdlib.h>                  // for free, malloc
+#include <string.h>                  // for strlen, memcpy, strcpy, memset
+#include <cmath>                     // for fabs
+#include "DMFC.h"                    // for RED_TEAM, BLUE_TEAM, MAX_PLAYER_...
+#include "DMFCKeyCodes.h"            // for K_ESC, K_F6, K_F7, K_PAGEDOWN
+#include "Entropy.h"                 // for DLLGameClose, DLLGameInit, DLLGe...
+#include "EntropyAux.h"              // for PaintRoomWithTexture, NUM_TEAMS
+#include "Entropystr.h"              // for TXT_PILOT, TXT_PING, TXT_SCORE
+#include "Macros.h"                  // for stricmp
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE
+#include "cfile.h"                   // for CFILE
+#include "d3events.h"                // for EVT_CLIENT_GAMEPLAYERCHANGESEG
+#include "damage_external.h"         // for PD_ENERGY_WEAPON
+#include "gamedll_header.h"          // for DLLcf_WriteString, DLLgrtext_Printf
+#include "gamefont.h"                // for SMALL_UI_FONT_INDEX, BIG_FONT_INDEX
+#include "grdefs.h"                  // for GR_RGB, GR_RGB16, GR_WHITE, OPAQ...
+#include "idmfc.h"                   // for IDMFC, IDmfcStats, CreateDMFC
+#include "module.h"                  // for DLLFUNCCALL
+#include "multi_external.h"          // for LR_SERVER, MultiAddInt, MultiGetInt
+#include "multi_world_state.h"       // for RCF_GOALSPECIAL_FLAGS
+#include "object_external.h"         // for OBJ_POWERUP, OBJ_PLAYER, OBJ_BUI...
+#include "object_external_struct.h"  // for ROOMNUM_OUTSIDE, object
+#include "player_external.h"         // for PLAYER_FLAGS_DEAD, PLAYER_FLAGS_...
+#include "player_external_struct.h"  // for player
+#include "pstypes.h"                 // for ubyte, ushort
+#include "renderer.h"                // for AT_CONSTANT_TEXTURE, LS_NONE
+#include "room_external.h"           // for RF_SPECIAL4, RF_SPECIAL1, RF_SPE...
+#include "ssl_lib.h"                 // for MAX_GAME_VOLUME
+#include "vecmat_external.h"         // for vector
 
 // the DMFC object, used throughout, and required by all mods
 IDMFC *DMFCBase = NULL;

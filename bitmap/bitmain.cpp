@@ -297,25 +297,26 @@
  *
  * $NoKeywords: $
  */
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include "cfile.h"
-#include "texture.h"
-#include "bitmap.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "mono.h"
-#include "iff.h"
-#include "ddio.h"
-#include "lightmap.h"
-#include "bumpmap.h"
-#include "mem.h"
-#include "psrand.h"
 
-#include "Macros.h"
+#include <ctype.h>     // for tolower
+#include <stdio.h>     // for snprintf, SEEK_SET
+#include <stdlib.h>    // for NULL, atexit, exit
+#include <string.h>    // for strcpy, strlen, memcpy, memset, strcat, strncpy
+#include <algorithm>   // for min
+#include "Macros.h"    // for stricmp
+#include "bitmap.h"    // for BF_NOT_RESIDENT, MAX_BITMAPS, BF_MIPMAPPED
+#include "bumpmap.h"   // for bump_InitBumpmaps
+#include "cfile.h"     // for cf_WriteByte, cf_WriteShort, CFILE, cfclose
+#include "ddio.h"      // for ddio_SplitPath
+#include "grdefs.h"    // for OPAQUE_FLAG, GR_16_TO_COLOR, NEW_TRANSPARENT_C...
+#include "iff.h"       // for bm_tga_alloc_file, bm_iff_alloc_file, bm_iff_r...
+#include "lightmap.h"  // for lm_InitLightmaps
+#include "mem.h"       // for mem_free, mem_malloc
+#include "mono.h"      // for mprintf
+#include "pserror.h"   // for ASSERT, Int3
+#include "psrand.h"    // for ps_rand
+#include "pstypes.h"   // for ushort, ubyte, ulong
 
-#include <algorithm>
 
 #define BM_FILETYPE_TGA 1
 #define BM_FILETYPE_PCX 2

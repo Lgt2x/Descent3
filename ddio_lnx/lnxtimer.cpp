@@ -44,17 +44,10 @@
  * $NoKeywords: $
  */
 
-#include "ddio_lnx.h"
-#include "ddio.h"
-
-#include <stdlib.h>
-#include <sys/time.h>
-#include <unistd.h>
-
-#include "pserror.h"
-#include "mono.h"
-
-#include "SDL.h"
+#include "SDL_timer.h"  // for SDL_GetTicks
+#include "ddio.h"       // for timer_Close, timer_GetMSTime, timer_GetTime
+#include "pserror.h"    // for ASSERT
+#include "pstypes.h"    // for longlong
 
 //	---------------------------------------------------------------------------
 //	Variables

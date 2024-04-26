@@ -19,8 +19,8 @@
 #ifndef MULTISAFE_H
 #define MULTISAFE_H
 
-#include "vecmat.h"
-#include "osiris_share.h"
+#include "osiris_share.h"  // for msafe_struct
+#include "pstypes.h"       // for ubyte
 
 // LOCAL MULTISAFE FUNCTIONS
 void msafe_CallFunction(ubyte type, msafe_struct *mstruct);

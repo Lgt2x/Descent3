@@ -156,27 +156,33 @@
  */
 
 #include "levelgoal.h"
-#include "mem.h"
-#include "string.h"
-#include "hud.h"
-#include "game.h"
-#include "gamesequence.h"
-#include "stringtable.h"
-#include <stdarg.h>
-#include "pstring.h"
-#include "hlsoundlib.h"
-#include "sounds.h"
-#include "osiris_dll.h"
-#include "room.h"
-#include "object.h"
-#include "trigger.h"
-#include "player.h"
-#include "multi.h"
-#include "demofile.h"
-#include "osiris_share.h"
-#include "multisafe.h"
-#include "multi.h"
-#include "multi_world_state.h"
+#include <stdio.h>                   // for NULL, snprintf
+#include "demofile.h"                // for DemoWritePersistantHUDMessage
+#include "game.h"                    // for GM_MULTI, Game_mode, Game_window_h
+#include "grdefs.h"                  // for GR_RGB
+#include "hud.h"                     // for AddGameMessage, AddPersistentHUD...
+#include "linux_fix.h"               // for stricmp
+#include "mem.h"                     // for mem_free, mem_malloc
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for NetPlayers, Netgame, END_DATA
+#include "multi_external.h"          // for MultiAddByte, LR_CLIENT, MultiAd...
+#include "multi_world_state.h"       // for WS_END, WS_LEVELGOAL
+#include "multisafe.h"               // for msafe_CallFunction
+#include "networking.h"              // for nw_SendReliable
+#include "object.h"                  // for ObjGet, Objects, Highest_object_...
+#include "object_external_struct.h"  // for ROOMNUM_OUTSIDE
+#include "osiris_dll.h"              // for Osiris_CallLevelEvent
+#include "osiris_share.h"            // for tOSIRISEventInfo, EVT_ALL_LEVEL_...
+#include "player.h"                  // for Player_object, Players
+#include "player_external_struct.h"  // for MAX_PLAYERS
+#include "pserror.h"                 // for ASSERT
+#include "pstypes.h"                 // for ubyte
+#include "room.h"                    // for Rooms, Highest_room_index
+#include "room_external.h"           // for RF_INFORM_RELINK_TO_LG
+#include "sounds.h"                  // for SOUND_GOAL_COMPLETE
+#include "string.h"                  // for strlen, strcpy, strncpy, memcpy
+#include "stringtable.h"             // for TXT_COMPLETED_HUD
+#include "trigger.h"                 // for object, Num_triggers, TF_INFORM_...
 
 #define GOAL_MESSAGE_TIME 10.0
 #define GOAL_MESSAGE_COLOR GR_RGB(0, 242, 148)

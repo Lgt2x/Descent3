@@ -46,12 +46,20 @@
  */
 
 #include "bsp.h"
-#include "room.h"
-#include "mem.h"
-#include "polymodel.h"
-#include <stdlib.h>
-#include "object.h"
-#include "psrand.h"
+#include <math.h>                    // for abs
+#include <stdlib.h>                  // for NULL, atexit, abs
+#include "mem.h"                     // for mem_free, mem_malloc
+#include "mono.h"                    // for mprintf, mprintf_at
+#include "object.h"                  // for Objects, LRT_LIGHTMAPS, GetObjec...
+#include "object_external.h"         // for OBJ_NONE
+#include "object_external_struct.h"  // for object, OBJECT_OUTSIDE
+#include "polymodel.h"               // for IsNonRenderableSubmodel, Poly_mo...
+#include "polymodel_external.h"      // for bsp_info, poly_model
+#include "pserror.h"                 // for ASSERT, Int3
+#include "psrand.h"                  // for ps_rand
+#include "room.h"                    // for Rooms, Highest_room_index
+#include "room_external.h"           // for MAX_VERTS_PER_FACE, room, RF_EXT...
+#include "vecmat.h"                  // for vm_GetNormal
 
 #define BSP_TREE_VERSION 10003
 

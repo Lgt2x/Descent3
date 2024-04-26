@@ -439,27 +439,41 @@
  */
 
 #include "viseffect.h"
-#include "fireball.h"
-#include "terrain.h"
-#include "game.h"
-#include "room.h"
-#include "vclip.h"
-#include "gametexture.h"
-#include "object.h"
-#include <memory.h>
-#include <stdlib.h>
-#include "PHYSICS.H"
-#include "weapon.h"
-#include "lighting.h"
-#include "dedicated_server.h"
-#include "player.h"
-#include "config.h"
-#include "weather.h"
-#include "polymodel.h"
-#include "psrand.h"
-#include "mem.h"
-
-#include <algorithm>
+#include <stdlib.h>                  // for NULL, atexit, rand
+#include <string.h>                  // for memset
+#include <algorithm>                 // for min, max
+#include "3d.h"                      // for g3_RotatePoint, p3_v, p3_u, g3_D...
+#include "PHYSICS.H"                 // for do_vis_physics_sim
+#include "bitmap.h"                  // for bm_h, bm_w
+#include "config.h"                  // for Detail_settings
+#include "dedicated_server.h"        // for Dedicated_server
+#include "descent.h"                 // for Katmai
+#include "fireball.h"                // for Fireballs, fireball, MAX_FIREBAL...
+#include "fireball_external.h"       // for RUBBLE1_INDEX, RUBBLE2_INDEX
+#include "fix.h"                     // for FixSin, FixCos
+#include "game.h"                    // for Gametime, FrameCount, Frametime
+#include "gametexture.h"             // for GameTextures, GetTextureBitmap
+#include "grdefs.h"                  // for GR_16_TO_COLOR, GR_RGB, GR_COLOR...
+#include "lighting.h"                // for ApplyLightingToRooms, ApplyLight...
+#include "mem.h"                     // for mem_free, mem_malloc, mem_realloc
+#include "mono.h"                    // for mprintf
+#include "object.h"                  // for Viewer_object, HANDLE_COUNT_MASK
+#include "object_external.h"         // for MT_PHYSICS, PF_NO_COLLIDE, OF_DEAD
+#include "object_external_struct.h"  // for ROOMNUM_OUTSIDE, CELLNUM, object
+#include "player.h"                  // for Players
+#include "player_external.h"         // for PLAYER_FLAGS_DEAD, PLAYER_FLAGS_...
+#include "polymodel.h"               // for GetPolyModelPointInWorld, Poly_m...
+#include "polymodel_external.h"      // for bsp_info, poly_model, MAX_SUBOBJ...
+#include "pserror.h"                 // for ASSERT
+#include "psrand.h"                  // for ps_rand
+#include "renderer.h"                // for rend_SetAlphaType, rend_SetZBuff...
+#include "room.h"                    // for Rooms, Highest_room_index
+#include "room_external.h"           // for room
+#include "terrain.h"                 // for TERRAIN_DEPTH, TERRAIN_WIDTH
+#include "vclip.h"                   // for GameVClips, vclip
+#include "vecmat.h"                  // for vm_NormalizeVector, vm_Normalize...
+#include "weapon.h"                  // for WeaponCalcGun, CreateAndFireWeapon
+#include "weather.h"                 // for Weather
 
 // DAJ vis_effect VisEffects[max_vis_effects];
 // DAJ ushort VisDeadList[max_vis_effects];

@@ -191,12 +191,13 @@
 #ifndef GAMETEXTURE_H
 #define GAMETEXTURE_H
 
+#include "manage_external.h"  // for PAGENAME_LEN
+#include "pstypes.h"          // for ubyte, ushort
+
 #ifdef NEWEDITOR /* only include tablefile header (manage stuff for NEWEDITOR) */
 #include "..\neweditor\ned_TableFile.h"
 #include "..\neweditor\ned_GameTexture.h"
 #else
-
-#include "manage.h"
 
 #define TF_VOLATILE 1
 #define TF_WATER (1 << 1)

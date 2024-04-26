@@ -84,19 +84,19 @@
 #ifndef GAMESAVE_H
 #define GAMESAVE_H
 
-#include "pstypes.h"
-#include "cfile.h"
-#include "object.h"
-#include "objinfo.h"
-
-#include "gametexture.h"
-#include "bitmap.h"
-#include "ddio.h"
-#include "door.h"
-#include "doorway.h"
-#include "ship.h"
-#include "weapon.h"
-#include "polymodel.h"
+#include <stddef.h>                  // for NULL
+#include "aistruct.h"                // for ai_frame, goal
+#include "bitmap.h"                  // for MAX_BITMAPS
+#include "cfile.h"                   // for cf_WriteFloat, cf_WriteByte, cf_...
+#include "door.h"                    // for MAX_DOORS
+#include "gametexture.h"             // for MAX_TEXTURES
+#include "mono.h"                    // for mprintf
+#include "object_external_struct.h"  // for object
+#include "objinfo.h"                 // for MAX_OBJECT_IDS
+#include "polymodel_external.h"      // for MAX_POLY_MODELS
+#include "pstypes.h"                 // for PSPATHNAME_LEN
+#include "ship.h"                    // for MAX_SHIPS
+#include "weapon.h"                  // for MAX_WEAPONS
 
 #define GAMESAVE_SLOTS 8    // maximum number of savegames
 #define GAMESAVE_DESCLEN 31 // gamesave description maximum length.

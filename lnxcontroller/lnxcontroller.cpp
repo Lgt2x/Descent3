@@ -41,22 +41,33 @@
  * $NoKeywords: $
  */
 
-#include "Controller.h"
-#include <string.h>
-#include <memory.h>
-#include "ddio.h"
-#include "pserror.h"
-#include "joystick.h"
-#include "inffile.h"
-
-// Sorry! This is needed for the semi-hacky mouselook support
-#include "descent.h"
-#include "player.h"
-#include "object.h"
-#include "pilot.h"
-#include "multi.h"
-#include "game.h"
-// End of hacky includes
+#include <ctype.h>            // for tolower
+#include <stdio.h>            // for snprintf
+#include <stdlib.h>           // for atof
+#include <string.h>           // for strcmp, strlen, NULL
+#include <cmath>              // for fabs
+#include "Controller.h"       // for lnxgameController, ct_type, ct_format
+#include "Macros.h"           // for makeword, CHECK_FLAG
+#include "controls.h"         // for ctfTOGGLE_BANKKEY, ctfTOGGLE_SLIDEKEY
+#include "ddio.h"             // for timer_GetTime, ddio_FindFileClose, ddio...
+#include "ddio_common.h"      // for KEY_STATE, ddio_KeyDownCount, ddio_KeyD...
+#include "descent.h"          // for GetFunctionMode, function_mode
+#include "game.h"             // for GM_MULTI, Game_mode
+#include "inffile.h"          // for InfFile, InfFileError
+#include "joystick.h"         // for JOYPOV_CENTER, JOYPOV_DIR, JOYPOV_DOWN
+#include "linux_fix.h"        // for _MAX_FNAME
+#include "mono.h"             // for mprintf
+#include "multi.h"            // for Netgame
+#include "multi_external.h"   // for NF_ALLOW_MLOOK
+#include "object.h"           // for Objects, ObjSetOrient
+#include "pilot.h"            // for Current_pilot
+#include "pilot_class.h"      // for pilot
+#include "player.h"           // for Player_num, Players
+#include "player_external.h"  // for PCBF_HEADINGLEFT, PCBF_HEADINGRIGHT
+#include "pserror.h"          // for ASSERT, Int3
+#include "pstypes.h"          // for ubyte, sbyte, longlong, ushort
+#include "vecmat.h"           // for operator*, vm_AnglesToMatrix, vm_Orthog...
+#include "vecmat_external.h"  // for matrix
 
 #define JOY_DEADZONE 0.20f
 #define MOUSE_DEADZONE 0.00f

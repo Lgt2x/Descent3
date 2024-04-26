@@ -856,17 +856,26 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
-#include "mono.h"
 #include "findintersection.h"
 #include "pserror.h"
 #include "collide.h"
 #include "terrain.h"
-// #include "bspfi.h"
-#include "3d.h"
 #include "room.h"
-#include "descent.h"
 #include "weapon.h"
+#include <cmath>                        // for fabs, sqrt
+#include "bitmap.h"                     // for BITMAP_FORMAT_4444, GameBitmaps
+#include "findintersection_external.h"  // for HIT_NONE, HIT_OUT_OF_TERRAIN_...
+#include "linux_fix.h"                  // for _finite
+#include "mono.h"                       // for mprintf
+#include "object.h"                     // for Objects, BigObjectList, OBJNUM
+#include "object_external.h"            // for OBJ_ROOM, OBJ_PLAYER, OF_POLY...
+#include "object_external_struct.h"     // for object, CELLNUM, ROOMNUM_OUTSIDE
+#include "player_external.h"            // for PLAYER_FLAGS_DEAD, PLAYER_FLA...
+#include "polymodel_external.h"         // for poly_model
+#include "pstypes.h"                    // for ubyte, uint, ushort
+#include "room_external.h"              // for RF_EXTERNAL, room, face, MAX_...
+#include "vecmat.h"                     // for vm_NormalizeVector, vm_Vector...
+#include "vecmat_external.h"            // for vector, operator*, operator+
 
 #ifndef NED_PHYSICS
 #include "gametexture.h"
@@ -874,7 +883,6 @@
 #include "..\neweditor\ned_GameTexture.h"
 #endif
 
-#include "BOA.h"
 #include "polymodel.h"
 #include "PHYSICS.H"
 #include "player.h"

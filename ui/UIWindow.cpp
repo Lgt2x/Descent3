@@ -149,8 +149,18 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-#include "Macros.h"
+#include <stddef.h>       // for NULL
+#include "Macros.h"       // for CHECK_FLAG
+#include "UIlib.h"        // for UI_output
+#include "ddio.h"         // for timer_GetTime
+#include "ddio_common.h"  // for KEY_TAB, KEY_DOWN, KEY_ESC, KEY_LEFT, KEY_R...
+#include "grdefs.h"       // for GR_RGB, GR_DARKGRAY, GR_LIGHTGRAY, TRANSPAR...
+#include "mono.h"         // for mprintf
+#include "pserror.h"      // for ASSERT, Int3
+#include "ui.h"           // for UIWindow, UIGadget, UITitledWindow, UIF_GRO...
+#include "uidraw.h"       // for ui_DrawSetFont, ui_GetFontHeight, ui_EndDraw
+#include "uires.h"        // for UITextItem, UIPrimativeItem, UIItem
+#include "uisys.h"        // for UI_input, ISKEYPRESSED, PT_IN_GADGET, UI_sc...
 
 //	the window font for all windows
 int UIWindow::m_WindowFont = 0;

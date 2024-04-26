@@ -114,18 +114,18 @@
  */
 
 #include "trigger.h"
-#include "room.h"
-#include "object.h"
-//@$-#include "d3x.h"
-#include "pserror.h"
-#include "osiris_dll.h"
-#include "levelgoal.h"
-
-#ifdef LINUX
-#include <stdlib.h>
-#endif
-
-#include <string.h>
+#include <stdlib.h>              // for NULL, atexit
+#include "ObjScript.h"           // for FreeTriggerScript
+#include "levelgoal.h"           // for Level_goals, levelgoals
+#include "levelgoal_external.h"  // for LGF_COMP_ACTIVATE, LIT_TRIGGER
+#include "mono.h"                // for mprintf
+#include "object.h"              // for ObjGetUltimateParent
+#include "object_external.h"     // for OBJ_BUILDING, OBJ_PLAYER, OBJ_ROBOT
+#include "osiris_dll.h"          // for Osiris_CallTriggerEvent
+#include "osiris_share.h"        // for EVT_COLLIDE, tOSIRISEventInfo
+#include "pserror.h"             // for ASSERT, Int3
+#include "room.h"                // for Rooms
+#include "room_external.h"       // for face, FF_DESTROYED, FF_HAS_TRIGGER
 
 // The maximum number of triggers that can be in the mine
 #define MAX_TRIGGERS 100

@@ -20,8 +20,7 @@
 #define SPECIAL_FACE_H
 
 #include "pstypes.h"
-#include "pserror.h"
-#include "vecmat.h"
+#include "vecmat_external.h"  // for vector
 
 #define BAD_SPECIAL_FACE_INDEX -1
 #ifdef MACINTOSH

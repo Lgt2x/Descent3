@@ -19,9 +19,10 @@
 #ifndef __TELCOM_H_
 #define __TELCOM_H_
 
-#include "hotspotmap.h"
-#include "gamefont.h"
-#include "bitmap.h"
+#include "bitmap.h"      // for chunked_bitmap
+#include "grdefs.h"      // for GR_RGB
+#include "hotspotmap.h"  // for hotspotmap_t, windowmap_t
+#include "pstypes.h"     // for ubyte
 
 // TelCom Briefing System Header File
 

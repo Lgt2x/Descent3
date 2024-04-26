@@ -183,23 +183,32 @@
  */
 
 #include "newui_core.h"
-#include "bitmap.h"
-#include "mem.h"
-#include "pserror.h"
-#include "game.h"
-#include "ddio.h"
-#include "renderer.h"
-#include "descent.h"
-#include "application.h"
-#include "stringtable.h"
-#include "gamefont.h"
-#include "pstring.h"
-#include "textaux.h"
-#include "d3music.h"
-#include "hlsoundlib.h"
-
-#include <string.h>
-#include <stdarg.h>
+#include <stdarg.h>           // for va_end, va_list, va_start
+#include <stdio.h>            // for snprintf
+#include <stdlib.h>           // for abs
+#include <string.h>           // for NULL, strcmp, memcpy, strcpy, strncpy
+#include <cmath>              // for floor
+#include "application.h"      // for oeApplication
+#include "bitmap.h"           // for bm_FreeBitmap, bm_DestroyChunkedBitmap
+#include "d3music.h"          // for D3MusicDoFrame, tMusicSeqInfo
+#include "ddio_common.h"      // for KEY_DOWN, KEY_UP, KEY_ESC, KEY_LEFT
+#include "descent.h"          // for GetFunctionMode, Descent, function_mode
+#include "game.h"             // for Max_window_h, Max_window_w, DoScreenshot
+#include "gamefont.h"         // for MONITOR9_NEWUI_FONT, MONITOR15_NEWUI_FONT
+#include "hlsoundlib.h"       // for Sound_system, hlsSystem
+#include "linux_fix.h"        // for strcmpi, stricmp
+#include "manage_external.h"  // for IGNORE_TABLE
+#include "mem.h"              // for mem_free, mem_malloc, mem_strdup
+#include "mono.h"             // for DebugBlockPrint, mprintf
+#include "newui.h"            // for NEWUI_GETTITLEBAR, NUWF_TITLELARGE, NUW...
+#include "pserror.h"          // for ASSERT, Int3, Error
+#include "pstring.h"          // for Pvsprintf
+#include "renderer.h"         // for rend_Flip, rend_ClearScreen, chunked_bi...
+#include "stringtable.h"      // for TXT_OK, TXT_CANCEL, TXT_NO, TXT_YES
+#include "textaux.h"          // for textaux_WordWrap
+#include "uidraw.h"           // for ui_ResetTextClip, ui_SetTextClip, ui_Dr...
+#include "uires.h"            // for UITextItem, UIBitmapItem, UISnazzyTextItem
+#include "uisys.h"            // for UI_input, PT_IN_GADGET, UNLOCK_FOCUS
 
 extern void ui_DoCursor();
 
@@ -4195,8 +4204,6 @@ void newuiTiledWindow::SetOnDrawCB(void (*fn)(newuiTiledWindow *, void *)) { m_d
 
 // called after DoUIFrame is called.   for immediate results.
 void newuiTiledWindow::SetOnUIFrameCB(void (*fn)(newuiTiledWindow *, void *)) { m_onframe_cb = fn; }
-
-#include "newui.h"
 
 // Returns the index of the tile bitmap to draw along the top of the window
 int newuiTiledWindow::GetTopTileIndex(int tx, int window_width) {

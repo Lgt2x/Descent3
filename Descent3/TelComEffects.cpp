@@ -134,13 +134,19 @@
  */
 
 #include "TelComEffects.h"
-#include "pstring.h"
-#include "mem.h"
-#include "vecmat.h"
-#include <string.h>
-#include "textaux.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
+#include <stdarg.h>           // for va_end, va_list, va_start
+#include <string.h>           // for NULL, strlen, strcpy, memcpy
+#include "bitmap.h"           // for BAD_BITMAP_HANDLE, bm_AllocLoadFileBitmap
+#include "gamefont.h"         // for Game_fonts, BRIEF_FONT_INDEX
+#include "manage_external.h"  // for IGNORE_TABLE
+#include "mem.h"              // for mem_malloc, mem_free
+#include "mono.h"             // for mprintf
+#include "pserror.h"          // for ASSERT, Int3
+#include "pstring.h"          // for Pvsprintf
+#include "renderer.h"         // for rend_DrawChunkedBitmap
+#include "soundload.h"        // for FindSoundName
+#include "textaux.h"          // for textaux_WordWrap
+#include "vecmat.h"           // for vm_MakeIdentity
 
 tceffect TCEffects[MAX_TCEFFECTS];
 int Screen_roots[MAX_TELCOM_SCREENS];

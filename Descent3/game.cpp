@@ -654,45 +654,47 @@
  *
  * $NoKeywords: $
  */
-
 #include "game.h"
-#include "ddvid.h"
-#include "ddio.h"
-#include "pserror.h"
-#include "program.h"
-#include "descent.h"
-#include "object.h"
-#include "trigger.h"
-#include "player.h"
-#include "slew.h"
-#include "controls.h"
-#include "renderer.h"
-#include "doorway.h"
-#include "hud.h"
-#include "multi.h"
-#include "gamefont.h"
-#include "newui.h"
-#include "gamesequence.h"
-#include "cinematics.h"
-#include "SmallViews.h"
-#include "Mission.h"
-#include "cfile.h"
-#include "gameloop.h"
-#include "cockpit.h"
-#include "game2dll.h"
-#include "config.h"
-#include "stringtable.h"
-#include "ship.h"
-#include "pilot.h"
-#include "args.h"
-#include "gamepath.h"
-#include "AIGoal.h"
-#include "aipath.h"
-#include "dedicated_server.h"
-#include "objinfo.h"
-#include <string.h>
-#include "osiris_share.h"
-#include "demofile.h"
+#include <stdio.h>                   // for snprintf
+#include <stdlib.h>                  // for atoi
+#include <string.h>                  // for NULL, strcpy
+#include <cmath>                     // for tan
+#include "Controller.h"              // for gameController
+#include "Mission.h"                 // for ResetMission, ShowProgressScreen
+#include "SmallViews.h"              // for SVW_LEFT
+#include "args.h"                    // for FindArg, GameArgs
+#include "bitmap.h"                  // for bm_AllocBitmap, bm_FreeBitmap
+#include "cfile.h"                   // for CFILE, cfclose, cfopen
+#include "cinematics.h"              // for SetMovieProperties
+#include "config.h"                  // for Game_video_resolution, RES_640X480
+#include "controls.h"                // for SuspendControls, Controller, REA...
+#include "ddio.h"                    // for ddio_MakePath
+#include "ddvid.h"                   // for ddvid_SetVideoMode, ddvid_GetAsp...
+#include "dedicated_server.h"        // for Dedicated_server
+#include "demofile.h"                // for DF_PLAYBACK, Demo_flags
+#include "descent.h"                 // for SetFunctionMode, Base_directory
+#include "game2dll.h"                // for FreeGameDLL, LoadGameDLL
+#include "gamefont.h"                // for SelectHUDFont
+#include "gameloop.h"                // for Render_FOV, Render_zoom, Skip_re...
+#include "gamesequence.h"            // for GameSequencer
+#include "grdefs.h"                  // for BPP_16, FIXED_SCREEN_HEIGHT, FIX...
+#include "grtext.h"                  // for grtext_SetParameters
+#include "hud.h"                     // for AddHUDMessage, CloseHUD, InitHUD
+#include "manage.h"                  // for mng_ClearAddonTables
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for NetPlayers
+#include "multi_external.h"          // for NPF_CONNECTED
+#include "newui.h"                   // for DoMessageBox
+#include "newui_core.h"              // for SetUICallback, GetUICallback
+#include "pilot.h"                   // for Current_pilot
+#include "pilot_class.h"             // for pilot
+#include "player.h"                  // for Player_object
+#include "player_external_struct.h"  // for MAX_PLAYERS
+#include "pserror.h"                 // for Error, Int3, ASSERT
+#include "renderer.h"                // for Renderer_type, rend_Close, rend_...
+#include "slew.h"                    // for SlewStop
+#include "stringtable.h"             // for TXT_ERROR, TXT_ERRSCRNSHT, TXT_I...
+#include "uisys.h"                   // for ui_HideCursor, ui_RemoveAllWindows
 
 ///////////////////////////////////////////////////////////////////////////////
 //	Variables

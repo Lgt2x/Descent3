@@ -83,9 +83,8 @@
 #ifndef GAUGES_H
 #define GAUGES_H
 
-#include "pstypes.h"
-#include "vecmat.h"
-#include "hud.h"
+#include "hud.h"              // for tStatMask
+#include "vecmat_external.h"  // for matrix, vector
 
 // Hack vars for turning off the monitors
 extern bool Disable_primary_monitor, Disable_secondary_monitor;

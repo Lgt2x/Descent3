@@ -93,34 +93,15 @@
  * $NoKeywords: $
  */
 
-//	NEED THIS SINCE DDSNDLIB is a DD library.
-#include "DDAccess.h"
-
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <sys/ioctl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dlfcn.h>
-#include <linux/soundcard.h>
-#include <stdarg.h>
-#include <errno.h>
-#include "cfile.h"
-#include "pserror.h"
-#include "mono.h"
-#include "soundload.h"
-#include "ssl_lib.h"
-#include "mem.h"
-#include "application.h"
-#include "linux/lnxsound.h"
-#include "ddlnxsound.h"
-#include "mixer.h"
-#include "ddio.h"
-#include "SDL.h"
-#include "SDL_thread.h"
+#include "lnxdsound.h"
+#include <assert.h>      // for assert
+#include <math.h>        // for pow
+#include <stdio.h>       // for NULL
+#include <stdlib.h>      // for free, malloc, realloc, atoi
+#include <string.h>      // for memcpy, memset
+#include "SDL_audio.h"   // for SDL_CloseAudio, SDL_LockAudio, SDL_OpenAudio
+#include "SDL_stdinc.h"  // for Uint8
+#include "args.h"        // for FindArg, GetArg
 
 #define SOUNDLIB_SAMPLE_RATE 22050
 #define SOUNDLIB_SAMPLE_SIZE 16

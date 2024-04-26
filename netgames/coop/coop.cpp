@@ -99,14 +99,21 @@
  * $NoKeywords: $
  */
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "idmfc.h"
 #include "coop.h"
-#include "coopstr.h"
-
-#include <algorithm>
+#include <stdio.h>                   // for snprintf
+#include <string.h>                  // for strcpy
+#include <algorithm>                 // for min
+#include "DMFC.h"                    // for DSTAT_LEVEL, MAX_PLAYER_RECORDS
+#include "DMFCKeyCodes.h"            // for K_ESC, K_F6, K_F7, K_PAGEDOWN
+#include "Mission.h"                 // for level_info
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE
+#include "coopstr.h"                 // for GetStringFromTable, TXT_COOP
+#include "gamefont.h"                // for BIG_FONT_INDEX, HUD_FONT_INDEX
+#include "grdefs.h"                  // for GR_RGB, GR_RGB16, GR_BLACK, OPAQ...
+#include "idmfc.h"                   // for IDMFC, IDmfcStats, CreateDMFC
+#include "object_external.h"         // for OBJ_PLAYER, OBJ_ROBOT, OBJ_BUILDING
+#include "player_external_struct.h"  // for player
+#include "renderer.h"                // for AT_CONSTANT_TEXTURE, LS_NONE
 
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;

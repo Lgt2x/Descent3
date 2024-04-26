@@ -50,14 +50,25 @@
  * $NoKeywords: $
  */
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "idmfc.h"
-#include "Anarchy.h"
-#include "anarchystr.h"
-
-#include <algorithm>
+#include <stdio.h>                   // for snprintf, NULL
+#include <string.h>                  // for strlen, memcpy, strcpy, memset
+#include <algorithm>                 // for max
+#include "Anarchy.h"                 // for AnarchyGameClose, AnarchyGameInit
+#include "DMFC.h"                    // for DSTAT_LEVEL, MAX_PLAYER_RECORDS
+#include "DMFCKeyCodes.h"            // for K_ESC, K_F6, K_F7, K_PAGEDOWN
+#include "anarchystr.h"              // for TXT_DEATHS_SHORT, TXT_KILLS_SHORT
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE
+#include "cfile.h"                   // for CFILE
+#include "gamedll_header.h"          // for DLLgrtext_Printf, DLLcf_WriteString
+#include "gamefont.h"                // for SMALL_UI_FONT_INDEX, HUD_FONT_INDEX
+#include "grdefs.h"                  // for GR_RGB, GR_GREEN, GR_RGB16, OPAQ...
+#include "idmfc.h"                   // for IDMFC, IDmfcStats, IMenuItem
+#include "module.h"                  // for DLLFUNCCALL
+#include "multi_external.h"          // for NF_DAMAGE_FRIENDLY, NF_TRACK_RANK
+#include "object_external.h"         // for OBJ_BUILDING, OBJ_GHOST, OBJ_PLAYER
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"                 // for ubyte, ushort
+#include "renderer.h"                // for AT_CONSTANT_TEXTURE, LS_NONE
 
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;

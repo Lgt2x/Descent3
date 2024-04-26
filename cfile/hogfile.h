@@ -60,8 +60,9 @@
 #ifndef HOGFILE_H
 #define HOGFILE_H
 
-#include <cstdint>
-#include "pstypes.h"
+#include <stdio.h>    // for FILE
+#include <cstdint>    // for uint32_t
+#include "pstypes.h"  // for PSPATHNAME_LEN
 
 #define HOG_HDR_SIZE (64)
 #define HOG_TAG_STR "HOG2"

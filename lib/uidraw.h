@@ -16,7 +16,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+#include "grdefs.h"
+#include "pstypes.h"
+class UIBitmapItem;
 
 #ifndef UIDRAW_H
 #define UIDRAW_H

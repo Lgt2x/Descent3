@@ -139,17 +139,31 @@
 #ifndef __IDMFC_H_
 #define __IDMFC_H_
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <time.h>
-#include "gamedll_header.h"
+#include <stdio.h>                   // for NULL
+#include "Mission.h"                 // for level_info, tMission
+#include "cfile.h"                   // for CFILE
+#include "controls.h"                // for game_controls
 #include "DMFC.h"
-#include "controls.h"
-#include "Mission.h"
-#include "weapon.h"
-#include "player.h"
-#include "ship.h"
-#include "vclip.h"
+#include "gamedll_header.h"          // for dllinfo
+#include "gametexture.h"             // for texture
+#include "grdefs.h"                  // for ddgr_color
+#include "module.h"                  // for DLLEXPORT, DLLFUNCCALL, DLLFUNCC...
+#include "multi_external.h"          // for netgame_info, netplayer
+#include "networking.h"              // for network_address
+#include "object_external_struct.h"  // for object
+#include "objinfo.h"                 // for object_info
+#include "osiris_share.h"            // for tOSIRISModuleInit
+#include "player_external_struct.h"  // for player
+#include "polymodel_external.h"      // for poly_model
+#include "pstypes.h"                 // for ubyte, uint
+#include "room_external.h"           // for room
+#include "ship.h"                    // for ship
+#include "terrain.h"                 // for terrain_segment
+#include "vclip.h"                   // for vclip
+#include "vecmat_external.h"         // for vector
+#include "viseffect_external.h"      // for vis_effect
+#include "weapon.h"                  // for weapon
+class IMenuItem;  // lines 165-165
 
 #ifdef __cplusplus
 // C++ compiler, should we use classes?
@@ -160,11 +174,7 @@
 #define EXTERN
 #endif
 
-#ifdef USECLASSES
-class IDMFC;
-class IMenuItem;
-class IDmfcStats;
-#else
+#ifndef USECLASSES
 typedef void IDMFC;
 typedef void IMenuItem;
 typedef void IDmfcStats;

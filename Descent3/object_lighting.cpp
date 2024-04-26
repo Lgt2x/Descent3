@@ -87,22 +87,41 @@
  */
 
 #include "object_lighting.h"
-#include "object.h"
-#include "lighting.h"
-#include "objinfo.h"
-#include "weapon.h"
-#include "descent.h"
-#include "game.h"
-#include "polymodel.h"
-#include "renderobject.h"
-#include <stdlib.h>
-#include "lightmap_info.h"
-#include "fireball.h"
-#include "player.h"
-#include "mem.h"
-#include "config.h"
-#include "findintersection.h"
-#include "psrand.h"
+#include <stdlib.h>                     // for NULL
+#include "config.h"                     // for Detail_settings
+#include "descent.h"                    // for Katmai
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS
+#include "fireball.h"                   // for Fireballs
+#include "fireball_external.h"          // for FT_EXPLOSION
+#include "game.h"                       // for Gametime
+#include "gametexture.h"                // for GameTextures, TF_PROCEDURAL
+#include "hlsoundlib.h"                 // for Sound_system, hlsSystem
+#include "hud.h"                        // for AddHUDMessage
+#include "lighting.h"                   // for ApplyLightingToRooms, ApplyLi...
+#include "lightmap_info.h"              // for BAD_LMI_INDEX, FreeLightmapInfo
+#include "mem.h"                        // for mem_malloc, mem_free
+#include "mono.h"                       // for mprintf
+#include "object.h"                     // for Objects, Highest_object_index
+#include "object_external.h"            // for OBJ_POWERUP, OBJ_ROBOT, OBJ_B...
+#include "objinfo.h"                    // for Object_info
+#include "player.h"                     // for Players, PlayerGetBallPosition
+#include "player_external.h"            // for PLAYER_FLAGS_HEADLIGHT
+#include "player_external_struct.h"     // for MAX_PLAYERS
+#include "polymodel.h"                  // for IsNonRenderableSubmodel, Poly...
+#include "polymodel_external.h"         // for lightmap_object_face, poly_model
+#include "pserror.h"                    // for ASSERT, Int3
+#include "psrand.h"                     // for ps_rand
+#include "pstypes.h"                    // for ubyte
+#include "renderobject.h"               // for IsPointVisible
+#include "room.h"                       // for Rooms
+#include "room_external.h"              // for face
+#include "soundload.h"                  // for FindSoundName
+#include "ssl_lib.h"                    // for MAX_GAME_VOLUME, SND_PRIORITY...
+#include "stringtable.h"                // for TXT_CLOAKON, TXT_MSG_CLOAKOFF
+#include "vecmat.h"                     // for vm_VectorDistanceQuick
+#include "vecmat_external.h"            // for vector, operator*, operator+
+#include "weapon.h"                     // for FindWeaponName, Weapons, weapon
 
 // How far the headlight casts light
 #define HEADLIGHT_DISTANCE 150.0f
@@ -568,10 +587,6 @@ void SetupObjectLightmapMemory(object *obj) {
 }
 
 // SHOULDN'T THE FOLLOWING TWO FUNCTIONS REALLY BE IN OBJECT.CPP?
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "hud.h"
-#include "stringtable.h"
 //	makes the an object cloaked
 void MakeObjectInvisible(object *obj, float time, float fade_time, bool no_hud_message) {
   if (obj->effect_info) {

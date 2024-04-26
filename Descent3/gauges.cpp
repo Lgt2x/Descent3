@@ -184,23 +184,31 @@
  */
 
 #include "gauges.h"
-#include "gamefont.h"
-#include "hud.h"
-#include "game.h"
-#include "renderer.h"
-#include "render.h"
-#include "player.h"
-#include "polymodel.h"
-#include "gametexture.h"
-#include "bitmap.h"
-#include "vclip.h"
-#include "Inventory.h"
-#include "cockpit.h"
-#include "player.h"
-#include "ship.h"
-#include "3d.h"
-#include "weapon.h"
-#include "stringtable.h"
+#include <string.h>                  // for strlen, NULL
+#include <cmath>                     // for ceil
+#include "3d.h"                      // for g3Point, p3_u, p3_v, g3_DrawPoly
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE, bm_h, bm_w
+#include "cockpit.h"                 // for CockpitGetMonitorSubmodel, Cockp...
+#include "fix.h"                     // for FixCos
+#include "game.h"                    // for EndFrame, Gametime, StartFrame
+#include "gamefont.h"                // for HUD_FONT
+#include "grdefs.h"                  // for GR_RGB
+#include "grtext.h"                  // for grtext_Printf, grtext_SetFlags
+#include "hud.h"                     // for HUD_Y, HUD_X, HUD_resources, sHU...
+#include "object.h"                  // for Objects, Viewer_object
+#include "object_external.h"         // for EF_CLOAKED
+#include "player.h"                  // for Player_num, Players, AFTERBURN_TIME
+#include "player_external.h"         // for PW_SECONDARY, PW_PRIMARY, INITIA...
+#include "player_external_struct.h"  // for player_weapon
+#include "polymodel.h"               // for GetPolyModelPointInWorld
+#include "polymodel_external.h"      // for bsp_info, SOF_MONITOR1, SOF_MONI...
+#include "pserror.h"                 // for ASSERT, Int3
+#include "pstypes.h"                 // for ubyte, ushort
+#include "renderer.h"                // for rend_SetAlphaType, rend_SetAlpha...
+#include "robotfirestruct.h"         // for otype_wb_info
+#include "ship.h"                    // for SFF_TENTHS, Ships, ship
+#include "stringtable.h"             // for TXT
+#include "weapon.h"                  // for Static_weapon_ckpt_names, GetWea...
 
 //////////////////////////////////////////////////////////////////////////////
 

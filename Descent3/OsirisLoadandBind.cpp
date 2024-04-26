@@ -399,26 +399,44 @@
  * $NoKeywords: $
  */
 
-#include "osiris_dll.h"
-#include "pserror.h"
-#include "mono.h"
-#include "cfile.h"
-#include "ddio.h"
-#include "manage.h"
-#include <stdlib.h>
-#include "mem.h"
-#include "DllWrappers.h"
-#include "objinfo.h"
-#include "multisafe.h"
-#include "osiris_predefs.h"
-#include "trigger.h"
-#include "game.h"
-#include "multi.h"
-#include "door.h"
-#include "localization.h"
-#include "player.h"
-#include "gamecinematics.h"
-#include "demofile.h"
+#include <SDL_platform.h>             // for __LINUX__
+#include <ctype.h>                    // for tolower
+#include <stdio.h>                    // for snprintf
+#include <stdlib.h>                   // for NULL, atexit, size_t
+#include <string.h>                   // for strcpy, strcat, strlen, memcpy
+#include "DllWrappers.h"              // for MonoPrintf
+#include "aistruct_external.h"        // for AIN_GOAL_COMPLETE, AIN_GOAL_ERROR
+#include "cfile.h"                    // for cf_WriteInt, cf_ReadInt, cf_Wri...
+#include "ddio.h"                     // for ddio_SplitPath, ddio_MakePath
+#include "demofile.h"                 // for DF_PLAYBACK, Demo_flags
+#include "descent.h"                  // for Descent3_temp_directory
+#include "door.h"                     // for Doors
+#include "game.h"                     // for GM_MULTI, Game_mode, Gametime
+#include "gamecinematics.h"           // for Cinematic_Start, Cinematic_Stop
+#include "gamecinematics_external.h"  // for tCannedCinematicInfo, tGameCine...
+#include "linux_fix.h"                // for _MAX_PATH, stricmp, _MAX_EXT
+#include "localization.h"             // for DestroyStringTable, CreateStrin...
+#include "manage.h"                   // for LocalScriptDir
+#include "mem.h"                      // for mem_free, mem_malloc, mem_strdup
+#include "module.h"                   // for mod_GetSymbol, mod_FreeModule
+#include "mono.h"                     // for mprintf
+#include "multi.h"                    // for Netgame
+#include "multi_external.h"           // for LR_SERVER
+#include "multisafe.h"                // for msafe_CallFunction, msafe_DoPow...
+#include "object.h"                   // for ObjGet, OBJNUM, Objects
+#include "object_external.h"          // for OBJ_DUMMY, OBJ_CAMERA, OBJ_DOOR
+#include "object_external_struct.h"   // for tOSIRISScript, MAX_OBJECTS
+#include "objinfo.h"                  // for Object_info
+#include "osiris_dll.h"               // for OEM_LEVELS, OEM_OBJECTS, OEM_TR...
+#include "osiris_predefs.h"           // for osipf_AIFindEnergyCenter, osipf...
+#include "osiris_share.h"             // for OMMSHANDLE, tOSIRISEventInfo
+#include "player.h"                   // for Players
+#include "player_external.h"          // for PLAYER_FLAGS_DEAD, PLAYER_FLAGS...
+#include "player_external_struct.h"   // for player
+#include "pserror.h"                  // for ASSERT, Int3, Error
+#include "pstypes.h"                  // for ubyte, uint, ushort
+#include "trigger.h"                  // for Triggers, object, Num_triggers
+#include "vecmat_external.h"          // for matrix, vector
 
 #ifdef _DEBUG
 #define OSIRISDEBUG

@@ -35,9 +35,9 @@
 #ifndef __ROCK_N_RIDE_H_
 #define __ROCK_N_RIDE_H_
 
-#include "pstypes.h"
-#include "controls.h"
-#include "vecmat.h"
+#include "controls.h"         // for game_controls
+#include "pstypes.h"          // for ubyte
+#include "vecmat_external.h"  // for vector
 
 extern bool RocknRide_enabled;
 

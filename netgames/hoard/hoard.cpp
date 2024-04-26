@@ -63,14 +63,31 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include <string.h>
+#include <stdio.h>                   // for snprintf
+#include <string.h>                  // for strlen, memcpy, strcpy, NULL
+#include <algorithm>                 // for min
+#include "DMFC.h"                    // for DSTAT_LEVEL, DSTAT_OVERALL, MAX_...
 #include "idmfc.h"
-#include "Hoard.h"
-#include "hoardstr.h"
-#include "hoardaux.h"
-
-#include <algorithm>
+#include "DMFCKeyCodes.h"            // for K_ESC, K_F6, K_F7, K_PAGEDOWN
+#include "Hoard.h"                   // for DLLGameClose, DLLGameInit, DLLGe...
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE, BITMAP_FORMAT...
+#include "cfile.h"                   // for CFILE
+#include "d3events.h"                // for EVT_CLIENT_GAMEPLAYERCHANGESEG
+#include "gamedll_header.h"          // for DLLgrtext_Printf, DLLPlayerSetRo...
+#include "gamefont.h"                // for SMALL_UI_FONT_INDEX, HUD_FONT_INDEX
+#include "grdefs.h"                  // for GR_RGB, GR_RGB16, OPAQUE_FLAG
+#include "hoardaux.h"                // for tGameConfig, SendGameConfig
+#include "hoardstr.h"                // for TXT_PILOT, TXT_DEATHS, TXT_KILLS
+#include "hud.h"                     // for DEFAULT_HUD_WIDTH
+#include "idmfc.h"                   // for IDMFC, IDmfcStats, CreateMenuIte...
+#include "module.h"                  // for DLLFUNCCALL
+#include "multi_external.h"          // for MultiAddInt, MultiGetInt, MultiA...
+#include "object_external.h"         // for OBJ_POWERUP, OBJ_PLAYER, OBJ_GHOST
+#include "object_external_struct.h"  // for object
+#include "player_external.h"         // for PLAYER_FLAGS_DEAD, PLAYER_FLAGS_...
+#include "player_external_struct.h"  // for player
+#include "pstypes.h"                 // for ubyte, ushort
+#include "renderer.h"                // for AT_CONSTANT_TEXTURE, LS_NONE
 
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;

@@ -28,48 +28,57 @@
  *
  * $NoKeywords: $
  */
+
 #include "render.h"
-#include <stdlib.h>
-#include <string.h>
-#include "descent.h"
-#include "3d.h"
-#include "mono.h"
-#include "gametexture.h"
-#include "texture.h"
-#include "vclip.h"
-#include "program.h"
-#include "game.h"
-#include "renderobject.h"
-#include "door.h"
-#include "terrain.h"
-#include "renderer.h"
-#include "room.h"
-#include "lighting.h"
-#include "lightmap.h"
-#include "limits.h"
-#include "lightmap_info.h"
-#include "viseffect.h"
-#include "weapon.h"
-#include "fireball.h"
-#include "scorch.h"
-#include "findintersection.h"
-#include "special_face.h"
-#include "BOA.h"
-#include "config.h"
-#include "gameloop.h"
-#include "doorway.h"
-#include "TelComAutoMap.h"
-#include "postrender.h"
-#include "mem.h"
-#include "Macros.h"
-#include "psrand.h"
-#include "player.h"
-#include "args.h"
+#include <float.h>                      // for FLT_MAX
+#include <stdlib.h>                     // for NULL, qsort
+#include <string.h>                     // for memset
+#include <algorithm>                    // for min, max
+#include <cmath>                        // for sqrt
+#include "3d.h"                         // for g3_RotatePoint, g3_SetTriangu...
+#include "TelComAutoMap.h"              // for AutomapVisMap
+#include "args.h"                       // for FindArg
+#include "bitmap.h"                     // for bm_format, BITMAP_FORMAT_4444
+#include "config.h"                     // for Detail_settings
+#include "door.h"                       // for DF_SEETHROUGH, Doors
+#include "doorway.h"                    // for DoorwayGetPosition, doorway
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_IGNORE_WEAPONS
+#include "fireball.h"                   // for Fireballs
+#include "fireball_external.h"          // for DEFAULT_CORONA_INDEX
+#include "game.h"                       // for UseHardware, Gametime, FrameC...
+#include "gameloop.h"                   // for Rendering_main_view
+#include "gametexture.h"                // for GameTextures, GetTextureBitmap
+#include "grdefs.h"                     // for GR_RGB, ddgr_color, GR_BLACK
+#include "lighting.h"                   // for VOLUME_SPACING, MAX_SPECULAR_...
+#include "lightmap.h"                   // for GameLightmaps, lm_h, lm_w
+#include "lightmap_info.h"              // for LightmapInfo, BAD_LMI_INDEX
+#include "mem.h"                        // for mem_free, mem_malloc
+#include "mono.h"                       // for mprintf
+#include "object.h"                     // for Objects, Viewer_object
+#include "object_external.h"            // for OF_SAFE_TO_RENDER, OBJ_WEAPON
+#include "object_external_struct.h"     // for object
+#include "player.h"                     // for Players, Player_num, Player_o...
+#include "player_external.h"            // for PLAYER_FLAGS_REARVIEW
+#include "polymodel.h"                  // for Polymodel_outline_mode
+#include "postrender.h"                 // for Num_postrenders, Postrender_list
+#include "pserror.h"                    // for ASSERT, Int3
+#include "psrand.h"                     // for ps_rand, ps_srand
+#include "renderer.h"                   // for g3Point, rend_SetLighting
+#include "renderobject.h"               // for IsPointVisible, RenderObject
+#include "room.h"                       // for Rooms, MAX_ROOMS, Highest_roo...
+#include "room_external.h"              // for room, face, MAX_VERTS_PER_FACE
+#include "scorch.h"                     // for DrawScorches
+#include "special_face.h"               // for SpecialFaces, BAD_SPECIAL_FAC...
+#include "terrain.h"                    // for World_point_buffer, VisibleTe...
+#include "vecmat.h"                     // for vm_DotProduct, vm_NormalizeVe...
+#include "viseffect.h"                  // for VisEffects, DrawVisEffect
+#include "viseffect_external.h"         // for VF_DEAD, VIS_NONE, vis_effect
+#include "weapon.h"                     // for Weapons, WF_ELECTRICAL, WF_ST...
+
 #ifdef EDITOR
 #include "editor\d3edit.h"
 #endif
-
-#include <algorithm>
 
 // #define KATMAI
 

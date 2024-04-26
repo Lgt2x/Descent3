@@ -22,15 +22,19 @@
 // Filename:	Merc02.cpp
 // Version:	3
 /////////////////////////////////////////////////////////////////////
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include "osiris_import.h"
-#include "osiris_common.h"
-#include "DallasFuncs.cpp"
+#include <ctype.h>                      // for isspace
+#include <stdio.h>                      // for NULL, sprintf
+#include <stdlib.h>                     // for free, malloc
+#include <string.h>                     // for strcat, strcpy, strlen, strtok
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_IGNORE_POWE...
+#include "object_external.h"            // for OBJ_PLAYER
+#include "osiris_common.h"              // for tOSIRISEventInfo, CONTINUE_CHAIN
+#include "osiris_import.h"              // for File_ReadInt, File_WriteInt
+#include "vecmat_external.h"            // for vector
 
-#include "module.h"
+#include "DallasFuncs.cpp"              // for aUserFlagSet, aAIGoalFollowPa...
+#include "module.h"                     // for STDCALL, STDCALLPTR
+
 
 #ifdef __cplusplus
 extern "C" {

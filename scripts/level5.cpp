@@ -22,15 +22,16 @@
 // Filename:	level5.cpp
 // Version:	3
 /////////////////////////////////////////////////////////////////////
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include "osiris_import.h"
-#include "osiris_common.h"
-#include "DallasFuncs.cpp"
 
-#include "module.h"
+#include <ctype.h>          // for isspace
+#include <stdio.h>          // for NULL, snprintf, sprintf
+#include <stdlib.h>         // for free, malloc
+#include <string.h>         // for strcat, strlen, strcpy, strtok, strchr
+#include <cmath>            // for ceil
+#include "module.h"         // for STDCALL, STDCALLPTR
+#include "osiris_common.h"  // for tOSIRISEventInfo, CONTINUE_DEFAULT, CONTI...
+#include "osiris_import.h"  // for File_ReadInt, File_WriteInt, mprintf, MSa...
+#include "DallasFuncs.cpp"  // for qObjShields, aShowHUDMessage, aMusicSetRe...
 
 #ifdef __cplusplus
 extern "C" {

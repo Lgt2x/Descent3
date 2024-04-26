@@ -16,12 +16,11 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdlib.h>
 #include "aiambient.h"
-#include "string.h"
-#include "objinfo.h"
-#include "game.h"
-#include "psrand.h"
+#include "game.h"     // for Gametime
+#include "objinfo.h"  // for FindObjectIDName, Object_info
+#include "psrand.h"   // for ps_rand
+#include "string.h"   // for strlen
 
 ambient_life a_life;
 

@@ -44,26 +44,23 @@
  * $NoKeywords: $
  */
 
-#include "debug.h"
-#include <assert.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <memory.h>
-#include <signal.h>
-
-// -------- Start TCP/IP Mono Logging Section
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <errno.h>
+#include <arpa/inet.h>   // for htons, inet_addr
+#include <errno.h>       // for EBADF, ECONNREFUSED, EFAULT, EISCONN, ENETUN...
+#include <fcntl.h>       // for open, O_WRONLY, O_CREAT
+#include <netinet/in.h>  // for sockaddr_in, in_addr, INADDR_ANY
+#include <pthread.h>     // for pthread_create, pthread_detach, pthread_self
+#include <stdarg.h>      // for va_end, va_list, va_start
+#include <stdio.h>       // for fprintf, stdout, NULL, printf, vsnprintf
+#include <stdlib.h>      // for atexit, atoi
+#include <string.h>      // for memcpy, strlen, memset, strchr, strcpy
+#include <sys/select.h>  // for select, FD_SET, FD_ZERO, fd_set
+#include <sys/socket.h>  // for send, AF_INET, bind, connect, socket, SOCK_S...
+#include <sys/stat.h>    // for S_IREAD, S_IWRITE
+#include <sys/time.h>    // for timeval, gettimeofday
+#include <unistd.h>      // for write, _exit, NULL, close
+#include <algorithm>     // for min
+#include "debug.h"       // for Debug_MessageBox, Debug_ConsoleClose, Debug_...
+#include "pstypes.h"     // for uint
 
 #define MAX_TCPLOG_LEN 2000
 #define SOCKET int
@@ -83,10 +80,6 @@ bool Debug_print_block = false;
 // ===============================
 // pthread library functions
 // ===============================
-#include <pthread.h>
-#include <dlfcn.h>
-
-#include <algorithm>
 
 #if DLOPEN_PTHREAD
 typedef int (*pthread_create_fp)(pthread_t *__thread, __const pthread_attr_t *__attr, void *(*__start_routine)(void *),

@@ -909,83 +909,90 @@
 
 // Initialization routines for Descent3/Editor
 
-#include <stdlib.h>
-
-#include "mono.h"
-#include "application.h"
-#include "gametexture.h"
-#include "object.h"
-#include "vecmat.h"
 #include "init.h"
-#include "config.h"
-#include "3d.h"
-#include "hlsoundlib.h"
-#include "manage.h"
-#include "bitmap.h"
-#include "ddio.h"
-#include "joystick.h"
-#include "render.h"
-#include "descent.h"
-#include "renderer.h"
-#include "vclip.h"
-#include "grdefs.h"
-#include "pserror.h"
-#include "lighting.h"
-#include "program.h"
-#include "polymodel.h"
-#include "door.h"
-#include "terrain.h"
-#include "soundload.h"
-#include "ship.h"
-#include "controls.h"
-#include "texture.h"
-#include "Mission.h"
-#include "findintersection.h"
-#include "appdatabase.h"
-#include "AppConsole.h"
-#include "room.h"
-#include "game.h"
-#include "render.h"
-#include "gamefile.h"
-#include "TelCom.h"
-#include "objinfo.h"
-#include "ObjScript.h"
-#include "cinematics.h"
-#include "lightmap_info.h"
-#include "fireball.h"
-#include "networking.h"
-#include "args.h"
-#include "pilot.h"
-#include "d3serial.h"
-#include "gameloop.h"
-#include "trigger.h"
-#include "PHYSICS.H"
-#include "special_face.h"
-#include "streamaudio.h"
-#include "voice.h"
-#include "localization.h"
-#include "stringtable.h"
-#include "hlsoundlib.h"
-#include "player.h"
-#include "ambient.h"
-#include "matcen.h"
-#include "dedicated_server.h"
-#include "D3ForceFeedback.h"
-#include "newui.h"
-#include "SmallViews.h"
-#include "uisys.h"
-#include "rtperformance.h"
-#include "d3music.h"
-#include "PilotPicsAPI.h"
-#include "osiris_dll.h"
-// #include "gamespy.h"
-#include "mem.h"
-#include "multi.h"
-#include "marker.h"
-#include "gamecinematics.h"
-#include "debuggraph.h"
-#include "rocknride.h"
-#include "vibeinterface.h"
+#include <SDL_platform.h>      // for __LINUX__
+#include <stdio.h>             // for snprintf, printf
+#include <stdlib.h>            // for exit, atoi, strtod, NULL, atof, atexit
+#include <string.h>            // for strcpy, strlen, strcat, strchr
+#include "3d.h"                // for PF_PROJECTED, p3_z
+#include "D3ForceFeedback.h"   // for D3Force_gain, D3Force_auto_center, D3U...
+#include "Mission.h"           // for InitMission
+#include "PHYSICS.H"           // for Default_player_room_leveling, Default_...
+#include "PilotPicsAPI.h"      // for PPic_InitDatabase
+#include "SmallViews.h"        // for SVW_LEFT
+#include "TelCom.h"            // for TelComInit
+#include "ambient.h"           // for InitAmbientSoundSystem
+#include "appdatabase.h"       // for oeAppDatabase
+#include "application.h"       // for oeApplication
+#include "args.h"              // for FindArg, GameArgs
+#include "bitmap.h"            // for bm_AllocLoadFileBitmap, bm_CreateChunk...
+#include "cfile.h"             // for cf_OpenLibrary, cfclose, cfopen, cf_Re...
+#include "cinematics.h"        // for InitCinematics
+#include "config.h"            // for Detail_settings, Game_video_resolution
+#include "controls.h"          // for InitControls, CloseControls, LoadContr...
+#include "d3music.h"           // for D3MusicPause, D3MusicResume, D3MusicSe...
+#include "d3serial.h"          // for SerialCheck, SerialError
+#include "ddio.h"              // for ddio_MakePath, ddio_SetWorkingDir, ddi...
+#include "ddio_common.h"       // for ddio_SetKeyboardLanguage, ddio_Init
+#include "ddvid.h"             // for ddvid_Init, ddvid_Close
+#include "debug.h"             // for Debug_Logfile
+#include "debuggraph.h"        // for DebugGraph_Initialize
+#include "dedicated_server.h"  // for Dedicated_server, PrintDedicatedMessage
+#include "descent.h"           // for Database, Descent3_temp_directory, Des...
+#include "door.h"              // for InitDoors
+#include "findintersection.h"  // for InitFVI
+#include "fireball.h"          // for InitFireballs
+#include "fix.h"               // for InitMathTables
+#include "game.h"              // for Render_preferred_state, Render_state
+#include "gamecinematics.h"    // for Cinematic_Init
+#include "gamefile.h"          // for InitGamefiles
+#include "gamefont.h"          // for LoadAllFonts, MONITOR9_NEWUI_FONT, SMA...
+#include "gameloop.h"          // for PauseGame, ResumeGame, Game_paused
+#include "gametexture.h"       // for InitTextures
+#include "grdefs.h"            // for GR_BLACK, GR_RGB
+#include "grtext.h"            // for grfont_GetHeight, grtext_Flush, grtext...
+#include "hlsoundlib.h"        // for Sound_system, hlsSystem, Sound_mixer
+#include "lighting.h"          // for InitDynamicLighting
+#include "lightmap_info.h"     // for InitLightmapInfo
+#include "linux_fix.h"         // for _MAX_PATH, strcmpi
+#include "lnxdatabase.h"       // for read_int
+#include "localization.h"      // for LoadStringTables, Localization_SetLang...
+#include "manage.h"            // for LocalD3Dir, mng_InitTableFiles, mng_Lo...
+#include "marker.h"            // for InitMarkers
+#include "matcen.h"            // for InitMatcens
+#include "mem.h"               // for mem_Init
+#include "mono.h"              // for mprintf, nw_InitTCPLogging
+#include "multi.h"             // for Netgame
+#include "multi_external.h"    // for LR_SERVER
+#include "networking.h"        // for nw_InitNetworking, nw_InitSockets
+#include "newui.h"             // for NewUIInit
+#include "newui_core.h"        // for GetUICallback, SetUICallback, NEWUI_MO...
+#include "object.h"            // for InitObjects
+#include "objinfo.h"           // for InitObjectInfo
+#include "osiris_dll.h"        // for Osiris_ExtractScriptsFromHog, Osiris_I...
+#include "osiris_share.h"      // for LANGUAGE_ENGLISH
+#include "pilot.h"             // for Default_pilot, PilotInit
+#include "pilot_class.h"       // for pilot
+#include "player.h"            // for InitPlayers
+#include "polymodel.h"         // for InitModels
+#include "pserror.h"           // for Error, Int3, SetDebugBreakHandlers
+#include "pstypes.h"           // for ubyte, ushort
+#include "render.h"            // for Outline_mode, Lighting_on, Render_floa...
+#include "renderer.h"          // for rend_DrawPolygon2D, rend_SetAlphaValue
+#include "rocknride.h"         // for RNR_Initialize
+#include "room.h"              // for InitRooms
+#include "rtperformance.h"     // for RTP_ENABLEFLAGS, rtp_Init
+#include "ship.h"              // for InitShips
+#include "soundload.h"         // for InitSounds
+#include "special_face.h"      // for InitSpecialFaces
+#include "ssl_lib.h"           // for SOUND_MIXER_SOFTWARE_16, SQT_NORMAL
+#include "stringtable.h"       // for TXT_INITCOLLATING, TXT_INITDATA, TXT_I...
+#include "terrain.h"           // for TERRAIN_SIZE, InitTerrain
+#include "trigger.h"           // for InitTriggers
+#include "uisys.h"             // for ui_Init, ui_IsCursorVisible, ui_ShowCu...
+#include "vclip.h"             // for InitVClips
+#include "vibeinterface.h"     // for VIBE_Init
+#include "voice.h"             // for PlayPowerupVoice, PlayVoices, InitVoices
 
 // Uncomment this for all non-US versions!!
 // #define LASERLOCK

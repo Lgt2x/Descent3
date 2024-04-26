@@ -31,8 +31,6 @@
  *
  */
 
-#include "soar.h"
-
 #ifdef SOAR_ENABLED
 
 #include "soar_helpers.h"

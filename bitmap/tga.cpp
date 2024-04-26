@@ -132,18 +132,16 @@
  * $NoKeywords: $
  */
 
-#include "cfile.h"
-#include "pserror.h"
-#include "pstypes.h"
-#include "bitmap.h"
-#include "mono.h"
-#include "grdefs.h"
-#include "texture.h"
-#include "byteswap.h"
-#include <string.h>
-#include "mem.h"
-
-#include <stdlib.h>
+#include <stdio.h>     // for SEEK_SET, SEEK_END
+#include <string.h>    // for strcpy
+#include "bitmap.h"    // for GameBitmaps, OUTRAGE_4444_COMPRESSED_MIPPED
+#include "byteswap.h"  // for convert_le, INTEL_INT, INTEL_SHORT
+#include "cfile.h"     // for cf_ReadByte, cfseek, cf_ReadShort, cftell, cf_...
+#include "grdefs.h"    // for GR_RGB16, NEW_TRANSPARENT_COLOR, OPAQUE_FLAG
+#include "mem.h"       // for mem_malloc, mem_free
+#include "mono.h"      // for mprintf
+#include "pserror.h"   // for Int3, ASSERT
+#include "pstypes.h"   // for ubyte, ushort
 
 char *Tga_file_data = NULL;
 int Fake_pos = 0;

@@ -265,39 +265,61 @@
  * $NoKeywords: $
  */
 
-#include <stdio.h>
-#include "cfile.h"
-#include "objinfo.h"
-#include "ship.h"
-#include "ui.h"
-#include "newui.h"
-#include "hud.h"
-#include "stringtable.h"
-#include "program.h"
-#include "Mission.h"
-#include "game.h"
-#include "gamesequence.h"
-#include "weapon.h"
-#include "damage.h"
-#include "mem.h"
-#include "ObjScript.h"
-#include "hlsoundlib.h"
-#include "viseffect.h"
-#include "collide.h"
-#include "sounds.h"
-#include "fireball.h"
-#include "attach.h"
-#include "gameloop.h"
-#include "multi.h"
-#include "multisafe.h"
-#include "osiris_dll.h"
-#include "args.h"
-#include "gamecinematics.h"
-#include "psrand.h"
-#include "cockpit.h"
-// We borrow a lot of code from the savegame system
-#include "gamesave.h"
-#include "demofile.h"
+#include <stdio.h>                      // for NULL, snprintf
+#include <string.h>                     // for strcpy, memset, strlen, strcmp
+#include "Mission.h"                    // for Current_mission, LoadMission
+#include "ObjScript.h"                  // for InitObjectScripts
+#include "args.h"                       // for FindArg
+#include "attach.h"                     // for AttachObject, AttachUpdateSub...
+#include "cfile.h"                      // for cf_WriteByte, cf_ReadShort
+#include "cockpit.h"                    // for InitCockpit
+#include "damage.h"                     // for KillObject
+#include "ddio.h"                       // for timer_GetTime, ddio_MakePath
+#include "demofile.h"                   // for DF_RECORDING, DF_PLAYBACK
+#include "descent.h"                    // for SetFunctionMode, Base_directory
+#include "findintersection.h"           // for fvi_info, fvi_FindIntersection
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_IGNORE_POWE...
+#include "fireball_external.h"          // for MUZZLE_FLASH_INDEX, MASSDRIVE...
+#include "game.h"                       // for Gametime, FrameCount, DoScree...
+#include "gamecinematics.h"             // for Cinematic_DoDemoFileData
+#include "gameloop.h"                   // for Render_FOV
+#include "gamesave.h"                   // for gs_ReadVector, gs_WriteVector
+#include "gamesequence.h"               // for Game_interface_mode, GAME_DEM...
+#include "gametexture.h"                // for FindTextureName
+#include "grdefs.h"                     // for GR_RGB16, ddgr_color
+#include "hlsoundlib.h"                 // for Sound_system, hlsSystem
+#include "hud.h"                        // for AddBlinkingHUDMessage, GetHUD...
+#include "linux_fix.h"                  // for _MAX_PATH, strcmpi, stricmp
+#include "manage.h"                     // for mng_LoadAddonPages
+#include "mem.h"                        // for mem_free, mem_malloc
+#include "mono.h"                       // for mprintf
+#include "multi.h"                      // for MultiBuildMatchTables, Server...
+#include "newui.h"                      // for NewUIGameWindow, NewUIButton
+#include "newui_core.h"                 // for DoUI, MSGBOX_OK, NEWUIRES_FOR...
+#include "object.h"                     // for Objects, OBJNUM, Highest_obje...
+#include "object_external.h"            // for OBJ_PLAYER, OBJ_BUILDING, OBJ...
+#include "object_external_struct.h"     // for object, MAX_OBJECTS, custom_anim
+#include "objinfo.h"                    // for Object_info
+#include "osiris_dll.h"                 // for Osiris_EnableCreateEvents
+#include "player.h"                     // for Players, Player_num, EndPlaye...
+#include "player_external.h"            // for PW_PRIMARY, OBSERVER_MODE_PIG...
+#include "player_external_struct.h"     // for MAX_PLAYER_WEAPONS, MAX_PLAYERS
+#include "polymodel.h"                  // for Poly_models
+#include "polymodel_external.h"         // for poly_model
+#include "pserror.h"                    // for ASSERT, Int3
+#include "psrand.h"                     // for ps_srand
+#include "pstypes.h"                    // for ubyte, ushort, uint
+#include "ship.h"                       // for Ships, MAX_SHIPS
+#include "sounds.h"                     // for SOUND_NONE_INDEX
+#include "stringtable.h"                // for TXT_ERROR, TXT_AVGFSP, TXT_BA...
+#include "ui.h"                         // for UIText, UIF_CENTER, UIF_FIT
+#include "uires.h"                      // for UITextItem
+#include "vecmat.h"                     // for Zero_vector, vm_VectorDistanc...
+#include "vecmat_external.h"            // for vector, operator+, matrix
+#include "viseffect.h"                  // for VisEffectCreate, VisEffects
+#include "viseffect_external.h"         // for VIS_FIREBALL, vis_effect, VF_...
+#include "weapon.h"                     // for FindWeaponName, Weapons, Crea...
+#include "weapon_external.h"            // for NAPALM_INDEX, OMEGA_INDEX
 
 extern bool is_multi_demo;
 CFILE *Demo_cfp = NULL;

@@ -1237,77 +1237,81 @@
  * $NoKeywords: $
  */
 
+#include "LoadLevel.h"
+#include <SDL_platform.h>              // for __LINUX__
+#include <fcntl.h>                     // for SEEK_CUR, SEEK_SET
+#include <string.h>                    // for strncmp, strcpy, NULL, strlen
+#include "BOA.h"                       // for BOA_AABB_checksum, BOA_mine_ch...
+#include "Mission.h"                   // for LoadLevelProgress, Level_info
+#include "PHYSICS.H"                   // for Gravity_strength
+#include "aiambient.h"                 // for a_life, ambient_life
+#include "aistruct.h"                  // for MAX_AI_SOUNDS
+#include "ambient.h"                   // for FindAmbientSoundPattern
+#include "args.h"                      // for FindArg
+#include "bitmap.h"                    // for MAX_BITMAPS, BF_NOT_RESIDENT
+#include "bnode.h"                     // for BNode_ClearBNodeInfo, BNode_Ge...
+#include "bsp.h"                       // for InitDefaultBSP, LoadBSPNode
+#include "cfile.h"                     // for cf_ReadFloat, cf_ReadByte, cf_...
+#include "d3x_op.h"                    // for MAX_D3XID_NAME, PARMTYPE_NUMBER
+#include "dedicated_server.h"          // for Dedicated_server, PrintDedicat...
+#include "descent.h"                   // for Katmai
+#include "door.h"                      // for FindDoorName, MAX_DOORS, Doors
+#include "doorway.h"                   // for DoorwayAdd, DF_AUTO, doorway
+#include "findintersection.h"          // for Ceiling_height, FVI_always_che...
+#include "fireball.h"                  // for Fireballs, NUM_FIREBALLS
+#include "game.h"                      // for Terrain_sound_bands, Level_pow...
+#include "gamepath.h"                  // for game_path, GamePaths, InitGame...
+#include "gametexture.h"               // for FindTextureName, GameTextures
+#include "grdefs.h"                    // for GR_RGB16, NEW_TRANSPARENT_COLOR
+#include "levelgoal.h"                 // for Level_goals, levelgoals
+#include "lighting.h"                  // for Float_to_ubyte
+#include "lightmap.h"                  // for MAX_LIGHTMAPS, lm_data, GameLi...
+#include "lightmap_info.h"             // for LightmapInfo, MAX_LIGHTMAP_INFOS
+#include "linux_fix.h"                 // for strcmpi, stricmp
+#include "localization.h"              // for DestroyStringTable, CreateStri...
+#include "manage_external.h"           // for PAGENAME_LEN, IGNORE_TABLE
+#include "matcen.h"                    // for DestroyAllMatcens, Matcen, Num...
+#include "mem.h"                       // for mem_malloc, mem_free
+#include "mono.h"                      // for mprintf
+#include "object.h"                    // for Objects, ObjLink, FreeAllObjects
+#include "object_external.h"           // for OBJ_POWERUP, OBJ_DOOR, OBJ_BUI...
+#include "object_external_struct.h"    // for MAX_OBJECTS, ROOMNUM_OUTSIDE
+#include "object_lighting.h"           // for ClearObjectLightmaps, SetupObj...
+#include "objinfo.h"                   // for GetObjectID, MAX_OBJECT_IDS
+#include "objinit.h"                   // for ObjInit
+#include "player.h"                    // for Players, FindPlayerStarts, Pla...
+#include "player_external_struct.h"    // for MAX_PLAYER_WEAPONS
+#include "polymodel.h"                 // for Poly_models
+#include "polymodel_external.h"        // for poly_model, MAX_POLY_MODELS
+#include "pserror.h"                   // for ASSERT, Int3
+#include "pstypes.h"                   // for ubyte, ushort, sbyte, uint
+#include "render.h"                    // for ConsolidateMineMirrors, ResetL...
+#include "robotfirestruct.h"           // for MAX_WBS_PER_OBJ
+#include "robotfirestruct_external.h"  // for MAX_WB_FIRING_MASKS, MAX_WB_GU...
+#include "room.h"                      // for Rooms, Highest_room_index, MAX...
+#include "ship.h"                      // for Ships, ship
+#include "soundload.h"                 // for FindSoundName
+#include "sounds.h"                    // for SOUND_NONE_INDEX, NUM_STATIC_S...
+#include "special_face.h"              // for AllocSpecialFace, SpecialFaces
+#include "ssl_lib.h"                   // for MAX_SOUNDS, SoundFiles
+#include "stringtable.h"               // for TXT_DS_OPENLEVEL
+#include "terrain.h"                   // for Terrain_sky, TERRAIN_DEPTH
+#include "trigger.h"                   // for FreeTriggers, Num_triggers
+#include "vecmat.h"                    // for vm_NormalizeVector, vm_Orthogo...
+#include "weapon.h"                    // for Weapons, WF_IMAGE_BITMAP, WF_I...
+#include "weapon_external.h"           // for LASER_INDEX
+class MD5;
+
 #ifdef NEWEDITOR
 #include "..\neweditor\stdafx.h"
-#endif
-
-#include <string.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <algorithm>
-
-#include "LoadLevel.h"
-
-#include "cfile.h"
-
-#include "descent.h"
-#include "object.h"
-#include "gametexture.h"
-
-#ifdef NEWEDITOR
 #include "..\neweditor\ned_gametexture.h"
 #include "..\neweditor\ned_Object.h"
 #include "editor\Erooms.h"
-#endif
-
-#include "trigger.h"
-#include "doorway.h"
-#include "terrain.h"
-#include "player.h"
-#include "door.h"
-#include "objinit.h"
-#include "room.h"
-#include "objinfo.h"
-#include "lightmap.h"
-#include "lightmap_info.h"
-#include "findintersection.h"
-#include "polymodel.h"
-#include "object_lighting.h"
-#include "bsp.h"
-#include "gamepath.h"
-#include "game.h"
-#include "BOA.h"
-#include "mem.h"
-#include "lighting.h"
-#include "Mission.h"
-#include "render.h"
-#include "weapon.h"
-#include "special_face.h"
-#include "stringtable.h"
-#include "ambient.h"
-#include "matcen.h"
-#include "dedicated_server.h"
-#include "PHYSICS.H"
-#include "levelgoal.h"
-#include "aiambient.h"
-#include "args.h"
-#include "ddio.h"
-#include "ship.h"
-#include "fireball.h"
-#include "sounds.h"
-#include "soundload.h"
-#include "bnode.h"
-#include "localization.h"
-
-#ifdef EDITOR
 #include "editor\d3edit.h"
 #include "editor\HFile.h"
 #include "editor\Erooms.h"
 #include "editor\moveworld.h"
 #include "editor\editor_lighting.h"
-#endif
-
-#ifdef NEWEDITOR
 #include "..\neweditor\neweditor.h"
 #include "..\neweditor\globals.h"
 #endif

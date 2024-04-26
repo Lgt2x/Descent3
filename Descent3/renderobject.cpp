@@ -577,45 +577,59 @@
  *
  * $NoKeywords: $
  */
-#include "object.h"
-#include "object_lighting.h"
-#include "3d.h"
-#include "polymodel.h"
-#include "renderer.h"
-#include "weapon.h"
-#include "fireball.h"
-#include "descent.h"
-#include "renderobject.h"
-#include "AIMain.h"
-#include "objinfo.h"
-#include "splinter.h"
-#include "fireball.h"
-#include "descent.h"
-#include "render.h"
-#include "gametexture.h"
-#include "game.h"
-#include "player.h"
-#include "damage.h"
-#include "gameloop.h"
-#include "findintersection.h"
-#include "grtext.h"
-#include "gamefont.h"
-#include "config.h"
-#include "viseffect.h"
-#include "game2dll.h"
-#include "marker.h"
-#include "ship.h"
-#include "psrand.h"
 
-#if defined(MACINTOSH)
-#include "Macros.h"
-#endif
-#include <string.h>
+#include "renderobject.h"
+#include <string.h>                     // for NULL, memset
+#include <algorithm>                    // for min, max
+#include <cmath>                        // for powf, fabs, tan, log10f
+#include "3d.h"                         // for g3_RotatePoint, g3_DrawLine
+#include "AIMain.h"                     // for AI_NumRendered, AI_RenderedList
+#include "bitmap.h"                     // for bm_h, bm_w
+#include "config.h"                     // for Detail_settings
+#include "d3events.h"                   // for EVT_CLIENT_GETCOLOREDNAME
+#include "damage.h"                     // for MAX_DAMAGE_MAG
+#include "descent.h"                    // for GetFunctionMode, function_mode
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_Qui...
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_IGNORE_POWE...
+#include "fireball.h"                   // for DrawColoredDisk, DrawFireball...
+#include "fireball_external.h"          // for COOL_SPARK_INDEX, GRAY_LIGHTN...
+#include "fix.h"                        // for F1_0, FixSin
+#include "game.h"                       // for GM_MULTI, Game_mode, Game_sho...
+#include "game2dll.h"                   // for DLLInfo, CallGameDLL
+#include "gamefont.h"                   // for HUD_FONT
+#include "gameloop.h"                   // for Render_FOV, Game_paused
+#include "gametexture.h"                // for GetTextureBitmap, FindTexture...
+#include "grdefs.h"                     // for GR_RGB, GR_RGB16, ddgr_color
+#include "grtext.h"                     // for grtext_CenteredPrintf, grtext...
+#include "marker.h"                     // for Marker_polynum
+#include "mono.h"                       // for mprintf
+#include "multi.h"                      // for NetPlayers, Netgame, Multi_lo...
+#include "multi_external.h"             // for NETSEQ_PLAYING, NF_BRIGHT_PLA...
+#include "object.h"                     // for Viewer_object, MAX_POSITION_H...
+#include "object_external.h"            // for OBJ_PLAYER, OBJ_ROBOT, OBJ_PO...
+#include "object_lighting.h"            // for ObjGetLightInfo
+#include "objinfo.h"                    // for Object_info
+#include "player.h"                     // for Players, Player_object, Playe...
+#include "player_external.h"            // for PLAYER_FLAGS_HEADLIGHT, INITI...
+#include "polymodel.h"                  // for Poly_models, DrawPolygonModel
+#include "pserror.h"                    // for ASSERT, Int3, Error
+#include "psrand.h"                     // for ps_rand, RAND_MAX
+#include "pstypes.h"                    // for ubyte, uint
+#include "render.h"                     // for GetRoomDynamicScalar, Render_...
+#include "renderer.h"                   // for g3Point, rend_SetAlphaType
+#include "room.h"                       // for Rooms
+#include "room_external.h"              // for MAX_VERTS_PER_FACE, face, room
+#include "ship.h"                       // for Ships
+#include "splinter.h"                   // for DrawSplinterObject
+#include "terrain.h"                    // for GetTerrainDynamicScalar, Terr...
+#include "vecmat.h"                     // for vm_DotProduct, vm_AnglesToMatrix
+#include "viseffect.h"                  // for VisEffectCreate, VisEffects
+#include "viseffect_external.h"         // for VF_USES_LIFELEFT, VIS_FIREBALL
+#include "weapon.h"                     // for DrawWeaponObject, Weapons
+
 #ifdef EDITOR
 #include "editor\d3edit.h"
 #endif
-
-#include <algorithm>
 
 // what darkening level to use when cloaked
 #define CLOAKED_FADE_LEVEL 28

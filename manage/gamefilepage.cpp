@@ -20,16 +20,19 @@
 #include <windows.h>
 #endif
 
-#include "cfile.h"
-#include "manage.h"
-#include "mono.h"
-#include "pserror.h"
-#include "ddio.h"
-#include "gamefile.h"
 #include "gamefilepage.h"
-#include "args.h"
-
-#include <string.h>
+#include <stdio.h>            // for SEEK_CUR
+#include <string.h>           // for strcpy, NULL, memset, memcpy, strlen
+#include "args.h"             // for FindArg, GameArgs
+#include "cfile.h"            // for cf_WriteByte, cfopen, cf_ReadByte, cf_R...
+#include "ddio.h"             // for ddio_MakePath
+#include "gamefile.h"         // for FindGamefileName, gamefile, AllocGamefile
+#include "linux_fix.h"        // for stricmp
+#include "manage.h"           // for PAGETYPE_GAMEFILE, Loading_addon_table
+#include "manage_external.h"  // for PAGENAME_LEN
+#include "mono.h"             // for mprintf
+#include "pserror.h"          // for ASSERT, Error
+#include "pstypes.h"          // for ubyte, ushort
 
 // gamefilepage commands that are read/written
 // A command is followed by a byte count describing how many bytes

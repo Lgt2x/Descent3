@@ -81,31 +81,30 @@
  */
 
 #include "TelComGoals.h"
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
-#include "cfile.h"
-#include "pserror.h"
-#include "ddio.h"
-#include "bitmap.h"
-
-#include "TelCom.h"
-#include "renderer.h"
-#include "game.h"
-#include "mem.h"
-#include "stringtable.h"
-#include "gametexture.h"
-#include "textaux.h"
-#include "TelComEfxStructs.h"
-#include "TelComEffects.h"
-#include "levelgoal.h"
-#include "textaux.h"
-#include "Mission.h"
-#include "Macros.h"
-#include "hlsoundlib.h"
-
-#include <algorithm>
+#include <stdio.h>               // for snprintf
+#include <string.h>              // for memset, strcpy, strlen
+#include <algorithm>             // for min
+#include "Mission.h"             // for Level_info, Current_mission
+#include "TelCom.h"              // for MONITOR_MAIN, Telcom_system, TelcomR...
+#include "TelComEffects.h"       // for CreateBackgroundEffect, CreateBitmap...
+#include "TelComEfxStructs.h"    // for TCBD_XY, TCBGD_COLOR, TCBKGDESC, TCB...
+#include "application.h"         // for oeApplication
+#include "bitmap.h"              // for BAD_BITMAP_HANDLE, bm_AllocLoadFileB...
+#include "ddio.h"                // for ddio_MouseGetState
+#include "ddio_common.h"         // for KEY_ESC, KEY_STATE
+#include "descent.h"             // for Descent
+#include "gamefont.h"            // for BIG_BRIEFING_FONT, BRIEFING_FONT
+#include "grdefs.h"              // for GR_RGB, GR_WHITE, GR_RGB16, OPAQUE_FLAG
+#include "grtext.h"              // for grtext_Printf, grtext_SetColor, grte...
+#include "hlsoundlib.h"          // for Sound_system, hlsSystem
+#include "levelgoal.h"           // for Level_goals, levelgoals
+#include "levelgoal_external.h"  // for LO_GET_SPECIFIED, LGF_ENABLED, LGF_C...
+#include "mem.h"                 // for mem_free, mem_malloc
+#include "pserror.h"             // for ASSERT
+#include "pstypes.h"             // for ubyte, ushort
+#include "renderer.h"            // for rend_SetFiltering, rend_SetAlphaValue
+#include "stringtable.h"         // for TXT_COMPLETED, TXT_FAILED, TXT_GOALS...
+#include "textaux.h"             // for textaux_CopyTextLine, textaux_WordWrap
 
 #define TITLE_X 30 + TGminx
 #define VALUE_X 400 + TGminx

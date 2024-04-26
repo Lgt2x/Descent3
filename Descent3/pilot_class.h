@@ -87,15 +87,14 @@
 #ifndef __PILOT_CLASS_H_
 #define __PILOT_CLASS_H_
 
-#include "pstypes.h"
-#include "controls.h"
-#include "Controller.h"
-#include "cfile.h"
-#include "weapon.h"
-#include "config.h"
-
-// YUCK!
-#include "descent.h" //just for MSN_NAMELEN
+#include <stddef.h>      // for NULL
+#include "Controller.h"  // for ct_config_data, ct_type
+#include "cfile.h"       // for CFILE
+#include "config.h"      // for tGameToggles
+#include "controls.h"    // for NUM_CONTROLLER_FUNCTIONS
+#include "descent.h"     // for MSN_NAMELEN
+#include "pstypes.h"     // for ushort, ubyte
+#include "weapon.h"      // for MAX_PRIMARY_WEAPONS, MAX_SECONDARY_WEAPONS
 
 /*
 =======================================================================

@@ -84,9 +84,7 @@
 #ifndef TRIGGER_H
 #define TRIGGER_H
 
-#include "pstypes.h"
-#include "ObjScript.h"
-#include "vecmat.h"
+#include "object_external_struct.h"  // for object
 
 // Trigger flags
 #define TF_UNUSED 1                 //

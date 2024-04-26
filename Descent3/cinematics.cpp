@@ -17,19 +17,19 @@
 */
 
 #include "cinematics.h"
-#include "movie.h"
-#include "game.h"
-#include "ddio.h"
-#include "descent.h"
-#include "gamefont.h"
-#include "hlsoundlib.h"
-#include "subtitles.h"
-#include "dedicated_server.h"
-#include "appdatabase.h"
-#include "bitmap.h"
-
-#include <stdlib.h>
-#include <string.h>
+#include <stdlib.h>            // for NULL
+#include <string.h>            // for strlen, strncat, strncpy, strrchr
+#include "Macros.h"            // for stricmp
+#include "bitmap.h"            // for bm_DestroyChunkedBitmap, bm_h, bm_w
+#include "ddio.h"              // for ddio_MakePath
+#include "dedicated_server.h"  // for Dedicated_server
+#include "descent.h"           // for Descent, Base_directory
+#include "game.h"              // for Max_window_h, Max_window_w
+#include "hlsoundlib.h"        // for Sound_system, hlsSystem, Sound_card_name
+#include "linux_fix.h"         // for _MAX_PATH
+#include "mono.h"              // for mprintf
+#include "movie.h"             // for MVELIB_NOERROR, mve_Init, mve_PlayMovie
+#include "subtitles.h"         // for SubtCloseSubtitles, SubtDrawSubtitles
 
 #ifdef DEBUG
 static struct {

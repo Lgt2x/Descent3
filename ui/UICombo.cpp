@@ -38,7 +38,14 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
+#include <stdio.h>        // for NULL, snprintf
+#include "UIlib.h"        // for UI_DOWN_ARROW_CHAR, UI_UP_ARROW_CHAR
+#include "ddio_common.h"  // for KEY_DOWN, KEY_UP
+#include "grdefs.h"       // for GR_WHITE
+#include "ui.h"           // for UIComboBox, UIGadget, LISTBOX_BUFFER_SIZE
+#include "uidraw.h"       // for ui_SetTextClip, ui_DrawBox, ui_ResetTextClip
+#include "uires.h"        // for UITextItem, UIItem
+#include "uisys.h"        // for UI_TIME, PT_IN_RECT, SCREEN_TO_GAD_X, SCREE...
 
 //	----------------------------------------------------------------------------
 //	UIComboBox

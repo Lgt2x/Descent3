@@ -16,12 +16,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "audio_encode.h"
-#include "mono.h"
-#include "Aencode.h"
+#include <stdio.h>         // for FILE, fclose, fopen, getc, EOF
+#include "Aencode.h"       // for AudioEncode, AudioError
+#include "audio_encode.h"  // for aenc_Compress
+#include "mono.h"          // for mprintf
 
 long aenc_ReadSamp(void *data) {
   FILE *f = (FILE *)data;

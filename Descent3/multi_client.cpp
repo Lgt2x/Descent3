@@ -134,16 +134,28 @@
  *
  */
 
-#include "multi.h"
 #include "multi_client.h"
-#include "game.h"
-#include "player.h"
-#include "ddio.h"
-#include "pilot.h"
-#include "Mission.h"
-#include "stringtable.h"
-#include "d3serial.h"
-#include "ship.h"
+#include <string.h>           // for memcpy, strlen, NULL, memset, strcpy
+#include "Mission.h"          // for ShowProgressScreen
+#include "d3serial.h"         // for GetInternalSerializationNumber
+#include "ddio.h"             // for timer_GetTime
+#include "descent.h"          // for SetFunctionMode, function_mode
+#include "game.h"             // for Frametime, SetGamemodeScript, GM_NETWORK
+#include "linux_fix.h"        // for Sleep
+#include "manage_external.h"  // for PAGENAME_LEN
+#include "mono.h"             // for mprintf
+#include "multi.h"            // for NetPlayers, END_DATA, START_DATA, Netgame
+#include "multi_external.h"   // for MultiAddByte, MAX_GAME_DATA_SIZE, MAX_N...
+#include "networking.h"       // for nw_SendReliable, nw_Send, nw_CheckRelia...
+#include "object.h"           // for Objects
+#include "pilot.h"            // for Current_pilot
+#include "pilot_class.h"      // for pilot
+#include "player.h"           // for Player_num, Players, PlayerSetCustomTex...
+#include "player_external.h"  // for PLAYER_FLAGS_SEND_MOVEMENT
+#include "pserror.h"          // for ASSERT
+#include "pstypes.h"          // for ubyte, ushort
+#include "ship.h"             // for FindShipName, Ships
+#include "stringtable.h"      // for TXT_MLTDISCFRMSERV, TXT_RELIABLE_OVERRUN
 
 #define WEAPONS_LOAD_UPDATE_INTERVAL 2.0
 

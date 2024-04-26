@@ -24,27 +24,32 @@
  * $NoKeywords: $
  */
 
-#include "3d.h"
-#include "texture.h"
-#include "gametexture.h"
 #include "lighting.h"
-#include "lightmap.h"
-#include "descent.h"
-#include "game.h"
-#include "room.h"
-#include <string.h>
-#include <stdlib.h>
-#include "findintersection.h"
-#include "lightmap_info.h"
-#include "polymodel.h"
-#include "special_face.h"
-#include "mem.h"
-#include "config.h"
-#include "dedicated_server.h"
-#include "objinfo.h"
-#include "Macros.h"
-
-#include <algorithm>
+#include <stdlib.h>                  // for NULL, atexit
+#include <string.h>                  // for memset
+#include <algorithm>                 // for max, min
+#include <cmath>                     // for fabs, sqrt
+#include "config.h"                  // for Detail_settings
+#include "dedicated_server.h"        // for Dedicated_server
+#include "findintersection.h"        // for fvi_QuickDistFaceList, fvi_Quick...
+#include "game.h"                    // for FrameCount
+#include "gametexture.h"             // for GameTextures, TF_LIGHT
+#include "grdefs.h"                  // for OPAQUE_FLAG, GR_RGB16
+#include "lightmap.h"                // for GameLightmaps, lm_data, LF_LIMITS
+#include "lightmap_info.h"           // for LightmapInfo, lmi_h, lmi_w, ligh...
+#include "mem.h"                     // for mem_free, mem_malloc, Mem_low_me...
+#include "mono.h"                    // for mprintf
+#include "object.h"                  // for Objects, LRT_GOURAUD, OLF_NO_SPE...
+#include "object_external.h"         // for EF_SPECULAR, EF_VOLUME_LIT, OBJ_...
+#include "object_external_struct.h"  // for object, MAKE_ROOMNUM
+#include "objinfo.h"                 // for Object_info
+#include "polymodel.h"               // for IsNonRenderableSubmodel, SetMode...
+#include "polymodel_external.h"      // for MAX_SUBOBJECTS, bsp_info, poly_m...
+#include "pserror.h"                 // for ASSERT
+#include "room.h"                    // for Rooms
+#include "special_face.h"            // for SpecialFaces
+#include "terrain.h"                 // for Terrain_seg, TERRAIN_SIZE, TERRA...
+#include "vecmat.h"                  // for vm_DotProduct, vm_NormalizeVecto...
 
 #define NUM_DYNAMIC_CLASSES 7
 #define MAX_DYNAMIC_FACES 2000

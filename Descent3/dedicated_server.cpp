@@ -102,45 +102,50 @@
  * $NoKeywords: $
  */
 
-#include <string.h>
-#include <stdlib.h>
-
-#ifndef __LINUX__
-typedef int socklen_t;
-#endif
-
-#include "pstypes.h"
-#include "pserror.h"
-#include "pstring.h"
-#include "cfile.h"
-#include "inffile.h"
-#include "dedicated_server.h"
-#include "multi.h"
-#include "args.h"
-#include "AppConsole.h"
-#include "ddio.h"
-#include "newui.h"
-#include "ui.h"
-#include "multi_dll_mgr.h"
-#include "multi_ui.h"
-#include "Mission.h"
-#include "multi_server.h"
-#include "Macros.h"
-#include "game.h"
-#include "mem.h"
-#include "stringtable.h"
-#include "multi_save_settings.h"
-#include "objinfo.h"
-#include "rtperformance.h"
-#include "player.h"
-#include "stringtable.h"
-#include "init.h"
-#include "ship.h"
-#include "hud.h"
-
-#ifdef MACINTOSH
-#include "macsock.h"
-#endif
+#include <SDL_platform.h>            // for __LINUX__
+#include <arpa/inet.h>               // for inet_ntoa, htons, inet_addr
+#include <errno.h>                   // for EINVAL, ENOPROTOOPT, EWOULDBLOCK
+#include <netinet/in.h>              // for sockaddr_in, in_addr
+#include <stdarg.h>                  // for va_end, va_list, va_start
+#include <stdlib.h>                  // for atof, atoi
+#include <string.h>                  // for strlen, strcat, strcpy, memcpy
+#include <sys/ioctl.h>               // for ioctl, FIONBIO
+#include <sys/socket.h>              // for send, shutdown, AF_INET, accept
+#include <unistd.h>                  // for NULL, close
+#include "AppConsole.h"              // for CON_MAX_STRINGLEN, con_Input
+#include "Macros.h"                  // for stricmp
+#include "Mission.h"                 // for Current_mission, GetMissionName
+#include "args.h"                    // for FindArgChar, GameArgs
+#include "d3events.h"                // for EVT_CLIENT_INPUT_STRING
+#include "ddio.h"                    // for timer_GetTime
+#include "dedicated_server.h"        // for CVAR_TYPE_INT, CVAR_TYPE_STRING
+#include "descent.h"                 // for SetFunctionMode, MSN_NAMELEN
+#include "errno.h"                   // for errno
+#include "game2dll.h"                // for CallGameDLL, DLLInfo
+#include "grdefs.h"                  // for GR_RGB
+#include "hud.h"                     // for GetMessageDestination, HUD_MESSA...
+#include "inffile.h"                 // for InfFile, InfFileError
+#include "init.h"                    // for ServerTimeout, LastPacketReceived
+#include "linux/linux_fix.h"         // for _MAX_PATH
+#include "manage_external.h"         // for IGNORE_TABLE, PAGENAME_LEN
+#include "mem.h"                     // for mem_free, mem_malloc
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for Netgame, MultiEndLevel, NetPlayers
+#include "multi_dll_mgr.h"           // for Auto_login_name, Auto_login_pass
+#include "multi_external.h"          // for NETSEQ_PLAYING, NF_PEER_PEER
+#include "multi_save_settings.h"     // for MultiLoadSettings
+#include "multi_server.h"            // for MultiResetSettings, MultiStartSe...
+#include "multi_ui.h"                // for MultiDLLGameStarting
+#include "networking.h"              // for SOCKET, nw_GetThisIP
+#include "objinfo.h"                 // for FindObjectIDName, Object_info
+#include "player.h"                  // for Player_num, PlayerSetShipPermission
+#include "player_external_struct.h"  // for MAX_PLAYERS
+#include "pserror.h"                 // for Int3
+#include "pstring.h"                 // for CleanupStr, Psprintf, Pvsprintf
+#include "pstypes.h"                 // for ushort, uint
+#include "rtperformance.h"           // for rtp_StartLog, rtp_StopLog
+#include "ship.h"                    // for Ships, MAX_SHIPS
+#include "stringtable.h"             // for TXT_DS_ENTERPASS, TXT_DS_BADCOMMAND
 
 bool Dedicated_server = false;
 
@@ -784,19 +789,6 @@ void PrintDedicatedMessage(const char *fmt, ...) {
 }
 
 #ifdef __LINUX__
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <sys/ioctl.h>
-#include <sys/socket.h>
-#include <sys/stat.h>
-#include <sys/termios.h>
-#include <sys/types.h>
-#include <sys/time.h>
-#include <unistd.h>
-
-#include "linux/linux_fix.h"
-#include "errno.h"
 #define BOOL bool
 #ifndef SOCKET
 #define SOCKET int

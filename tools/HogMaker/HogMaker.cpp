@@ -15,14 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <iostream>
-#include <algorithm>
-#include <chrono>
-#include <filesystem>
-#include <fstream>
-#include <string>
 
-#include "HogFormat.h"
+#include <bits/chrono.h>  // for operator+, operator-, system_clock, duratio...
+#include <stdint.h>       // for uint32_t
+#include <algorithm>      // for copy, sort, transform, max
+#include <array>          // for array
+#include <cctype>         // for tolower
+#include <ctime>          // for time_t
+#include <exception>      // for exception
+#include <filesystem>     // for path, operator<<, is_regular_file, operator/
+#include <fstream>        // for basic_ostream, operator<<, endl, basic_istream
+#include <iostream>       // for cout
+#include <iterator>       // for copy, istreambuf_iterator, ostreambuf_iterator
+#include <string>         // for char_traits, basic_string, operator<<, oper...
+#include <vector>         // for vector
+#include "HogFormat.h"    // for HogFileEntry, HogFormat, operator<<
 
 // TODO: To our descendants from the future: remove it when code will support C++20
 template <typename TP> std::time_t to_time_t(TP tp) {

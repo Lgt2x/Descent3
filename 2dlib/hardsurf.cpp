@@ -36,7 +36,8 @@
  * $NoKeywords: $
  */
 
-#include "gr.h"
+#include "Ddgr.h"  // for SURFTYPE_GENERIC
+#include "gr.h"    // for grHardwareSurface, grSurface
 
 //	----------------------------------------------------------------------------
 //	constructor and destructor

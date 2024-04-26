@@ -17,29 +17,26 @@
 */
 
 #include "DllWrappers.h"
-#include "pserror.h"
-#include "pstring.h"
-#include "cfile.h"
-#include "gamefont.h"
-#include "grdefs.h"
-#include "descent.h"
-#include "ddio.h"
-#include "movie.h"
-#include "program.h"
-#include "object.h"
-#include "objinit.h"
-#include "player.h"
-#include "newui.h"
-#include "hlsoundlib.h"
-#include "appdatabase.h"
-#include "attach.h"
-#include "game.h"
-#include "demofile.h"
-#include "pilot.h"
-#include "audiotaunts.h"
-#include "ship.h"
-#include "hud.h"
-#include "cockpit.h"
+#include <stdarg.h>                  // for va_end, va_list, va_start
+#include "appdatabase.h"             // for oeAppDatabase
+#include "attach.h"                  // for AttachObject, UnattachChild, Una...
+#include "audiotaunts.h"             // for taunt_Enable
+#include "cfile.h"                   // for cfopen, CFILE
+#include "cockpit.h"                 // for FreeCockpit, InitCockpit
+#include "debug.h"                   // for Debug_ConsolePrintf, Debug_break
+#include "demofile.h"                // for DF_RECORDING, Demo_flags, DemoWr...
+#include "descent.h"                 // for Database
+#include "game.h"                    // for StartFrame
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "hud.h"                     // for GetHUDMode, SetHUDMode, tHUDMode
+#include "mono.h"                    // for mprintf
+#include "newui_core.h"              // for GetUICallback
+#include "object.h"                  // for SetObjectDeadFlag, ObjGet, ObjGe...
+#include "player.h"                  // for Players, PlayerChangeShip, Playe...
+#include "player_external_struct.h"  // for MAX_PLAYERS
+#include "pserror.h"                 // for ASSERT, AssertionFailed, DEBUG_B...
+#include "pstring.h"                 // for Pvsprintf
+#include "ship.h"                    // for MAX_SHIPS, Ships
 
 int D3W_Play3dSound(int sound_index, object *cur_obj, float volume, int flags) {
   if (Demo_flags == DF_RECORDING) {

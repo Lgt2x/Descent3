@@ -44,6 +44,10 @@
  *
  */
 
+#include "linux_fix.h"   // for _MAX_PATH
+#include "networking.h"  // for network_address
+#include "pstypes.h"     // for ubyte
+
 #define MAX_MISSION_URL_LEN 300
 #define MAX_MISSION_URL_COUNT 5
 

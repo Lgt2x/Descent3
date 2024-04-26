@@ -16,51 +16,49 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "RendererConfig.h"
+#include "RendererConfig.h" // IWYU pragma: keep
 #ifndef USE_SOFTWARE_TNL
 
-#include "byteswap.h"
 #if defined(WIN32)
 #include <windows.h>
 #include "ddraw.h"
+#include "win/arb_extensions.h"
 #elif defined(__LINUX__)
 #include "linux/linux_fix.h"
-#include "linux/dyna_xext.h"
-#include "lnxscreenmode.h"
-#else
 #endif
 
-#include "DDAccess.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "mono.h"
-#include "3d.h"
-#include "renderer.h"
-#include "ddvid.h"
-#include "ddio.h"
-#include "application.h"
-#include "bitmap.h"
-#include "lightmap.h"
-#include "rend_opengl.h"
-#include "grdefs.h"
-#include "mem.h"
-#include "rtperformance.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include "HardwareInternal.h"
-#include "../Descent3/args.h"
+#include <GL/gl.h>             // for GL_TEXTURE_2D, GL_TEXTURE0_ARB, GL_RGBA
+#include <stdio.h>             // for NULL, fprintf, snprintf, stderr
+#include <stdlib.h>            // for putenv, atexit, getenv
+#include <string.h>            // for strcpy, strlen, memset, memcpy, strcspn
+#include <algorithm>           // for min, max
+#include "../Descent3/args.h"  // for FindArgChar
+#include "3d.h"                // for p3_l, p3_u, p3_v, g3_RefreshTransforms
+#include "HardwareInternal.h"  // for g3_ForceTransformRefresh, g3_UpdateFul...
+#include "SDL.h"               // for SDL_Init, SDL_INIT_VIDEO
+#include "SDL_error.h"         // for SDL_ClearError, SDL_GetError
+#include "SDL_events.h"        // for SDL_SetEventFilter, SDL_Event
+#include "SDL_mouse.h"         // for SDL_ShowCursor
+#include "SDL_platform.h"      // for __LINUX__
+#include "SDL_video.h"         // for SDL_GL_SetAttribute, SDL_GLattr, SDL_G...
+#include "application.h"       // for OEAPP_WINDOWED, oeApplication
+#include "bitmap.h"            // for bm_h, bm_w, bm_data, bm_mipped, NUM_MI...
+#include "byteswap.h"          // for convert_le, INTEL_INT
+#include "grdefs.h"            // for GR_COLOR_BLUE, GR_COLOR_GREEN, GR_COLO...
+#include "lightmap.h"          // for GameLightmaps, LF_BRAND_NEW, LF_CHANGED
+#include "lnxapp.h"            // for oeLnxApplication
+#include "mem.h"               // for mem_free, mem_malloc
+#include "module.h"            // for module
+#include "mono.h"              // for mprintf, mprintf_at
+#include "pserror.h"           // for ASSERT, Int3
+#include "pstypes.h"           // for ushort, uint, ubyte, sbyte
+#include "rend_opengl.h"       // for opengl_Close, opengl_Init, opengl_Rese...
+#include "renderer.h"          // for g3Point, LS_NONE, MAP_TYPE_LIGHTMAP
+#include "rtperformance.h"     // for RTP_INCRVALUE
+#include "vecmat_external.h"   // for vector, operator*, operator-, matrix
 
 #define DECLARE_OPENGL
 #include "dyna_gl.h"
-
-#if defined(WIN32)
-#include "win/arb_extensions.h"
-#endif
-
-#include <algorithm>
 
 int FindArg(char *);
 void rend_SetLightingState(light_state state);

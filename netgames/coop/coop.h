@@ -60,8 +60,15 @@
 #ifndef __DMFC_APP_H_
 #define __DMFC_APP_H_
 
-#include "osiris_share.h"
-#include "d3events.h"
+#include <stddef.h>                  // for NULL
+#include "d3events.h"                // for EVT_CLIENT_INTERVAL
+#include "gamedll_header.h"          // for dllinfo, tDLLOptions
+#include "idmfc.h"                   // for IDMFC
+#include "module.h"                  // for DLLFUNCCALL, DLLEXPORT, DLLFUNCC...
+#include "multi_external.h"          // for LR_SERVER
+#include "object_external_struct.h"  // for object
+#include "osiris_share.h"            // for tOSIRISEventInfo, CONTINUE_CHAIN
+#include "pstypes.h"                 // for ubyte
 
 void OnHUDInterval(void);
 void OnInterval(void);

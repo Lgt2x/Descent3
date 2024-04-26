@@ -48,13 +48,18 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include "encryption.h"
-
-#include <stdlib.h>
-#include <memory.h>
+#include <stdio.h>           // for snprintf
+#include <stdlib.h>          // for free, malloc, rand, srand, NULL
+#include <string.h>          // for strlen, memcpy, strncpy, strcmp, memset
+#include <time.h>            // for time
+#include "Macros.h"          // for stricmp
+#include "dmfcinternal.h"    // for DMFCBase, MAX_PLAYER_RECORDS, PRec_GetPR...
+#include "encryption.h"      // for IceKey
+#include "gamedll_header.h"  // for DLLAddColoredHUDMessage, DatabaseRead1
+#include "grdefs.h"          // for GR_RGB
+#include "linux_fix.h"       // for strnicmp
+#include "multi_external.h"  // for LR_SERVER, MAX_GAME_DATA_SIZE, MultiAddInt
+#include "pstypes.h"         // for ubyte
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

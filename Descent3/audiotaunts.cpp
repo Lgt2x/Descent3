@@ -16,26 +16,32 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <string.h>
-#include <stdlib.h>
-
-#include "mono.h"
-#include "debug.h"
-#include "pserror.h"
-#include "pstypes.h"
 #include "audiotaunts.h"
-#include "cfile.h"
-#include "audio_encode.h"
-#include "byteswap.h"
-#include "mem.h"
-#include "ddio.h"
-#include "manage.h"
-#include "streamaudio.h"
-#include "multi.h"
-#include "game.h"
-#include "stringtable.h"
-#include "game2dll.h"
-#include "player.h"
+#include <stdio.h>            // for SEEK_SET
+#include <stdlib.h>           // for NULL
+#include <string.h>           // for strcpy, memset
+#include "audio_encode.h"     // for aenc_Compress
+#include "byteswap.h"         // for convert_le, INTEL_SHORT
+#include "cfile.h"            // for cf_ReadInt, cfclose, cfexist, cf_ReadBytes
+#include "d3events.h"         // for EVT_CLIENT_PLAYERPLAYSAUDIOTAUNT
+#include "ddio.h"             // for ddio_DeleteFile, ddio_GetTempFileName
+#include "descent.h"          // for Descent3_temp_directory
+#include "game.h"             // for GM_MULTI, Game_mode
+#include "game2dll.h"         // for DLLInfo, CallGameDLL
+#include "linux_fix.h"        // for _MAX_PATH
+#include "manage.h"           // for LocalCustomSoundsDir
+#include "mem.h"              // for mem_free, mem_malloc
+#include "mono.h"             // for mprintf
+#include "multi.h"            // for NetPlayers
+#include "multi_external.h"   // for NETSEQ_PLAYING, NPF_CONNECTED
+#include "object.h"           // for Objects
+#include "object_external.h"  // for OBJECT_HANDLE_NONE
+#include "player.h"           // for Players
+#include "pserror.h"          // for ASSERT
+#include "pstypes.h"          // for ubyte, uint
+#include "ssl_lib.h"          // for MAX_GAME_VOLUME
+#include "streamaudio.h"      // for OSFArchive, StreamPlay, OSF_DIGIACM_STRM
+#include "stringtable.h"      // for TXT_BADBITDEPTH, TXT_BADSAMPLERATE, TXT...
 
 typedef struct {
   int sample_length;

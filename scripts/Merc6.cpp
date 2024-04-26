@@ -26,6 +26,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "aistruct_external.h"  // for AIF_DETERMINE_TARGET, AIF_FORCE_AWARE...
+#include "object_external.h"    // for OBJECT_HANDLE_NONE
+#include "vecmat_external.h"    // for vector
 #include "osiris_import.h"
 #include "osiris_common.h"
 #include "DallasFuncs.cpp"

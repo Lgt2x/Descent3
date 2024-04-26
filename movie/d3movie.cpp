@@ -16,18 +16,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdlib.h>
 
 #ifdef __LINUX__
-#include <sys/ioctl.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/uio.h>
-
 #define O_BINARY 0
 #endif
-
-#include "DDAccess.h"
 
 #ifdef WIN32
 #include <MMSystem.h>
@@ -35,21 +27,27 @@
 #include "dsound.h"
 #endif
 
-#include <fcntl.h>
-#include <string.h>
-
-#include "movie.h"
-#include "mvelibw.h"
-#include "pserror.h"
-#include "renderer.h"
-#include "application.h"
-#include "ddio.h"
-#include "ddvid.h"
-#include "grtext.h"
-#include "mem.h"
-#include "bitmap.h"
-#include "gamefont.h"
-#include "game.h"
+#include <fcntl.h>                                             // for open
+#include <stdint.h>                                            // for intptr_t
+#include <stdio.h>                                             // for SEEK_SET
+#include <string.h>                                            // for strcpy
+#include <unistd.h>                                            // for NULL
+#include "/home/louis/dev/Descent3/libmve/SystemInterfaces.h"  // for LNXSND...
+#include "/home/louis/dev/Descent3/libmve/lnxdsound.h"         // for LnxSou...
+#include "/home/louis/dev/Descent3/libmve/mvelibl.h"           // for _MVE_f...
+#include "application.h"                                       // for oeAppl...
+#include "bitmap.h"                                            // for bm_Fre...
+#include "ddio_common.h"                                       // for ddio_K...
+#include "game.h"                                              // for EndFrame
+#include "gamefont.h"                                          // for BRIEFI...
+#include "grdefs.h"                                            // for GR_RGB16
+#include "grtext.h"                                            // for grtext...
+#include "linux_fix.h"                                         // for stricmp
+#include "mem.h"                                               // for mem_free
+#include "mono.h"                                              // for mprintf
+#include "movie.h"                                             // for MVELIB...
+#include "pstypes.h"                                           // for ushort
+#include "renderer.h"                                          // for rend_S...
 
 namespace {
 MovieFrameCallback_fp Movie_callback = NULL;

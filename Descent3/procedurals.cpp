@@ -40,26 +40,22 @@
  *
  * $NoKeywords: $
  */
-#ifdef MACINTOSH
-#include <string.h>
-#include "Macros.h"
-#endif
-#include "procedurals.h"
-#include "bitmap.h"
-#include "gr.h"
-#include "gametexture.h"
-#include "vclip.h"
-#include "game.h"
-#include "texture.h"
-#include "mem.h"
-#include "ddio.h"
-#include "config.h"
-#include <stdlib.h>
-#include <math.h>
-#include <memory.h>
-#include "psrand.h"
 
-#include <algorithm>
+#include "procedurals.h"
+#include <string.h>       // for memset
+#include <algorithm>      // for max, min
+#include <cmath>          // for floor, sqrt, cosf, sinf, sqrtf
+#include "Macros.h"       // for SWAP
+#include "bitmap.h"       // for bm_data, bm_w, bm_AllocLoadFileBitmap
+#include "config.h"       // for Detail_settings
+#include "ddio.h"         // for timer_GetTime
+#include "game.h"         // for FrameCount
+#include "gametexture.h"  // for GameTextures, static_proc_element, proc_struct
+#include "grdefs.h"       // for OPAQUE_FLAG
+#include "mem.h"          // for mem_free, mem_malloc
+#include "mono.h"         // for mprintf
+#include "pserror.h"      // for ASSERT
+#include "psrand.h"       // for ps_rand, RAND_MAX
 
 #define BRIGHT_COLOR 254
 #define PROC_SIZE 128

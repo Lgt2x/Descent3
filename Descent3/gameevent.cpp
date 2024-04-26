@@ -62,16 +62,19 @@
  * $NoKeywords: $
  */
 
-#include "object.h"
-#include "game.h"
 #include "gameevent.h"
-#include "descent.h"
-#include "gameloop.h"
-#include "spew.h"
-#include <string.h>
-// #include <malloc.h>
-#include "mem.h"
-#include "player.h"
+#include <string.h>                  // for NULL, memcpy, memset
+#include "descent.h"                 // for D3_DEFAULT_ZOOM
+#include "game.h"                    // for Gametime, FrameCount
+#include "gameloop.h"                // for Render_zoom
+#include "mem.h"                     // for mem_free, mem_malloc
+#include "mono.h"                    // for mprintf
+#include "object.h"                  // for ObjGet
+#include "object_external_struct.h"  // for object
+#include "player.h"                  // for Players
+#include "player_external.h"         // for PLAYER_FLAGS_DEAD, PLAYER_FLAGS_...
+#include "pserror.h"                 // for ASSERT, Int3
+#include "spew.h"                    // for SpewEmitAll, SpewInit
 
 int Num_events = 0;
 game_event GameEvent[MAX_EVENTS];

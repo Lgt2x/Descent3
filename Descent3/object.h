@@ -628,11 +628,11 @@
 #ifndef _OBJECT_H
 #define _OBJECT_H
 
-#include "pstypes.h"
-#include "pserror.h"
-#include "object_external_struct.h"
-#include "object_external.h"
-
+#include "object_external.h"         // for MAX_OBJECT_TYPES, OBJECT_HANDLE_...
+#include "object_external_struct.h"  // for object, MAX_OBJECTS, custom_anim
+#include "pserror.h"                 // for ASSERT
+#include "pstypes.h"                 // for ubyte, ushort
+#include "vecmat_external.h"         // for vector, matrix
 /*
  *		CONSTANTS
  */

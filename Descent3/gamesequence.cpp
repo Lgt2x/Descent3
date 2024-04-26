@@ -1026,72 +1026,106 @@
 #endif
 
 #include "gamesequence.h"
+#include <string.h>                    // for strcpy, NULL, memset, strlen
+#include "AIMain.h"                    // for AIInitAll
+#include "BOA.h"                       // for ComputeAABB, MakeBOA
+#include "Controller.h"                // for gameController
+#include "Inventory.h"                 // for INVRESET_ALL
+#include "Mission.h"                   // for Current_mission, LoadLevelProg...
+#include "ObjScript.h"                 // for FreeScriptsForLevel
+#include "SmallViews.h"                // for ResetSmallViews
+#include "TelCom.h"                    // for TelComShow, TS_CARGO, TS_MAINMENU
+#include "TelComAutoMap.h"             // for AutomapClearVisMap
+#include "aiambient.h"                 // for a_life, ambient_life
+#include "aistruct.h"                  // for MAX_AI_SOUNDS
+#include "ambient.h"                   // for InitAmbientSounds
+#include "application.h"               // for oeApplication
+#include "args.h"                      // for FindArg
+#include "bitmap.h"                    // for GameBitmaps, BF_COMPRESSABLE
+#include "bsp.h"                       // for DestroyDefaultBSPTree
+#include "buddymenu.h"                 // for BuddyDisplay
+#include "cockpit.h"                   // for FreeCockpit, InitCockpit, Quic...
+#include "config.h"                    // for Detail_settings
+#include "controls.h"                  // for SuspendControls, ResumeControls
+#include "d3events.h"                  // for EVT_CLIENT_GAMELEVELEND, EVT_C...
+#include "d3music.h"                   // for D3MusicStop, D3MusicResume
+#include "ddio.h"                      // for ddio_MakePath, timer_GetTime
+#include "ddio_common.h"               // for KEY_A, KEY_ESC, KEY_PAUSE, KEY_S
+#include "debuggraph.h"                // for DebugGraph_DisplayOptions
+#include "dedicated_server.h"          // for Dedicated_server
+#include "demofile.h"                  // for DemoPlaybackFile, DemoAbort
+#include "descent.h"                   // for SetFunctionMode, function_mode
+#include "door.h"                      // for Doors, door
+#include "doorway.h"                   // for DoorwayDeactivateAll, Global_keys
+#include "fireball.h"                  // for Fireballs, NUM_FIREBALLS
+#include "game.h"                      // for GM_MULTI, Game_mode, SetScreen...
+#include "game2dll.h"                  // for CallGameDLL, DLLInfo
+#include "gamecinematics.h"            // for Cinematic_LevelInit, Cinematic...
+#include "gameevent.h"                 // for ClearAllEvents
+#include "gameloop.h"                  // for GameFrame, InitCameraViews
+#include "gamepath.h"                  // for InitGamePaths
+#include "gamesave.h"                  // for LoadCurrentSaveGame, LoadGameD...
+#include "gametexture.h"               // for GameTextures, FindTextureName
+#include "grdefs.h"                    // for GR_BLACK
+#include "help.h"                      // for HelpDisplay
+#include "hlsoundlib.h"                // for Sound_system, hlsSystem
+#include "hud.h"                       // for GetHUDMode, ResetHUDMessages
+#include "levelgoal.h"                 // for Level_goals, levelgoals
+#include "lightmap.h"                  // for GameLightmaps
+#include "lightmap_info.h"             // for LightmapInfo, LMI_DYNAMIC, MAX...
+#include "linux_fix.h"                 // for strcmpi, GlobalFree, _MAX_PATH
+#include "manage.h"                    // for mng_LoadAddonPages
+#include "manage_external.h"           // for IGNORE_TABLE, PAGENAME_LEN
+#include "marker.h"                    // for ResetMarkers
+#include "matcen.h"                    // for DestroyAllMatcens, InitMatcens...
+#include "mem.h"                       // for mem_strdup, mem_free, mem_malloc
+#include "menu.h"                      // for DisplayLevelWarpDlg
+#include "mono.h"                      // for mprintf
+#include "multi.h"                     // for MultiLeaveGame, Multi_bail_ui_...
+#include "multi_dll_mgr.h"             // for CallMultiDLL, MT_EVT_GAME_OVER
+#include "multi_external.h"            // for LR_SERVER, NPF_CONNECTED, LR_C...
+#include "multi_ui.h"                  // for MultiDLLGameStarting
+#include "newui.h"                     // for DoWaitPopup, DoMessageBox, DoM...
+#include "newui_core.h"                // for SetUICallback, MSGBOX_OK, MSGB...
+#include "object.h"                    // for Objects, ObjDelete, Highest_ob...
+#include "object_external.h"           // for OBJ_ROBOT, OBJ_BUILDING, OBJ_C...
+#include "object_external_struct.h"    // for object, MAX_OBJECTS
+#include "objinfo.h"                   // for Object_info, MAX_DSPEW_TYPES
+#include "osiris_dll.h"                // for Osiris_ResetAllTimers
+#include "osiris_share.h"              // for LANGUAGE_ENGLISH
+#include "pilot.h"                     // for CurrentPilotUpdateMissionStatus
+#include "pilot_class.h"               // for pilot
+#include "player.h"                    // for Player_num, Players, EndPlayer...
+#include "player_external.h"           // for PLAYER_FLAGS_DEAD, PLAYER_FLAG...
+#include "player_external_struct.h"    // for MAX_PLAYER_WEAPONS, MAX_PLAYERS
+#include "polymodel.h"                 // for PageInPolymodel, Poly_models
+#include "polymodel_external.h"        // for poly_model, MAX_POLY_MODELS
+#include "pserror.h"                   // for ASSERT, Int3
+#include "pstypes.h"                   // for ubyte
+#include "render.h"                    // for ResetLightGlows
+#include "renderer.h"                  // for rend_PreUploadTextureToCard
+#include "robotfirestruct.h"           // for MAX_WBS_PER_OBJ
+#include "robotfirestruct_external.h"  // for MAX_WB_FIRING_MASKS, MAX_WB_GU...
+#include "rocknride.h"                 // for RNR_UpdateGameStatus, RNRGSC_I...
+#include "room.h"                      // for Rooms, ClearRoomChanges, Highe...
+#include "room_external.h"             // for room, face
+#include "scorch.h"                    // for ResetScorches
+#include "screens.h"                   // for PostLevelResults
+#include "ship.h"                      // for FindShipName, Ships, DEFAULT_SHIP
+#include "soar_helpers.h"              // for DSSoarEnd, DSSoarInit
+#include "soundload.h"                 // for FindSoundName
+#include "sounds.h"                    // for SOUND_NONE_INDEX, NUM_STATIC_S...
+#include "ssl_lib.h"                   // for SoundFiles, MAX_SOUNDS, SND_PR...
+#include "stringtable.h"               // for TXT_TELCOMLOAD, TXI_HLPPAUSE, TXT
+#include "terrain.h"                   // for Terrain_sky, TERRAIN_TEX_DEPTH
+#include "uisys.h"                     // for ui_ShowCursor, ui_HideCursor
+#include "vclip.h"                     // for GameVClips, vclip
+#include "vecmat.h"                    // for Identity_matrix
+#include "vecmat_external.h"           // for matrix, vector
+#include "vibeinterface.h"             // for VIBE_DoLevelEnd
+#include "weapon.h"                    // for MAX_WEAPON_SOUNDS, WF_IMAGE_BI...
+#include "weapon_external.h"           // for LASER_INDEX
 
-#include "game.h"
-#include "gameloop.h"
-#include "descent.h"
-#include "player.h"
-#include "Mission.h"
-#include "BOA.h"
-#include "gameevent.h"
-#include "AIMain.h"
-
-#include "soar_helpers.h"
-
-#include "terrain.h"
-#include "hlsoundlib.h"
-#include "SmallViews.h"
-#include "polymodel.h"
-#include "gametexture.h"
-#include "hud.h"
-#include "findintersection.h"
-#include "menu.h"
-#include "newui.h"
-#include "cockpit.h"
-#include "help.h"
-#include "buddymenu.h"
-#include "mem.h"
-#include "soundload.h"
-#include "robot.h"
-#include "screens.h"
-#include "game2dll.h"
-#include "ship.h"
-#include "TelCom.h"
-#include "scorch.h"
-#include "render.h"
-#include "stringtable.h"
-#include "ddio_common.h"
-#include "gamesave.h"
-#include "sounds.h"
-#include "ambient.h"
-#include "vclip.h"
-#include "pilot.h"
-#include "doorway.h"
-#include "matcen.h"
-#include "dedicated_server.h"
-#include "networking.h"
-#include "levelgoal.h"
-#include "demofile.h"
-#include "lightmap_info.h"
-#include "lightmap.h"
-#include "fireball.h"
-#include "d3music.h"
-#include "TelComAutoMap.h"
-#include "aiambient.h"
-#include "ObjScript.h"
-#include "marker.h"
-#include "gamecinematics.h"
-#include "osiris_dll.h"
-#include "debuggraph.h"
-#include "multi_dll_mgr.h"
-#include "multi_ui.h"
-#include "rocknride.h"
-#include "gamepath.h"
-#include "vclip.h"
-#include "bsp.h"
-#include "vibeinterface.h"
-
-#include "args.h"
 void ResetHudMessages(void);
 
 //	Variables

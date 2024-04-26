@@ -38,7 +38,7 @@
 #ifndef OBJECT_LIGHTING_H
 #define OBJECT_LIGHTING_H
 
-#include "object.h"
+#include "object_external_struct.h"  // for object, light_info
 
 // Casts light from an object onto the rooms or terrain
 void DoObjectLight(object *obj);

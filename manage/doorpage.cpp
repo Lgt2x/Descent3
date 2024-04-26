@@ -147,19 +147,22 @@
 #include <windows.h>
 #endif
 
-#include "cfile.h"
-#include "manage.h"
-#include "door.h"
 #include "doorpage.h"
-#include "mono.h"
-#include "pserror.h"
-#include "polymodel.h"
-#include <string.h>
-#include "vclip.h"
-#include "ddio.h"
-#include "soundload.h"
-#include "soundpage.h"
-#include "args.h"
+#include <stdio.h>      // for SEEK_CUR, SEEK_SET
+#include <string.h>     // for strcpy, NULL, strlen, memcpy, memset
+#include "args.h"       // for FindArg, GameArgs
+#include "cfile.h"      // for cf_WriteByte, cf_ReadByte, cf_ReadString, cf_...
+#include "ddio.h"       // for ddio_MakePath
+#include "door.h"       // for FindDoorName, door, AllocDoor, Doors
+#include "linux_fix.h"  // for stricmp
+#include "manage.h"     // for PAGETYPE_DOOR, Loading_addon_table, mng_FreeP...
+#include "mono.h"       // for mprintf
+#include "object.h"     // for MAX_MODULENAME_LEN
+#include "polymodel.h"  // for LoadPolyModel, Poly_models
+#include "pserror.h"    // for ASSERT, Int3
+#include "pstypes.h"    // for ubyte, sbyte
+#include "soundpage.h"  // for mng_GetGuaranteedSoundPage
+#include "ssl_lib.h"    // for Sounds
 
 // doorpage commands that are read/written
 // A command is followed by a byte count describing how many bytes

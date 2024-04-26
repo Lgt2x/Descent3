@@ -19,10 +19,9 @@
 #ifndef GAMEFILEPAGE_H
 #define GAMEFILEPAGE_H
 
-#include "manage.h"
-#include "cfile.h"
-#include "pstypes.h"
-#include "gamefile.h"
+#include <stddef.h>    // for NULL
+#include "cfile.h"     // for CFILE
+#include "gamefile.h"  // for gamefile
 
 typedef struct {
   gamefile gamefile_struct;

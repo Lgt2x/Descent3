@@ -444,26 +444,30 @@
  */
 // High level sound object.  This code is 100% machine independant and
 // completely encapsulates the lowel-level machine-dependant sound code.
-#include "soundload.h"
-#include "hlsoundlib.h"
-#include "ssl_lib.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include "mono.h"
-#include "pserror.h"
-#include "vecmat.h"
-#include "args.h"
-#include "sounds.h"
-#include "game.h"
-#include "room.h"
-#include "BOA.h"
-#include "mem.h"
-#include "streamaudio.h"
-#include "doorway.h"
-#include "dedicated_server.h"
-#include "sndrender.h"
-#include "voice.h"
-#include "descent.h"
+#include <stdio.h>                      // for NULL
+#include "BOA.h"                        // for BOA_DetermineStartRoomPortal
+#include "args.h"                       // for FindArg
+#include "dedicated_server.h"           // for Dedicated_server
+#include "descent.h"                    // for Descent
+#include "doorway.h"                    // for DoorwayGetPosition
+#include "findintersection_external.h"  // for HIT_WALL
+#include "game.h"                       // for Frametime
+#include "hlsoundlib.h"                 // for hlsSystem, sound_object, MAX_...
+#include "mono.h"                       // for mprintf, DebugBlockPrint, mpr...
+#include "object.h"                     // for Viewer_object, ObjGet, HANDLE...
+#include "object_external.h"            // for OBJ_DUMMY, MT_PHYSICS, MT_WAL...
+#include "object_external_struct.h"     // for object, OBJECT_OUTSIDE
+#include "pserror.h"                    // for ASSERT
+#include "room.h"                       // for Rooms, Highest_room_index
+#include "room_external.h"              // for RF_DOOR
+#include "sndrender.h"                  // for SoundRenderReset, sound_rende...
+#include "sounds.h"                     // for SOUND_NONE_INDEX
+#include "ssl_lib.h"                    // for llsSystem, Sounds, SIF_OBJ_UP...
+#include "streamaudio.h"                // for AudioStream
+#include "vecmat.h"                     // for vm_VectorDistance, vm_Normali...
+#include "vecmat_external.h"            // for vector, operator-, operator*
+#include "voice.h"                      // for CloseVoices, InitVoices
+class oeApplication;
 
 #if defined(WIN32)
 #include "ds3dlib.h"

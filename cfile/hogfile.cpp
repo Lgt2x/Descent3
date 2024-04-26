@@ -86,14 +86,7 @@
  *
  * $NoKeywords: $
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#ifdef MACINTOSH
-#include <stat.h>
-#else
-#include <sys/stat.h>
-#endif
+
 #ifndef __LINUX__
 // Non-Linux Builds
 #include <io.h>
@@ -101,14 +94,17 @@
 // Linux Builds
 #include "linux/linux_fix.h"
 #endif
-#include "byteswap.h"
-#include "hogfile.h"
-#include "pstypes.h"
-#include "Macros.h"
-#include "mem.h"
-#include "ddio.h"
 
-#include <algorithm>
+#include "hogfile.h"
+#include <stdio.h>            // for fclose, fwrite, fread, FILE, fileno, fopen
+#include <string.h>           // for strcpy, strlen, memset, strcat
+#include <sys/stat.h>         // for stat, st_mtime
+#include <algorithm>          // for min
+#include "Macros.h"           // for _fstat32
+#include "byteswap.h"         // for convert_le, INTEL_INT
+#include "ddio.h"             // for ddio_SplitPath
+#include "mem.h"              // for mem_free, mem_malloc
+#include "pstypes.h"          // for ubyte, PSPATHNAME_LEN
 
 /*	HOG FILE FORMAT v2.0
 

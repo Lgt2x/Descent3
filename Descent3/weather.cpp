@@ -16,22 +16,26 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pserror.h"
-#include "pstypes.h"
-#include "fireball.h"
 #include "weather.h"
-#include "viseffect.h"
-#include "object.h"
-#include "terrain.h"
-#include "room.h"
-#include "game.h"
-#include "soundload.h"
-#include "hlsoundlib.h"
-#include "sounds.h"
+#include "fireball_external.h"       // for FADING_LINE_INDEX, PUDDLEDROP_INDEX
+#include "game.h"                    // for Gametime
+#include "grdefs.h"                  // for GR_RGB16
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "object.h"                  // for Viewer_object, Player_object
+#include "object_external.h"         // for OBJ_PLAYER
+#include "object_external_struct.h"  // for OBJECT_OUTSIDE
+#include "pserror.h"                 // for ASSERT
+#include "psrand.h"                  // for ps_rand
+#include "room.h"                    // for Rooms
+#include "room_external.h"           // for RF_EXTERNAL, room
+#include "soundload.h"               // for FindSoundName
+#include "sounds.h"                  // for SOUND_LIGHTNING, SOUND_RAINDROP
+#include "terrain.h"                 // for TERRAIN_SIZE, GetTerrainGroundPoint
+#include "vecmat.h"                  // for vm_AnglesToMatrix, vm_DotProduct
+#include "vecmat_external.h"         // for operator*, operator+=, vector
+#include "viseffect.h"               // for VisEffectCreate, VisEffects
+#include "viseffect_external.h"      // for VIS_FIREBALL, vis_effect, VF_WIN...
 
-#include <stdlib.h>
-
-#include "psrand.h"
 weather Weather = {0};
 
 int ThunderA_sound_handle = -1;

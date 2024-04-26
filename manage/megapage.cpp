@@ -64,18 +64,19 @@
 #if defined(WIN32)
 #include <windows.h>
 #endif
-#include "cfile.h"
-#include "manage.h"
-#include "megacell.h"
 #include "megapage.h"
-#include "texpage.h"
-#include "mono.h"
-#include "pserror.h"
-#include "polymodel.h"
-#include "ddio.h"
-#if defined(LINUX)
-#include <string.h>
-#endif
+#include <stdio.h>        // for SEEK_CUR
+#include <string.h>       // for strcpy, memset, NULL, memcpy, strlen
+#include "cfile.h"        // for cf_WriteByte, cf_ReadByte, cf_ReadString
+#include "gametexture.h"  // for GameTextures
+#include "linux_fix.h"    // for stricmp
+#include "manage.h"       // for PAGETYPE_MEGACELL, EndManagePage, StartMana...
+#include "megacell.h"     // for MAX_MEGACELL_HEIGHT, MAX_MEGACELL_WIDTH
+#include "mono.h"         // for mprintf
+#include "pserror.h"      // for ASSERT, Int3
+#include "pstypes.h"      // for ubyte, ushort
+#include "texpage.h"      // for mng_GetGuaranteedTexturePage
+
 // megacellpage commands that are read/written
 // A command is followed by a byte count describing how many bytes
 // are in the data for the command

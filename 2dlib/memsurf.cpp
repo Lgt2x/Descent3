@@ -68,13 +68,16 @@
  * $NoKeywords: $
  */
 
-#include "lib2d.h"
-
-#include "bitmap.h"
-
-#include <string.h>
-#include <stdlib.h>
-#include "mem.h"
+#include <string.h>   // for memset, strncpy
+#include "Ddgr.h"     // for ddgr_surface, SURFFLAG_COLORKEY
+#include "bitmap.h"   // for bm_bpp, bm_data, bm_h, bm_rowsize, bm_w
+#include "gr.h"       // for grMemorySurface, SURFTYPE_MEMORY, grSurface
+#include "grdefs.h"   // for BPP_16, BPP_32, GR_COLOR_TO_16, OPAQUE_FLAG16
+#include "lib2d.h"    // for mem_bitmap, gr_mem_surf_Blt, gr_mem_surf_Clear
+#include "mem.h"      // for mem_free, mem_malloc
+#include "mono.h"     // for mprintf
+#include "pserror.h"  // for ASSERT, Int3
+#include "pstypes.h"  // for ushort
 
 //	----------------------------------------------------------------------------
 //	constructor and destructor

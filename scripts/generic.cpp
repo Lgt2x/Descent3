@@ -18,14 +18,13 @@
 
 // generic.cpp
 // 0.1
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include "osiris_import.h"
-#include "osiris_common.h"
-
-#include "module.h"
+#include <stdarg.h>           // for va_end, va_list, va_start
+#include <stdio.h>            // for NULL, vsnprintf
+#include <string.h>           // for strcpy, strncpy
+#include "module.h"           // for STDCALL, STDCALLPTR
+#include "object_external.h"  // for OBJ_PLAYER, OBJECT_HANDLE_NONE, OBJ_POW...
+#include "osiris_common.h"    // for GR_RGB, msafe_struct, tOSIRISEventInfo
+#include "osiris_import.h"    // for MSafe_GetValue, MSafe_CallFunction, Sou...
 
 #ifdef __cplusplus
 extern "C" {

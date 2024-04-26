@@ -154,21 +154,20 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include "pstypes.h"
-#include "pserror.h"
-#include "bitmap.h"
 #include "vclip.h"
-#include "cfile.h"
-#include "mono.h"
-#include "ddio.h"
-#include "gametexture.h"
-#include "texture.h"
-#include <string.h>
-#include "ctype.h"
-#include "mem.h"
-#include "game.h"
+#include <stdlib.h>       // for NULL, atexit, atof
+#include <string.h>       // for strcpy, strlen, strcat, strncpy, memset
+#include "bitmap.h"       // for GameBitmaps, bm_FreeBitmap, bm_h, bm_w, bm_...
+#include "cfile.h"        // for cfclose, cf_ReadFloat, cfopen, CFILE, cf_Re...
+#include "ctype.h"        // for isalnum
+#include "ddio.h"         // for ddio_SplitPath
+#include "gametexture.h"  // for NORMAL_TEXTURE, SMALL_TEXTURE, TINY_TEXTURE
+#include "linux_fix.h"    // for stricmp
+#include "mem.h"          // for Mem_low_memory_mode, mem_free, mem_malloc
+#include "mono.h"         // for mprintf
+#include "pserror.h"      // for ASSERT, Int3, Error
+#include "pstypes.h"      // for sbyte, ubyte
+#include "renderer.h"     // for TEXTURE_HEIGHT, TEXTURE_WIDTH
 
 vclip GameVClips[MAX_VCLIPS];
 int Num_vclips = 0;

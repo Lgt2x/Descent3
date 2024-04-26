@@ -65,10 +65,11 @@
  */
 
 #include "fix.h"
+#include <stdlib.h>  // for NULL
+#include <time.h>    // for time
+#include <cmath>     // for fabs, acos, asin, sin, sqrt
+#include "psrand.h"  // for ps_srand
 
-#include <time.h>
-#include <stdlib.h>
-#include "psrand.h"
 // Tables for trig functions
 float sincos_table[321]; // 256 entries + 64 sin-only + 1 for interpolation
 angle asin_table[257];   // 1 quadrants worth, +1 for interpolation

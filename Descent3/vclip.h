@@ -17,12 +17,10 @@
 */
 
 #ifndef VCLIP_H
-
 #define VCLIP_H
 
-#include "pstypes.h"
-#include "fix.h"
-#include "manage.h"
+#include "manage_external.h"  // for PAGENAME_LEN
+#include "pstypes.h"          // for ubyte
 
 #define MAX_VCLIPS 200
 #define VCLIP_MAX_FRAMES 50

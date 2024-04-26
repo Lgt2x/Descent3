@@ -61,8 +61,6 @@
 #ifndef _FIX_H
 #define _FIX_H
 
-#include "math.h"
-
 // Disable the "possible loss of data" warning
 #pragma warning(disable : 4244)
 

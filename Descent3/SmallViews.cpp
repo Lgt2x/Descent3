@@ -141,25 +141,33 @@
  */
 
 #include "SmallViews.h"
-
-#include "descent.h"
-#include "pserror.h"
-
-#include "game.h"
-#include "object.h"
-#include "terrain.h"
-#include "render.h"
-#include "gameloop.h"
-#include "weapon.h"
-#include "findintersection.h"
-#include "config.h"
-#include "terrain.h"
-#include "gauges.h"
-#include "cockpit.h"
-#include "player.h"
-#include "grtext.h"
-#include "stringtable.h"
-#include "gamefont.h"
+#include <string.h>                     // for NULL, strncpy
+#include "3d.h"                         // for g3_EndFrame, g3_GetUnscaledMa...
+#include "cockpit.h"                    // for CockpitState, COCKPIT_STATE_D...
+#include "config.h"                     // for Detail_settings
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for HIT_NONE
+#include "game.h"                       // for Game_window_h, Game_window_x
+#include "gamefont.h"                   // for HUD_FONT
+#include "gameloop.h"                   // for GameRenderWorld, Render_zoom
+#include "gametexture.h"                // for FindTextureName, GameTextures
+#include "gauges.h"                     // for Disable_primary_monitor, Disa...
+#include "grdefs.h"                     // for GR_RGB, ddgr_color, GR_GREEN
+#include "grtext.h"                     // for grtext_SetFontScale, grtext_F...
+#include "hud.h"                        // for GetHUDMode, HUD_COLOR, tHUDMode
+#include "object.h"                     // for ObjGet, Viewer_object, OBJNUM
+#include "object_external.h"            // for OBJECT_HANDLE_NONE, OBJ_DUMMY
+#include "object_external_struct.h"     // for object, OBJECT_OUTSIDE
+#include "player.h"                     // for Players, Player_num
+#include "player_external.h"            // for PLAYER_FLAGS_REARVIEW
+#include "pserror.h"                    // for ASSERT, Int3
+#include "render.h"                     // for ResetFacings
+#include "renderer.h"                   // for rend_DrawLine, rend_SetFlatColor
+#include "terrain.h"                    // for MAX_TERRAIN_HEIGHT
+#include "vclip.h"                      // for PageInVClip, GameVClips, vclip
+#include "vecmat.h"                     // for vm_VectorToMatrix
+#include "vecmat_external.h"            // for vector, matrix
+#include "weapon.h"                     // for WeaponCalcGun
 
 // How many small views
 #define NUM_SMALL_VIEWS 3
@@ -260,8 +268,6 @@ void ResetSmallViews() {
   Guided_missile_smallview = false;
   Guided_missile_objhandle = OBJECT_HANDLE_NONE;
 }
-
-#include "vclip.h"
 
 // How long the static is visbile
 #define STATIC_TIME 0.25f

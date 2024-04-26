@@ -181,9 +181,9 @@
 #ifndef __INVENTORY_H__
 #define __INVENTORY_H__
 
-#include "pstypes.h"
-#include "cfile.h"
-
+#include <stddef.h>   // for NULL
+#include "cfile.h"    // for CFILE
+#include "pstypes.h"  // for ushort
 struct object;
 
 #define MAX_UNIQUE_INVEN_ITEMS 10

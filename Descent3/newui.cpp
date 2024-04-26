@@ -298,22 +298,24 @@
  */
 
 #include "newui.h"
-#include "game.h"
-#include "descent.h"
-#include "renderer.h"
-#include "3d.h"
-#include "gamefont.h"
-#include "bitmap.h"
-#include "ddio.h"
-#include "stringtable.h"
-#include "textaux.h"
-#include "newui_core.h"
-#include "hlsoundlib.h"
-#include "dedicated_server.h"
-
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
+#include <stdarg.h>            // for va_arg, va_end, va_list, va_start
+#include <stdlib.h>            // for NULL, atexit
+#include <string.h>            // for strcpy, strlen, memset, strcmp
+#include "3d.h"                // for g3Point, PF_PROJECTED, p3_z
+#include "bitmap.h"            // for bm_AllocLoadFileBitmap, bm_FreeBitmap
+#include "ddio.h"              // for ddio_FindFileClose, ddio_FindFileStart
+#include "dedicated_server.h"  // for Dedicated_server
+#include "game.h"              // for GetScreenMode, SetScreenMode, EndFrame
+#include "gamefont.h"          // for MONITOR9_NEWUI_FONT
+#include "grtext.h"            // for grtext_Puts, grtext_SetFont, grfont_Ge...
+#include "manage_external.h"   // for IGNORE_TABLE
+#include "mono.h"              // for mprintf
+#include "newui_core.h"        // for newuiMessageBox, newuiTiledWindow, new...
+#include "pserror.h"           // for Error, ASSERT, Int3
+#include "renderer.h"          // for chunked_bitmap, rend_DrawPolygon2D
+#include "stringtable.h"       // for TXT_CANCEL, TXT_INITDATA, TXT_OK
+#include "textaux.h"           // for textaux_WordWrap
+#include "uidraw.h"            // for ui_DrawBox
 
 #define MSGBOX_HEIGHT msgbox.H()
 #define BTN_WIDTH 96

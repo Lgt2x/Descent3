@@ -188,24 +188,32 @@
 //			activate cockpit
 //			render cockpit
 //			deactivate cockpit.
+
 #include "cockpit.h"
-#include "game.h"
-#include "polymodel.h"
-#include "hud.h"
-#include "gauges.h"
-#include "ship.h"
-#include "player.h"
-#include "room.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "sounds.h"
-#if defined(MACINTOSH)
-#include "Macros.h"
-#endif
-
-#include <string.h>
-
-#include <algorithm>
+#include <stdio.h>                   // for snprintf
+#include <string.h>                  // for strcpy, strcmp, NULL, memset
+#include <algorithm>                 // for min
+#include "bitmap.h"                  // for bm_AllocLoadFileBitmap, bm_FreeB...
+#include "fix.h"                     // for FixSin
+#include "game.h"                    // for Frametime
+#include "gauges.h"                  // for FlagGaugesFunctional, FlagGauges...
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "hud.h"                     // for HUD_resources, sHUDResources
+#include "linux_fix.h"               // for strcmpi
+#include "manage_external.h"         // for TBL_GAMEFILE, IGNORE_TABLE
+#include "mono.h"                    // for mprintf
+#include "object.h"                  // for Viewer_object, Objects
+#include "object_external_struct.h"  // for CELLNUM, OBJECT_OUTSIDE, object
+#include "player.h"                  // for Players, Player_num
+#include "player_external.h"         // for PLAYER_FLAGS_HEADLIGHT
+#include "polymodel.h"               // for DrawPolygonModel, Poly_models
+#include "polymodel_external.h"      // for SOF_VIEWER, bsp_info, poly_model
+#include "pserror.h"                 // for ASSERT
+#include "renderer.h"                // for rend_SetZBufferState
+#include "room.h"                    // for Rooms
+#include "room_external.h"           // for room
+#include "ship.h"                    // for Ships
+#include "sounds.h"                  // for SOUND_COCKPIT
 
 #define COCKPIT_ANIM_TIME 2.0f
 #define COCKPIT_DORMANT_FRAME 0.0

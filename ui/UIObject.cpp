@@ -38,7 +38,9 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
+#include "mono.h"     // for mprintf
+#include "pserror.h"  // for ASSERT
+#include "ui.h"       // for UIObject
 
 UIObject::UIObject() {
   m_X = m_Y = 0;

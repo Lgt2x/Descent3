@@ -18,14 +18,17 @@
 
 // clutter.cpp
 // 0.1
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "osiris_import.h"
-#include "osiris_common.h"
-#include "osiris_vector.h"
-
-#include "module.h"
+#include <stdio.h>               // for NULL
+#include <stdlib.h>              // for rand, RAND_MAX
+#include <cmath>                 // for fabs
+#include "damage_external.h"     // for GD_SCRIPTED
+#include "deathinfo_external.h"  // for DF_DEBRIS_SMOKES, DF_FIREBALL, DF_BL...
+#include "module.h"              // for STDCALL, STDCALLPTR
+#include "object_external.h"     // for OBJECT_HANDLE_NONE, OBJ_CLUTTER, OBJ...
+#include "osiris_common.h"       // for tOSIRISEventInfo, VF_GET, CONTINUE_C...
+#include "osiris_import.h"       // for Obj_Value, Obj_Create, mprintf, Obj_...
+#include "osiris_vector.h"       // for vm_GetMagnitude, vm_VectorNormalize
+#include "vecmat_external.h"     // for vector, operator*, operator+, operator-
 
 #ifdef __cplusplus
 extern "C" {

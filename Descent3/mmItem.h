@@ -68,9 +68,15 @@
  */
 #ifndef MMITEM_H
 #define MMITEM_H
-#include "newui.h"
-#include "psclass.h"
-#include "gamefont.h"
+
+#include "game.h"      // for Max_window_w
+#include "gamefont.h"  // for MENU_FONT
+#include "grdefs.h"    // for GR_RGB, ddgr_color
+#include "newui.h"     // for tLargeBitmap
+#include "ui.h"        // for UIGadget, UIWindow
+class mmInterface;
+struct tCinematic;
+
 #if ((!defined(OEM)) && (!defined(DEMO)))
 #define MOVIE_MENU
 #endif
@@ -137,7 +143,6 @@ public:
 };
 #endif
 //////////////////////////////////////////////////////////////////////
-class mmInterface;
 // class mmItem
 class mmItem : public UIGadget {
   char *m_text;  // text for item
@@ -176,7 +181,6 @@ protected:
   virtual void OnSelect();
 };
 //	Main Menu Interface Object
-struct tCinematic;
 class mmInterface : public UIWindow {
   int m_nmenu_items;                 // number of menu items available.
   mmItem m_menuitems[N_MMENU_ITEMS]; // main menu items

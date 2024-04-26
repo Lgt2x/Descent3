@@ -35,6 +35,8 @@
 #ifndef _PILOTPICS_H__
 #define _PILOTPICS_H__
 
+#include "pstypes.h"  // for ushort
+
 // ---------------------------------------------------------
 // PPic_InitDatabase
 //	Purpose:

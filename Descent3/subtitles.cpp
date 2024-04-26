@@ -50,20 +50,19 @@
  */
 
 #include "subtitles.h"
-// #include "gamefont.h"
-// #include "grtext.h"
-// #include "renderer.h"
-#include "pserror.h"
-#include "ddio.h"
-// #include "ddvid.h"
-#include "manage.h"
-#include "application.h"
-#include "mem.h"
-#include "movie.h"
-#include "args.h"
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include <ctype.h>      // for isspace, isdigit
+#include <stdlib.h>     // for NULL, atoi
+#include <string.h>     // for strcpy, strlen, strrchr, strcat, strchr
+#include "args.h"       // for FindArg
+#include "cfile.h"      // for CFILE, cf_ReadString, cfclose, cfeof, cfopen
+#include "ddio.h"       // for ddio_MakePath
+#include "grdefs.h"     // for GR_RGB, ddgr_color
+#include "linux_fix.h"  // for _MAX_FNAME, _MAX_PATH, strnicmp
+#include "manage.h"     // for LocalD3Dir
+#include "mem.h"        // for mem_free, mem_malloc
+#include "mono.h"       // for mprintf
+#include "movie.h"      // for mve_ClearRect, mve_Puts
+#include "pserror.h"    // for ASSERT, Error
 
 // Subtitle data
 typedef struct {

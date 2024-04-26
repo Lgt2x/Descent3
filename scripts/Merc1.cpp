@@ -22,15 +22,17 @@
 // Filename:	Merc1.cpp
 // Version:	3
 /////////////////////////////////////////////////////////////////////
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include "osiris_import.h"
-#include "osiris_common.h"
-#include "DallasFuncs.cpp"
+#include <ctype.h>              // for isspace
+#include <stdio.h>              // for NULL, sprintf
+#include <stdlib.h>             // for free, malloc
+#include <string.h>             // for strcat, strcpy, strlen, strtok, strchr
+#include "osiris_common.h"      // for tOSIRISEventInfo, CONTINUE_DEFAULT
+#include "osiris_import.h"      // for File_ReadInt, File_WriteInt, Obj_Value
+#include "vecmat_external.h"    // for vector, matrix
+#include "DallasFuncs.cpp"      // for aPortalRenderSet, aSetLevelTimer, aUs...
 
-#include "module.h"
+#include "module.h"             // for STDCALL, STDCALLPTR
+
 
 #ifdef __cplusplus
 extern "C" {

@@ -38,13 +38,12 @@
 #ifndef GAME_PATH_H
 #define GAME_PATH_H
 
-#include "stdlib.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "vecmat.h"
-#include "3d.h"
-#include "manage.h"
-#include "mem.h"
+#include <stddef.h>           // for NULL
+#include "manage_external.h"  // for PAGENAME_LEN
+#include "mem.h"              // for mem_free
+#include "pstypes.h"          // for ubyte
+#include "vecmat_external.h"  // for vector
+
 // chrishack -- this could be dynamically allocated at the beginning of a level
 // MAX_NODES_PER_PATH is big and so is MAX_GAME_PATHS
 

@@ -56,25 +56,18 @@
  * $NoKeywords: $
  */
 
-#include "DDAccess.h"
-#include "application.h"
-#include "AppConsole.h"
-#include "TaskSystem.h"
-//@@#include "mem.h"
-#include "mono.h"
-// #include "local_malloc.h"
-#include "pstring.h"
-#include <stdarg.h>
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <ctype.h>
+#include <ctype.h>              // for isalnum, ispunct
+#include <stdarg.h>             // for va_end, va_list, va_start
+#include <stdio.h>              // for NULL, fprintf, stderr, vsnprintf
+#include <stdlib.h>             // for free, malloc, exit
+#include <string.h>             // for memset, strlen, strcpy, strcat, strncpy
+#include <algorithm>            // for max, min
+#include "AppConsole.h"         // for con_Input, con_Printf
+#include "lnxapp.h"             // for APPFLAG_USESERVICE, APPFLAG_USESVGA
 
 #define DECLARE_POINTERS
 #include "linux/dyna_curses.h"
 #undef DECLARE_POINTERS
-
-#include <algorithm>
 
 //////////////////////////////////////////////////
 // Defines

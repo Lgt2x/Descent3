@@ -363,15 +363,16 @@
 #ifndef _ROOM_H
 #define _ROOM_H
 
-#include "pstypes.h"
-#include "vecmat_external.h"
-#include "gametexture.h"
+#include "bitmap.h"           // for BF_TRANSPARENT, GameBitmaps
+#include "gametexture.h"      // for GetTextureBitmap, GameTextures, TF_FLY_...
+#include "pstypes.h"          // for ubyte
+#include "room_external.h"    // for room, face, FF_FLOATING_TRIG, FF_HAS_TR...
+#include "vecmat_external.h"  // for vector
 
 #ifdef NEWEDITOR
 #include "..\neweditor\ned_GameTexture.h"
 #endif
 
-#include "room_external.h"
 
 // Sizes for some global arrays
 #define MAX_ROOMS 400 // max number of rooms in the world
@@ -560,7 +561,7 @@ inline int GetFacePhysicsFlags(const room *rp, const face *fp) {
 
 // Computes a bounding sphere for the current room
 // Parameters: center - filled in with the center point of the sphere
-//		rp - the room we’re bounding
+//		rp - the room weï¿½re bounding
 // Returns: the radius of the bounding sphere
 float ComputeRoomBoundingSphere(vector *center, room *rp);
 

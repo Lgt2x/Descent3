@@ -104,9 +104,9 @@
 #include "object.h"
 #else
 
-#include "pstypes.h"
-#include "manage.h"
-#include "object.h"
+#include "manage_external.h"  // for PAGENAME_LEN
+#include "object.h"           // for MAX_MODULENAME_LEN
+#include "pstypes.h"          // for ubyte
 
 // IMPORTANT!!!!!!!!!!!
 // "Doors" refers to a predefined door that is in memory

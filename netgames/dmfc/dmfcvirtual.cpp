@@ -66,9 +66,19 @@
  * $NoKeywords: $
  */
 
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include "d3events.h"
+#include <stddef.h>                  // for NULL
+#include "controls.h"                // for game_controls
+#include "d3events.h"                // for EVT_CLIENT_DECODETEXTMACRO, EVT_...
+#include "dmfcinternal.h"            // for DMFCBase, DLLmprintf
+#include "gamedll_header.h"          // for dllinfo
+#include "grdefs.h"                  // for ddgr_color, GR_RGB
+#include "multi_external.h"          // for LR_SERVER
+#include "networking.h"              // for network_address
+#include "object.h"                  // for HANDLE_OBJNUM_MASK
+#include "object_external.h"         // for OBJECT_HANDLE_NONE
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"                 // for ubyte
+#include "vecmat_external.h"         // for vector
 
 //	DMFCBase::InitializeVirtualHandles
 //		Prepares the virtual handles

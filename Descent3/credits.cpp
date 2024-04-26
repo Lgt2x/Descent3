@@ -77,27 +77,30 @@
  * $NoKeywords: $
  */
 
-#include "mono.h"
-#include "pstypes.h"
-#include "ddio.h"
-#include "grtext.h"
-#include "renderer.h"
-#include "gamefont.h"
-#include "game.h"
-#include "bitmap.h"
-#include "descent.h"
-#include "mem.h"
-#include "3d.h"
-#include "d3music.h"
-#include "hlsoundlib.h"
-#include <string.h>
-#include <math.h>
-#include "psrand.h"
+#include <stdio.h>            // for sscanf
+#include <string.h>           // for NULL, strcpy, strcat, strlen
+#include "application.h"      // for oeApplication
+#include "bitmap.h"           // for bm_AllocLoadFileBitmap, bm_CreateChunke...
+#include "cfile.h"            // for cf_ReadString, cfclose, cfeof, cfopen
+#include "d3music.h"          // for D3MusicDoFrame, D3MusicSetRegion, D3Mus...
+#include "ddio.h"             // for timer_GetTime
+#include "ddio_common.h"      // for ddio_KeyFlush, ddio_KeyInKey
+#include "descent.h"          // for Descent
+#include "game.h"             // for EndFrame, StartFrame, Game_window_h
+#include "gamefont.h"         // for BIG_BRIEFING_FONT
+#include "grdefs.h"           // for GR_RGB, ddgr_color
+#include "grtext.h"           // for grtext_SetAlpha, grfont_GetHeight, grte...
+#include "hlsoundlib.h"       // for Sound_system, hlsSystem
+#include "linux/linux_fix.h"  // for strnicmp
+#include "mem.h"              // for mem_malloc, mem_free
+#include "mono.h"             // for mprintf
+#include "pserror.h"          // for ASSERT, Error
+#include "psrand.h"           // for ps_rand
+#include "pstypes.h"          // for ushort, ubyte
+#include "renderer.h"         // for rend_DrawChunkedBitmap, rend_Flip
 
 #if defined(WIN32)
 #include <windows.h>
-#elif defined(__LINUX__)
-#include "linux/linux_fix.h"
 #endif
 
 /*

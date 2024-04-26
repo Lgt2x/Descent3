@@ -203,21 +203,24 @@
  */
 
 #include "Briefing.h"
-#include "BriefingParse.h"
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include "game.h"
-#include "mem.h"
-#include "hlsoundlib.h"
-#include "voice.h"
-#include "streamaudio.h"
-#include "pserror.h"
-#include "ddio.h"
-#include "descent.h"
-#include "TelCom.h"
-#include "TelComEffects.h"
-#include "Mission.h"
+#include <stdio.h>             // for sprintf
+#include <string.h>            // for memcpy, strlen, strcpy
+#include "BriefingParse.h"     // for CBriefParse, PBERR_NOERR, tBriefParseC...
+#include "Mission.h"           // for Current_mission
+#include "TelCom.h"            // for MONITOR_MAIN, TelcomRenderSetScreen
+#include "TelComEffects.h"     // for CreateBitmapEffect, CreateTextEffect
+#include "TelComEfxStructs.h"  // for (anonymous), LPTCBKGDESC, LPTCBMPDESC
+#include "application.h"       // for oeApplication
+#include "cfile.h"             // for cfexist
+#include "ddio_common.h"       // for KEY_ESC, KEY_STATE
+#include "descent.h"           // for Descent
+#include "gamefont.h"          // for BBRIEF_FONT_INDEX
+#include "grdefs.h"            // for GR_RGB
+#include "hlsoundlib.h"        // for Sound_system, hlsSystem
+#include "linux_fix.h"         // for strnicmp
+#include "mem.h"               // for mem_free, mem_malloc
+#include "mono.h"              // for mprintf
+#include "pstypes.h"           // for uint
 
 typedef struct {
   char *name;

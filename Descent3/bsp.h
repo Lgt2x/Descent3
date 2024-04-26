@@ -41,9 +41,10 @@
 #ifndef BSP_H
 #define BSP_H
 
-#include "list.h"
-#include "vecmat.h"
-#include "cfile.h"
+#include "cfile.h"            // for CFILE
+#include "list.h"             // for list
+#include "pstypes.h"          // for ubyte, sbyte, ushort
+#include "vecmat_external.h"  // for vector
 
 #define BSP_IN_FRONT 1
 #define BSP_BEHIND 2

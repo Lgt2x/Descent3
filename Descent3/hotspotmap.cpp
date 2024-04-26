@@ -98,21 +98,17 @@
  * $NoKeywords: $
  */
 
-#include "mono.h"
-#include "renderer.h"
-#include "render.h"
-#include "grdefs.h"
-#include "ddio.h"
-#include "descent.h"
-#include "game.h"
-#include "cfile.h"
-#include "application.h"
-#include <stdlib.h>
-#include <string.h>
 #include "hotspotmap.h"
-#include "mem.h"
-#include "bitmap.h"
-#include "manage.h"
+#include <stdio.h>    // for snprintf
+#include <string.h>   // for memset, strlen, strcat, strcpy
+#include "bitmap.h"   // for bm_AllocBitmap, bm_data, bm_rowsize, GameBitmaps
+#include "cfile.h"    // for cf_ReadInt, cf_WriteInt, cf_ReadByte, cf_WriteByte
+#include "ddio.h"     // for ddio_MakePath, ddio_SplitPath
+#include "grdefs.h"   // for NEW_TRANSPARENT_COLOR, OPAQUE_FLAG
+#include "manage.h"   // for LocalManageGraphicsDir
+#include "mem.h"      // for mem_malloc, mem_free
+#include "mono.h"     // for mprintf
+#include "pserror.h"  // for ASSERT, Int3
 
 void makecorner(int corner_bmp, int back_bmp, char *tmap, int l, int t, int r, int b);
 

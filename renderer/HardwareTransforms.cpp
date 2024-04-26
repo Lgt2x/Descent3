@@ -16,14 +16,14 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "RendererConfig.h"
+#include "RendererConfig.h" // IWYU pragma: keep
 #ifndef USE_SOFTWARE_TNL
 
-#include "3d.h"
-#include "pserror.h"
-#include "HardwareInternal.h"
-#include "renderer.h"
-#include <string.h>
+#include <string.h>            // for memcpy
+#include "3d.h"                // for g3_GetModelViewMatrix, g3_RefreshTrans...
+#include "HardwareInternal.h"  // for gTransformFull, gTransformModelView
+#include "renderer.h"          // for rend_GetProjectionScreenParameters
+#include "vecmat_external.h"   // for operator*, matrix, operator-, vector
 
 // Whether or not to use T&L transforms or the pass-thru ones
 static int sUseTransformPassthru = -1;

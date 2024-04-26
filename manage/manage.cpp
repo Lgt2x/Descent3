@@ -433,40 +433,61 @@
  *
  * $NoKeywords: $
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
-#include <string.h>
+
 #if defined(WIN32)
 #include <windows.h>
 #elif defined(__LINUX__)
 #include "linux/linux_fix.h"
 #endif
-#include "descent.h"
-#include "manage.h"
-#include "pserror.h"
-#include "gametexture.h"
-#include "texpage.h"
-#include "doorpage.h"
-#include "soundpage.h"
-#include "megapage.h"
-#include "shippage.h"
-#include "weaponpage.h"
-#include "gamefilepage.h"
-#include "mono.h"
-#include "object.h"
-#include "ddio.h"
-#include "cfile.h"
-#include "appdatabase.h"
-#include "genericpage.h"
-#include "mem.h"
-#include "dedicated_server.h"
-#include "AppConsole.h"
-#include "init.h"
-#include "stringtable.h"
-#include "args.h"
-#include "vclip.h"
-#include "polymodel.h"
+
+#include <errno.h>                     // for errno, ENOENT
+#include <fcntl.h>                     // for SEEK_SET, SEEK_CUR, SEEK_END
+#include <stdarg.h>                    // for va_end, va_start
+#include <stdio.h>                     // for NULL, fprintf, snprintf, rename
+#include <string.h>                    // for strcpy, strlen, strncat, memset
+#include "Macros.h"                    // for stricmp
+#include "appdatabase.h"               // for oeAppDatabase
+#include "args.h"                      // for FindArg, GameArgs
+#include "bitmap.h"                    // for bm_FreeBitmap
+#include "cfile.h"                     // for cf_ReadFloat, cf_WriteFloat
+#include "ddio.h"                      // for ddio_MakePath, ddio_CreateDir
+#include "debug.h"                     // for IDNO
+#include "dedicated_server.h"          // for PrintDedicatedMessage, Dedicat...
+#include "descent.h"                   // for Database, Base_directory
+#include "door.h"                      // for FindDoorName, Doors, FreeDoor
+#include "doorpage.h"                  // for mng_ReadNewDoorPage, mng_Write...
+#include "gamefile.h"                  // for Gamefiles, FindGamefileName
+#include "gamefilepage.h"              // for mng_ReadNewGamefilePage, mng_W...
+#include "gametexture.h"               // for GameTextures, FindTextureName
+#include "genericpage.h"               // for mng_ReadNewGenericPage, mng_Wr...
+#include "init.h"                      // for InitMessage
+#include "manage.h"                    // for TABLE_NAME_LEN, PAGETYPE_GENERIC
+#include "manage_external.h"           // for PAGENAME_LEN
+#include "megacell.h"                  // for Megacells, FindMegacellName
+#include "megapage.h"                  // for mng_ReadNewMegacellPage, mng_W...
+#include "mem.h"                       // for mem_free, mem_malloc
+#include "mono.h"                      // for mprintf
+#include "object.h"                    // for RemapEverything
+#include "object_external.h"           // for OBJ_POWERUP
+#include "object_external_struct.h"    // for light_info, physics_info
+#include "objinfo.h"                   // for Object_info, FindObjectIDName
+#include "polymodel.h"                 // for FreePolyModel
+#include "pserror.h"                   // for ASSERT, Error, Int3, OutrageMe...
+#include "pstring.h"                   // for Pvsprintf
+#include "pstypes.h"                   // for ubyte, ulong
+#include "robotfirestruct.h"           // for otype_wb_info
+#include "robotfirestruct_external.h"  // for MAX_WB_FIRING_MASKS, MAX_WB_GU...
+#include "ship.h"                      // for Ships, FindShipName, FreeShip
+#include "shippage.h"                  // for mng_ReadNewShipPage, mng_Write...
+#include "soundload.h"                 // for FindSoundName, FreeSound, Free...
+#include "soundpage.h"                 // for mng_ReadNewSoundPage, mng_Writ...
+#include "ssl_lib.h"                   // for Sounds
+#include "stringtable.h"               // for TXT_INITDATA
+#include "texpage.h"                   // for mng_ReadNewTexturePage, mng_Wr...
+#include "vclip.h"                     // for FreeVClip
+#include "weapon.h"                    // for Weapons, FindWeaponName, FreeW...
+#include "weaponpage.h"                // for mng_ReadNewWeaponPage, mng_Wri...
+
 int Old_table_method = 0;
 void mng_WriteNewUnknownPage(CFILE *outfile);
 //	This is for levels
@@ -3090,8 +3111,6 @@ void Read256TextureNames ()
         }
         cfclose (infile);
 }*/
-
-#include "pstring.h"
 
 void DataError(char *fmt, ...) {
   // Got a data error!

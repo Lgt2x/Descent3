@@ -18,15 +18,19 @@
 
 // aigame2.cpp
 // 0.1
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "osiris_import.h"
-#include "osiris_common.h"
-#include "osiris_vector.h"
-#include "DallasFuncs.cpp"
-
-#include "module.h"
+#include <stdio.h>                      // for NULL, sprintf
+#include <stdlib.h>                     // for rand, RAND_MAX
+#include <string.h>                     // for strcmp
+#include "aistruct_external.h"          // for GF_KEEP_AT_COMPLETION, GF_NON...
+#include "damage_external.h"            // for GD_SCRIPTED
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_IGNORE_MOVI...
+#include "module.h"                     // for STDCALL, STDCALLPTR
+#include "object_external.h"            // for OBJECT_HANDLE_NONE, OBJ_ROBOT
+#include "osiris_common.h"              // for VF_GET, OBJV_I_ROOMNUM, OBJV_...
+#include "osiris_import.h"              // for Obj_Value, Game_GetTime, AI_A...
+#include "osiris_vector.h"              // for vm_VectorToMatrix
+#include "vecmat_external.h"            // for vector, matrix, operator*
+#include "DallasFuncs.cpp"              // for aObjDestroy
 
 #ifdef __cplusplus
 extern "C" {

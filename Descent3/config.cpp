@@ -279,47 +279,38 @@
  * $NoKeywords: $
  */
 
-#include "ConfigItem.h"
-#include "player.h"
 #include "config.h"
-#include "ddio.h"
-#include "newui.h"
-#include "3d.h"
-#include "polymodel.h"
-#include "application.h"
-#include "descent.h"
-#include "mono.h"
-#include "Mission.h"
-#include "ddio.h"
-#include "gamefont.h"
-#include "multi_ui.h"
-#include "cinematics.h"
-#include "hlsoundlib.h"
-#include "terrain.h"
-#include "cfile.h"
-#include "mem.h"
-#include "lighting.h"
-#include "PHYSICS.H"
-#include "pilot.h"
-#include "hud.h"
-#include "voice.h"
-#include "bitmap.h"
-#include "game.h"
-#include "render.h"
-#include "stringtable.h"
-#include "SmallViews.h"
-#include "D3ForceFeedback.h"
-#include "descent.h"
-#include "appdatabase.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
-#include "sounds.h"
-#include "ctlconfig.h"
-#include "d3music.h"
-
-#include <string.h>
-#include <stdlib.h>
-#include <stdarg.h>
+#include <SDL_platform.h>   // for __LINUX__
+#include <stdlib.h>         // for NULL
+#include <string.h>         // for memcpy
+#include "3d.h"             // for p3_u, p3_v, PF_PROJECTED, p3_b, p3_g, p3_r
+#include "Macros.h"         // for CHECK_FLAG
+#include "PHYSICS.H"        // for Default_player_room_leveling, Default_pla...
+#include "SmallViews.h"     // for SVW_LEFT, SVW_RIGHT
+#include "appdatabase.h"    // for oeAppDatabase
+#include "bitmap.h"         // for bm_AllocBitmap, bm_FreeBitmap, bm_data
+#include "controls.h"       // for LoadControlConfig, SaveControlConfig, REA...
+#include "ctlconfig.h"      // for CtlConfig, joystick_settings_dialog, key_...
+#include "d3music.h"        // for D3MusicSetVolume, D3MusicGetVolume
+#include "descent.h"        // for GetFunctionMode, function_mode, Database
+#include "forcefeedback.h"  // for ddio_ff_GetInfo
+#include "game.h"           // for Render_preferred_state, GetScreenMode
+#include "grdefs.h"         // for GR_RGB, OPAQUE_FLAG
+#include "hlsoundlib.h"     // for Sound_system, hlsSystem, MIN_SOUNDS_MIXED
+#include "hud.h"            // for STAT_AFTERBURN, STAT_CNTRMEASURE, STAT_EN...
+#include "lnxdatabase.h"    // for read_int
+#include "mono.h"           // for mprintf
+#include "newui.h"          // for DoWaitMessage
+#include "newui_core.h"     // for newuiSheet, tSliderSettings, newuiMenu
+#include "pilot.h"          // for Current_pilot, PltWriteFile
+#include "pilot_class.h"    // for pilot
+#include "pserror.h"        // for Int3, ASSERT
+#include "renderer.h"       // for rend_SetPreferredState, rend_DrawPolygon2D
+#include "soundload.h"      // for FindSoundName
+#include "ssl_lib.h"        // for SOUND_MIXER_NONE, SOUND_MIXER_AUREAL, SOU...
+#include "stringtable.h"    // for TXT_CFG_HIGH, TXT_CFG_MEDIUM, TXT_NONE
+#include "terrain.h"        // for TERRAIN_SIZE
+#include "ui.h"             // for UID_CANCEL, UID_OK
 
 #define STAT_SCORE STAT_TIMER
 

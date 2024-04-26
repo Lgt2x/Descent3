@@ -558,37 +558,47 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <memory.h>
 #include "damage.h"
-#include "object.h"
-#include "objinfo.h"
-#include "player.h"
-#include "fireball.h"
-#include "gameevent.h"
-#include "hlsoundlib.h"
-#include "multi.h"
-#include "game.h"
-#include "sounds.h"
-#include "soundload.h"
-#include "game2dll.h"
-#include "weapon.h"
-#include "ship.h"
-#include "attach.h"
-#include "difficulty.h"
-#include "demofile.h"
-#include "d3music.h"
-#include "osiris_dll.h"
-#include "D3ForceFeedback.h"
-#include "multi_server.h"
-#include "doorway.h"
-#include "DeathInfo.h"
-#include "AIGoal.h"
-#include "viseffect.h"
-#include "psrand.h"
-#include "vibeinterface.h"
-
-#include <algorithm>
+#include <algorithm>                 // for min
+#include "AIGoal.h"                  // for GoalAddGoal
+#include "D3ForceFeedback.h"         // for DoForceForShake
+#include "aistruct_external.h"       // for AS_DEATH, ACTIVATION_BLEND_LEVEL
+#include "d3events.h"                // for EVT_GAMEOBJECTSHIELDSCHANGED
+#include "d3music.h"                 // for Game_music_info
+#include "damage_external.h"         // for PD_ENERGY_WEAPON, PD_NONE, GD_SC...
+#include "deathinfo_external.h"      // for DF_BLAST_RING, DF_DELAY_LOSES_AN...
+#include "demofile.h"                // for Demo_flags, DF_PLAYBACK, DF_RECO...
+#include "difficulty.h"              // for DIFF_LEVEL, Diff_robot_damage
+#include "doorway.h"                 // for DoorwayDestroy
+#include "fireball.h"                // for CreateObjectFireball, DestroyObject
+#include "game.h"                    // for GM_MULTI, Game_mode, sound_overr...
+#include "game2dll.h"                // for DLLInfo, CallGameDLL
+#include "gameevent.h"               // for CreateNewEvent, FindEventID, REN...
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for Netgame, MultiSendDamagePlayer
+#include "multi_external.h"          // for LR_SERVER, NF_PEER_PEER, LR_CLIENT
+#include "multi_server.h"            // for GetNewRankings
+#include "object.h"                  // for ObjGetUltimateParent, ObjSetOrient
+#include "object_external.h"         // for MT_WALKING, IS_GENERIC, OBJECT_H...
+#include "object_external_struct.h"  // for object, MAKE_ROOMNUM, OBJECT_OUT...
+#include "objinfo.h"                 // for Object_info, MAX_DEATH_TYPES
+#include "osiris_dll.h"              // for Osiris_CallEvent, Osiris_CallLev...
+#include "osiris_share.h"            // for tOSIRISEventInfo, EVT_DAMAGED
+#include "player.h"                  // for Players, Player_num, Player_object
+#include "player_external.h"         // for PLAYER_FLAGS_DEAD, PLAYER_FLAGS_...
+#include "pserror.h"                 // for ASSERT, Int3
+#include "psrand.h"                  // for ps_rand, RAND_MAX, ps_srand
+#include "pstypes.h"                 // for ushort
+#include "room.h"                    // for Rooms, ROOMNUM
+#include "room_external.h"           // for PF_RENDER_FACES, room, portal
+#include "ship.h"                    // for Ships
+#include "sounds.h"                  // for SOUND_BREAKING_GLASS, SOUND_HIT_...
+#include "ssl_lib.h"                 // for SND_PRIORITY_HIGHEST, SND_PRIORI...
+#include "terrain.h"                 // for GetTerrainCellFromPos
+#include "vecmat.h"                  // for vm_NormalizeVectorFast, operator*
+#include "vibeinterface.h"           // for VIBE_DoPlayerDamage, VIBE_Player...
+#include "weapon.h"                  // for Weapons, DrawAlphaBlendedScreen
 
 // Shake variables
 static matrix Old_player_orient;
@@ -1465,8 +1475,6 @@ void ShakePlayer() {
 
 // Restores the player orientation matrix after shaking
 void UnshakePlayer() { ObjSetOrient(Player_object, &Old_player_orient); }
-
-#include "terrain.h"
 
 void ComputeCenterPointOnFace(vector *vp, room *rp, int facenum);
 void FindHitpointUV(float *u, float *v, vector *point, room *rp, int facenum);

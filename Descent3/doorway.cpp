@@ -127,16 +127,24 @@
  */
 
 #include "doorway.h"
-#include "door.h"
-#include "pserror.h"
-#include "mem.h"
-#include "room.h"
-#include "polymodel.h"
-#include "game.h"
-#include "hlsoundlib.h"
-#include "stringtable.h"
-#include "player.h"
-#include "osiris_dll.h"
+#include <stddef.h>                  // for NULL
+#include "door.h"                    // for Doors, door, GetDoorImage
+#include "game.h"                    // for Frametime
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "mem.h"                     // for mem_malloc
+#include "mono.h"                    // for mprintf
+#include "object.h"                  // for ObjGet, Objects, ObjGetUltimateP...
+#include "object_external.h"         // for OBJ_DOOR, OBJ_WEAPON, OBJ_BUILDING
+#include "object_external_struct.h"  // for object
+#include "osiris_dll.h"              // for Osiris_CallEvent
+#include "osiris_share.h"            // for tOSIRISEventInfo, EVT_DOOR_ACTIVATE
+#include "player.h"                  // for Players
+#include "polymodel.h"               // for Poly_models
+#include "polymodel_external.h"      // for PMF_TIMED, poly_model
+#include "pserror.h"                 // for ASSERT, Int3
+#include "room.h"                    // for Rooms, Highest_room_index
+#include "room_external.h"           // for room, RF_DOOR
+#include "ssl_lib.h"                 // for SND_PRIORITY_HIGH
 
 //	---------------------------------------------------------------------------
 //	Globals

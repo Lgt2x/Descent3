@@ -827,40 +827,64 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "collide.h"
-#include "PHYSICS.H"
-#include "pserror.h"
-#include "mono.h"
-#include "object.h"
-#include "player.h"
-#include "hlsoundlib.h"
-#include "weapon.h"
-#include "damage.h"
-#include "fireball.h"
-#include "sounds.h"
-#include "AIMain.h"
-#include "multi.h"
-#include "game.h"
-#include "soundload.h"
-#include "game2dll.h"
-#include "scorch.h"
-#include "ddio.h"
-#include "vecmat.h"
-#include "trigger.h"
-#include "lighting.h"
-#include "hud.h"
-#include "D3ForceFeedback.h"
-#include "demofile.h"
-#include "osiris_dll.h"
-#include "marker.h"
-#include "hud.h"
-#include "levelgoal.h"
-#include "psrand.h"
-
-#include <algorithm>
+#include <stdio.h>                   // for NULL, snprintf
+#include <algorithm>                 // for max
+#include <cmath>                     // for cos, sin, asin, fabsf, acos, sqrt
+#include "AIMain.h"                  // for AINotify
+#include "D3ForceFeedback.h"         // for ForceIsEnabled, DoForceForWall
+#include "PHYSICS.H"                 // for phys_apply_force, phys_apply_rot
+#include "aistruct.h"                // for ain_hear
+#include "aistruct_external.h"       // for AIN_HEAR_NOISE, AIN_WHIT_OBJECT
+#include "bitmap.h"                  // for bm_w, bm_data, bm_h
+#include "collide.h"                 // for RESULT_CHECK_SPHERE_POLY, RESULT...
+#include "d3events.h"                // for EVT_GAMECOLLIDE, EVT_GAMEWALLCOL...
+#include "damage.h"                  // for ApplyDamageToGeneric, ApplyDamag...
+#include "damage_external.h"         // for GD_PHYSICS, PD_ENERGY_WEAPON
+#include "ddio_common.h"             // for KEY_LAPOSTRO, KEY_STATE
+#include "demofile.h"                // for DemoWrite3DSound, DF_RECORDING
+#include "findintersection.h"        // for fvi_info
+#include "fireball.h"                // for CreateFireball, DestroyObject
+#include "fireball_external.h"       // for MED_SMOKE_INDEX, RUBBLE1_INDEX
+#include "fix.h"                     // for PI, fix
+#include "game.h"                    // for GM_MULTI, Game_mode, sound_overr...
+#include "game2dll.h"                // for DLLInfo, CallGameDLL
+#include "gametexture.h"             // for GameTextures, TF_LAVA, TF_VOLATILE
+#include "grdefs.h"                  // for GR_RGB16
+#include "hlsoundlib.h"              // for Sound_system, hlsSystem
+#include "hud.h"                     // for AddHUDMessage
+#include "levelgoal.h"               // for Level_goals, levelgoals
+#include "levelgoal_external.h"      // for LIT_OBJECT
+#include "linux_fix.h"               // for _finite, stricmp
+#include "marker.h"                  // for MarkerMessages
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for Netgame, Multi_requested_damage_...
+#include "multi_external.h"          // for LR_CLIENT, LR_SERVER
+#include "object.h"                  // for SetObjectDeadFlag, ObjGet, OBJNUM
+#include "object_external.h"         // for OBJ_PLAYER, OBJ_WEAPON, OBJ_POWERUP
+#include "object_external_struct.h"  // for ROOMNUM_OUTSIDE, CELLNUM, light_...
+#include "objinfo.h"                 // for IS_GUIDEBOT
+#include "osiris_dll.h"              // for Osiris_CallEvent
+#include "osiris_share.h"            // for EVT_COLLIDE, tOSIRISEventInfo
+#include "player.h"                  // for Players, Player_object, Player_num
+#include "player_external.h"         // for PLAYER_FLAGS_DYING, PLAYER_FLAGS...
+#include "polymodel.h"               // for GetPolymodelPointer
+#include "polymodel_external.h"      // for poly_model
+#include "pserror.h"                 // for ASSERT, Int3, Error
+#include "psrand.h"                  // for ps_rand
+#include "pstypes.h"                 // for ubyte, ushort
+#include "room.h"                    // for Rooms, GetIJ
+#include "room_external.h"           // for FF_DESTROYED, face, room, MAX_VE...
+#include "scorch.h"                  // for AddScorch
+#include "sounds.h"                  // for SOUND_PLAYER_HIT_WALL, SOUND_NON...
+#include "ssl_lib.h"                 // for MAX_GAME_VOLUME, Sounds, SND_PRI...
+#include "terrain.h"                 // for Terrain_seg, Terrain_tex_seg
+#include "trigger.h"                 // for object, CheckTrigger, TT_COLLIDE
+#include "vecmat.h"                  // for vm_CrossProduct, vm_NormalizeVector
+#include "vecmat_external.h"         // for vector, operator*, operator*=
+#include "viseffect.h"               // for VisEffectCreate, VisEffects, Cre...
+#include "viseffect_external.h"      // for VIS_FIREBALL, vis_effect, VF_USE...
+#include "weapon.h"                  // for Weapons, DoWeaponExploded, Creat...
+#include "weapon_external.h"         // for OMEGA_INDEX
 
 #define PLAYER_ROTATION_BY_FORCE_SCALAR 0.12f
 #define NONPLAYER_ROTATION_BY_FORCE_SCALAR 1.0f
@@ -2309,8 +2333,6 @@ void collide_player_and_player(object *p1, object *p2, vector *collision_point, 
 
   bump_two_objects(p1, p2, collision_point, collision_normal, 1);
 }
-
-#include "polymodel.h"
 
 void collide_generic_and_player(object *robotobj, object *playerobj, vector *collision_point, vector *collision_normal,
                                 bool f_reverse_normal, fvi_info *hit_info) {

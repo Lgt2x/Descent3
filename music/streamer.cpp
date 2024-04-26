@@ -60,8 +60,12 @@
  * $NoKeywords: $
  */
 
-#include "music.h"
-#include "streamaudio.h"
+#include "mono.h"         // for mprintf
+#include "music.h"        // for oms_stream, oms_q_evt, OMS_STRM_STOP, OMS_S...
+#include "psclass.h"      // for tQueue
+#include "pserror.h"      // for Int3
+#include "pstypes.h"      // for ubyte
+#include "streamaudio.h"  // for AudioStream, STRM_STOPPED, STRM_INVALID
 
 oms_stream::oms_stream() {}
 

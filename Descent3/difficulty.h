@@ -19,9 +19,8 @@
 #ifndef _DIFFICULTY_H_
 #define _DIFFICULTY_H_
 
-#include "game.h"
-#include "pilot.h"
-#include "difficulty_external.h"
+#include "game.h"     // for GM_MULTI
+#include "pstypes.h"  // for ubyte
 
 extern ubyte ingame_difficulty;
 

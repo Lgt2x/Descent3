@@ -77,10 +77,10 @@
 #ifndef CTLCFGELEM_H
 #define CTLCFGELEM_H
 
-#include "newui.h"
-#include "Controller.h"
-#include "controls.h"
-#include "stringtable.h"
+#include "Controller.h"  // for ct_type, CTLBINDS_PER_FUNC, CONTROLLER_VALUE
+#include "pstypes.h"     // for sbyte, ubyte
+#include "ui.h"          // for UIGadget, UIWindow (ptr only)
+class UIBitmapItem;
 
 //////////////////////////////////////////////////////////////////////////////
 // Data types

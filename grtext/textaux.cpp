@@ -49,10 +49,9 @@
  * $NoKeywords: $
  */
 
-#include "grtext.h"
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <stdio.h>   // for NULL, snprintf
+#include <string.h>  // for strcpy, strncpy, strlen
+#include "grtext.h"  // for grtext_GetTextLineWidth, grfont_GetCharWidth
 
 //	textaux_WordWrap
 //

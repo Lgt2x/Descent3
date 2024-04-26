@@ -290,23 +290,29 @@
 #include <windows.h>
 #endif
 
-#include "cfile.h"
-#include "manage.h"
-#include "weapon.h"
 #include "weaponpage.h"
-#include "mono.h"
-#include "pserror.h"
-#include "vclip.h"
-#include "polymodel.h"
-#include "soundpage.h"
-#include "soundload.h"
-#include "ddio.h"
-#include "gametexture.h"
-#include "texpage.h"
-#include <string.h>
-#include "sounds.h"
-#include "genericpage.h"
-#include "args.h"
+#include <stdio.h>                   // for SEEK_CUR, SEEK_SET
+#include <string.h>                  // for strcpy, strlen, NULL, memset
+#include "args.h"                    // for FindArg, GameArgs
+#include "bitmap.h"                  // for bm_AllocLoadFileBitmap, GameBitmaps
+#include "cfile.h"                   // for cf_WriteByte, cf_ReadFloat, cf_W...
+#include "ddio.h"                    // for ddio_MakePath
+#include "gametexture.h"             // for GameTextures, NOT_TEXTURE
+#include "genericpage.h"             // for mng_GetGuaranteedGenericPage
+#include "linux_fix.h"               // for stricmp, strnicmp
+#include "manage.h"                  // for PAGETYPE_WEAPON, Loading_addon_t...
+#include "mono.h"                    // for mprintf
+#include "object_external_struct.h"  // for light_info
+#include "objinfo.h"                 // for Object_info
+#include "polymodel.h"               // for LoadPolyModel, Poly_models
+#include "pserror.h"                 // for ASSERT, Int3
+#include "pstypes.h"                 // for ubyte
+#include "soundpage.h"               // for mng_GetGuaranteedSoundPage
+#include "sounds.h"                  // for SOUND_NONE_INDEX
+#include "ssl_lib.h"                 // for Sounds
+#include "texpage.h"                 // for mng_GetGuaranteedTexturePage
+#include "vclip.h"                   // for AllocLoadVClip, GameVClips
+#include "weapon.h"                  // for MAX_WEAPON_SOUNDS, FindWeaponName
 
 // weaponpage commands that are read/written
 // A command is followed by a byte count describing how many bytes

@@ -292,22 +292,34 @@
 #include <ras.h>
 typedef int socklen_t;
 #endif
-#include <stdlib.h>
-#include <string.h>
+
 #ifdef __LINUX__
-#if !MACOSX
-#include <netinet/in.h>
-#endif
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <sys/ioctl.h>
-#include <sys/socket.h>
-#include <sys/stat.h>
-#include <sys/termios.h>
-#include <sys/types.h>
-#include <sys/time.h>
-#include <stdlib.h>
-#include <unistd.h>
+
+#include <arpa/inet.h>     // for htons, ntohs, inet_addr, inet_ntoa
+#include <netdb.h>         // for gethostbyname, hostent
+#include <netinet/in.h>    // for sockaddr_in, in_addr, INADDR_NONE, INADDR_ANY
+#include <stdio.h>         // for sprintf
+#include <stdlib.h>        // for atexit, qsort, free
+#include <string.h>        // for memcpy, memset, memcmp, strcpy
+#include <sys/ioctl.h>     // for ioctl, FIONBIO
+#include <sys/select.h>    // for select, FD_SET, FD_ZERO, fd_set
+#include <sys/socket.h>    // for setsockopt, SOL_SOCKET, getsockopt, shutdown
+#include <sys/time.h>      // for timeval
+#include <unistd.h>        // for NULL, close
+#include "SDL_platform.h"  // for __LINUX__
+#include "SDL_thread.h"    // for SDL_WaitThread, SDL_CreateThread
+#include "appdatabase.h"   // for oeAppDatabase
+#include "args.h"          // for FindArg, GameArgs
+#include "byteswap.h"      // for convert_le, INTEL_SHORT, INTEL_FLOAT, INTE...
+#include "cfile.h"         // for cfprintf, CFILE, cfclose, cfopen
+#include "ddio.h"          // for timer_GetTime
+#include "descent.h"       // for Database
+#include "linux_fix.h"     // for strcmpi, _MAX_PATH
+#include "mem.h"           // for mem_free, mem_malloc
+#include "mono.h"          // for mprintf
+#include "networking.h"    // for network_address, SOCKADDR_IN, NP_TCP, MAXN...
+#include "pserror.h"       // for ASSERT, Int3
+#include "pstypes.h"       // for ubyte, ushort, uint
 
 #define TRUE true
 #define FALSE false
@@ -319,25 +331,9 @@ typedef int socklen_t;
 #include "dplobby.h"
 #endif
 
-#include "descent.h"
-// #include "../manage/shippage.h"
-#include "appdatabase.h"
-
-#include "pstypes.h"
-#include "pserror.h"
-#include "mono.h"
-#include "networking.h"
-#include "ddio.h"
-#include "mem.h"
-#include "game.h"
-#include "args.h"
-#include "byteswap.h"
-
 #ifdef WIN32
 #include "directplay.h"
 #endif
-
-#include "pstring.h"
 
 #ifndef WIN32
 bool Use_DirectPlay = false;
@@ -350,8 +346,6 @@ bool Use_DirectPlay = false;
 #include "otsockets.h"
 #include "OTTCPWillDial.h"
 #endif
-
-#include "module.h" //for some nice defines to use below
 
 #define MAX_CONNECT_TRIES 50
 #define MAX_RECEIVE_BUFSIZE 32768
@@ -2321,8 +2315,6 @@ async_dns_lookup *lastaslu = NULL;
 
 #ifdef __LINUX__
 int CDECLCALL gethostbynameworker(void *parm);
-#include "SDL.h"
-#include "SDL_thread.h"
 
 // rcg06192000 use SDL threads.
 // #include <pthread.h>

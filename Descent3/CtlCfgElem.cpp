@@ -114,18 +114,21 @@
  */
 
 #include "CtlCfgElem.h"
-#include "descent.h"
-
-#include "Macros.h"
-#include "ddio.h"
-#include "application.h"
-#include "renderer.h"
-#include "stringtable.h"
-#include "gamefont.h"
-#include "localization.h"
-
-#include <string.h>
-#include "joystick.h"
+#include <string.h>           // for strcpy, NULL
+#include "Macros.h"           // for CHECK_FLAG
+#include "application.h"      // for oeApplication
+#include "controls.h"         // for Controller, ResumeControls, SuspendCont...
+#include "ddio_common.h"      // for KEY_LEFT, KEY_RIGHT, ddio_KeyInKey, KEY...
+#include "descent.h"          // for Descent
+#include "gamefont.h"         // for MONITOR9_NEWUI_FONT, GADGET9_NEWUI_FONT
+#include "localization.h"     // for CreateStringTable, DestroyStringTable
+#include "manage_external.h"  // for IGNORE_TABLE
+#include "newui_core.h"       // for newui_FreeBitmap, newui_LoadBitmap, new...
+#include "pserror.h"          // for Int3, ASSERT
+#include "renderer.h"         // for rend_Flip
+#include "stringtable.h"      // for TXT, TXT_CTLBINDHELP1, TXT_CTLBINDHELP2_0
+#include "uires.h"            // for UIBitmapItem, UITextItem
+#include "uisys.h"            // for PT_IN_RECT, SCREEN_TO_GAD_X, SCREEN_TO_...
 
 // all controller binding texts
 char Ctltext_KeyBindings[][16] = {"",

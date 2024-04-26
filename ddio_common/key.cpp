@@ -128,11 +128,11 @@
 
 //	Handles keyboard queue management
 
-#include "ddio.h"
-#include "pserror.h"
-#include "Macros.h"
-
-#include <stdlib.h>
+#include "ddio.h"         // for ddio_InternalKeyDownTime, ddio_InternalKeyInit
+#include "ddio_common.h"  // for KEY_SHIFTED, KEY_STATE, KEY_DEBUGGED, DDIO_...
+#include "debug.h"        // for Debug_ConsoleRedirectMessages, ddio_Interna...
+#include "pserror.h"      // for ASSERT
+#include "pstypes.h"      // for ubyte, ushort
 
 #define KEY_QUEUE_SIZE 16
 

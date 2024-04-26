@@ -17,13 +17,9 @@
 */
 
 #include "args.h"
-#include "mono.h"
-#include <string.h>
-#ifdef __LINUX__
-#include "lnxfix.h"
-#else
-#define strcasecmp stricmp
-#endif
+#include <string.h>   // for strlen, NULL, strcat, strcpy, strncpy
+#include <strings.h>  // for strcasecmp
+#include "mono.h"     // for mprintf
 
 // rcg07062000 used to be static.
 int TotalArgs = 0;

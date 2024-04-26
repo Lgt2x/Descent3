@@ -67,12 +67,19 @@
  * $NoKeywords: $
  */
 
-#include <stdio.h>
-#include "cfile.h"
-#include "multi.h"
-#include "objinfo.h"
-#include "ship.h"
-#include "multi_save_settings.h"
+#include <stdio.h>                // for snprintf, NULL
+#include <stdlib.h>               // for atoi
+#include <string.h>               // for strtok, strcat, strcpy
+#include "cfile.h"                // for cf_WriteString, cfopen, CFILE, cf_R...
+#include "linux_fix.h"            // for strcmpi
+#include "mono.h"                 // for mprintf
+#include "multi.h"                // for Netgame
+#include "multi_external.h"       // for NF_ALLOW_MLOOK, NF_BRIGHT_PLAYERS
+#include "multi_save_settings.h"  // for MAX_MPS_LINE_LEN, MultiLoadSettings
+#include "object_external.h"      // for OBJ_POWERUP
+#include "objinfo.h"              // for Object_info, FindObjectIDName, MAX_...
+#include "player.h"               // for PlayerIsShipAllowed, PlayerSetShipP...
+#include "ship.h"                 // for Ships, MAX_SHIPS
 
 int MultiSaveSettings(char *filename) {
   CFILE *cf;

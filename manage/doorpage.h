@@ -19,10 +19,9 @@
 #ifndef DOORPAGE_H
 #define DOORPAGE_H
 
-#include "manage.h"
-#include "door.h"
-#include "cfile.h"
-#include "pstypes.h"
+#include "cfile.h"            // for CFILE
+#include "door.h"             // for door
+#include "manage_external.h"  // for PAGENAME_LEN
 
 typedef struct {
   door door_struct;

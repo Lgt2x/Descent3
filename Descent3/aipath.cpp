@@ -17,18 +17,26 @@
 */
 
 #include "aipath.h"
-#include "gamepath.h"
-#include "AIGoal.h"
-#include "BOA.h"
-#include "AIMain.h"
-#include "object.h"
-#include "objinfo.h"
-#include "memory.h"
-#include "doorway.h"
-#include "aistruct.h"
-#include "terrain.h"
-#include "psrand.h"
-#include "findintersection.h"
+#include <string.h>                     // for NULL, memset
+#include "AIGoal.h"                     // for GoalPathComplete
+#include "AIMain.h"                     // for AI_debug_robot_do, AI_debug_r...
+#include "BOA.h"                        // for q_item, BOA_INDEX, BOA_Determ...
+#include "aistruct.h"                   // for ai_dynamic_path, ai_path_info
+#include "aistruct_external.h"          // for GF_PATH_MOVE_REVERSE_DIR, AWA...
+#include "bnode.h"                      // for BNode_GetBNListPtr, BNode_Fin...
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_info
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_IGNORE_POWE...
+#include "gamepath.h"                   // for game_path, GamePaths
+#include "mono.h"                       // for mprintf
+#include "object.h"                     // for OBJNUM, ObjCreate, ObjGet
+#include "object_external.h"            // for MT_WALKING, MT_PHYSICS, OBJEC...
+#include "objinfo.h"                    // for FindObjectIDName
+#include "pserror.h"                    // for ASSERT, Int3
+#include "psrand.h"                     // for RAND_MAX, ps_rand
+#include "room.h"                       // for Rooms, Highest_room_index
+#include "room_external.h"              // for RF_EXTERNAL
+#include "terrain.h"                    // for TERRAIN_REGION, GetTerrainCel...
+#include "vecmat.h"                     // for vm_NormalizeVector, vm_GetMag...
 
 #define MAX_DYNAMIC_PATHS 50
 #define MAX_NODES 50

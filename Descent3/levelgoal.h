@@ -19,15 +19,11 @@
 #ifndef _LEVELGOAL_H_
 #define _LEVELGOAL_H_
 
-#include "object.h"
-#include "cfile.h"
-#if defined(MACOSX)
-#include <malloc/malloc.h>
-#else
-#include <malloc.h>
-#endif
-#include "mem.h"
-#include "levelgoal_external.h"
+#include <stddef.h>              // for NULL
+#include "cfile.h"               // for CFILE
+#include "levelgoal_external.h"  // for MAX_LEVEL_GOALS, LGF_ENABLED, LGF_TE...
+#include "mem.h"                 // for mem_free
+#include "object_external.h"     // for OBJECT_HANDLE_NONE
 
 class litem {
 public:

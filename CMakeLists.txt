@@ -50,7 +50,7 @@ endif()
 if(UNIX)
   set(D3_GAMEDIR "~/Descent3/")
 
-  string(APPEND CMAKE_CXX_FLAGS " -Wno-write-strings -Wno-multichar ${BITS} ${EXTRA_CXX_FLAGS}")
+  string(APPEND CMAKE_CXX_FLAGS " -Wno-constant-conversion -Wno-duplicate-decl-specifier -Wno-write-strings -Wno-multichar ${BITS} ${EXTRA_CXX_FLAGS}")
   string(APPEND CMAKE_C_FLAGS " ${BITS}")
 
   find_package(SDL REQUIRED)

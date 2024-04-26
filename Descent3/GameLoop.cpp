@@ -798,85 +798,95 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include "gameloop.h"
-#include "game.h"
-#include "render.h"
-#include "descent.h"
-#include "slew.h"
-#include "mono.h"
-#include "doorway.h"
-#include "weapon.h"
-#include "hlsoundlib.h"
-#include "multi.h"
-#include "player.h"
-#include "damage.h"
-#include "ship.h"
-#include "objinit.h"
-#include "gameevent.h"
-#include "gametexture.h"
-#include "AIMain.h"
-#include "ddvid.h"
-#include "ddio.h"
-#include "hud.h"
-#include "terrain.h"
-#include "BOA.h"
-#include "lighting.h"
-#include "findintersection.h"
-#include "soar.h"
-#include "multi.h"
-#include "hud.h"
-#include "bsp.h"
-#include "gauges.h"
-#include "SmallViews.h"
-#include "newui.h"
-#include "Inventory.h"
-#include "PHYSICS.H"
-#include "Controller.h"
-#include "controls.h"
-#include "gamesequence.h"
-#include "cockpit.h"
-#include "help.h"
-#include "game.h"
-#include "aipath.h"
-#include "game2dll.h"
-#include "Mission.h"
-#include "object_lighting.h"
-#include "fireball.h"
-#include "weather.h"
-#include "stringtable.h"
-#include "streamaudio.h"
-#include "voice.h"
-#include "soundload.h"
-#include "sounds.h"
-#include "ambient.h"
-#include "ship.h"
-#include "config.h"
-#include "matcen.h"
-#include "dedicated_server.h"
-#include "D3ForceFeedback.h"
-#include "levelgoal.h"
-#include "demofile.h"
-#include "pilot.h"
-#include "rtperformance.h"
-#include "demofile.h"
-#include "d3music.h"
-// #include "gamespy.h"
-#include "osiris_dll.h"
-#include "aiambient.h"
-#include "marker.h"
-#include "gamecinematics.h"
-#include "postrender.h"
-#include "debuggraph.h"
-#include "gamesave.h"
-#include "psrand.h"
-#include "spew.h"
-#include "grtext.h"
-#include "gamefont.h"
-#include "renderobject.h"
-#include "vibeinterface.h"
+#include <stdio.h>                      // for NULL, snprintf
+#include <string.h>                     // for strcpy, memset
+#include "3d.h"                         // for g3_EndFrame, g3_StartFrame
+#include "AIMain.h"                     // for AI_debug_robot_do, AIFrameAll
+#include "BOA.h"                        // for BOA_IsVisible
+#include "Controller.h"                 // for gameController
+#include "Inventory.h"                  // for Inventory
+#include "Mission.h"                    // for Current_level, ShowProgressSc...
+#include "PHYSICS.H"                    // for Physics_player_verbose, Physi...
+#include "SmallViews.h"                 // for CreateSmallView, SVF_REARVIEW
+#include "aiambient.h"                  // for a_life, ambient_life
+#include "aipath.h"                     // for MakeTestPath, AIPath_test_end...
+#include "aistruct_external.h"          // for AIN_USER_DEFINED
+#include "ambient.h"                    // for DoAmbientSounds
+#include "application.h"                // for oeApplication
+#include "bsp.h"                        // for BSPRayOccluded, MineBSP
+#include "cockpit.h"                    // for ResizeCockpit, FreeCockpit
+#include "controls.h"                   // for Controller, PollControls, Res...
+#include "d3events.h"                   // for EVT_CLIENT_DECODETEXTMACRO
+#include "d3music.h"                    // for D3MusicDoFrame, D3MusicGetRegion
+#include "damage.h"                     // for ShakePlayer, UnshakePlayer
+#include "ddio.h"                       // for timer_GetMSTime, timer_GetTime
+#include "ddio_common.h"                // for KEY_SHIFTED, KEY_CTRLED, ddio...
+#include "debuggraph.h"                 // for DebugGraph_Add, DebugGraph_Up...
+#include "dedicated_server.h"           // for Dedicated_server
+#include "demofile.h"                   // for DemoAbort, DF_PLAYBACK, Demo_...
+#include "descent.h"                    // for D3_DEFAULT_ZOOM, Descent, D3_...
+#include "doorway.h"                    // for DoorwayDoFrame
+#include "findintersection.h"           // for FVI_counter, fvi_FindIntersec...
+#include "findintersection_external.h"  // for FQ_CHECK_OBJS, FQ_IGNORE_REND...
+#include "game.h"                       // for GM_MULTI, Game_mode, Game_win...
+#include "game2dll.h"                   // for DLLInfo, CallGameDLL
+#include "gamecinematics.h"             // for Cinematic_inuse, Cinematic_Frame
+#include "gameevent.h"                  // for ProcessNormalEvents, ProcessR...
+#include "gamefont.h"                   // for HUD_FONT
+#include "gameloop.h"                   // for GameFrame, GameRenderWorld
+#include "gamesave.h"                   // for QuickSaveGame
+#include "gamesequence.h"               // for Game_interface_mode, SetGameS...
+#include "gametexture.h"                // for GameTextures, TF_LIGHT
+#include "grdefs.h"                     // for GR_RGB, GR_BLACK
+#include "grtext.h"                     // for grfont_GetHeight, grtext_Flush
+#include "hlsoundlib.h"                 // for Sound_system, hlsSystem, Soun...
+#include "hud.h"                        // for AddHUDMessage, GetHUDMode
+#include "levelgoal.h"                  // for Level_goals, levelgoals
+#include "lighting.h"                   // for ClearDynamicLightmaps, Destro...
+#include "linux_fix.h"                  // for Sleep, _MAX_PATH
+#include "marker.h"                     // for Marker_message
+#include "matcen.h"                     // for Matcen, matcen, CreateMatcen
+#include "matcen_external.h"            // for MPC_WHILE_PLAYER_NEAR, MSTAT_...
+#include "mono.h"                       // for mprintf, mprintf_at, DebugBlo...
+#include "multi.h"                      // for MultiSendEndPlayerDeath, Mult...
+#include "multi_external.h"             // for LR_SERVER, LR_CLIENT, NETSEQ_...
+#include "networking.h"                 // for nw_GetNetworkStats, tNetworkS...
+#include "newui_core.h"                 // for SetUICallback, DoUIFrameWitho...
+#include "object.h"                     // for Objects, Viewer_object, Highe...
+#include "object_external.h"            // for OBJ_POWERUP, OBJ_ROBOT, OBJ_W...
+#include "object_external_struct.h"     // for object, MAX_OBJECTS, OBJECT_O...
+#include "object_lighting.h"            // for MakeObjectInvisible, MakeObje...
+#include "objinfo.h"                    // for FindObjectIDName, Object_info
+#include "osiris_dll.h"                 // for Show_osiris_debug, Osiris_Cal...
+#include "osiris_share.h"               // for gb_com, COM_DO_ACTION, EVT_IN...
+#include "pilot.h"                      // for Current_pilot
+#include "pilot_class.h"                // for pilot
+#include "player.h"                     // for Player_object, Player_num
+#include "player_external.h"            // for PLAYER_FLAGS_DEAD, OBSERVER_M...
+#include "player_external_struct.h"     // for MAX_PLAYERS, MAX_PLAYER_WEAPONS
+#include "postrender.h"                 // for PostRender, ResetPostrenderList
+#include "pserror.h"                    // for DebugBreak_callback_resume
+#include "pstypes.h"                    // for longlong, ubyte
+#include "render.h"                     // for OM_ON, Outline_mode, PostUpda...
+#include "renderer.h"                   // for rend_SetZBufferState, rend_Se...
+#include "renderobject.h"               // for Last_powerup_sparkle_time
+#include "robotfirestruct_external.h"   // for DWBF_QUAD
+#include "room.h"                       // for Highest_room_index, DoRoomCha...
+#include "rtperformance.h"              // for RTP_tENDTIME, RTP_tSTARTTIME
+#include "ship.h"                       // for GetNextShip, Ships
+#include "slew.h"                       // for SlewStop, SlewResetOrient
+#include "sounds.h"                     // for SOUND_REFUELING
+#include "spew.h"                       // for MAX_SPEW_EFFECTS, SpewEffects
+#include "ssl_lib.h"                    // for SoundFiles, Sounds, SIF_STREA...
+#include "stringtable.h"                // for TXT_VIEW_REAR, TXT_CHEATER
+#include "terrain.h"                    // for Terrain_LOD_engine_off, Clear...
+#include "uisys.h"                      // for ui_HideCursor, ui_ShowCursor
+#include "vecmat.h"                     // for vm_VectorDistance
+#include "vecmat_external.h"            // for operator*, operator+, vector
+#include "vibeinterface.h"              // for VIBE_DoQuaterFrame
+#include "voice.h"                      // for UpdateVoices
+#include "weapon.h"                     // for SelectWeapon, FindWeaponName
+#include "weather.h"                    // for Weather, WEATHER_FLAGS_LIGHTNING
 
 #ifdef EDITOR
 #include "editor\d3edit.h"
@@ -1572,9 +1582,6 @@ void SendCheaterText() {
       MultiSendMessageToServer(0, str);
   }
 }
-
-#include "osiris_dll.h"
-#include "audiotaunts.h"
 
 void InitObjectScripts(object *obj, bool call_evt_created = true);
 

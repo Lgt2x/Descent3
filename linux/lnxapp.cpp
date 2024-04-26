@@ -68,25 +68,18 @@
  * $NoKeywords: $
  */
 
-#include "application.h"
-#include "linux/lnxapp.h"
-#include "mono.h"
-#include <stdlib.h>
-#include "ddio.h"
-// #include "local_malloc.h"
-#include <unistd.h>
-#include <ctype.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <term.h>
-#include <termios.h>
-#include <stdio.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <errno.h>
-#include <string.h>
-#include <assert.h>
-#include <SDL.h>
+#include <ctype.h>         // for toupper
+#include <stdio.h>         // for sprintf, NULL
+#include <stdlib.h>        // for atexit, free, malloc
+#include <sys/select.h>    // for select
+#include <sys/time.h>      // for timeval
+#include <termios.h>       // for tcgetattr, tcsetattr, TCSANOW, termios
+#include "SDL_keyboard.h"  // for SDL_EnableKeyRepeat, SDL_DEFAULT_REPEAT_DELAY
+#include "SDL_video.h"     // for SDL_GetVideoSurface, SDL_FillRect, SDL_MapRGB
+#include "application.h"   // for OEAPP_CONSOLE
+#include "linux/lnxapp.h"  // for oeLnxApplication, tLnxAppInfo
+#include "linux_fix.h"     // for GlobalAlloc, GlobalFree, GlobalLock, HGLOBAL
+#include "mono.h"          // for mprintf
 
 static struct termios Linux_initial_terminal_settings;
 

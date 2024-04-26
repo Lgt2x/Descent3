@@ -430,46 +430,68 @@
  *
  * $NoKeywords: $
  */
-#include <stdarg.h>
+
 #include "osiris_predefs.h"
-#include "object.h"
-#include "mono.h"
-#include "trigger.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "hlsoundlib.h"
-#include "gamepath.h"
-#include "AIGoal.h"
-#include "AIMain.h"
-#include "soundload.h"
-#include "room.h"
-#include "objinfo.h"
-#include "weapon.h"
-#include "game.h"
-#include "terrain.h"
-#include "attach.h"
-#include "matcen.h"
-#include "findintersection.h"
-#include "controls.h"
-#include "Controller.h"
-#include "ship.h"
-#include "Mission.h"
-#include "osiris_share.h"
-#include "multisafe.h"
-#include "sounds.h"
-#include "polymodel.h"
-#include "multi.h"
-#include "viseffect.h"
-#include "PHYSICS.H"
-#include "levelgoal.h"
-#include "BOA.h"
-#include "marker.h"
-#include "damage.h"
-#include "aipath.h"
-#include "difficulty.h"
-#include "localization.h"
-#include "psrand.h"
-#include "demofile.h"
+#include <stdarg.h>                     // for va_arg, va_end, va_start, va_...
+#include <string.h>                     // for NULL, strcpy, strncpy, size_t
+#include "AIGoal.h"                     // for GoalAddGoal, GoalAddEnabler
+#include "AIMain.h"                     // for AIPowerSwitch, AIFindHidePos
+#include "BOA.h"                        // for BOA_ComputeMinDist
+#include "Controller.h"                 // for gameController
+#include "Macros.h"                     // for stricmp
+#include "Mission.h"                    // for Current_mission
+#include "ObjScript.h"                  // for InitObjectScripts
+#include "PHYSICS.H"                    // for PhysCalcGround
+#include "aipath.h"                     // for AIFindAltPath
+#include "aistruct.h"                   // for ai_frame, GAF_ALIGNED, GAF_SP...
+#include "aistruct_external.h"          // for MAX_GOALS, AIG_FOLLOW_PATH
+#include "attach.h"                     // for AttachObject, UnattachChild
+#include "controls.h"                   // for Controller, NUM_CONTROLLER_FU...
+#include "damage.h"                     // for KillObject, KillPlayer
+#include "demofile.h"                   // for DemoWrite3DSound, DF_RECORDING
+#include "difficulty.h"                 // for DIFF_LEVEL
+#include "findintersection.h"           // for fvi_FindIntersection, fvi_Qui...
+#include "findintersection_external.h"  // for HIT_OBJECT, HIT_SPHERE_2_POLY...
+#include "game.h"                       // for GM_MULTI, Game_mode, Gametime
+#include "gamepath.h"                   // for game_path, GamePaths, FindGam...
+#include "gametexture.h"                // for FindTextureName
+#include "grdefs.h"                     // for GR_RGB
+#include "hlsoundlib.h"                 // for Sound_system, hlsSystem
+#include "levelgoal.h"                  // for Level_goals, levelgoals
+#include "levelgoal_external.h"         // for LO_GET_SPECIFIED, LO_SET_SPEC...
+#include "localization.h"               // for Localization_GetLanguage
+#include "manage_external.h"            // for IGNORE_TABLE
+#include "marker.h"                     // for MarkerMessages
+#include "matcen.h"                     // for Matcen, matcen, MAX_MATCEN_NA...
+#include "mem.h"                        // for mem_free, mem_malloc
+#include "mono.h"                       // for mprintf
+#include "multi.h"                      // for MultiSendStripPlayer, MultiPl...
+#include "multi_external.h"             // for LR_SERVER
+#include "multisafe.h"                  // for msafe_CallFunction, msafe_Get...
+#include "object.h"                     // for ObjGet, Objects, ObjSetPos
+#include "objinfo.h"                    // for Object_info, FindObjectIDName
+#include "osiris_dll.h"                 // for Osiris_CallEvent, Osiris_Call...
+#include "osiris_share.h"               // for VF_SET, VF_GET, VF_CLEAR_FLAGS
+#include "player.h"                     // for Players, PlayerSetControlToAI
+#include "player_external_struct.h"     // for MAX_PLAYERS
+#include "polymodel.h"                  // for Poly_models, PageInPolymodel
+#include "polymodel_external.h"         // for poly_model
+#include "pserror.h"                    // for Int3, ASSERT
+#include "psrand.h"                     // for ps_rand, RAND_MAX
+#include "pstypes.h"                    // for ubyte, ushort, sbyte, uint
+#include "robotfirestruct.h"            // for dynamic_wb_info, otype_wb_info
+#include "robotfirestruct_external.h"   // for WBF_ANIM_LOCAL, WBF_ANIM_MASKS
+#include "room.h"                       // for Rooms, Highest_room_index
+#include "room_external.h"              // for RF_FUELCEN, room
+#include "ship.h"                       // for Ships, ship
+#include "soundload.h"                  // for FindSoundName
+#include "sounds.h"                     // for SOUND_NONE_INDEX, SOUND_PLAYE...
+#include "ssl_lib.h"                    // for SND_PRIORITY_LOW, SND_PRIORIT...
+#include "terrain.h"                    // for ComputeTerrainSegmentCenter
+#include "trigger.h"                    // for object, Num_triggers, Triggers
+#include "vecmat.h"                     // for Zero_vector, vm_VectorToMatrix
+#include "viseffect.h"                  // for CreateRandomSparks
+#include "weapon.h"                     // for WeaponCalcGun, FindWeaponName
 
 int *hack_ilist = NULL;
 int hack_list[100];

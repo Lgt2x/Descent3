@@ -16,15 +16,25 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pstypes.h"
-#include "pserror.h"
-#include "game.h"
-#include "multi.h"
-#include "multisafe.h"
-#include "multi_server.h"
-#include "object.h"
-#include "player.h"
-#include "demofile.h"
+#include "demofile.h"                // for Demo_flags, DF_RECORDING, DemoWr...
+#include "game.h"                    // for GM_MULTI, Game_mode
+#include "gametexture.h"             // for FindTextureName, GameTextures
+#include "mono.h"                    // for mprintf
+#include "multi.h"                   // for MultiAddTypeID, MultiGetTypeID
+#include "multi_external.h"          // for MultiAddFloat, MultiGetFloat
+#include "multi_server.h"            // for MultiSendReliablyToAllExcept
+#include "multisafe.h"               // for msafe_CallFunction, msafe_DoPowerup
+#include "networking.h"              // for nw_SendReliable
+#include "object.h"                  // for HANDLE_OBJNUM_MASK, Objects, ObjGet
+#include "object_external.h"         // for OBJECT_HANDLE_NONE, OBJ_PLAYER
+#include "object_external_struct.h"  // for object
+#include "osiris_share.h"            // for msafe_struct, MSAFE_COUNTERMEASU...
+#include "player.h"                  // for Player_num, Players
+#include "player_external_struct.h"  // for MAX_PLAYERS
+#include "pserror.h"                 // for ASSERT, Int3
+#include "pstypes.h"                 // for ubyte, uint
+#include "vecmat.h"                  // for vm_VectorDistanceQuick
+
 
 //------------------------
 // MULTISAFE FUNCTIONS

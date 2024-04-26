@@ -18,15 +18,23 @@
 
 // AIGame.cpp
 //
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "osiris_import.h"
-#include "osiris_common.h"
-#include "osiris_vector.h"
-#include "DallasFuncs.cpp"
+#include <stdio.h>                      // for NULL
+#include <stdlib.h>                     // for rand, RAND_MAX
+#include "aistruct_external.h"          // for AIF_FIRE, AIF_DETERMINE_TARGET
+#include "damage_external.h"            // for PD_ENERGY_WEAPON
+#include "deathinfo_external.h"         // for DF_BLAST_RING, DF_BREAKS_APART
+#include "findintersection_external.h"  // for HIT_NONE, FQ_NO_RELINK, FQ_BA...
+#include "fireball_external.h"          // for MED_SMOKE_INDEX
+#include "module.h"                     // for STDCALL, STDCALLPTR
+#include "object_external.h"            // for OBJECT_HANDLE_NONE, OBJ_POWERUP
+#include "osiris_common.h"              // for VF_GET, VF_SET_FLAGS, tOSIRIS...
+#include "osiris_import.h"              // for Obj_Value, Obj_WBValue, AI_Value
+#include "osiris_vector.h"              // for vm_VectorDistance, vm_VectorT...
+#include "player_external.h"            // for PLAYER_FLAGS_DEAD
+#include "robotfirestruct_external.h"   // for DWBF_ENABLED
+#include "vecmat_external.h"            // for operator*, vector, operator+
+#include "DallasFuncs.cpp"              // for aLightningCreate, aObjGhostSet
 
-#include "module.h"
 
 #ifdef __cplusplus
 extern "C" {

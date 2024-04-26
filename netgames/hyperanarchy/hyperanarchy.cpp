@@ -53,12 +53,30 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include "gamedll_header.h"
-#include "idmfc.h"
-#include "HyperAnarchy.h"
-#include "hyperstr.h"
+#include <stdio.h>                   // for snprintf
+#include <stdlib.h>                  // for NULL, rand
+#include <string.h>                  // for strlen, memcpy, strcpy, memset
+#include "DMFC.h"                    // for DSTAT_LEVEL, MAX_PLAYER_RECORDS
+#include "DMFCKeyCodes.h"            // for K_ESC, K_F6, K_F7, K_PAGEDOWN
+#include "HyperAnarchy.h"            // for DLLGameClose, DLLGameInit, DLLGe...
+#include "bitmap.h"                  // for BAD_BITMAP_HANDLE, BITMAP_FORMAT...
+#include "cfile.h"                   // for CFILE
+#include "d3events.h"                // for EVT_CLIENT_GAMECOLLIDE, EVT_CLIE...
+#include "gamedll_header.h"          // for DLLgrtext_Printf, DLLcf_WriteString
+#include "gamefont.h"                // for SMALL_UI_FONT_INDEX, HUD_FONT_INDEX
+#include "grdefs.h"                  // for GR_RGB, GR_RGB16, OPAQUE_FLAG
+#include "hyperstr.h"                // for TXT_PILOT, TXT_SCORE, TXT_DEATHS
+#include "idmfc.h"                   // for IDMFC, IDmfcStats, CreateMenuIte...
+#include "module.h"                  // for DLLFUNCCALL
+#include "multi_external.h"          // for MultiAddInt, MultiGetInt, LR_SERVER
+#include "object_external.h"         // for OBJ_POWERUP, OBJ_PLAYER, OBJECT_...
+#include "object_external_struct.h"  // for object, MAX_OBJECTS, ROOMNUM_OUT...
+#include "player_external_struct.h"  // for player
+#include "pstypes.h"                 // for ubyte, ushort
+#include "renderer.h"                // for AT_CONSTANT_TEXTURE, LS_NONE
+#include "room_external.h"           // for RF_EXTERNAL
+#include "vecmat_external.h"         // for vector
+
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;
 object *dObjects;

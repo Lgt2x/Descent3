@@ -142,19 +142,16 @@
  * $NoKeywords: $
  */
 
-#include "music.h"
-#include "musiclib.h"
-#include "ssl_lib.h"
-#include "soundload.h"
-#include "textaux.h"
-#include "pserror.h"
-#include "ddio.h"
-#include "Macros.h"
-#include "inffile.h"
-#include "streamaudio.h"
-#include "mem.h"
-#include <string.h>
-#include <stdlib.h>
+#include <stdlib.h>       // for NULL
+#include <string.h>       // for memcpy, strcpy, strlen
+#include "mem.h"          // for mem_free, mem_malloc
+#include "mono.h"         // for mprintf
+#include "music.h"        // for OutrageMusicSeq, oms_stream, oms_q_evt, OMS...
+#include "musiclib.h"     // for OMFCMD_ENDIFI, OMFCMD_ENDSECTION, OMFCMD_MPLAY
+#include "psclass.h"      // for tListNode, tList, tQueue
+#include "pserror.h"      // for ASSERT, Int3
+#include "pstypes.h"      // for ubyte
+#include "streamaudio.h"  // for AudioStream, STRM_STOPPED, STRM_INVALID
 
 // #include "samirlog.h"
 #define LOGFILE(_s)

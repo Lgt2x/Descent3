@@ -104,7 +104,9 @@
 #ifndef AIGOAL_H_
 #define AIGOAL_H_
 
-#include "object.h"
+#include "aistruct.h"                // for goal, AI_INVALID_INDEX
+#include "object_external_struct.h"  // for object
+#include "pstypes.h"
 
 // Clears and removes all goals for a robot
 void GoalClearAll(object *obj);

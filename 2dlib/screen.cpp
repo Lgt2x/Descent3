@@ -45,11 +45,10 @@
  * $NoKeywords: $
  */
 
-#include <string.h>
-
-#include "gr.h"
-#include "pserror.h"
-#include "renderer.h"
+#include "Ddgr.h"      // for SURFFLAG_BACKBUFFER, ddgr_surf_FlipVideo, SURF...
+#include "gr.h"        // for grScreen, SURFFLAG_RENDERER, grSurface
+#include "pserror.h"   // for ASSERT
+#include "renderer.h"  // for rend_Flip
 
 //	---------------------------------------------------------------------------
 //	grSurface constructor and destructor

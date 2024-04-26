@@ -280,47 +280,55 @@
 #include <crtdbg.h>
 #include "windows.h"
 #endif
-#include "ui.h"
-#include "newui.h"
-#include "game.h"
-#include "gamefont.h"
-#include "multi.h"
-#include "multi_client.h"
-#include "manage.h"
-#include "Mission.h"
-#include "pilot.h"
-#include "ui.h"
-#include "newui.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include "descent.h"
-#include "game.h"
-#include "room.h"
-#include "object.h"
-#include "terrain.h"
-#include "player.h"
-#include "mono.h"
-#include "hud.h"
-#include "Inventory.h"
-#include "multi_server.h"
-#include "multi_ui.h"
-#include "ship.h"
-#include "soundload.h"
-#include "spew.h"
-#include "DllWrappers.h"
-#include "appdatabase.h"
-#include "module.h"
-#include "ship.h"
-#include "localization.h"
-#include "stringtable.h"
-#include "dedicated_server.h"
-#include "multi_save_settings.h"
+
 #include "multi_dll_mgr.h"
-#include "mission_download.h"
-#include "module.h"
-#include "mem.h"
-#include "args.h"
-// #define USE_DIRECTPLAY
+#include <SDL_platform.h>         // for __LINUX__
+#include <stdio.h>                // for snprintf
+#include <string.h>               // for NULL, strcpy, strcat, strlen
+#include "DllWrappers.h"          // for MonoPrintf
+#include "Mission.h"              // for GetMissionName, IsMissionMultiPlayable
+#include "appdatabase.h"          // for oeAppDatabase
+#include "application.h"          // for oeApplication
+#include "args.h"                 // for FindArg, GameArgs
+#include "cfile.h"                // for cf_CopyFile, cf_OpenLibrary
+#include "ddio.h"                 // for ddio_MakePath, timer_GetTime, ddio_...
+#include "ddio_common.h"          // for ddio_KeyFlush, KEY_ESC
+#include "dedicated_server.h"     // for Dedicated_server, PrintDedicatedMes...
+#include "descent.h"              // for Database, Base_directory, Descent
+#include "game.h"                 // for Game_mode, GM_MULTI, SetScreenMode
+#include "gamefont.h"             // for BRIEFING_FONT, BIG_BRIEFING_FONT
+#include "grdefs.h"               // for GR_RGB
+#include "grtext.h"               // for grtext_GetTextLineWidth
+#include "linux_fix.h"            // for _MAX_PATH, Sleep
+#include "lnxdatabase.h"          // for read_int
+#include "localization.h"         // for CreateStringTable, DestroyStringTable
+#include "mem.h"                  // for mem_free_sub, mem_malloc_sub
+#include "mission_download.h"     // for CheckGetD3M, msn_CheckGetMission
+#include "module.h"               // for mod_GetLastError, mod_GetSymbol
+#include "mono.h"                 // for mprintf
+#include "multi.h"                // for MultiFlushAllIncomingBuffers, Game_...
+#include "multi_client.h"         // for MultiStartClient
+#include "multi_external.h"       // for MAX_NET_PLAYERS, network_game
+#include "multi_save_settings.h"  // for MultiLoadSettings
+#include "multi_server.h"         // for GetRankIndex, MultiStartServer
+#include "multi_ui.h"             // for DoMultiAllowed, DoPlayerMouselookCheck
+#include "networking.h"           // for IPX_active, TCP_active, network_add...
+#include "newui.h"                // for NewUIMessageBox, NewUIWindow, NewUI...
+#include "newui_core.h"           // for SetUICallback, DoUIFrame, GetUICall...
+#include "object.h"               // for Objects
+#include "pilot.h"                // for dCurrentPilotName
+#include "player.h"               // for Players, PlayerIsShipAllowed, Playe...
+#include "pserror.h"              // for Int3
+#include "pstypes.h"              // for ushort, ubyte
+#include "renderer.h"             // for rend_Flip, rend_GetRenderState
+#include "room.h"                 // for Rooms
+#include "ship.h"                 // for Ships
+#include "stringtable.h"          // for TXT_CANCEL
+#include "terrain.h"              // for Terrain_seg
+#include "ui.h"                   // for UIListBox, UIWindow (ptr only), UIEdit
+#include "uires.h"                // for UITextItem, UIBitmapItem, UIItem
+#include "uisys.h"                // for ui_Flush, ui_HideCursor, ui_ShowCursor
+
 
 #ifdef USE_DIRECTPLAY
 #include "directplay.h"

@@ -598,24 +598,35 @@
  * $NoKeywords: $
  */
 
-#include "objinfo.h"
-#include "polymodel.h"
-#include "pserror.h"
-#include "3d.h"
-#include "mono.h"
-#include "bitmap.h"
-#include "renderer.h"
-#include "manage.h"
-#include "gametexture.h"
-#include "lighting.h"
-#include "ddio.h"
-#include "game.h"
-#include <stdlib.h>
-#include <string.h>
-#include "robotfire.h"
-#include "mem.h"
-
-#include <algorithm>
+#include <stdio.h>                     // for sscanf
+#include <stdlib.h>                    // for NULL, atexit, atof
+#include <string.h>                    // for memset, strcpy, strcat, strlen
+#include <algorithm>                   // for max
+#include <cmath>                       // for sqrt
+#include "3d.h"                        // for g3_DoneInstance, g3_StartInsta...
+#include "cfile.h"                     // for cf_ReadInt, cf_ReadFloat, cfopen
+#include "ddio.h"                      // for ddio_SplitPath
+#include "fix.h"                       // for FixCos, FixSin, angle
+#include "game.h"                      // for Gametime
+#include "gametexture.h"               // for FindTextureBitmapName, FindTex...
+#include "grdefs.h"                    // for GR_RGB
+#include "linux_fix.h"                 // for stricmp, strnicmp
+#include "manage.h"                    // for DataError
+#include "manage_external.h"           // for PAGENAME_LEN
+#include "mem.h"                       // for mem_free, mem_malloc
+#include "mono.h"                      // for mprintf
+#include "object_external.h"           // for OBJ_PLAYER, OBJ_WEAPON, OBJ_BU...
+#include "object_external_struct.h"    // for object
+#include "objinfo.h"                   // for Object_info, object_info
+#include "polymodel.h"                 // for RenderSubmodel, RenderPolygonM...
+#include "polymodel_external.h"        // for PMF_NOT_RESIDENT, poly_model
+#include "pserror.h"                   // for ASSERT, Error, Int3
+#include "pstypes.h"                   // for ubyte, uint, ushort
+#include "renderer.h"                  // for rend_SetAlphaType, rend_SetLig...
+#include "robotfirestruct.h"           // for poly_wb_info, MAX_WBS_PER_OBJ
+#include "robotfirestruct_external.h"  // for WBF_ANIM_LOCAL, WBF_ANIM_MASKS
+#include "vecmat.h"                    // for vm_ExtractAnglesFromMatrix
+#include "vecmat_external.h"           // for vector, operator*, matrix, ope...
 
 int Num_poly_models = 0;
 poly_model Poly_models[MAX_POLY_MODELS];

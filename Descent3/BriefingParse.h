@@ -50,12 +50,9 @@
 #ifndef __BRIEFPARSE_H_
 #define __BRIEFPARSE_H_
 
-#if defined(__LINUX__)
-#include "linux/linux_fix.h" //for stricmp
-#endif
-
-#include "TelComEfxStructs.h"
-#include "grdefs.h"
+#include <stddef.h>            // for NULL
+#include "TelComEfxStructs.h"  // for LPTCBKGDESC, LPTCBMPDESC, LPTCBUTTONDESC
+#include "pstypes.h"           // for uint
 
 //	Return codes of ParseBriefing
 #define PBERR_FILENOTEXIST -1
