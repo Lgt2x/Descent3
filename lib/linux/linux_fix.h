@@ -19,6 +19,8 @@
 #ifndef __LINUX_FIX_H_
 #define __LINUX_FIX_H_
 
+#if defined(__LINUX__)
+
 #include <sys/stat.h>
 #include <strings.h>
 #include <math.h>
@@ -72,4 +74,5 @@ inline int _filelength(int fd) {
 #define _finite(a) finite(a)
 #endif
 
+#endif
 #endif

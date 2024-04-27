@@ -58,8 +58,8 @@
  */
 
 #include <assert.h>    // for assert
+#include <dirent.h>
 #include <errno.h>     // for errno, EACCES, ESRCH
-#include <glob.h>      // for glob, globfree, GLOB_MARK, GLOB_NOSPACE, glob_t
 #include <signal.h>    // for kill
 #include <stdarg.h>    // for va_arg, va_end, va_list, va_start
 #include <stdio.h>     // for fclose, fgetc, fopen, fputc, FILE, fread, snpr...
@@ -73,6 +73,10 @@
 #include "mem.h"       // for mem_free, mem_malloc, mem_strdup
 #include "mono.h"      // for mprintf
 #include "pserror.h"   // for ASSERT, Int3
+
+#ifdef __LINUX__
+#include <glob.h>              // for glob, globfree, GLOB_MARK, GLOB_NOSPACE
+#endif
 
 #define _MAX_DIR 256
 

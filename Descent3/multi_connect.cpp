@@ -256,7 +256,6 @@
 #include <arpa/inet.h>                         // for htons
 #include <stdio.h>                             // for snprintf
 #include <string.h>                            // for memcpy, strlen, strcpy
-#include "/home/louis/dev/Descent3/md5/md5.h"  // for MD5
 #include "LoadLevel.h"                         // for AppendToLevelChecksum
 #include "Mission.h"                           // for ShowProgressScreen
 #include "args.h"                              // for FindArg

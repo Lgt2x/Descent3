@@ -28,7 +28,6 @@
 #include "cfile.h"
 #include <ctype.h>            // for isalpha, tolower, toupper
 #include <errno.h>            // for errno, EACCES
-#include <glob.h>             // for glob, globfree, GLOB_MARK, GLOB_NOSPACE
 #include <stdarg.h>           // for va_end, va_arg, va_start
 #include <stdlib.h>           // for atexit
 #include <string.h>           // for strcpy, strlen, strerror, strcat, strncpy
@@ -40,6 +39,10 @@
 #include "mono.h"             // for mprintf
 #include "pserror.h"          // for ASSERT, Error, Int3
 #include "psglob.h"           // for PSGlobMatch, PSGlobHasPattern
+
+#ifdef __LINUX__
+#include <glob.h>
+#endif
 
 // Library structures
 typedef struct {

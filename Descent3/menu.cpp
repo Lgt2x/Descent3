@@ -659,6 +659,7 @@
 #include "Mission.h"        // for GetMissionInfo, Current_mission, tMission...
 #include "args.h"           // for FindArg, GameArgs
 #include "config.h"         // for OptionsMenu
+#include "cinematics.h"     // for PlayMovie
 #include "ddio.h"           // for ddio_MakePath, ddio_FindFileClose, ddio_F...
 #include "ddio_common.h"    // for KEY_C, KEY_D, KEY_L, KEY_M, KEY_N, KEY_O
 #include "demofile.h"       // for Demo_restart, LoadDemoDialog

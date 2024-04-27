@@ -44,6 +44,7 @@
 #ifndef DEBUG_BREAK_H
 #define DEBUG_BREAK_H
 
+#include "debug.h"       // for Debug_ConsoleOpen, Debug_ConsoleInit, Debug_...
 #ifdef _MSC_VER
 
 #define debug_break __debugbreak

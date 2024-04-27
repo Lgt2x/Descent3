@@ -95,13 +95,16 @@
 #include "module.h"
 #include <ctype.h>            // for isalpha, tolower, toupper
 #include <dlfcn.h>            // for dlopen, dlclose, dlerror, dlsym, RTLD_G...
-#include <glob.h>             // for glob, globfree, GLOB_MARK, GLOB_NOSPACE
 #include <stdarg.h>           // for va_arg, va_end, va_list, va_start
 #include <string.h>           // for strcat, strcpy, strlen, strncpy
 #include <unistd.h>           // for NULL, chdir, getcwd
 #include "linux/linux_fix.h"  // for _MAX_PATH, stricmp, _MAX_EXT, _MAX_FNAME
 #include "mono.h"             // for mprintf
 #include "pserror.h"          // for ASSERT
+
+#ifdef __LINUX__
+#include <glob.h>              // for glob, globfree, GLOB_MARK, GLOB_NOSPACE
+#endif
 
 #ifdef __LINUX__
 bool mod_FindRealFileNameCaseInsenstive(const char *directory, const char *filename, char *new_filename);

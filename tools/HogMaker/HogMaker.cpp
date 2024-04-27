@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <bits/chrono.h>  // for operator+, operator-, system_clock, duratio...
 #include <stdint.h>       // for uint32_t
 #include <algorithm>      // for copy, sort, transform, max
 #include <array>          // for array

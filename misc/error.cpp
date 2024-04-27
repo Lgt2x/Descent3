@@ -69,7 +69,6 @@
 #include <stdlib.h>      // for exit, atexit
 #include <string.h>      // for strncpy, strcpy, strlen
 #include "debug.h"       // for Debug_MessageBox, Debug_ErrorBox, OSMBOX_OK
-#include "debugbreak.h"  // for debug_break
 #include "mono.h"        // for mprintf
 #include "pserror.h"     // for SetDebugBreakHandlers, OutrageMessageBox
 #include "pstring.h"     // for Pvsprintf

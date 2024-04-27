@@ -19,7 +19,6 @@
 // AIGame3.cpp
 // 0.1
 
-#include <bits/std_abs.h>               // for abs
 #include <float.h>                      // for FLT_MAX
 #include <stdio.h>                      // for NULL
 #include <stdlib.h>                     // for rand, RAND_MAX

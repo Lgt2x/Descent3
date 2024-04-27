@@ -132,6 +132,10 @@
 #include "uidraw.h"           // for ui_DrawSetFont, ui_DrawSetTextType, ui_...
 #include "uisys.h"            // for UI_TIME, PT_IN_GADGET, UILMSEBTN, UI_input
 
+#if defined(RELEASE)
+#include "buildno.h"
+#endif
+
 // externed from newui.cpp
 extern int UI_frame_result;
 
