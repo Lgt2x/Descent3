@@ -411,7 +411,7 @@ void Debug_ConsolePrintf(int n, char *format, ...) {
   }
 }
 
-void Debug_ConsolePrintf(int n, int row, int col, char *format, ...) {
+void Debug_ConsolePrintf(int n, int row, int col, const char *format, ...) {
   char *ptr = Mono_buffer;
   int r, c;
   va_list args;

@@ -5061,7 +5061,7 @@ void MultiSendMessageToServer(int color, char *message, int to_who) {
 void MultiDoExecuteDLL(ubyte *data) {
   int count = 0;
   float fParam = 0;
-  ssize_t iParam = 0;
+  int iParam = 0;
 
   SKIP_HEADER(data, &count);
 

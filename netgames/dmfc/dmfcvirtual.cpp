@@ -986,7 +986,7 @@ void DMFCBase::TranslateEvent(int eventnum, dllinfo *data) {
   case EVT_CLIENT_DECODETEXTMACRO: {
     char *dest_string = (char *)data->special_data;
     char *src_string = data->input_string;
-    const ssize_t dest_size = data->iParam;
+    const int dest_size = data->iParam;
 
     TranslateTextMacro(src_string, dest_string, dest_size);
   } break;

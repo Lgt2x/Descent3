@@ -2555,7 +2555,7 @@ void PageInGeneric(int id) {
   }
 }
 
-extern char *Static_sound_names[];
+extern const char *Static_sound_names[];
 
 void PageInAllData() {
   int i;

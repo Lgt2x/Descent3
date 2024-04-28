@@ -312,7 +312,7 @@ typedef struct {
     float fRet;
   };
   float fParam;
-  ssize_t iParam;
+  int iParam;
 } dllinfo;
 
 typedef struct {

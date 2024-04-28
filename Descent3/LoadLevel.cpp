@@ -5618,7 +5618,7 @@ void AlmostPageInGeneric(int id) {
   }
 }
 
-extern char *Static_sound_names[];
+extern const char *Static_sound_names[];
 void AlmostPageInAllData() {
   int i;
 

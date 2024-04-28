@@ -165,8 +165,8 @@ void Debug_LogWrite(const char *str);
 bool Debug_ConsoleInit();
 void Debug_ConsoleOpen(int n, int row, int col, int width, int height, const char *title);
 void Debug_ConsoleClose(int n);
-void Debug_ConsolePrintf(int n, char *format, ...);
-void Debug_ConsolePrintfAt(int n, int row, int col, char *format, ...);
+void Debug_ConsolePrintf(int n, const char *format, ...);
+void Debug_ConsolePrintfAt(int n, int row, int col, const char *format, ...);
 void Debug_ConsoleRedirectMessages(int virtual_window, int physical_window);
 //	DEBUGGING MACROS
 // Break into the debugger, if this feature was enabled in Debug_init()
