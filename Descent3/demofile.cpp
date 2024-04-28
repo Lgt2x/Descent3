@@ -289,7 +289,6 @@
 #include "grdefs.h"                     // for GR_RGB16, ddgr_color
 #include "hlsoundlib.h"                 // for Sound_system, hlsSystem
 #include "hud.h"                        // for AddBlinkingHUDMessage, GetHUD...
-#include "linux_fix.h"                  // for _MAX_PATH, strcmpi, stricmp
 #include "manage.h"                     // for mng_LoadAddonPages
 #include "mem.h"                        // for mem_free, mem_malloc
 #include "mono.h"                       // for mprintf
@@ -320,6 +319,10 @@
 #include "viseffect_external.h"         // for VIS_FIREBALL, vis_effect, VF_...
 #include "weapon.h"                     // for FindWeaponName, Weapons, Crea...
 #include "weapon_external.h"            // for NAPALM_INDEX, OMEGA_INDEX
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 extern bool is_multi_demo;
 CFILE *Demo_cfp = NULL;

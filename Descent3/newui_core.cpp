@@ -196,7 +196,6 @@
 #include "game.h"             // for Max_window_h, Max_window_w, DoScreenshot
 #include "gamefont.h"         // for MONITOR9_NEWUI_FONT, MONITOR15_NEWUI_FONT
 #include "hlsoundlib.h"       // for Sound_system, hlsSystem
-#include "linux_fix.h"        // for strcmpi, stricmp
 #include "manage_external.h"  // for IGNORE_TABLE
 #include "mem.h"              // for mem_free, mem_malloc, mem_strdup
 #include "mono.h"             // for DebugBlockPrint, mprintf
@@ -209,6 +208,10 @@
 #include "uidraw.h"           // for ui_ResetTextClip, ui_SetTextClip, ui_Dr...
 #include "uires.h"            // for UITextItem, UIBitmapItem, UISnazzyTextItem
 #include "uisys.h"            // for UI_input, PT_IN_GADGET, UNLOCK_FOCUS
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 extern void ui_DoCursor();
 

@@ -68,13 +68,16 @@
 #include "bitmap.h"           // for BAD_BITMAP_HANDLE, bm_AllocLoadFileBitmap
 #include "cfile.h"            // for cfseek, cf_ReadByte, cfeof, cf_ReadBytes
 #include "ddio.h"             // for ddio_MakePath
-#include "linux_fix.h"        // for _MAX_PATH
 #include "manage.h"           // for LocalD3Dir
 #include "manage_external.h"  // for IGNORE_TABLE
 #include "mem.h"              // for mem_free, mem_malloc
 #include "mono.h"             // for mprintf
 #include "pilot_class.h"      // for PILOT_STRING_SIZE
 #include "pserror.h"          // for Int3
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define PILOTPIC_DATABASE_HOG "PPics.Hog"
 #define PILOTPIC_DATABASE_INDEX "PPics.idx"

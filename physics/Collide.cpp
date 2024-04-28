@@ -854,7 +854,6 @@
 #include "hud.h"                     // for AddHUDMessage
 #include "levelgoal.h"               // for Level_goals, levelgoals
 #include "levelgoal_external.h"      // for LIT_OBJECT
-#include "linux_fix.h"               // for _finite, stricmp
 #include "marker.h"                  // for MarkerMessages
 #include "mono.h"                    // for mprintf
 #include "multi.h"                   // for Netgame, Multi_requested_damage_...
@@ -885,6 +884,10 @@
 #include "viseffect_external.h"      // for VIS_FIREBALL, vis_effect, VF_USE...
 #include "weapon.h"                  // for Weapons, DoWeaponExploded, Creat...
 #include "weapon_external.h"         // for OMEGA_INDEX
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define PLAYER_ROTATION_BY_FORCE_SCALAR 0.12f
 #define NONPLAYER_ROTATION_BY_FORCE_SCALAR 1.0f

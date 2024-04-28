@@ -344,7 +344,6 @@
 #include "grtext.h"                  // for grfont_GetHeight, grtext_GetText...
 #include "hlsoundlib.h"              // for Sound_system, hlsSystem
 #include "hud.h"                     // for MsgListConsole, tMsgList, HUD_ME...
-#include "linux_fix.h"               // for strnicmp
 #include "marker.h"                  // for Marker_message, DropMarker, MAX_...
 #include "mem.h"                     // for mem_free, mem_malloc, mem_strdup
 #include "mono.h"                    // for mprintf
@@ -359,6 +358,10 @@
 #include "sounds.h"                  // for SOUND_NONE_INDEX
 #include "stringtable.h"             // for TXT_HUDMSGPOPUP_TITLE, TXT_HUDSAY
 #include "textaux.h"                 // for textaux_WordWrap
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define HUD_MESSAGE_NORMAL 0
 #define HUD_MESSAGE_BLINKING 1

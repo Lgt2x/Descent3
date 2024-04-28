@@ -162,7 +162,6 @@
 #include "gametexture.h"                // for FindTextureName
 #include "grdefs.h"                     // for GR_RGB16
 #include "hlsoundlib.h"                 // for Sound_system, hlsSystem
-#include "linux_fix.h"                  // for strcmpi
 #include "mem.h"                        // for mem_free, mem_malloc
 #include "mono.h"                       // for mprintf
 #include "multi_external.h"             // for LR_SERVER, NETSEQ_PLAYING
@@ -189,6 +188,10 @@
 #include "viseffect.h"                  // for VisEffectCreate, VisEffects
 #include "viseffect_external.h"         // for vis_effect, MAX_VIS_EFFECTS
 #include "weapon.h"                     // for WeaponCalcGun
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // Beginning of the real file
 #define LEVEL_DATA_MATCEN_VERSION 1

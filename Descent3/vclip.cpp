@@ -162,12 +162,15 @@
 #include "ctype.h"        // for isalnum
 #include "ddio.h"         // for ddio_SplitPath
 #include "gametexture.h"  // for NORMAL_TEXTURE, SMALL_TEXTURE, TINY_TEXTURE
-#include "linux_fix.h"    // for stricmp
 #include "mem.h"          // for Mem_low_memory_mode, mem_free, mem_malloc
 #include "mono.h"         // for mprintf
 #include "pserror.h"      // for ASSERT, Int3, Error
 #include "pstypes.h"      // for sbyte, ubyte
 #include "renderer.h"     // for TEXTURE_HEIGHT, TEXTURE_WIDTH
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 vclip GameVClips[MAX_VCLIPS];
 int Num_vclips = 0;

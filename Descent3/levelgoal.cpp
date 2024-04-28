@@ -161,7 +161,6 @@
 #include "game.h"                    // for GM_MULTI, Game_mode, Game_window_h
 #include "grdefs.h"                  // for GR_RGB
 #include "hud.h"                     // for AddGameMessage, AddPersistentHUD...
-#include "linux_fix.h"               // for stricmp
 #include "mem.h"                     // for mem_free, mem_malloc
 #include "mono.h"                    // for mprintf
 #include "multi.h"                   // for NetPlayers, Netgame, END_DATA
@@ -183,6 +182,10 @@
 #include "string.h"                  // for strlen, strcpy, strncpy, memcpy
 #include "stringtable.h"             // for TXT_COMPLETED_HUD
 #include "trigger.h"                 // for object, Num_triggers, TF_INFORM_...
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define GOAL_MESSAGE_TIME 10.0
 #define GOAL_MESSAGE_COLOR GR_RGB(0, 242, 148)

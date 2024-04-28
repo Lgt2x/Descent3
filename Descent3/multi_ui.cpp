@@ -325,7 +325,6 @@
 #include "gamefont.h"                // for BIG_BRIEFING_FONT, SMALL_FONT
 #include "grdefs.h"                  // for GR_LIGHTGRAY
 #include "grtext.h"                  // for grtext_GetTextLineWidth, grtext_...
-#include "linux_fix.h"               // for _MAX_PATH, strcmpi
 #include "manage_external.h"         // for IGNORE_TABLE
 #include "mem.h"                     // for mem_free, mem_malloc
 #include "menu.h"                    // for DisplayLevelWarpDlg
@@ -351,6 +350,10 @@
 #include "ui.h"                      // for UIHotspot, UIF_FIT, UIText, UIF_...
 #include "uires.h"                   // for UITextItem
 class ConfigItem;
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // #define USE_DIRECTPLAY
 

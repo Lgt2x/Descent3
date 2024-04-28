@@ -954,7 +954,6 @@
 #include "hlsoundlib.h"        // for Sound_system, hlsSystem, Sound_mixer
 #include "lighting.h"          // for InitDynamicLighting
 #include "lightmap_info.h"     // for InitLightmapInfo
-#include "linux_fix.h"         // for _MAX_PATH, strcmpi
 #include "lnxdatabase.h"       // for read_int
 #include "localization.h"      // for LoadStringTables, Localization_SetLang...
 #include "manage.h"            // for LocalD3Dir, mng_InitTableFiles, mng_Lo...
@@ -993,6 +992,10 @@
 #include "vclip.h"             // for InitVClips
 #include "vibeinterface.h"     // for VIBE_Init
 #include "voice.h"             // for PlayPowerupVoice, PlayVoices, InitVoices
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // Uncomment this for all non-US versions!!
 // #define LASERLOCK

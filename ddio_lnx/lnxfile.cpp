@@ -58,7 +58,6 @@
  */
 
 #include <assert.h>    // for assert
-#include <dirent.h>
 #include <errno.h>     // for errno, EACCES, ESRCH
 #include <signal.h>    // for kill
 #include <stdarg.h>    // for va_arg, va_end, va_list, va_start
@@ -296,6 +295,9 @@ int globerrfn(const char *path, int err) {
 }
 
 #if MACOSX
+#include <ctype.h>    // toupper
+#include <dirent.h>   // DIR
+
 int noglob_findnext(struct find_t *f);
 struct find_t {
   DIR *dir;

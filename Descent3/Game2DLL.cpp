@@ -47,7 +47,6 @@
 #include "grdefs.h"                  // for ddgr_color
 #include "grtext.h"                  // for grfont_GetHeight, grtext_Centere...
 #include "hud.h"                     // for AddBlinkingHUDMessage, AddColore...
-#include "linux_fix.h"               // for _MAX_PATH
 #include "localization.h"            // for CreateStringTable, DestroyString...
 #include "manage.h"                  // for LocalD3Dir, mng_ClearAddonTables
 #include "module.h"                  // for mod_GetLastError, mod_GetSymbol
@@ -80,6 +79,10 @@
 #include "vecmat.h"                  // for calc_det_value, vm_AddVectors
 #include "viseffect.h"               // for AttachRandomNapalmEffectsToObject
 #include "weapon.h"                  // for CreateAndFireWeapon, FindWeaponName
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 void SelectNextCameraView(int window);
 #define NUM_CAMERA_VIEWS 3

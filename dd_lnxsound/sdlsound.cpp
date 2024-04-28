@@ -26,7 +26,6 @@
 #include "ddlnxsound.h"       // for SSF_UNUSED, SSF_PAUSED, SSF_PLAY_LOOPING
 #include "ddsndgeometry.h"    // for llsGeometry, tSoundMaterial
 #include "linux/lnxsound.h"   // for lnxsound, emulated_listener, lnxsound_E...
-#include "linux_fix.h"        // for GlobalFree, GlobalAlloc
 #include "mixer.h"            // for sound_buffer_info, software_mixer, tMix...
 #include "mono.h"             // for mprintf, mprintf_at
 #include "pserror.h"          // for Error, ASSERT
@@ -34,6 +33,9 @@
 #include "vecmat.h"           // for vm_NormalizeVector
 #include "vecmat_external.h"  // for vector, operator*, operator-
 class oeApplication;
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define SOUNDLIB_SAMPLE_RATE 22050
 #define SOUNDLIB_SAMPLE_SIZE 16

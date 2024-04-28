@@ -299,7 +299,6 @@
 #include "gamefont.h"             // for BRIEFING_FONT, BIG_BRIEFING_FONT
 #include "grdefs.h"               // for GR_RGB
 #include "grtext.h"               // for grtext_GetTextLineWidth
-#include "linux_fix.h"            // for _MAX_PATH, Sleep
 #include "lnxdatabase.h"          // for read_int
 #include "localization.h"         // for CreateStringTable, DestroyStringTable
 #include "mem.h"                  // for mem_free_sub, mem_malloc_sub
@@ -329,6 +328,9 @@
 #include "uires.h"                // for UITextItem, UIBitmapItem, UIItem
 #include "uisys.h"                // for ui_Flush, ui_HideCursor, ui_ShowCursor
 
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifdef USE_DIRECTPLAY
 #include "directplay.h"

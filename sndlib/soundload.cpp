@@ -236,7 +236,6 @@
 #include "door.h"                      // for Doors, door
 #include "doorway.h"                   // for doorway
 #include "gametexture.h"               // for GameTextures, MAX_TEXTURES
-#include "linux_fix.h"                 // for GlobalFree, stricmp, strnicmp
 #include "manage_external.h"           // for TBL_SOUND, PAGENAME_LEN
 #include "mono.h"                      // for mprintf
 #include "objinfo.h"                   // for Object_info, MAX_OBJECT_IDS
@@ -250,6 +249,9 @@
 #include "ssl_lib.h"                   // for Sounds, SoundFiles, MAX_SOUNDS
 #include "weapon.h"                    // for Weapons, MAX_WEAPONS, MAX_WEAP...
 
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 int Num_sounds = 0;
 int Num_sound_files = 0;

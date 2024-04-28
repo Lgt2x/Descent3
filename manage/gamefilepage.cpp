@@ -27,12 +27,15 @@
 #include "cfile.h"            // for cf_WriteByte, cfopen, cf_ReadByte, cf_R...
 #include "ddio.h"             // for ddio_MakePath
 #include "gamefile.h"         // for FindGamefileName, gamefile, AllocGamefile
-#include "linux_fix.h"        // for stricmp
 #include "manage.h"           // for PAGETYPE_GAMEFILE, Loading_addon_table
 #include "manage_external.h"  // for PAGENAME_LEN
 #include "mono.h"             // for mprintf
 #include "pserror.h"          // for ASSERT, Error
 #include "pstypes.h"          // for ubyte, ushort
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // gamefilepage commands that are read/written
 // A command is followed by a byte count describing how many bytes

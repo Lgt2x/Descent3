@@ -262,7 +262,6 @@
 #include "cfile.h"                             // for cfclose, cfopen, cfprintf
 #include "ddio.h"                              // for timer_GetTime
 #include "game.h"                              // for Game_mode, SetGamemode...
-#include "linux_fix.h"                         // for Sleep
 #include "manage_external.h"                   // for PAGENAME_LEN
 #include "mono.h"                              // for mprintf
 #include "multi.h"                             // for NetPlayers, Netgame
@@ -282,6 +281,10 @@
 #include "robotfirestruct_external.h"          // for MAX_WB_FIRING_MASKS
 #include "ship.h"                              // for FindShipName, Ships, ship
 #include "stringtable.h"                       // for TXT, TXT_MLTNOLEVELINFO
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifdef USE_DIRECTPLAY
 #include "directplay.h"

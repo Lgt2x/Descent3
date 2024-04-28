@@ -69,8 +69,11 @@
  */
 
 #include "gamepath.h"
-#include "linux_fix.h"  // for stricmp
 #include "mono.h"       // for mprintf
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 game_path GamePaths[MAX_GAME_PATHS];
 int Num_game_paths = 0;

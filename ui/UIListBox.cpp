@@ -164,7 +164,6 @@
 #include "UIlib.h"        // for UI_DOWN_ARROW_CHAR, UI_UP_ARROW_CHAR
 #include "ddio_common.h"  // for KEY_DOWN, KEY_PAGEDOWN, KEY_PAGEUP, KEY_UP
 #include "grdefs.h"       // for ddgr_color, GR_WHITE, GR_DARKGRAY
-#include "linux_fix.h"    // for stricmp
 #include "mono.h"         // for mprintf
 #include "pserror.h"      // for ASSERT
 #include "pstypes.h"      // for ubyte
@@ -173,6 +172,9 @@
 #include "uires.h"        // for UITextItem, UIItem, tUIDrawClass
 #include "uisys.h"        // for UI_TIME, SCREEN_TO_GAD_X, SCREEN_TO_GAD_Y
 
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define SCROLL_BUTTON_GAP 4
 

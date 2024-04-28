@@ -73,8 +73,10 @@
 #include <stdio.h>        // for NULL
 #include <string.h>       // for strstr
 #include "inetgetfile.h"  // for InetGetFile, CFtpGet, ChttpGet, INET_ERROR_...
-#include "linux_fix.h"    // for Sleep
 
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 extern char *Proxy_server;
 extern short Proxy_port;
 

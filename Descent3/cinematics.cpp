@@ -26,10 +26,13 @@
 #include "descent.h"           // for Descent, Base_directory
 #include "game.h"              // for Max_window_h, Max_window_w
 #include "hlsoundlib.h"        // for Sound_system, hlsSystem, Sound_card_name
-#include "linux_fix.h"         // for _MAX_PATH
 #include "mono.h"              // for mprintf
 #include "movie.h"             // for MVELIB_NOERROR, mve_Init, mve_PlayMovie
 #include "subtitles.h"         // for SubtCloseSubtitles, SubtDrawSubtitles
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifdef DEBUG
 static struct {

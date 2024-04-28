@@ -602,7 +602,6 @@
 #include "gametexture.h"                // for SMALL_TEXTURE, TINY_TEXTURE
 #include "grdefs.h"                     // for GR_RGB, GR_RGB16, OPAQUE_FLAG
 #include "hlsoundlib.h"                 // for Sound_system, hlsSystem
-#include "linux_fix.h"                  // for stricmp
 #include "mono.h"                       // for mprintf
 #include "multi.h"                      // for Netgame, MultiSendObject
 #include "multi_external.h"             // for LR_SERVER, LR_CLIENT
@@ -627,6 +626,10 @@
 #include "viseffect.h"                  // for VisEffects, VisEffectCreate
 #include "viseffect_external.h"         // for VIS_FIREBALL, VF_USES_LIFELEFT
 #include "weapon.h"                     // for DrawAlphaBlendedScreen, HAS_FLAG
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // If an objects size is bigger than this, we create size/threshold extra explosions
 #define EXTRA_EXPLOSION_THRESHOLD 15

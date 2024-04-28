@@ -200,7 +200,6 @@
 #include "gametexture.h"             // for FindTextureName, MAX_TEXTURES
 #include "hud.h"                     // for CloseShipHUD, InitShipHUD, LGSGa...
 #include "levelgoal.h"               // for Level_goals, levelgoals
-#include "linux_fix.h"               // for _MAX_PATH, strcmpi
 #include "manage.h"                  // for mng_LoadAddonPages
 #include "marker.h"                  // for MAX_MARKER_MESSAGE_LENGTH
 #include "matcen.h"                  // for Matcen, matcen
@@ -232,6 +231,10 @@
 #include "viseffect_external.h"      // for vis_effect, VIS_FIREBALL, axis_b...
 #include "weapon.h"                  // for Weapons, FindWeaponName, MAX_WEA...
 #include "weather.h"                 // for Weather
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 void PageInAllData();
 

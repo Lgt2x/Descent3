@@ -843,7 +843,6 @@
 #include "hud.h"                        // for AddHUDMessage, GetHUDMode
 #include "levelgoal.h"                  // for Level_goals, levelgoals
 #include "lighting.h"                   // for ClearDynamicLightmaps, Destro...
-#include "linux_fix.h"                  // for Sleep, _MAX_PATH
 #include "marker.h"                     // for Marker_message
 #include "matcen.h"                     // for Matcen, matcen, CreateMatcen
 #include "matcen_external.h"            // for MPC_WHILE_PLAYER_NEAR, MSTAT_...
@@ -887,6 +886,10 @@
 #include "voice.h"                      // for UpdateVoices
 #include "weapon.h"                     // for SelectWeapon, FindWeaponName
 #include "weather.h"                    // for Weather, WEATHER_FLAGS_LIGHTNING
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifdef EDITOR
 #include "editor\d3edit.h"

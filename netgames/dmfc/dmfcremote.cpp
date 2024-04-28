@@ -57,9 +57,12 @@
 #include "encryption.h"      // for IceKey
 #include "gamedll_header.h"  // for DLLAddColoredHUDMessage, DatabaseRead1
 #include "grdefs.h"          // for GR_RGB
-#include "linux_fix.h"       // for strnicmp
 #include "multi_external.h"  // for LR_SERVER, MAX_GAME_DATA_SIZE, MultiAddInt
 #include "pstypes.h"         // for ubyte
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

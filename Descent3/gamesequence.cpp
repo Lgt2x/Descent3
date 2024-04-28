@@ -1073,7 +1073,6 @@
 #include "levelgoal.h"                 // for Level_goals, levelgoals
 #include "lightmap.h"                  // for GameLightmaps
 #include "lightmap_info.h"             // for LightmapInfo, LMI_DYNAMIC, MAX...
-#include "linux_fix.h"                 // for strcmpi, GlobalFree, _MAX_PATH
 #include "manage.h"                    // for mng_LoadAddonPages
 #include "manage_external.h"           // for IGNORE_TABLE, PAGENAME_LEN
 #include "marker.h"                    // for ResetMarkers
@@ -1125,6 +1124,10 @@
 #include "vibeinterface.h"             // for VIBE_DoLevelEnd
 #include "weapon.h"                    // for MAX_WEAPON_SOUNDS, WF_IMAGE_BI...
 #include "weapon_external.h"           // for LASER_INDEX
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 void ResetHudMessages(void);
 

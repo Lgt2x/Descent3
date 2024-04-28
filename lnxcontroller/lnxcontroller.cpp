@@ -55,7 +55,6 @@
 #include "game.h"             // for GM_MULTI, Game_mode
 #include "inffile.h"          // for InfFile, InfFileError
 #include "joystick.h"         // for JOYPOV_CENTER, JOYPOV_DIR, JOYPOV_DOWN
-#include "linux_fix.h"        // for _MAX_FNAME
 #include "mono.h"             // for mprintf
 #include "multi.h"            // for Netgame
 #include "multi_external.h"   // for NF_ALLOW_MLOOK
@@ -68,6 +67,10 @@
 #include "pstypes.h"          // for ubyte, sbyte, longlong, ushort
 #include "vecmat.h"           // for operator*, vm_AnglesToMatrix, vm_Orthog...
 #include "vecmat_external.h"  // for matrix
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define JOY_DEADZONE 0.20f
 #define MOUSE_DEADZONE 0.00f

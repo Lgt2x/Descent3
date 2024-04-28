@@ -517,7 +517,6 @@
 #include "gametexture.h"         // for FindTextureName, GetTextureBitmap
 #include "grtext.h"              // for grtext_Printf, grtext_SetFont, grtex...
 #include "hlsoundlib.h"          // for Sound_system, hlsSystem
-#include "linux_fix.h"           // for _MAX_FNAME, Sleep
 #include "localization.h"        // for Localization_GetLanguage
 #include "manage_external.h"     // for IGNORE_TABLE
 #include "mem.h"                 // for mem_free, mem_malloc
@@ -537,6 +536,10 @@
 #include "textaux.h"             // for textaux_CopyTextLine, textaux_WordWrap
 #include "vecmat.h"              // for vm_AnglesToMatrix, vm_MakeIdentity
 #include "vecmat_external.h"     // for matrix, IDENTITY_MATRIX, vector, angle
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define FRAME_RATE 30.0f
 #define TCPE_TIME 0.5f

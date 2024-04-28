@@ -284,7 +284,6 @@
 #include "gametexture.h"             // for GameTextures, MAX_TEXTURES
 #include "hud.h"                     // for AddHUDMessage, SGSGameMessages
 #include "levelgoal.h"               // for Level_goals, levelgoals
-#include "linux_fix.h"               // for _MAX_PATH, strcmpi
 #include "marker.h"                  // for MAX_MARKER_MESSAGE_LENGTH
 #include "matcen.h"                  // for Matcen, Num_matcens, matcen
 #include "newui.h"                   // for DoMessageBox, DoEditDialog
@@ -311,6 +310,10 @@
 #include "viseffect_external.h"      // for VIS_NONE, vis_effect
 #include "weapon.h"                  // for Weapons, MAX_WEAPONS
 #include "weather.h"                 // for Weather
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // function prototypes.
 

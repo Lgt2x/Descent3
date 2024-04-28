@@ -72,7 +72,10 @@
 #include "SDL_platform.h"  // for __LINUX__
 #include "SDL_thread.h"    // for SDL_CreateThread, SDL_Thread
 #include "inetgetfile.h"   // for CFtpGet, WSAGetLastError, INVALID_SOCKET
-#include "linux_fix.h"     // for strnicmp
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifdef __LINUX__
 void *FTPObjThread( void * obj )

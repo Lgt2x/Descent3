@@ -31,7 +31,6 @@
 #include "fix.h"                        // for angle, FixSin, PI
 #include "game.h"                       // for Frametime, Gametime, GM_MULTI
 #include "gametexture.h"                // for GameTextures, TF_LAVA, TF_VOL...
-#include "linux_fix.h"                  // for _finite
 #include "mono.h"                       // for mprintf, DebugBlockPrint
 #include "multi.h"                      // for Netgame
 #include "multi_external.h"             // for LR_SERVER
@@ -51,6 +50,10 @@
 #include "vibeinterface.h"              // for VIBE_DoForce
 #include "viseffect.h"                  // for VisEffectDelete, VisEffectRelink
 #include "viseffect_external.h"         // for VF_DEAD, vis_effect
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // Global variables for physics system
 ubyte Default_player_terrain_leveling = 0;

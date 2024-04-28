@@ -119,10 +119,11 @@
 
 #include "door.h"
 #include <string.h>     // for memset, NULL
-#include "linux_fix.h"  // for stricmp
 #include "polymodel.h"  // for LoadPolyModel
 #include "pserror.h"    // for ASSERT, Int3
-
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 //	---------------------------------------------------------------------------
 //	Globals
 

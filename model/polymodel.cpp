@@ -610,7 +610,6 @@
 #include "game.h"                      // for Gametime
 #include "gametexture.h"               // for FindTextureBitmapName, FindTex...
 #include "grdefs.h"                    // for GR_RGB
-#include "linux_fix.h"                 // for stricmp, strnicmp
 #include "manage.h"                    // for DataError
 #include "manage_external.h"           // for PAGENAME_LEN
 #include "mem.h"                       // for mem_free, mem_malloc
@@ -627,6 +626,10 @@
 #include "robotfirestruct_external.h"  // for WBF_ANIM_LOCAL, WBF_ANIM_MASKS
 #include "vecmat.h"                    // for vm_ExtractAnglesFromMatrix
 #include "vecmat_external.h"           // for vector, operator*, matrix, ope...
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 int Num_poly_models = 0;
 poly_model Poly_models[MAX_POLY_MODELS];

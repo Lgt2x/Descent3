@@ -127,8 +127,11 @@
 #include "SDL_platform.h"  // for __LINUX__
 #include "SDL_thread.h"    // for SDL_WaitThread, SDL_CreateThread, SDL_Thread
 #include "inetgetfile.h"   // for ChttpGet, WSAGetLastError, HTTP_STATE_UNKN...
-#include "linux_fix.h"     // for strnicmp, Sleep
 #include "mem.h"           // for mem_free, mem_malloc
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifndef WIN32
 #include "mem.h"

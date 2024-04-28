@@ -154,7 +154,6 @@
 #include "cfile.h"      // for cf_WriteByte, cf_ReadByte, cf_ReadString, cf_...
 #include "ddio.h"       // for ddio_MakePath
 #include "door.h"       // for FindDoorName, door, AllocDoor, Doors
-#include "linux_fix.h"  // for stricmp
 #include "manage.h"     // for PAGETYPE_DOOR, Loading_addon_table, mng_FreeP...
 #include "mono.h"       // for mprintf
 #include "object.h"     // for MAX_MODULENAME_LEN
@@ -163,6 +162,10 @@
 #include "pstypes.h"    // for ubyte, sbyte
 #include "soundpage.h"  // for mng_GetGuaranteedSoundPage
 #include "ssl_lib.h"    // for Sounds
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // doorpage commands that are read/written
 // A command is followed by a byte count describing how many bytes

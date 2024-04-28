@@ -178,7 +178,6 @@
 #include "gamefont.h"                   // for SMALL_UI_FONT_INDEX, HUD_FONT...
 #include "grdefs.h"                     // for GR_RGB16, GR_RGB, OPAQUE_FLAG
 #include "idmfc.h"                      // for IDMFC, IDmfcStats, CreateDMFC
-#include "linux_fix.h"                  // for _finite
 #include "manage_external.h"            // for IGNORE_TABLE
 #include "monsterstr.h"                 // for TXT_BLUNDERS, TXT_PILOT, TXT_...
 #include "object_external.h"            // for OBJ_PLAYER, OBJECT_HANDLE_NONE
@@ -188,6 +187,10 @@
 #include "room_external.h"              // for RF_SPECIAL1, room
 #include "ssl_lib.h"                    // for MAX_GAME_VOLUME
 #include "viseffect_external.h"         // for vis_effect, VF_LINK_TO_VIEWER
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;

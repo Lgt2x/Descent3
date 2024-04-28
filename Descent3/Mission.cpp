@@ -657,7 +657,6 @@
 #include "grdefs.h"            // for FIXED_SCREEN_WIDTH, FIXED_SCREEN_HEIGHT
 #include "grtext.h"            // for grtext_SetColor, grtext_SetFont, grtex...
 #include "levelgoal.h"         // for Level_goals, levelgoals
-#include "linux_fix.h"         // for strcmpi, Sleep, _MAX_FNAME, _MAX_PATH
 #include "localization.h"      // for CreateStringTable, DestroyStringTable
 #include "manage.h"            // for LocalD3Dir, mng_SetAddonTable
 #include "manage_external.h"   // for IGNORE_TABLE
@@ -679,6 +678,10 @@
 #include "ship.h"              // for FindShipName, MAX_SHIPS, Ships
 #include "stringtable.h"       // for TXT_MSN_LVLCOMMAND, TXT_MSN_LVLNUMINVALID
 #include "terrain.h"           // for GetTerrainGeometryChecksum, Terrain_ch...
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 //	---------------------------------------------------------------------------
 //	Data

@@ -414,7 +414,6 @@
 #include "game.h"                     // for GM_MULTI, Game_mode, Gametime
 #include "gamecinematics.h"           // for Cinematic_Start, Cinematic_Stop
 #include "gamecinematics_external.h"  // for tCannedCinematicInfo, tGameCine...
-#include "linux_fix.h"                // for _MAX_PATH, stricmp, _MAX_EXT
 #include "localization.h"             // for DestroyStringTable, CreateStrin...
 #include "manage.h"                   // for LocalScriptDir
 #include "mem.h"                      // for mem_free, mem_malloc, mem_strdup
@@ -437,6 +436,10 @@
 #include "pstypes.h"                  // for ubyte, uint, ushort
 #include "trigger.h"                  // for Triggers, object, Num_triggers
 #include "vecmat_external.h"          // for matrix, vector
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifdef _DEBUG
 #define OSIRISDEBUG

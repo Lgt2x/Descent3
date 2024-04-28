@@ -105,7 +105,6 @@
 #include <string.h>       // for strcpy, strlen, strncpy
 #include "cfile.h"        // for cfexist
 #include "ddio.h"         // for ddio_SetWorkingDir, ddio_DirExists, ddio_Ma...
-#include "linux_fix.h"    // for _MAX_PATH, _MAX_FNAME, stricmp
 #include "manage.h"       // for LocalD3Dir
 #include "mem.h"          // for mem_free, mem_malloc, mem_strdup
 #include "mono.h"         // for mprintf
@@ -115,6 +114,10 @@
 #include "renderer.h"     // for rend_Flip
 #include "stringtable.h"  // for TXT_ERROR, TXT_ERRCHOOSEFILE, TXT_ERRFILENO...
 #include "ui.h"           // for UID_CANCEL, UID_OK, UIF_CENTER, UIF_PROCESS...
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 newuiListBox *path_list = NULL;
 char *path_edit = NULL;

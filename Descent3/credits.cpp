@@ -91,13 +91,16 @@
 #include "grdefs.h"           // for GR_RGB, ddgr_color
 #include "grtext.h"           // for grtext_SetAlpha, grfont_GetHeight, grte...
 #include "hlsoundlib.h"       // for Sound_system, hlsSystem
-#include "linux/linux_fix.h"  // for strnicmp
 #include "mem.h"              // for mem_malloc, mem_free
 #include "mono.h"             // for mprintf
 #include "pserror.h"          // for ASSERT, Error
 #include "psrand.h"           // for ps_rand
 #include "pstypes.h"          // for ushort, ubyte
 #include "renderer.h"         // for rend_DrawChunkedBitmap, rend_Flip
+
+#if defined(__LINUX__)
+#include "linux/linux_fix.h"
+#endif
 
 #if defined(WIN32)
 #include <windows.h>

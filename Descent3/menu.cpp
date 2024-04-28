@@ -667,7 +667,6 @@
 #include "game.h"           // for SetGameMode, GM_NORMAL, GM_NONE, SetScree...
 #include "gamesave.h"       // for LoadGameDialog
 #include "gamesequence.h"   // for SimpleStartLevel
-#include "linux_fix.h"      // for strcmpi, _MAX_PATH, _MAX_FNAME, itoa
 #include "manage.h"         // for LocalLevelsDir
 #include "mem.h"            // for mem_free, mem_strdup, mem_malloc
 #include "mmItem.h"         // for mmInterface, MenuScene, OPTIONS_MUSIC_REGION
@@ -684,6 +683,10 @@
 #include "ship.h"           // for Ships, MAX_SHIPS
 #include "stringtable.h"    // for TXT_ERROR, TXT_MENUNEWGAME, TXT_MENUQUIT
 #include "ui.h"             // for UID_OK, UID_CANCEL, UIED_NUMBERS
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifdef _WIN32
 #define USE_DIRECTPLAY

@@ -182,9 +182,12 @@
 #define __PILOT_H_
 
 #include <stdlib.h>       // for NULL
-#include "linux_fix.h"    // for _MAX_PATH
 #include "pilot_class.h"  // for pilot
 #include "pstypes.h"      // for ubyte
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 /*
 #include "controls.h"

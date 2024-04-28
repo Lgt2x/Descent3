@@ -274,7 +274,6 @@
 #include "config.h"       // for Detail_settings
 #include "ddio.h"         // for timer_GetTime
 #include "game.h"         // for FrameCount, Gametime
-#include "linux_fix.h"    // for stricmp, strnicmp
 #include "mem.h"          // for mem_free, mem_malloc, Mem_low_memory_mode
 #include "mono.h"         // for mprintf
 #include "procedurals.h"  // for EvaluateProcedural, InitProcedurals, Defaul...
@@ -282,6 +281,10 @@
 #include "pstypes.h"      // for sbyte, ushort
 #include "renderer.h"     // for TEXTURE_HEIGHT, TEXTURE_WIDTH
 #include "vclip.h"        // for PageInVClip, GameVClips, vclip, AllocLoadVClip
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 int Num_textures = 0;
 texture GameTextures[MAX_TEXTURES];

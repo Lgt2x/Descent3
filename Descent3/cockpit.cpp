@@ -199,7 +199,6 @@
 #include "gauges.h"                  // for FlagGaugesFunctional, FlagGauges...
 #include "hlsoundlib.h"              // for Sound_system, hlsSystem
 #include "hud.h"                     // for HUD_resources, sHUDResources
-#include "linux_fix.h"               // for strcmpi
 #include "manage_external.h"         // for TBL_GAMEFILE, IGNORE_TABLE
 #include "mono.h"                    // for mprintf
 #include "object.h"                  // for Viewer_object, Objects
@@ -214,6 +213,10 @@
 #include "room_external.h"           // for room
 #include "ship.h"                    // for Ships
 #include "sounds.h"                  // for SOUND_COCKPIT
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define COCKPIT_ANIM_TIME 2.0f
 #define COCKPIT_DORMANT_FRAME 0.0

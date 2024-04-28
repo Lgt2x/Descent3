@@ -129,7 +129,11 @@
 #define _DESCENT_H
 
 #include "application.h"  // for oeApplication
-#include "linux_fix.h"    // for _MAX_PATH
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+
 class grScreen;
 class grViewport;
 class oeAppDatabase;

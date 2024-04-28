@@ -81,7 +81,6 @@
 #include "descent.h"                 // for Base_directory
 #include "game.h"                    // for Frametime
 #include "hlsoundlib.h"              // for Sound_system, hlsSystem
-#include "linux_fix.h"               // for _MAX_PATH, stricmp
 #include "mem.h"                     // for mem_free, mem_malloc
 #include "object.h"                  // for Viewer_object
 #include "object_external_struct.h"  // for OBJECT_OUTSIDE
@@ -92,6 +91,10 @@
 #include "room_external.h"           // for room
 #include "soundload.h"               // for FindSoundName
 #include "ssl_lib.h"                 // for Sounds
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define MAX_AMBIENT_SOUND_PATTERNS 100
 asp Ambient_sound_patterns[MAX_AMBIENT_SOUND_PATTERNS];

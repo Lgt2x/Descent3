@@ -269,7 +269,6 @@
 #include "cfile.h"        // for cf_WriteByte, cf_ReadByte, cf_ReadFloat
 #include "ddio.h"         // for ddio_MakePath
 #include "gametexture.h"  // for GameTextures, TF_PROCEDURAL, LoadTextureImage
-#include "linux_fix.h"    // for stricmp, strnicmp
 #include "manage.h"       // for PAGETYPE_TEXTURE, Loading_addon_table, mng_...
 #include "mem.h"          // for mem_free, mem_malloc
 #include "mono.h"         // for mprintf
@@ -277,6 +276,10 @@
 #include "soundpage.h"    // for mng_GetGuaranteedSoundPage
 #include "ssl_lib.h"      // for Sounds
 #include "vclip.h"        // for GameVClips
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // Texpage commands that are read/written
 // A command is followed by a byte count describing how many bytes

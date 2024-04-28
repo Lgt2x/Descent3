@@ -94,7 +94,6 @@
 #include "cfile.h"            // for cfexist, cf_CopyFile
 #include "ddio.h"             // for ddio_DeleteFile, ddio_MakePath
 #include "forcefeedback.h"    // for FF_NOMINALMAX, tFFB_Effect, ddio_Create...
-#include "linux_fix.h"        // for _MAX_PATH
 #include "manage.h"           // for LocalD3Dir
 #include "manage_external.h"  // for IGNORE_TABLE
 #include "mono.h"             // for mprintf
@@ -104,6 +103,10 @@
 #include "rocknride.h"        // for RocknRide_enabled, RNR_UpdateForceFeedb...
 #include "vecmat.h"           // for vm_MatrixMulVector, vm_NormalizeVector
 #include "weapon.h"           // for Weapons, weapon, MAX_WEAPONS, WF_MICROWAVE
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 extern float Gametime;
 

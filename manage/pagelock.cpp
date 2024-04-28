@@ -181,13 +181,16 @@
 #include "cfile.h"      // for cfclose, CFILE, cfopen, cf_WriteByte, cf_Read...
 #include "ddio.h"       // for ddio_MakePath
 #include "debug.h"      // for IDNO, IDYES
-#include "linux_fix.h"  // for stricmp, strupr
 #include "manage.h"     // for ErrorString, mngs_Pagelock, TableLockFilename
 #include "mem.h"        // for mem_free, mem_malloc
 #include "mono.h"       // for mprintf
 #include "pserror.h"    // for OutrageMessageBox, Int3, ASSERT, MBOX_YESNO
 #include "pstypes.h"    // for ubyte
 #include "string.h"     // for strcpy, strlen, memset
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define CURRENT_TABLE_VERSION 22
 extern char *PageNames[];

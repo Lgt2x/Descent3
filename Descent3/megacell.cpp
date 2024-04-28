@@ -39,9 +39,12 @@
 
 #include <stdio.h>      // for NULL
 #include <string.h>     // for memset
-#include "linux_fix.h"  // for stricmp
 #include "megacell.h"   // for MAX_MEGACELLS, megacell, AllocMegacell, DEFAU...
 #include "pserror.h"    // for ASSERT, Int3
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 megacell Megacells[MAX_MEGACELLS];
 int Num_megacells = 0;

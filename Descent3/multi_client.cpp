@@ -141,7 +141,6 @@
 #include "ddio.h"             // for timer_GetTime
 #include "descent.h"          // for SetFunctionMode, function_mode
 #include "game.h"             // for Frametime, SetGamemodeScript, GM_NETWORK
-#include "linux_fix.h"        // for Sleep
 #include "manage_external.h"  // for PAGENAME_LEN
 #include "mono.h"             // for mprintf
 #include "multi.h"            // for NetPlayers, END_DATA, START_DATA, Netgame
@@ -156,6 +155,10 @@
 #include "pstypes.h"          // for ubyte, ushort
 #include "ship.h"             // for FindShipName, Ships
 #include "stringtable.h"      // for TXT_MLTDISCFRMSERV, TXT_RELIABLE_OVERRUN
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define WEAPONS_LOAD_UPDATE_INTERVAL 2.0
 

@@ -120,7 +120,6 @@
 #include "game.h"             // for EndFrame, Max_window_h, Max_window_w
 #include "grtext.h"           // for grtext_Printf, grtext_Flush, grtext_Set...
 #include "hlsoundlib.h"       // for Sound_system, hlsSystem
-#include "linux_fix.h"        // for _MAX_PATH
 #include "manage_external.h"  // for IGNORE_TABLE
 #include "mem.h"              // for mem_free, mem_strdup
 #include "newui_core.h"       // for SetUICallback, DoUIFrame, DEFAULT_UICAL...
@@ -131,6 +130,10 @@
 #include "soundload.h"        // for FindSoundName
 #include "uidraw.h"           // for ui_DrawSetFont, ui_DrawSetTextType, ui_...
 #include "uisys.h"            // for UI_TIME, PT_IN_GADGET, UILMSEBTN, UI_input
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #if defined(RELEASE)
 #include "buildno.h"

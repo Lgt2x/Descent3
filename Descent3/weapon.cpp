@@ -347,7 +347,6 @@
 #include "grdefs.h"                    // for GR_RGB, ddgr_color
 #include "hlsoundlib.h"                // for Sound_system, hlsSystem
 #include "hud.h"                       // for AddHUDMessage, ResetReticle
-#include "linux_fix.h"                 // for strnicmp
 #include "object.h"                    // for Objects
 #include "object_external.h"           // for OBJ_PLAYER, OBJ_WEAPON
 #include "objinfo.h"                   // for Object_info, MAX_OBJECT_IDS
@@ -364,6 +363,10 @@
 #include "sounds.h"                    // for SOUND_DO_NOT_HAVE_IT, SOUND_CH...
 #include "stringtable.h"               // for TXT_WPNNOTAVAIL, TXT, TXT_WPNS...
 #include "vclip.h"                     // for AllocLoadVClip, GameVClips
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define LOGFILE(_s)
 

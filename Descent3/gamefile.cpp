@@ -19,8 +19,11 @@
 #include "gamefile.h"
 #include <stdio.h>      // for NULL
 #include <string.h>     // for memset
-#include "linux_fix.h"  // for stricmp
 #include "pserror.h"    // for ASSERT, Int3
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 gamefile Gamefiles[MAX_GAMEFILES];
 int Num_gamefiles = 0;

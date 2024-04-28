@@ -69,13 +69,16 @@
 #include <string.h>       // for strcpy, memset, NULL, memcpy, strlen
 #include "cfile.h"        // for cf_WriteByte, cf_ReadByte, cf_ReadString
 #include "gametexture.h"  // for GameTextures
-#include "linux_fix.h"    // for stricmp
 #include "manage.h"       // for PAGETYPE_MEGACELL, EndManagePage, StartMana...
 #include "megacell.h"     // for MAX_MEGACELL_HEIGHT, MAX_MEGACELL_WIDTH
 #include "mono.h"         // for mprintf
 #include "pserror.h"      // for ASSERT, Int3
 #include "pstypes.h"      // for ubyte, ushort
 #include "texpage.h"      // for mng_GetGuaranteedTexturePage
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // megacellpage commands that are read/written
 // A command is followed by a byte count describing how many bytes

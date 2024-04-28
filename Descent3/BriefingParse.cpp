@@ -71,11 +71,15 @@
 #include "cfile.h"          // for CFILE, CFileFlags, cfclose, cfeof, cfgetc
 #include "gamefont.h"       // for BBRIEF_FONT_INDEX, BRIEF_FONT_INDEX
 #include "grdefs.h"         // for GR_RGB
-#include "linux_fix.h"      // for stricmp, strnicmp, _MAX_PATH
 #include "mem.h"            // for mem_free, mem_malloc
 #include "mono.h"           // for mprintf
 #include "pserror.h"        // for Int3, ASSERT
 #include "voice.h"          // for VF_16BIT, VF_8BIT, VF_COMPRESSED, VF_FORCE
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+
 //	constructor
 CBriefParse::CBriefParse() {
   AddTextEffect = NULL;

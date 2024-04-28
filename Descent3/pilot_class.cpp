@@ -140,7 +140,6 @@
 #include "ddio.h"                 // for ddio_MakePath
 #include "difficulty_external.h"  // for DIFFICULTY_ROOKIE
 #include "hud.h"                  // for STAT_INVENTORY, tHUDMode, STAT_STAN...
-#include "linux_fix.h"            // for _MAX_PATH
 #include "manage_external.h"      // for PAGENAME_LEN
 #include "mem.h"                  // for mem_free, mem_strdup, mem_malloc
 #include "mono.h"                 // for mprintf
@@ -148,6 +147,10 @@
 #include "pserror.h"              // for Int3, ASSERT
 #include "ship.h"                 // for DEFAULT_SHIP
 #include "stringtable.h"          // for TXT, TXT_TAUNT_TEXT
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define __PILOT_H_ // don't want to include pilot.h right now
 

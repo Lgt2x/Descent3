@@ -28,7 +28,6 @@
 #include "descent.h"          // for Descent3_temp_directory
 #include "game.h"             // for GM_MULTI, Game_mode
 #include "game2dll.h"         // for DLLInfo, CallGameDLL
-#include "linux_fix.h"        // for _MAX_PATH
 #include "manage.h"           // for LocalCustomSoundsDir
 #include "mem.h"              // for mem_free, mem_malloc
 #include "mono.h"             // for mprintf
@@ -42,6 +41,10 @@
 #include "ssl_lib.h"          // for MAX_GAME_VOLUME
 #include "streamaudio.h"      // for OSFArchive, StreamPlay, OSF_DIGIACM_STRM
 #include "stringtable.h"      // for TXT_BADBITDEPTH, TXT_BADSAMPLERATE, TXT...
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 typedef struct {
   int sample_length;

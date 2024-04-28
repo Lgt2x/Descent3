@@ -71,7 +71,6 @@
 #include <stdlib.h>               // for atoi
 #include <string.h>               // for strtok, strcat, strcpy
 #include "cfile.h"                // for cf_WriteString, cfopen, CFILE, cf_R...
-#include "linux_fix.h"            // for strcmpi
 #include "mono.h"                 // for mprintf
 #include "multi.h"                // for Netgame
 #include "multi_external.h"       // for NF_ALLOW_MLOOK, NF_BRIGHT_PLAYERS
@@ -80,6 +79,10 @@
 #include "objinfo.h"              // for Object_info, FindObjectIDName, MAX_...
 #include "player.h"               // for PlayerIsShipAllowed, PlayerSetShipP...
 #include "ship.h"                 // for Ships, MAX_SHIPS
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 int MultiSaveSettings(char *filename) {
   CFILE *cf;

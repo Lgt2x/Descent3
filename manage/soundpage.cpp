@@ -126,12 +126,15 @@
 #include "args.h"       // for FindArg, GameArgs
 #include "cfile.h"      // for cf_WriteByte, cf_ReadInt, cf_WriteInt, cf_Rea...
 #include "ddio.h"       // for ddio_MakePath
-#include "linux_fix.h"  // for stricmp
 #include "manage.h"     // for PAGETYPE_SOUND, Loading_addon_table, mng_Push...
 #include "mono.h"       // for mprintf
 #include "pserror.h"    // for ASSERT, Int3
 #include "pstypes.h"    // for ubyte
 #include "soundload.h"  // for FindSoundName, AllocSound, LoadSoundFile
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // soundpage commands that are read/written
 // A command is followed by a byte count describing how many bytes

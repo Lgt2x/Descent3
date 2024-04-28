@@ -1680,7 +1680,6 @@
 #include "init.h"                      // for LastPacketReceived, ServerTimeout
 #include "levelgoal.h"                 // for Level_goals, levelgoals
 #include "levelgoal_external.h"        // for LO_SET_SPECIFIED, LO_CLEAR_SPE...
-#include "linux_fix.h"                 // for _MAX_PATH, Sleep, strnicmp
 #include "manage.h"                    // for LocalCustomSoundsDir
 #include "manage_external.h"           // for PAGENAME_LEN, IGNORE_TABLE
 #include "marker.h"                    // for MarkerMessages
@@ -1715,6 +1714,10 @@
 #include "weapon.h"                    // for ReleaseGuidedMissile, ReleaseU...
 #include "weapon_external.h"           // for LASER_INDEX, CONCUSSION_INDEX
 #include "weather.h"                   // for Weather
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 void MultiProcessShipChecksum(MD5 *md5, int ship_index);
 

@@ -217,10 +217,13 @@
 #include "gamefont.h"          // for BBRIEF_FONT_INDEX
 #include "grdefs.h"            // for GR_RGB
 #include "hlsoundlib.h"        // for Sound_system, hlsSystem
-#include "linux_fix.h"         // for strnicmp
 #include "mem.h"               // for mem_free, mem_malloc
 #include "mono.h"              // for mprintf
 #include "pstypes.h"           // for uint
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 typedef struct {
   char *name;

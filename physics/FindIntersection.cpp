@@ -865,7 +865,6 @@
 #include <cmath>                        // for fabs, sqrt
 #include "bitmap.h"                     // for BITMAP_FORMAT_4444, GameBitmaps
 #include "findintersection_external.h"  // for HIT_NONE, HIT_OUT_OF_TERRAIN_...
-#include "linux_fix.h"                  // for _finite
 #include "mono.h"                       // for mprintf
 #include "object.h"                     // for Objects, BigObjectList, OBJNUM
 #include "object_external.h"            // for OBJ_ROOM, OBJ_PLAYER, OF_POLY...
@@ -876,6 +875,10 @@
 #include "room_external.h"              // for RF_EXTERNAL, room, face, MAX_...
 #include "vecmat.h"                     // for vm_NormalizeVector, vm_Vector...
 #include "vecmat_external.h"            // for vector, operator*, operator+
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifndef NED_PHYSICS
 #include "gametexture.h"

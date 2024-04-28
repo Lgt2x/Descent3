@@ -78,8 +78,11 @@
 #include "SDL_video.h"     // for SDL_GetVideoSurface, SDL_FillRect, SDL_MapRGB
 #include "application.h"   // for OEAPP_CONSOLE
 #include "linux/lnxapp.h"  // for oeLnxApplication, tLnxAppInfo
-#include "linux_fix.h"     // for GlobalAlloc, GlobalFree, GlobalLock, HGLOBAL
 #include "mono.h"          // for mprintf
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 static struct termios Linux_initial_terminal_settings;
 

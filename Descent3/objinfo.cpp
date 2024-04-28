@@ -31,7 +31,6 @@
 #include <stdio.h>      // for NULL
 #include <stdlib.h>     // for atexit
 #include <string.h>     // for memset
-#include "linux_fix.h"  // for stricmp
 #include "mem.h"        // for mem_free, mem_malloc
 #include "mono.h"       // for mprintf
 #include "object.h"     // for Objects, Highest_object_index
@@ -39,6 +38,10 @@
 #include "pserror.h"    // for ASSERT, Error, Int3
 #include "robotfire.h"  // for WBClearInfo
 #include "sounds.h"     // for SOUND_NONE_INDEX
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // The array with information for robots, powerups, buildings, etc.
 object_info Object_info[MAX_OBJECT_IDS];

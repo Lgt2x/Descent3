@@ -1122,7 +1122,6 @@
 #include "grdefs.h"                     // for GR_RGB
 #include "hlsoundlib.h"                 // for Sound_system, hlsSystem
 #include "hud.h"                        // for AddHUDMessage, SetHUDMode
-#include "linux_fix.h"                  // for _finite
 #include "mono.h"                       // for mprintf
 #include "multi.h"                      // for Netgame, NetPlayers, MultiMak...
 #include "multi_external.h"             // for LR_SERVER, MAX_NET_PLAYERS
@@ -1161,6 +1160,10 @@
 #include "viseffect.h"                  // for VisEffects, CreateRandomSparks
 #include "weapon.h"                     // for HAS_FLAG, ClearPlayerFiring
 #include "weapon_external.h"            // for LASER_INDEX, CONCUSSION_INDEX
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 player Players[MAX_PLAYERS];
 int Player_num;

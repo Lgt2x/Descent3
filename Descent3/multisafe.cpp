@@ -659,7 +659,6 @@
 #include "hud.h"                       // for AddFilteredHUDMessage, AddHUDItem
 #include "levelgoal.h"                 // for Level_goals, levelgoals
 #include "levelgoal_external.h"        // for LO_SET_SPECIFIED, LGF_COMP_DES...
-#include "linux_fix.h"                 // for strnicmp
 #include "manage_external.h"           // for IGNORE_TABLE
 #include "mono.h"                      // for mprintf
 #include "multi.h"                     // for Netgame, NetPlayers, MultiEndL...
@@ -696,6 +695,10 @@
 #include "weapon.h"                    // for FindWeaponName, AddWeaponToPlayer
 #include "weapon_external.h"           // for CONCUSSION_INDEX, FRAG_INDEX
 #include "weather.h"                   // for SetLightningState, SetRainState
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 /*
         The following functions have been added or modified by Matt and/or someone else other than Jason,

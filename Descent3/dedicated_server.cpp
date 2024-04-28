@@ -126,7 +126,6 @@
 #include "hud.h"                     // for GetMessageDestination, HUD_MESSA...
 #include "inffile.h"                 // for InfFile, InfFileError
 #include "init.h"                    // for ServerTimeout, LastPacketReceived
-#include "linux/linux_fix.h"         // for _MAX_PATH
 #include "manage_external.h"         // for IGNORE_TABLE, PAGENAME_LEN
 #include "mem.h"                     // for mem_free, mem_malloc
 #include "mono.h"                    // for mprintf
@@ -146,6 +145,10 @@
 #include "rtperformance.h"           // for rtp_StartLog, rtp_StopLog
 #include "ship.h"                    // for Ships, MAX_SHIPS
 #include "stringtable.h"             // for TXT_DS_ENTERPASS, TXT_DS_BADCOMMAND
+
+#if defined(__LINUX__)
+#include "linux/linux_fix.h"
+#endif
 
 bool Dedicated_server = false;
 

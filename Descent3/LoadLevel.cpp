@@ -1267,7 +1267,6 @@
 #include "lighting.h"                  // for Float_to_ubyte
 #include "lightmap.h"                  // for MAX_LIGHTMAPS, lm_data, GameLi...
 #include "lightmap_info.h"             // for LightmapInfo, MAX_LIGHTMAP_INFOS
-#include "linux_fix.h"                 // for strcmpi, stricmp
 #include "localization.h"              // for DestroyStringTable, CreateStri...
 #include "manage_external.h"           // for PAGENAME_LEN, IGNORE_TABLE
 #include "matcen.h"                    // for DestroyAllMatcens, Matcen, Num...
@@ -1301,6 +1300,10 @@
 #include "weapon.h"                    // for Weapons, WF_IMAGE_BITMAP, WF_I...
 #include "weapon_external.h"           // for LASER_INDEX
 class MD5;
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifdef NEWEDITOR
 #include "..\neweditor\stdafx.h"

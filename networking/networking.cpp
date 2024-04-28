@@ -314,12 +314,15 @@ typedef int socklen_t;
 #include "cfile.h"         // for cfprintf, CFILE, cfclose, cfopen
 #include "ddio.h"          // for timer_GetTime
 #include "descent.h"       // for Database
-#include "linux_fix.h"     // for strcmpi, _MAX_PATH
 #include "mem.h"           // for mem_free, mem_malloc
 #include "mono.h"          // for mprintf
 #include "networking.h"    // for network_address, SOCKADDR_IN, NP_TCP, MAXN...
 #include "pserror.h"       // for ASSERT, Int3
 #include "pstypes.h"       // for ubyte, ushort, uint
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define TRUE true
 #define FALSE false

@@ -34,11 +34,14 @@
 #include "byteswap.h"         // for convert_le, INTEL_FLOAT, INTEL_INT, INT...
 #include "ddio.h"             // for ddio_SplitPath, ddio_MakePath, ddio_Get...
 #include "hogfile.h"          // for HOG_TAG_STR, ReadHogEntry, ReadHogHeader
-#include "linux/linux_fix.h"  // for _MAX_PATH, stricmp, _MAX_EXT, _chmod
 #include "mem.h"              // for mem_free, mem_malloc
 #include "mono.h"             // for mprintf
 #include "pserror.h"          // for ASSERT, Error, Int3
 #include "psglob.h"           // for PSGlobMatch, PSGlobHasPattern
+
+#if defined(__LINUX__)
+#include "linux/linux_fix.h"
+#endif
 
 #ifdef __LINUX__
 #include <glob.h>

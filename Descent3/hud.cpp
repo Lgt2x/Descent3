@@ -431,7 +431,6 @@
 #include "gamefont.h"                  // for HUD_FONT
 #include "grdefs.h"                    // for GR_GREEN, GR_RED, GR_RGB, GR_BLUE
 #include "grtext.h"                    // for grtext_Flush, grtext_SetFontScale
-#include "linux_fix.h"                 // for strcmpi
 #include "manage_external.h"           // for IGNORE_TABLE
 #include "mem.h"                       // for mem_free, mem_malloc, mem_strdup
 #include "mono.h"                      // for mprintf, mprintf_at
@@ -453,6 +452,10 @@
 #include "ship.h"                      // for Ships, ship
 #include "stringtable.h"               // for TXT_DEMOPAUSED, TXT_ENABLED_CO...
 #include "weapon_external.h"           // for MASSDRIVER_INDEX
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 //	constants

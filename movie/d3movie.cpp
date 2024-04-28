@@ -40,12 +40,15 @@
 #include "gamefont.h"                                          // for BRIEFI...
 #include "grdefs.h"                                            // for GR_RGB16
 #include "grtext.h"                                            // for grtext...
-#include "linux_fix.h"                                         // for stricmp
 #include "mem.h"                                               // for mem_free
 #include "mono.h"                                              // for mprintf
 #include "movie.h"                                             // for MVELIB...
 #include "pstypes.h"                                           // for ushort
 #include "renderer.h"                                          // for rend_S...
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 namespace {
 MovieFrameCallback_fp Movie_callback = NULL;

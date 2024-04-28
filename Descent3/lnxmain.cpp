@@ -35,12 +35,15 @@
 #include "args.h"          // for FindArgChar, FindArg, GameArgs, GatherArgs
 #include "descent.h"       // for Descent3, Database, Descent
 #include "init.h"          // for PreInitD3Systems
-#include "linux_fix.h"     // for LOKI_VERSION, _MAX_PATH
 #include "lnxapp.h"        // for APPFLAG_USESERVICE, oeLnxApplication, APPF...
 #include "lnxdatabase.h"   // for oeLnxAppDatabase
 #include "loki_utils.h"    // for loki_getdatapath, loki_initialize, loki_re...
 #include "osiris_share.h"  // for tOSIRISModuleInit
 #include "program.h"       // for D3_BUILD, D3_MAJORVER, D3_MINORVER
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifdef __PERMIT_MAKEHOG
 #include <dirent.h>

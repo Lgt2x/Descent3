@@ -91,11 +91,14 @@
 #include <string.h>     // for strlen, strcpy, strcat, strncmp
 #include "cfile.h"      // for cfopen, cf_ReadString, cfclose, cfeof, CFILE
 #include "ddio.h"       // for ddio_MakePath, ddio_SplitPath
-#include "linux_fix.h"  // for _MAX_PATH, _MAX_FNAME
 #include "mem.h"        // for mem_free, mem_malloc
 #include "mono.h"       // for mprintf
 #include "pserror.h"    // for ASSERT, Int3
 #include "pstypes.h"    // for sbyte, ubyte
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 typedef struct {
   char *tag;

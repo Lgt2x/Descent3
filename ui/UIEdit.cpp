@@ -138,13 +138,16 @@
 #include "ddio_common.h"  // for KEY_ENTER, KEY_BACKSP, KEY_DELETE, KEY_ESC
 #include "grdefs.h"       // for GR_RGB, GR_WHITE, ddgr_color
 #include "grtext.h"       // for grfont_KeyToAscii
-#include "linux_fix.h"    // for itoa
 #include "mem.h"          // for mem_free, mem_malloc
 #include "mono.h"         // for mprintf
 #include "pserror.h"      // for ASSERT
 #include "ui.h"           // for UIEdit, UIGadget, UIWindow, UIED_NUMBERS
 #include "uidraw.h"       // for ui_GetTextWidth, ui_SetCharAlpha, ui_DrawSt...
 #include "uisys.h"        // for PT_IN_GADGET, UI_TIME, UI_input, UILMSEBTN
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 static UIEdit *UI_current_editbox = NULL;
 

@@ -364,7 +364,6 @@
 #include "ddio.h"                      // for ddio_MakePath
 #include "deathinfo_external.h"        // for DF_UNUSED
 #include "genericpage.h"               // for mngs_generic_page, mng_AssignG...
-#include "linux_fix.h"                 // for stricmp, strnicmp
 #include "manage.h"                    // for PAGETYPE_GENERIC, Loading_addo...
 #include "manage_external.h" generic          // for PAGENAME_LEN
 #include "mem.h"                       // for mem_malloc, mem_free
@@ -384,6 +383,10 @@
 #include "weapon.h"                    // for Weapons
 #include "weapon_external.h"           // for LASER_INDEX
 #include "weaponpage.h"                // for mng_GetGuaranteedWeaponPage
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define GENERICFILE_VERSION 27
 

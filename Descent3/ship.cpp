@@ -103,7 +103,6 @@
 #include "ship.h"
 #include <stdio.h>            // for NULL
 #include <string.h>           // for memset
-#include "linux_fix.h"        // for stricmp
 #include "object.h"           // for Objects
 #include "object_external.h"  // for OBJ_PLAYER
 #include "objinfo.h"          // for DEFAULT_LO_LOD_DISTANCE, DEFAULT_MED_LO...
@@ -111,6 +110,10 @@
 #include "polymodel.h"        // for LoadPolyModel
 #include "pserror.h"          // for ASSERT, Int3
 #include "robotfire.h"        // for WBClearInfo
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #define DEFAULT_SHIP_SIZE 4.0
 

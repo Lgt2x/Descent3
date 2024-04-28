@@ -57,12 +57,15 @@
 #include "cfile.h"      // for CFILE, cf_ReadString, cfclose, cfeof, cfopen
 #include "ddio.h"       // for ddio_MakePath
 #include "grdefs.h"     // for GR_RGB, ddgr_color
-#include "linux_fix.h"  // for _MAX_FNAME, _MAX_PATH, strnicmp
 #include "manage.h"     // for LocalD3Dir
 #include "mem.h"        // for mem_free, mem_malloc
 #include "mono.h"       // for mprintf
 #include "movie.h"      // for mve_ClearRect, mve_Puts
 #include "pserror.h"    // for ASSERT, Error
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // Subtitle data
 typedef struct {

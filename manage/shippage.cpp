@@ -208,7 +208,6 @@
 #include "cfile.h"               // for cf_WriteByte, cf_ReadByte, cf_ReadFloat
 #include "ddio.h"                // for ddio_MakePath
 #include "genericpage.h"         // for mng_GetGuaranteedGenericPage
-#include "linux_fix.h"           // for stricmp
 #include "manage.h"              // for PAGETYPE_SHIP, Loading_addon_table
 #include "mono.h"                // for mprintf
 #include "object_external.h"     // for OBJ_POWERUP
@@ -225,6 +224,10 @@
 #include "weapon.h"              // for Weapons
 #include "weapon_external.h"     // for FUSION_INDEX, LASER_INDEX
 #include "weaponpage.h"          // for mng_GetGuaranteedWeaponPage
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // shippage commands that are read/written
 // A command is followed by a byte count describing how many bytes

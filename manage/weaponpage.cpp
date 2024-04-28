@@ -299,7 +299,6 @@
 #include "ddio.h"                    // for ddio_MakePath
 #include "gametexture.h"             // for GameTextures, NOT_TEXTURE
 #include "genericpage.h"             // for mng_GetGuaranteedGenericPage
-#include "linux_fix.h"               // for stricmp, strnicmp
 #include "manage.h"                  // for PAGETYPE_WEAPON, Loading_addon_t...
 #include "mono.h"                    // for mprintf
 #include "object_external_struct.h"  // for light_info
@@ -313,6 +312,10 @@
 #include "texpage.h"                 // for mng_GetGuaranteedTexturePage
 #include "vclip.h"                   // for AllocLoadVClip, GameVClips
 #include "weapon.h"                  // for MAX_WEAPON_SOUNDS, FindWeaponName
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 // weaponpage commands that are read/written
 // A command is followed by a byte count describing how many bytes

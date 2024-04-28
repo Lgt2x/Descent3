@@ -489,7 +489,6 @@
 #include "gametexture.h"             // for TF_ANIMATED, texture
 #include "grdefs.h"                  // for GR_RGB, ddgr_color, GR_COLOR_BLUE
 #include "hud.h"                     // for HUD_ITEM_CUSTOMTEXT, HUDTEXT_CEN...
-#include "linux_fix.h"               // for _MAX_PATH
 #include "manage_external.h"         // for IGNORE_TABLE
 #include "multi_external.h"          // for LR_SERVER, NF_PEER_PEER, NF_TIMER
 #include "networking.h"              // for network_address, NP_TCP, NP_NONE
@@ -510,6 +509,11 @@
 #include "viseffect_external.h"      // for vis_effect
 #include "weapon.h"                  // for MAX_WEAPONS, weapon
 class IMenuItem;
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+
 
 char **DMFCStringTable;
 int DMFCStringTableSize = 0;
