@@ -1083,24 +1083,24 @@ void PreGameCdCheck() {
   CD_inserted = 0;
   do {
 #if defined(OEM)
-    p = ddio_GetCDDrive("D3OEM_1");
+    const char* p = ddio_GetCDDrive("D3OEM_1");
     if (p && *p) {
       CD_inserted = 1;
       break;
     }
 #else
-    p = ddio_GetCDDrive("D3_DVD");
+    const char* p = ddio_GetCDDrive("D3_DVD");
     if (p && *p) {
       CD_inserted = 3;
       break;
     }
-    p = ddio_GetCDDrive("D3_1");
-    if (p && *p) {
+    const char* p2 = ddio_GetCDDrive("D3_1");
+    if (p2 && *p2) {
       CD_inserted = 1;
       break;
     }
-    p = ddio_GetCDDrive("D3_2");
-    if (p && *p) {
+    const char* p3 = ddio_GetCDDrive("D3_2");
+    if (p3 && *p3) {
       CD_inserted = 2;
       break;
     }

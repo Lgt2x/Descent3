@@ -1167,8 +1167,7 @@ bool MenuNewGame() {
     FirstGame = true;
 
     char temppath[PSPATHNAME_LEN];
-    char *moviepath;
-    moviepath = GetMultiCDPath("level1.mve");
+    const char* moviepath = GetMultiCDPath("level1.mve");
     if (moviepath) {
       strcpy(temppath, moviepath);
       PlayMovie(temppath);
