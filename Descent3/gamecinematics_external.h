@@ -132,7 +132,7 @@ typedef struct {
 
   int camera_pathid;
   int target_pathid;
-  char *text_to_display;
+  const char *text_to_display;
 
   int target_objhandle;
 

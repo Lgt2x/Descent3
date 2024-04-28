@@ -36,7 +36,7 @@ const char *GetArg(int index) {
 }
 
 // Gathers all arguments
-void GatherArgs(char *str) {
+void GatherArgs(const char *str) {
   int i, t;
   static int curarg = 1; // DAJ made static
   int len = strlen(str);
@@ -75,7 +75,7 @@ void GatherArgs(char *str) {
     mprintf((0, "GatherArgs: Arg (%d) is [%s].", q, GameArgs[q]));
 }
 
-void GatherArgs(char **argv) {
+void GatherArgs(const char **argv) {
   TotalArgs = 0;
 
   for (int i = 0; ((i < MAX_ARGS) && (argv[i] != NULL)); i++) {
@@ -87,7 +87,7 @@ void GatherArgs(char **argv) {
     mprintf((0, "GatherArgs: Arg (%d) is [%s].", q, GameArgs[q]));
 } // GatherArgs
 
-int FindArg(char *which) {
+int FindArg(const char *which) {
   if (which == NULL)
     return (0);
 
@@ -120,7 +120,7 @@ int FindArg(char *which) {
 } // FindArg
 
 // Returns index of argument sought, or 0 if not found
-int FindArgChar(char *which, char singleCharArg) {
+int FindArgChar(const char *which, char singleCharArg) {
 #ifdef __LINUX__
   for (int i = 1; i <= TotalArgs; i++) {
     char *str = GameArgs[i];

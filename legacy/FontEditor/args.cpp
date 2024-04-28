@@ -92,7 +92,7 @@ void GatherArgs (char *str)
 }
  
 // Returns index of argument sought, or 0 if not found
-int FindArg (char *which)
+int FindArg (const char *which)
  {
   int i;
   

@@ -614,7 +614,7 @@ int pilot::read(bool skip_config, bool skip_mission_data) {
   return PLTR_NO_ERROR;
 }
 
-void pilot::set_name(char *n) {
+void pilot::set_name(const char *n) {
   if (name) {
     mem_free(name);
     name = NULL;
@@ -640,7 +640,7 @@ void pilot::get_name(char *n) {
   }
 }
 
-void pilot::set_ship(char *ship) {
+void pilot::set_ship(const char *ship) {
   if (ship_model) {
     mem_free(ship_model);
     ship_model = NULL;
@@ -666,7 +666,7 @@ void pilot::get_ship(char *ship) {
   }
 }
 
-void pilot::set_multiplayer_data(char *logo, char *audio1, char *audio2, ushort *ppic, char *audio3, char *audio4) {
+void pilot::set_multiplayer_data(const char *logo, const char *audio1, const char *audio2, const ushort *ppic, const char *audio3, const char *audio4) {
   if (logo) {
     if (ship_logo) {
       mem_free(ship_logo);

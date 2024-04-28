@@ -1085,7 +1085,7 @@ inline int count_missions(const char *pathname, const char *wildcard) {
 
   if (ddio_FindFileStart(fullpath, filename)) {
     do {
-      char *name;
+      const char *name;
       ddio_MakePath(fullpath, pathname, filename, NULL);
 
       if (strcmpi("d3_2.mn3", filename) == 0)
