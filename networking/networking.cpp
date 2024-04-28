@@ -293,14 +293,28 @@
 typedef int socklen_t;
 #endif
 
+#include <stdlib.h>
+#include <string.h>
+#include "descent.h"
+#include "appdatabase.h"
+#include "pstypes.h"
+#include "pserror.h"
+#include "mono.h"
+#include "networking.h"
+#include "ddio.h"
+#include "mem.h"
+#include "game.h"
+#include "args.h"
+#include "byteswap.h"
+#include "pstring.h"
+
+
 #ifdef __LINUX__
 
 #include <arpa/inet.h>     // for htons, ntohs, inet_addr, inet_ntoa
 #include <netdb.h>         // for gethostbyname, hostent
 #include <netinet/in.h>    // for sockaddr_in, in_addr, INADDR_NONE, INADDR_ANY
 #include <stdio.h>         // for sprintf
-#include <stdlib.h>        // for atexit, qsort, free
-#include <string.h>        // for memcpy, memset, memcmp, strcpy
 #include <sys/ioctl.h>     // for ioctl, FIONBIO
 #include <sys/select.h>    // for select, FD_SET, FD_ZERO, fd_set
 #include <sys/socket.h>    // for setsockopt, SOL_SOCKET, getsockopt, shutdown
@@ -308,26 +322,16 @@ typedef int socklen_t;
 #include <unistd.h>        // for NULL, close
 #include "SDL_platform.h"  // for __LINUX__
 #include "SDL_thread.h"    // for SDL_WaitThread, SDL_CreateThread
-#include "appdatabase.h"   // for oeAppDatabase
-#include "args.h"          // for FindArg, GameArgs
-#include "byteswap.h"      // for convert_le, INTEL_SHORT, INTEL_FLOAT, INTE...
 #include "cfile.h"         // for cfprintf, CFILE, cfclose, cfopen
 #include "ddio.h"          // for timer_GetTime
-#include "descent.h"       // for Database
-#include "mem.h"           // for mem_free, mem_malloc
-#include "mono.h"          // for mprintf
-#include "networking.h"    // for network_address, SOCKADDR_IN, NP_TCP, MAXN...
-#include "pserror.h"       // for ASSERT, Int3
-#include "pstypes.h"       // for ubyte, ushort, uint
-
-#if defined(__LINUX__)
 #include "linux_fix.h"
-#endif
 
 #define TRUE true
 #define FALSE false
 #define LPSTR char *
 #endif
+
+
 
 #ifdef WIN32
 #include "dplay.h"

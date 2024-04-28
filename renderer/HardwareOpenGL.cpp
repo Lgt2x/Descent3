@@ -22,7 +22,6 @@
 #if defined(WIN32)
 #include <windows.h>
 #include "ddraw.h"
-#include "win/arb_extensions.h"
 #elif defined(__LINUX__)
 #include "linux/linux_fix.h"
 #endif
@@ -59,6 +58,10 @@
 
 #define DECLARE_OPENGL
 #include "dyna_gl.h"
+
+#if defined(WIN32)
+#include "win/arb_extensions.h"
+#endif
 
 int FindArg(char *);
 void rend_SetLightingState(light_state state);

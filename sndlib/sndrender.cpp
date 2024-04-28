@@ -51,6 +51,7 @@
 
 #include "sndrender.h"
 #include <string.h>                  // for NULL, memset
+#include "ddio.h"
 #include "ddsndgeometry.h"           // for llsGeometry, SNDGEO_MATERIAL_METAL
 #include "gametexture.h"             // for GameTextures, TF_METAL, TF_WATER
 #include "hlsoundlib.h"              // for Sound_system, hlsSystem
@@ -61,6 +62,7 @@
 #include "room_external.h"           // for face, MAX_VERTS_PER_FACE, room
 #include "soundload.h"               // for FindSoundName
 #include "vecmat_external.h"         // for vector
+
 
 static llsGeometry *Geometry = NULL;
 static short Sound_room_list[SOUND_RENDER_ROOM_LIMIT + 1];
