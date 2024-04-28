@@ -78,10 +78,8 @@
 #include "player.h"
 #include "appdatabase.h"
 
-#include "pstypes.h"
 #include "pserror.h"
 #include "mono.h"
-#include "networking.h"
 #include "ddio.h"
 #include "mem.h"
 #include "multi.h"

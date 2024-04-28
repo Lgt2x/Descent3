@@ -653,6 +653,7 @@
  */
  
 #include "menu.h"
+#include <algorithm>
 #include <stdio.h>          // for snprintf
 #include <stdlib.h>         // for atoi
 #include <string.h>         // for NULL, strcpy, strlen, strtok, strcmp, strcat

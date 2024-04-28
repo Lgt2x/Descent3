@@ -199,7 +199,12 @@
 #include <crtdbg.h>
 #endif
 
-#include <malloc.h>   // for malloc_usable_size
+#if defined(MACOSX)
+#include <malloc/malloc.h>
+#else
+#include <malloc.h>
+#endif
+
 #include <stdio.h>    // for NULL
 #include <stdlib.h>   // for free, malloc, realloc
 #include <string.h>   // for strdup

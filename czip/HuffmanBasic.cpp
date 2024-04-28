@@ -34,10 +34,11 @@
  * $NoKeywords: $
  */
 
-#include <stdio.h>   // for EOF, NULL, SEEK_SET
-#include <stdlib.h>  // for free, malloc
-#include <string.h>  // for memset
-#include "CZip.h"    // for CZip, tH0Node, ulong, BITFILE, tH0Code, tVirtual...
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include "CZip.h"
 
 #define END_OF_STREAM 256
 

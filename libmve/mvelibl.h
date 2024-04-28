@@ -20,6 +20,7 @@
 #ifndef MVELIB_H_INCLUDED
 #define MVELIB_H_INCLUDED
 
+#include "SystemInterfaces.h"
 #if defined(__LINUX__)
 #include "lnxdsound.h"
 #endif

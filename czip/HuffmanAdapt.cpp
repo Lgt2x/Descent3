@@ -34,9 +34,11 @@
  * $NoKeywords: $
  */
 
-#include <stdio.h>   // for EOF
-#include <string.h>  // for memmove
-#include "CZip.h"    // for CZip, BITFILE, tHATree, ulong, tHANode, tVirtual...
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include "CZip.h"
 
 #define END_OF_STREAM 256
 #define ESCAPE 257
