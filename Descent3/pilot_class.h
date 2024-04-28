@@ -202,14 +202,14 @@ public:
 
 public:
   // data access functions
-  void set_name(char *name);
+  void set_name(const char *name);
   void get_name(char *name);
 
-  void set_ship(char *ship);
+  void set_ship(const char *ship);
   void get_ship(char *ship);
 
-  void set_multiplayer_data(char *logo = NULL, char *audio1 = NULL, char *audio2 = NULL, ushort *ppic = NULL,
-                            char *audio3 = NULL, char *audio4 = NULL);
+  void set_multiplayer_data(const char *logo = NULL, const char *audio1 = NULL, const char *audio2 = NULL, const ushort *ppic = NULL,
+                            const char *audio3 = NULL, const char *audio4 = NULL);
   void get_multiplayer_data(char *logo = NULL, char *audio1 = NULL, char *audio2 = NULL, ushort *ppic = NULL,
                             char *audio3 = NULL, char *audio4 = NULL);
 

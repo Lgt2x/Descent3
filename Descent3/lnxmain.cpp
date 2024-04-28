@@ -60,7 +60,7 @@
 
 extern bool ddio_mouseGrabbed;
 int no_debug_dialog = 0;
-char *DMFCGetString(int d);
+const char *DMFCGetString(int d);
 // void *x = (void *) DMFCGetString;   // just force a reference to dmfc.so ...
 
 char *__orig_pwd = NULL;
@@ -68,9 +68,9 @@ char *__orig_pwd = NULL;
 bool linux_permit_gamma = false;
 
 typedef struct {
-  char *lng;
+  const char *lng;
   char sht;
-  char *comment;
+  const char *comment;
 } cmdLineArg;
 
 static cmdLineArg d3ArgTable[] = {
@@ -466,7 +466,7 @@ static void check_beta() {
 //		creates all the OS objects and then runs Descent 3.
 //		this is all this function should do.
 //	---------------------------------------------------------------------------
-int main(int argc, char *argv[]) {
+int main(int argc, const char *argv[]) {
   __orig_pwd = getcwd(NULL, 0);
 
   setbuf(stdout, NULL);

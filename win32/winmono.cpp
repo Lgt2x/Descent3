@@ -305,7 +305,7 @@ void Debug_LogClose() {
   }
 }
 
-void Debug_ConsoleOpen(int n, int row, int col, int width, int height, char *title) {
+void Debug_ConsoleOpen(int n, int row, int col, int width, int height, const char *title) {
   if (!Mono_initialized)
     return; // error! no mono card
   if (n >= MAX_NUM_WINDOWS)

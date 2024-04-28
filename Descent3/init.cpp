@@ -1017,7 +1017,7 @@ bool Running_editor = false; // didn't we have a variable like this somewhere
 static bool Init_in_editor = false;
 
 // used to update load bar.
-void SetInitMessageLength(char *c, float amount); // portion of total bar to fill (0 to 1)
+void SetInitMessageLength(const char *c, float amount); // portion of total bar to fill (0 to 1)
 void UpdateInitMessage(float amount);             // amount is 0 to 1
 void SetupTempDirectory(void);
 void DeleteTempFiles(void);
@@ -1082,8 +1082,7 @@ int IsLocalOk(void) {
 void PreGameCdCheck() {
   CD_inserted = 0;
   do {
-    char *p = NULL;
-#if   defined(OEM)
+#if defined(OEM)
     p = ddio_GetCDDrive("D3OEM_1");
     if (p && *p) {
       CD_inserted = 1;
@@ -1541,7 +1540,7 @@ void LoadGameSettings() {
 }
 
 typedef struct {
-  char *wildcard;
+  const char *wildcard;
 } tTempFileInfo;
 tTempFileInfo temp_file_wildcards[] = {{"d3s*.tmp"}, {"d3m*.tmp"}, {"d3o*.tmp"},
                                        {"d3c*.tmp"}, {"d3t*.tmp"}, {"d3i*.tmp"}};
@@ -1857,10 +1856,10 @@ void InitGameSystems(bool editor) {
 
 //////////////////////////////////////////////////////////////////////////////
 static float Init_messagebar_portion = 0.0f, Init_messagebar_offset = 0.0f;
-static char *Init_messagebar_text = NULL;
+static const char *Init_messagebar_text = NULL;
 
 // portion of total bar to fill (0 to 1)
-void SetInitMessageLength(char *c, float amount) {
+void SetInitMessageLength(const char *c, float amount) {
   Init_messagebar_text = c;
   Init_messagebar_offset += Init_messagebar_portion;
   Init_messagebar_portion = amount;
@@ -1875,7 +1874,7 @@ void UpdateInitMessage(float amount) {
   // Init_messagebar_offset, (amount*Init_messagebar_portion)+Init_messagebar_offset));
 }
 
-void InitMessage(char *c, float progress) {
+void InitMessage(const char *c, float progress) {
   int x = Game_window_w / 2 - Title_bitmap.pw / 2;
   int y = Game_window_h / 2 - Title_bitmap.ph / 2;
   int i, rx, ry, rw, rh;

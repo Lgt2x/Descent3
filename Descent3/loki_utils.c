@@ -412,7 +412,7 @@ const char *loki_getdatapath(void) { return basepath; }
 
 const char *loki_getprefpath(void) { return prefpath; }
 
-void loki_initialize(int argc, char **argv, char *desc) {
+void loki_initialize(int argc, const char **argv, char *desc) {
   char resolved_path[MAXPATHLEN];
   char *ptr = __PHYSFS_platformGetUserDir();
   if (!ptr) {

@@ -458,5 +458,4 @@ void ddio_ForceUnloadProject(FORCEPROJECT prj);
 //	Given a handle to a resource, and the name of the effect to load
 //	it will load that effect.  Returns the effect ID, or -1 if it couldn't
 //	be created
-int ddio_CreateForceFromProject(FORCEPROJECT project, char *forcename);
-#endif
+int ddio_CreateForceFromProject(FORCEPROJECT project, const char *forcename);

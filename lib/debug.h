@@ -163,7 +163,7 @@ int Debug_MessageBox(int type, const char *title, const char *str);
 bool Debug_Logfile(const char *filename);
 void Debug_LogWrite(const char *str);
 bool Debug_ConsoleInit();
-void Debug_ConsoleOpen(int n, int row, int col, int width, int height, char *title);
+void Debug_ConsoleOpen(int n, int row, int col, int width, int height, const char *title);
 void Debug_ConsoleClose(int n);
 void Debug_ConsolePrintf(int n, char *format, ...);
 void Debug_ConsolePrintfAt(int n, int row, int col, char *format, ...);
