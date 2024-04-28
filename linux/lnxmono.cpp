@@ -507,7 +507,7 @@ void Debug_ConsoleClose(int n) {
 #define MAX_MONO_BUFFER 32
 #endif
 static char Mono_buffer[MAX_MONO_BUFFER];
-void Debug_ConsolePrintf(int n, char *format, ...) {
+void Debug_ConsolePrintf(int n, const char *format, ...) {
   va_list marker;
   va_start(marker, format);
   int text_len = vsnprintf(Mono_buffer, MAX_MONO_BUFFER, format, marker);
@@ -554,7 +554,7 @@ void Debug_ConsolePrintf(int n, char *format, ...) {
   }
 }
 
-void Debug_ConsolePrintfAt(int n, int row, int col, char *format, ...) {
+void Debug_ConsolePrintfAt(int n, int row, int col, const char *format, ...) {
   if (!Mono_initialized)
     return;
 

@@ -1083,24 +1083,24 @@ void PreGameCdCheck() {
   CD_inserted = 0;
   do {
 #if defined(OEM)
-    p = ddio_GetCDDrive("D3OEM_1");
+    const char* p = ddio_GetCDDrive("D3OEM_1");
     if (p && *p) {
       CD_inserted = 1;
       break;
     }
 #else
-    p = ddio_GetCDDrive("D3_DVD");
+    const char* p = ddio_GetCDDrive("D3_DVD");
     if (p && *p) {
       CD_inserted = 3;
       break;
     }
-    p = ddio_GetCDDrive("D3_1");
-    if (p && *p) {
+    const char* p2 = ddio_GetCDDrive("D3_1");
+    if (p2 && *p2) {
       CD_inserted = 1;
       break;
     }
-    p = ddio_GetCDDrive("D3_2");
-    if (p && *p) {
+    const char* p3 = ddio_GetCDDrive("D3_2");
+    if (p3 && *p3) {
       CD_inserted = 2;
       break;
     }
@@ -2507,12 +2507,12 @@ void RestartD3() {
 #if (defined(RELEASE) && defined(WIN32) && (!defined(LASERLOCK)))
 
 #include "io.h"
-char *GetCDVolume(int cd_num);
+const char *GetCDVolume(int cd_num);
 
 #endif
 
 unsigned int checksum = 0x2bad4b0b;
-int DoADir(char *patternp, char *patternn);
+int DoADir(const char *patternp, const char *patternn);
 
 // Checks the checksum of all the files on the directory
 // and returns true if it matches the built in checksum
@@ -2553,7 +2553,7 @@ bool CheckCdForValidity(int cd) {
     return false;
   }
 #endif
-  char *p = GetCDVolume(cd);
+  const char *p = GetCDVolume(cd);
   if (*p) {
     DWORD SectorsPerCluster;     // sectors per cluster
     DWORD BytesPerSector;        // bytes per sector
@@ -2602,7 +2602,7 @@ void AddStringToChecksum(char *str) {
   checksum += localsum;
 }
 
-int DoADir(char *patternp, char *patternn) {
+int DoADir(const char *patternp, const char *patternn) {
   char patternw[_MAX_PATH];
   char npatternp[_MAX_PATH];
   int mfiles;

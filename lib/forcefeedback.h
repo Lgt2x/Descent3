@@ -459,3 +459,4 @@ void ddio_ForceUnloadProject(FORCEPROJECT prj);
 //	it will load that effect.  Returns the effect ID, or -1 if it couldn't
 //	be created
 int ddio_CreateForceFromProject(FORCEPROJECT project, const char *forcename);
+#endif

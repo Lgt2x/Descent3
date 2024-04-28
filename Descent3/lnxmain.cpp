@@ -466,7 +466,7 @@ static void check_beta() {
 //		creates all the OS objects and then runs Descent 3.
 //		this is all this function should do.
 //	---------------------------------------------------------------------------
-int main(int argc, const char *argv[]) {
+int main(int argc, char *argv[]) {
   __orig_pwd = getcwd(NULL, 0);
 
   setbuf(stdout, NULL);

@@ -47,7 +47,7 @@ typedef struct {
     float fRet;
   };
   float fParam;
-  ssize_t iParam;
+  int iParam;
   game_collide_info collide_info;
   int newseg, oldseg;
 } dllinfo;

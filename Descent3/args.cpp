@@ -36,7 +36,7 @@ const char *GetArg(int index) {
 }
 
 // Gathers all arguments
-void GatherArgs(const char *str) {
+void GatherArgs(char *str) {
   int i, t;
   static int curarg = 1; // DAJ made static
   int len = strlen(str);
@@ -75,7 +75,7 @@ void GatherArgs(const char *str) {
     mprintf((0, "GatherArgs: Arg (%d) is [%s].", q, GameArgs[q]));
 }
 
-void GatherArgs(const char **argv) {
+void GatherArgs(char **argv) {
   TotalArgs = 0;
 
   for (int i = 0; ((i < MAX_ARGS) && (argv[i] != NULL)); i++) {
