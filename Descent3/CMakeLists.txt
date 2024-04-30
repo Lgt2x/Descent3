@@ -299,6 +299,8 @@ add_executable(Descent3
   ${HEADERS} ${CPPS} ${PLATFORM_CPPS} ${INCS}
 )
 target_link_libraries(Descent3
+  $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
+  $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
   2dlib AudioEncode bitmap cfile czip d3music ddebug ddio_common libmve libacm
   fix grtext manage mem misc model module movie stream_audio
   music networking physics renderer rtperformance sndlib ui unzip vecmat md5

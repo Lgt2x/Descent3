@@ -70,20 +70,15 @@ add_custom_target(get_git_hash ALL
   DEPENDS ${PROJECT_BINARY_DIR}/Descent3/d3_version.h
 )
 
+find_package(SDL2 CONFIG REQUIRED)
 if(UNIX)
   set(D3_GAMEDIR "~/Descent3/")
 
   add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-Wno-multichar;${BITS};${EXTRA_CXX_FLAGS}>")
   add_compile_options("$<$<COMPILE_LANGUAGE:C>:${BITS}>")
 
+  # FIXME: Remove after SDL2 port
   find_package(SDL REQUIRED)
-  if(APPLE)
-    # Provide FIND_PACKAGE( SDL_image ) below with an include dir and library that work with brew-installed sdl2_image
-    find_path(SDL_IMAGE_INCLUDE_DIR NAMES SDL_image.h PATH_SUFFIXES include/SDL2)
-    find_library(SDL_IMAGE_LIBRARY NAMES SDL2_image)
-  endif()
-
-  find_package(SDL_image REQUIRED)
   find_package(Curses REQUIRED)
   find_package(OpenGL REQUIRED)
   message("SDL Include Dir is " ${SDL_INCLUDE_DIR})
