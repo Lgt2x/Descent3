@@ -156,6 +156,11 @@
 #include "manage.h"
 #include "grdefs.h"
 #include "DeathInfo.h"
+#include "deathinfo_external.h"
+#include "manage_external.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
+#include "vecmat_external.h"
 
 #define PARTICLE_LIFE .5
 #define DEBRIS_LIFE 2.0

@@ -118,6 +118,9 @@
 #include "object.h"
 #include "robotfirestruct.h"
 #include "player.h"
+#include "manage_external.h"
+#include "object_external_struct.h"
+#include "player_external_struct.h"
 
 #define MAX_SHIPS 30
 

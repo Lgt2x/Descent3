@@ -16,6 +16,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <string.h>
+
 /*
  * $Logfile: /DescentIII/Main/renderobject.cpp $
  * $Revision: 182 $
@@ -589,8 +591,6 @@
 #include "AIMain.h"
 #include "objinfo.h"
 #include "splinter.h"
-#include "fireball.h"
-#include "descent.h"
 #include "render.h"
 #include "gametexture.h"
 #include "game.h"
@@ -606,13 +606,30 @@
 #include "marker.h"
 #include "ship.h"
 #include "psrand.h"
-
-#include <string.h>
+#include "bitmap.h"
+#include "d3events.h"
+#include "findintersection_external.h"
+#include "fireball_external.h"
+#include "fix.h"
+#include "grdefs.h"
+#include "mono.h"
+#include "multi.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "player_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "room.h"
+#include "room_external.h"
+#include "terrain.h"
+#include "vecmat.h"
+#include "viseffect_external.h"
 #ifdef EDITOR
 #include "editor\d3edit.h"
 #endif
 
 #include <algorithm>
+#include <cmath>
 
 // what darkening level to use when cloaked
 #define CLOAKED_FADE_LEVEL 28

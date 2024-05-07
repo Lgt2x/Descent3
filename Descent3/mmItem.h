@@ -68,9 +68,14 @@
  */
 #ifndef MMITEM_H
 #define MMITEM_H
+#include <SDL_platform.h>
+
 #include "newui.h"
 #include "psclass.h"
 #include "gamefont.h"
+#include "game.h"
+#include "grdefs.h"
+#include "ui.h"
 #if ((!defined(OEM)) && (!defined(DEMO)))
 #define MOVIE_MENU
 #endif
@@ -138,6 +143,7 @@ public:
 #endif
 //////////////////////////////////////////////////////////////////////
 class mmInterface;
+
 // class mmItem
 class mmItem : public UIGadget {
   char *m_text;  // text for item
@@ -177,6 +183,7 @@ protected:
 };
 //	Main Menu Interface Object
 struct tCinematic;
+
 class mmInterface : public UIWindow {
   int m_nmenu_items;                 // number of menu items available.
   mmItem m_menuitems[N_MMENU_ITEMS]; // main menu items

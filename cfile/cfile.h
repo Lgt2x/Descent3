@@ -81,6 +81,7 @@
 #include <cstdio>
 
 #include "pstypes.h"
+#include "SDL_platform.h"
 
 struct library;
 

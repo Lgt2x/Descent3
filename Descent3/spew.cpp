@@ -120,25 +120,25 @@
  * $NoKeywords: $
  */
 
+//	ANSI C includes
+#include <stdlib.h>
+
 //	ancillary includes
 #include "game.h"
-#include "vecmat.h"
-#include "ddio.h"
 #include "pserror.h"
 #include "object.h"
-#include "damage.h"
 #include "viseffect.h"
 #include "fireball.h"
 #include "spew.h"
 #include "weapon.h"
 #include "polymodel.h"
-
-//	ANSI C includes
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-
 #include "psrand.h"
+#include "fireball_external.h"
+#include "mono.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "polymodel_external.h"
+#include "viseffect_external.h"
 
 #define MAX_SPEWS_PER_FRAME 5 // maximum number of spews 1 can emit per frame
 

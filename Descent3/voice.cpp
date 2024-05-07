@@ -59,11 +59,18 @@
  * $NoKeywords: $
  */
 #include "voice.h"
+
+#include <stdlib.h>
+#include <string.h>
+
 #include "streamaudio.h"
 #include "hlsoundlib.h"
 #include "soundload.h"
-#include <stdlib.h>
-#include <string.h>
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "pstypes.h"
+#include "ssl_lib.h"
 
 #define MOTHERLOAD_STRING "Cheater!"
 #define MOTHERLOAD_FLAGS VF_POWERUP | VF_PLAYTABLE

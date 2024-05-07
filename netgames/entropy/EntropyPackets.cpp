@@ -42,11 +42,21 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
 #include <string.h>
+#include <stdlib.h>
+
+#include "gamedll_header.h"
 #include "idmfc.h"
 #include "Entropystr.h"
 #include "EntropyAux.h"
+#include "DMFC.h"
+#include "fireball_external.h"
+#include "multi_external.h"
+#include "multi_world_state.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
+#include "room_external.h"
 
 extern IDMFC *DMFCBase;
 extern room *dRooms;

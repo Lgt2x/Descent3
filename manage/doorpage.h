@@ -23,6 +23,7 @@
 #include "door.h"
 #include "cfile.h"
 #include "pstypes.h"
+#include "manage_external.h"
 
 typedef struct {
   door door_struct;

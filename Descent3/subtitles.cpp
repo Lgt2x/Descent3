@@ -50,6 +50,11 @@
  */
 
 #include "subtitles.h"
+
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
 // #include "gamefont.h"
 // #include "grtext.h"
 // #include "renderer.h"
@@ -57,13 +62,13 @@
 #include "ddio.h"
 // #include "ddvid.h"
 #include "manage.h"
-#include "application.h"
 #include "mem.h"
 #include "movie.h"
 #include "args.h"
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include "cfile.h"
+#include "grdefs.h"
+#include "linux_fix.h"
+#include "mono.h"
 
 // Subtitle data
 typedef struct {

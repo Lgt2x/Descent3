@@ -154,10 +154,28 @@
 #include "object.h"
 #include "objinfo.h"
 #include "findintersection.h"
+#include "damage_external.h"
+#include "findintersection_external.h"
+#include "fireball_external.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#include "linux_fix.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "osiris_share.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "room_external.h"
+#include "terrain.h"
+#include "vecmat.h"
 #ifndef NEWEDITOR
 #include "multi.h"
 #endif
 #include <stdlib.h>
+
 #include "fireball.h"
 #include "weapon.h"
 #include "polymodel.h"
@@ -172,11 +190,10 @@
 #include "player.h"
 #include "osiris_dll.h"
 #endif
+#include <algorithm>
+
 #include "psrand.h"
 #include "demofile.h"
-
-
-#include <algorithm>
 
 // Beginning of the real file
 #define LEVEL_DATA_MATCEN_VERSION 1

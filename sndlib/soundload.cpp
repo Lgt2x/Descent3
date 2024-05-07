@@ -227,23 +227,28 @@
  * $NoKeywords: $
  */
 
-#include "pstypes.h"
-#include "pserror.h"
-#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#include "pserror.h"
 #include "ssl_lib.h"
-#include "object.h"
-#include "cfile.h"
 #include "ddio.h"
 #include "soundload.h"
 #include "weapon.h"
 #include "ship.h"
-#include "pstypes.h"
-#include "mem.h"
 #include "door.h"
 #include "room.h"
 #include "doorway.h"
+#include "SDL_platform.h"
+#include "aistruct.h"
+#include "gametexture.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "objinfo.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "room_external.h"
 
 #if defined(WIN32) || defined(__LINUX__)
 #include "../manage/soundpage.h"

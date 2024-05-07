@@ -149,8 +149,19 @@
  * $NoKeywords: $
  */
 
+#include <stddef.h>
+
 #include "UIlib.h"
 #include "Macros.h"
+#include "ddio.h"
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "mono.h"
+#include "pserror.h"
+#include "ui.h"
+#include "uidraw.h"
+#include "uires.h"
+#include "uisys.h"
 
 //	the window font for all windows
 int UIWindow::m_WindowFont = 0;

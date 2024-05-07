@@ -309,6 +309,10 @@
  *
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "args.h"
 #include "ui.h"
 #include "newui.h"
@@ -317,18 +321,29 @@
 #include "descent.h"
 #include "multi.h"
 #include "multi_ui.h"
-#include "multi_server.h"
-#include "multi_client.h"
 #include "networking.h"
 #include "player.h"
-#include "manage.h"
 #include "pilot.h"
-#include <stdlib.h>
 #include "ddio.h"
 #include "objinfo.h"
 #include "stringtable.h"
-#include "ConfigItem.h"
 #include "appdatabase.h"
+#include "Macros.h"
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "grtext.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "newui_core.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "pilot_class.h"
+#include "player_external_struct.h"
+#include "pserror.h"
+#include "renderer.h"
+#include "uires.h"
 
 // #define USE_DIRECTPLAY
 
@@ -336,15 +351,13 @@
 #include "directplay.h"
 #endif
 
-#include "ship.h"
+#include <algorithm>
 
+#include "ship.h"
 #include "multi_dll_mgr.h"
 #include "Mission.h"
 #include "menu.h"
-
 #include "multi_save_settings.h"
-
-#include <algorithm>
 
 #define MAIN_MULTI_MENU_W 384
 #define MAIN_MULTI_MENU_H 256
@@ -787,6 +800,8 @@ int AutoConnectHeat() {
 }
 
 #include "mem.h"
+
+class ConfigItem;
 
 void DoMultiAllowed(void) {
   rendering_state rs;

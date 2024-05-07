@@ -18,9 +18,13 @@
 
 #ifndef MULTI_SERVER_H
 
+#include <stddef.h>
+
 #include "pstypes.h"
 #include "multi.h"
 #include "game2dll.h"
+#include "multi_external.h"
+#include "object_external_struct.h"
 // #include "gametrack.h"
 
 extern int Join_response_strings[];

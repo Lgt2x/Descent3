@@ -570,35 +570,25 @@
  * $NoKeywords: $
  */
 
-#include <cstdio>
-
 #include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
+#include <ctype.h>
+#include <cstdio>
 
 #include "pilot.h"
 #include "mono.h"
 #include "renderer.h"
-#include "render.h"
 #include "ddio.h"
 #include "descent.h"
 #include "game.h"
 #include "cfile.h"
-#include "application.h"
 #include "manage.h"
 #include "newui.h"
-#include "grtext.h"
-#include "gamefont.h"
-#include "ConfigItem.h"
 #include "ctlconfig.h"
-#include "hud.h"
 #include "stringtable.h"
 #include "gametexture.h"
 #include "vclip.h"
-#include "hlsoundlib.h"
 #include "weapon.h"
-#include "config.h"
-#include "difficulty.h"
 #include "PilotPicsAPI.h"
 #include "Mission.h"
 #include "mem.h"
@@ -607,6 +597,23 @@
 #include "streamaudio.h"
 #include "ship.h"
 #include "dedicated_server.h"
+#include "3d.h"
+#include "Controller.h"
+#include "Macros.h"
+#include "bitmap.h"
+#include "controls.h"
+#include "fix.h"
+#include "grdefs.h"
+#include "manage_external.h"
+#include "newui_core.h"
+#include "object_external.h"
+#include "player.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "ui.h"
+#include "uires.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 
 // some general defines
 #define IDP_SAVE 10

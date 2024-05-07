@@ -44,26 +44,23 @@
  * $NoKeywords: $
  */
 
-#include "debug.h"
-#include <assert.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#include <sys/types.h>
-#include <memory.h>
-#include <signal.h>
-
 // -------- Start TCP/IP Mono Logging Section
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/time.h>
-#include <sys/types.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <sys/ioctl.h>
 #include <errno.h>
+#include <string.h>
+#include <sys/select.h>
+
+#include "debug.h"
+#include "pstypes.h"
 
 #define MAX_TCPLOG_LEN 2000
 #define SOCKET int
@@ -84,7 +81,6 @@ bool Debug_print_block = false;
 // pthread library functions
 // ===============================
 #include <pthread.h>
-
 #include <algorithm>
 
 #if DLOPEN_PTHREAD

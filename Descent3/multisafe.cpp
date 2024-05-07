@@ -639,6 +639,11 @@
  * added logfile
  */
 #include "multisafe.h"
+
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+
 #include "weather.h"
 #include "room.h"
 #include "game.h"
@@ -647,8 +652,6 @@
 #include "hud.h"
 #include "doorway.h"
 #include "trigger.h"
-#include "gamepath.h"
-#include "AIGoal.h"
 #include "weapon.h"
 #include "spew.h"
 #include "hlsoundlib.h"
@@ -659,10 +662,8 @@
 #include "soundload.h"
 #include "streamaudio.h"
 #include "gamesequence.h"
-#include "gameevent.h"
 #include "SmallViews.h"
 #include "difficulty.h"
-#include "door.h"
 #include "demofile.h"
 #include "stringtable.h"
 #include "d3music.h"
@@ -670,8 +671,32 @@
 #include "osiris_predefs.h"
 #include "viseffect.h"
 #include "levelgoal.h"
-
-#include <algorithm>
+#include "Inventory.h"
+#include "Macros.h"
+#include "descent.h"
+#include "fireball_external.h"
+#include "levelgoal_external.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "pilot.h"
+#include "pilot_class.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "pserror.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
+#include "viseffect_external.h"
+#include "weapon_external.h"
 
 /*
         The following functions have been added or modified by Matt and/or someone else other than Jason,

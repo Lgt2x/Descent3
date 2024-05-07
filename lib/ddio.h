@@ -190,12 +190,12 @@
 #ifndef DDIO_H
 #define DDIO_H
 
-class oeApplication;
-
 #include <stdio.h>
 
 #include "pstypes.h"
 #include "ddio_common.h"
+
+class oeApplication;
 
 // ----------------------------------------------------------------------------
 //	Initialization and destruction functions

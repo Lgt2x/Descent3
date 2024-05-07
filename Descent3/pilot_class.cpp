@@ -132,6 +132,10 @@
  */
 
 #include "pilot_class.h"
+
+#include <string.h>
+#include <stdlib.h>
+
 #include "ddio.h"
 #include "hud.h"
 #include "mem.h"
@@ -139,17 +143,15 @@
 #include "mono.h"
 #include "config.h"
 #include "ship.h"
-#include <string.h>
-#include <stdlib.h>
-
-#include "application.h"
 #include "appdatabase.h"
-
 #include "stringtable.h"
+#include "Macros.h"
+#include "difficulty_external.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "player.h"
 
 #define __PILOT_H_ // don't want to include pilot.h right now
-#include "difficulty.h"
-
 #include <algorithm>
 
 void grtext_SetProfanityFilter(bool enabled);

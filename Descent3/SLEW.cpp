@@ -200,16 +200,20 @@
 #endif
 
 #include <stdlib.h>
-#include "descent.h"
+
 #include "slew.h"
 #include "vecmat.h"
-#include "ddio.h"
 #include "object.h"
 #include "mono.h"
 #include "game.h"
-#include "joystick.h"
 #include "findintersection.h"
 #include "room.h"
+#include "ddio_common.h"
+#include "findintersection_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "terrain.h"
+#include "vecmat_external.h"
 
 // variables for slew system
 

@@ -142,12 +142,21 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <algorithm>
+
+#include "gamedll_header.h"
+#include "dmfcinternal.h"
+#include "bitmap.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "hud.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
+#include "vclip.h"
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

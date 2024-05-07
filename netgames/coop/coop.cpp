@@ -101,12 +101,20 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <algorithm>
+
 #include "idmfc.h"
 #include "coop.h"
 #include "coopstr.h"
-
-#include <algorithm>
+#include "DMFC.h"
+#include "DMFCKeyCodes.h"
+#include "Mission.h"
+#include "bitmap.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "object_external.h"
+#include "player_external_struct.h"
+#include "renderer.h"
 
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;

@@ -142,19 +142,17 @@
  * $NoKeywords: $
  */
 
-#include "music.h"
-#include "musiclib.h"
-#include "ssl_lib.h"
-#include "soundload.h"
-#include "textaux.h"
-#include "pserror.h"
-#include "ddio.h"
-#include "Macros.h"
-#include "inffile.h"
-#include "streamaudio.h"
-#include "mem.h"
 #include <string.h>
 #include <stdlib.h>
+
+#include "music.h"
+#include "musiclib.h"
+#include "pserror.h"
+#include "streamaudio.h"
+#include "mem.h"
+#include "mono.h"
+#include "psclass.h"
+#include "pstypes.h"
 
 // #include "samirlog.h"
 #define LOGFILE(_s)

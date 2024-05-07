@@ -1508,6 +1508,9 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
+#include <cmath>
+
 #include "AIMain.h"
 #include "mono.h"
 #include "game.h"
@@ -1519,22 +1522,17 @@
 #include "hlsoundlib.h"
 #include "sounds.h"
 #include "aiterrain.h"
-#include "weapon.h"
 #include "objinfo.h"
 #include "polymodel.h"
 #include "robotfire.h"
 #include "BOA.h"
 #include "player.h"
-#include "memory.h"
 #include "gamepath.h"
-#include "soundload.h"
 #include "damage.h"
 #include "aipath.h"
-#include "robot.h"
 #include "attach.h"
 #include "demofile.h"
 #include "matcen.h"
-#include "PHYSICS.H"
 #include "difficulty.h"
 #include "osiris_dll.h"
 #include "multi.h"
@@ -1542,7 +1540,27 @@
 #include "room.h"
 #include "psrand.h"
 #include "gametexture.h"
-#include "difficulty.h"
+#include "aistruct.h"
+#include "aistruct_external.h"
+#include "damage_external.h"
+#include "difficulty_external.h"
+#include "findintersection_external.h"
+#include "fix.h"
+#include "multi_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "osiris_share.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "vecmat_external.h"
 
 // Define's
 #define MAX_SEE_TARGET_DIST 500.0f

@@ -186,6 +186,8 @@
 #include "pserror.h"
 #include "renderer.h"
 #include "object.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
 
 //	return 0 if we wan't to return to the menu, or return 1 if everything
 //	is okay. starts a new game based off the current mission.

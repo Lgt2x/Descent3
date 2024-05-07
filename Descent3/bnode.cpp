@@ -98,16 +98,21 @@
  */
 
 
-#include "memory.h"
+#include <string.h>
+#include <cmath>
+
 #include "bnode.h"
 #include "room.h"
 #include "mem.h"
 #include "vecmat.h"
 #include "terrain.h"
-#include "room.h"
 #include "findintersection.h"
 #include "BOA.h"
 #include "psrand.h"
+#include "findintersection_external.h"
+#include "object_external_struct.h"
+#include "pserror.h"
+#include "room_external.h"
 
 bn_list BNode_terrain_list[8];
 bool BNode_allocated = false;

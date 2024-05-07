@@ -87,6 +87,9 @@
  */
 
 #include "object_lighting.h"
+
+#include <stdlib.h>
+
 #include "object.h"
 #include "lighting.h"
 #include "objinfo.h"
@@ -95,7 +98,6 @@
 #include "game.h"
 #include "polymodel.h"
 #include "renderobject.h"
-#include <stdlib.h>
 #include "lightmap_info.h"
 #include "fireball.h"
 #include "player.h"
@@ -103,6 +105,21 @@
 #include "config.h"
 #include "findintersection.h"
 #include "psrand.h"
+#include "findintersection_external.h"
+#include "fireball_external.h"
+#include "gametexture.h"
+#include "mono.h"
+#include "object_external.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "room.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 
 // How far the headlight casts light
 #define HEADLIGHT_DISTANCE 150.0f
@@ -572,6 +589,7 @@ void SetupObjectLightmapMemory(object *obj) {
 #include "soundload.h"
 #include "hud.h"
 #include "stringtable.h"
+
 //	makes the an object cloaked
 void MakeObjectInvisible(object *obj, float time, float fade_time, bool no_hud_message) {
   if (obj->effect_info) {

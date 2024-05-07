@@ -129,7 +129,9 @@
 #define _DESCENT_H
 
 #include <stdlib.h>
+
 #include "application.h"
+#include "linux_fix.h"
 
 // The name of this product
 #ifdef DEMO

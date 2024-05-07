@@ -175,9 +175,9 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
+
 #include "cfile.h"
 #include "manage.h"
 #include "pstypes.h"
@@ -186,6 +186,8 @@
 #include "string.h"
 #include "mem.h"
 #include "ddio.h"
+#include "debug.h"
+#include "linux_fix.h"
 
 #ifndef RELEASE
 #include <time.h>

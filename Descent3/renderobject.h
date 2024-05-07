@@ -19,8 +19,13 @@
 #ifndef RENDEROBJECT_H
 #define RENDEROBJECT_H
 
+#include <stddef.h>
+
 #include "object.h"
 #include "polymodel.h"
+#include "object_external_struct.h"
+#include "polymodel_external.h"
+#include "vecmat_external.h"
 
 #ifdef _DEBUG
 void DrawDebugInfo(object *obj);

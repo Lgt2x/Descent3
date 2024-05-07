@@ -86,18 +86,17 @@
  * $NoKeywords: $
  */
 
-#include <sys/types.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
-#include <errno.h>
 #include <unistd.h>
-#include "mem.h"
+#include <alloca.h>
+#include <assert.h>
+
 #include "mono.h"
 #include "ddio.h"
-#include "debug.h"
 #include "pserror.h"
 #include "loki_utils.h"
 

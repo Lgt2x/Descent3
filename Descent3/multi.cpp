@@ -1642,6 +1642,10 @@
  *
  */
 
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "pstypes.h"
 #include "pserror.h"
 #include "player.h"
@@ -1666,21 +1670,13 @@
 #include "fireball.h"
 #include "Mission.h"
 #include "LoadLevel.h"
-#include "gamecinematics.h"
 #include "init.h"
-
 #include "sounds.h"
 #include "weapon.h"
 #include "stringtable.h"
-
 #include "dedicated_server.h"
 #include "demofile.h"
-#include "args.h"
-
-#include "ui.h"
-#include "newui.h"
 #include "multi_dll_mgr.h"
-#include "BOA.h"
 #include "attach.h"
 #include "mission_download.h"
 // #include "gamespy.h"
@@ -1694,20 +1690,33 @@
 #include "spew.h"
 #include "PHYSICS.H"
 #include "SmallViews.h"
-#include "demofile.h"
 #include "debuggraph.h"
 #include "levelgoal.h"
 #include "osiris_share.h"
 #include "cockpit.h"
-#include "hud.h"
-
-#include <string.h>
-#include <memory.h>
-#include <stdlib.h>
-
 #include "psrand.h"
-
 #include "../md5/md5.h"
+#include "Inventory.h"
+#include "aistruct_external.h"
+#include "cfile.h"
+#include "d3events.h"
+#include "damage_external.h"
+#include "fireball_external.h"
+#include "grdefs.h"
+#include "levelgoal_external.h"
+#include "linux_fix.h"
+#include "manage.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "object.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "vecmat.h"
+#include "viseffect_external.h"
+#include "weapon_external.h"
+
 void MultiProcessShipChecksum(MD5 *md5, int ship_index);
 
 

@@ -62,16 +62,21 @@
  * $NoKeywords: $
  */
 
+#include <string.h>
+
 #include "object.h"
 #include "game.h"
 #include "gameevent.h"
 #include "descent.h"
 #include "gameloop.h"
 #include "spew.h"
-#include <string.h>
 // #include <malloc.h>
 #include "mem.h"
 #include "player.h"
+#include "mono.h"
+#include "object_external_struct.h"
+#include "player_external.h"
+#include "pserror.h"
 
 int Num_events = 0;
 game_event GameEvent[MAX_EVENTS];

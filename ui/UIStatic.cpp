@@ -66,9 +66,12 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-
 #include <string.h>
+
+#include "grdefs.h"
+#include "ui.h"
+#include "uidraw.h"
+#include "uires.h"
 
 //	----------------------------------------------------------------------------
 //	UIText

@@ -107,18 +107,23 @@
  * $NoKeywords: $
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <bits/types/struct_FILE.h>
+
 #include "grtextlib.h"
 #include "cfile.h"
 #include "bitmap.h"
 #include "pserror.h"
 #include "renderer.h"
 #include "mem.h"
-#include "ddio.h"
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "grtext.h"
+#include "mono.h"
+#include "pstypes.h"
 
 const int MAX_FONTS = 16, MAX_FONT_BITMAPS = 32;
 

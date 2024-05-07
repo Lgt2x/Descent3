@@ -99,9 +99,13 @@
  */
 
 #include "gamedll_header.h"
-#include "DMFC.h"
 #include "dmfcinternal.h"
 #include "d3events.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "vecmat_external.h"
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

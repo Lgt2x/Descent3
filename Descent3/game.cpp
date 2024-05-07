@@ -656,18 +656,20 @@
  */
 
 #include "game.h"
+
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <cmath>
+
 #include "ddvid.h"
 #include "ddio.h"
 #include "pserror.h"
-#include "program.h"
 #include "descent.h"
-#include "object.h"
-#include "trigger.h"
 #include "player.h"
 #include "slew.h"
 #include "controls.h"
 #include "renderer.h"
-#include "doorway.h"
 #include "hud.h"
 #include "multi.h"
 #include "gamefont.h"
@@ -678,21 +680,24 @@
 #include "Mission.h"
 #include "cfile.h"
 #include "gameloop.h"
-#include "cockpit.h"
 #include "game2dll.h"
 #include "config.h"
 #include "stringtable.h"
-#include "ship.h"
 #include "pilot.h"
 #include "args.h"
-#include "gamepath.h"
-#include "AIGoal.h"
-#include "aipath.h"
 #include "dedicated_server.h"
-#include "objinfo.h"
-#include <string.h>
-#include "osiris_share.h"
 #include "demofile.h"
+#include "Controller.h"
+#include "bitmap.h"
+#include "grdefs.h"
+#include "grtext.h"
+#include "manage.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "newui_core.h"
+#include "pilot_class.h"
+#include "player_external_struct.h"
+#include "uisys.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //	Variables

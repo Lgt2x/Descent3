@@ -64,6 +64,8 @@
 #if defined(WIN32)
 #include <windows.h>
 #endif
+#include <stdio.h>
+
 #include "cfile.h"
 #include "manage.h"
 #include "megacell.h"
@@ -71,8 +73,9 @@
 #include "texpage.h"
 #include "mono.h"
 #include "pserror.h"
-#include "polymodel.h"
-#include "ddio.h"
+#include "gametexture.h"
+#include "linux_fix.h"
+#include "pstypes.h"
 #if defined(LINUX)
 #include <string.h>
 #endif

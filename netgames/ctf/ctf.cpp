@@ -84,12 +84,27 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
 #include <string.h>
+#include <stdio.h>
 
+#include "gamedll_header.h"
 #include "idmfc.h"
 #include "ctf.h"
 #include "CTFstr.h"
+#include "DMFC.h"
+#include "DMFCKeyCodes.h"
+#include "Macros.h"
+#include "bitmap.h"
+#include "cfile.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "manage_external.h"
+#include "object_external.h"
+#include "player_external_struct.h"
+#include "renderer.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "vecmat_external.h"
 
 IDMFC *DMFCBase;
 IDmfcStats *dstat;

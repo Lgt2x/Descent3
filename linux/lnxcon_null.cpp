@@ -45,15 +45,10 @@
  * $NoKeywords: $
  */
 
-#include "DDAccess.h"
-#include "application.h"
-#include "AppConsole.h"
-#include "TaskSystem.h"
-#include "mono.h"
-
 #include <stdarg.h>
-#include <string.h>
 #include <stdio.h>
+
+#include "mono.h"
 
 // put some data up on the screen
 void con_null_Puts(int window, const char *str);

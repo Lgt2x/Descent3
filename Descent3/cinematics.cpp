@@ -17,19 +17,21 @@
 */
 
 #include "cinematics.h"
+
+#include <stdlib.h>
+#include <string.h>
+
 #include "movie.h"
 #include "game.h"
 #include "ddio.h"
 #include "descent.h"
-#include "gamefont.h"
 #include "hlsoundlib.h"
 #include "subtitles.h"
 #include "dedicated_server.h"
-#include "appdatabase.h"
 #include "bitmap.h"
-
-#include <stdlib.h>
-#include <string.h>
+#include "Macros.h"
+#include "linux_fix.h"
+#include "mono.h"
 
 #ifdef DEBUG
 static struct {

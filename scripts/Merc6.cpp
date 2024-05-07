@@ -26,11 +26,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+
 #include "osiris_import.h"
 #include "osiris_common.h"
 #include "DallasFuncs.cpp"
-
 #include "module.h"
+#include "aistruct_external.h"
+#include "object_external.h"
+#include "vecmat_external.h"
 
 #ifdef __cplusplus
 extern "C" {

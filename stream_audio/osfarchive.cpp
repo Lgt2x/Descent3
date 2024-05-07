@@ -50,10 +50,14 @@
  * $NoKeywords: $
  */
 
+#include <string.h>
+#include <stdio.h>
+
 #include "streamaudio.h"
 #include "cfile.h"
 #include "pserror.h"
-#include <string.h>
+#include "mono.h"
+#include "pstypes.h"
 
 OSFArchive::OSFArchive() {
   m_fp = NULL;

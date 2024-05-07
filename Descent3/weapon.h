@@ -193,11 +193,18 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
+#include <stddef.h>
+
 #include "pstypes.h"
 #include "manage.h"
 #include "object.h"
 #include "objinfo.h"
 #include "weapon_external.h"
+#include "cfile.h"
+#include "manage_external.h"
+#include "object_external_struct.h"
+#include "robotfirestruct.h"
+#include "vecmat_external.h"
 
 #define MAX_PRIMARY_WEAPONS 10
 #define MAX_SECONDARY_WEAPONS 10

@@ -97,6 +97,7 @@
 #ifndef DOOR_H
 #define DOOR_H
 
+#include "manage_external.h"
 #ifdef NEWEDITOR /* only include tablefile header (manage stuff for NEWEDITOR) */
 #include "..\neweditor\ned_TableFile.h"
 #include "..\neweditor\ned_Door.h"

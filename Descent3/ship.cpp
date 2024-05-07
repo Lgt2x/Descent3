@@ -101,17 +101,18 @@
  */
 
 #include "ship.h"
-#include "pstypes.h"
+
+#include <stdio.h>
+#include <string.h>
+
 #include "pserror.h"
 #include "object.h"
-#include "3d.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
 #include "polymodel.h"
 #include "player.h"
 #include "robotfire.h"
+#include "linux_fix.h"
+#include "object_external.h"
+#include "objinfo.h"
 
 #define DEFAULT_SHIP_SIZE 4.0
 

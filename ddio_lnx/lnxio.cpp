@@ -58,10 +58,10 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#include "pserror.h"
-#include "application.h"
-#include "ddio_lnx.h"
 #include "ddio.h"
+#include "ddio_common.h"
+#include "lnxapp.h"
+#include "mono.h"
 
 bool DDIO_init = false;
 oeLnxApplication *Lnx_app_obj = NULL;

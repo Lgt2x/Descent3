@@ -16,6 +16,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stddef.h>
+
 /*
  * $Logfile: /DescentIII/Main/ui/UISystem.cpp $
  * $Revision: 44 $
@@ -166,12 +168,21 @@
  * $NoKeywords: $
  */
 #include "UIlib.h"
-#include "application.h"
 #include "bitmap.h"
-#include "ddvid.h"
 #include "renderer.h"
-#include "psclass.h"
 #include "Macros.h"
+#include "ddio.h"
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "mono.h"
+#include "pserror.h"
+#include "ui.h"
+#include "uidraw.h"
+#include "uires.h"
+#include "uisys.h"
+
+class oeApplication;
+
 #define UI_MOUSE_HOTX 2
 #define UI_MOUSE_HOTY 2
 #define UI_FRAMETIME 0.05

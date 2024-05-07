@@ -147,6 +147,9 @@
 #include <windows.h>
 #endif
 
+#include <string.h>
+#include <stdio.h>
+
 #include "cfile.h"
 #include "manage.h"
 #include "door.h"
@@ -154,12 +157,13 @@
 #include "mono.h"
 #include "pserror.h"
 #include "polymodel.h"
-#include <string.h>
-#include "vclip.h"
 #include "ddio.h"
-#include "soundload.h"
 #include "soundpage.h"
 #include "args.h"
+#include "linux_fix.h"
+#include "object.h"
+#include "pstypes.h"
+#include "ssl_lib.h"
 
 // doorpage commands that are read/written
 // A command is followed by a byte count describing how many bytes

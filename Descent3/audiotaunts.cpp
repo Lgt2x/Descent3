@@ -18,9 +18,9 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 #include "mono.h"
-#include "debug.h"
 #include "pserror.h"
 #include "pstypes.h"
 #include "audiotaunts.h"
@@ -36,6 +36,13 @@
 #include "stringtable.h"
 #include "game2dll.h"
 #include "player.h"
+#include "d3events.h"
+#include "descent.h"
+#include "linux_fix.h"
+#include "multi_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "ssl_lib.h"
 
 typedef struct {
   int sample_length;

@@ -404,34 +404,34 @@
  * $NoKeywords: $
  */
 
-#include "controls.h"
+#include <stdlib.h>
+#include <string.h>
+#include <cmath>
 
-#include "object.h"
+#include "controls.h"
 #include "pserror.h"
 #include "game.h"
 #include "ddio.h"
 #include "joystick.h"
-#include "descent.h"
 #include "mono.h"
 #include "weapon.h"
 #include "Controller.h"
-#include "Macros.h"
 #include "gamesequence.h"
 #include "pilot.h"
 #include "hud.h"
 #include "stringtable.h"
-#include "TelCom.h"
 #include "multi.h"
 #include "args.h"
-
 #include "player.h"
-
 #include "hlsoundlib.h"
 #include "sounds.h"
-#include "soundload.h"
-
-#include <stdlib.h>
-#include <memory.h>
+#include "Inventory.h"
+#include "ddio_common.h"
+#include "object_external.h"
+#include "objinfo.h"
+#include "pilot_class.h"
+#include "player_external.h"
+#include "pstypes.h"
 
 
 float Key_ramp_speed = 0.5f;

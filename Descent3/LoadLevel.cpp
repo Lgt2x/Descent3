@@ -1242,17 +1242,32 @@
 #endif
 
 #include <string.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <algorithm>
+#include <SDL_platform.h>
+#include <fcntl.h>
 
 #include "LoadLevel.h"
-
 #include "cfile.h"
-
 #include "descent.h"
 #include "object.h"
 #include "gametexture.h"
+#include "aistruct.h"
+#include "bitmap.h"
+#include "d3x_op.h"
+#include "grdefs.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "ssl_lib.h"
+#include "vecmat.h"
+#include "weapon_external.h"
 
 #ifdef NEWEDITOR
 #include "..\neweditor\ned_gametexture.h"
@@ -1291,13 +1306,14 @@
 #include "levelgoal.h"
 #include "aiambient.h"
 #include "args.h"
-#include "ddio.h"
 #include "ship.h"
 #include "fireball.h"
 #include "sounds.h"
 #include "soundload.h"
 #include "bnode.h"
 #include "localization.h"
+
+class MD5;
 
 #ifdef EDITOR
 #include "editor\d3edit.h"
@@ -2613,11 +2629,6 @@ int ReadRoom(CFILE *ifile, room *rp, int version) {
     rp->damage = cf_ReadFloat(ifile);
     rp->damage_type = cf_ReadByte(ifile);
   }
-
-#if (defined(EDITOR) || defined(NEWEDITOR))
-  // Get rid of bogus faces
-  // RemoveDegenerateFaces(rp);
-#endif
 
   if (Katmai) {
     // If katmai, copy all of our verts into our verts4 array

@@ -142,6 +142,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <time.h>
+
 #include "gamedll_header.h"
 #include "DMFC.h"
 #include "controls.h"
@@ -150,6 +151,22 @@
 #include "player.h"
 #include "ship.h"
 #include "vclip.h"
+#include "cfile.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#include "module.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "osiris_share.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pstypes.h"
+#include "room_external.h"
+#include "terrain.h"
+#include "vecmat_external.h"
+#include "viseffect_external.h"
 
 #ifdef __cplusplus
 // C++ compiler, should we use classes?

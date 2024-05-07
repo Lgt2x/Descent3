@@ -104,11 +104,15 @@
  * $NoKeywords: $
  */
 
+#include <stddef.h>
+
 #include "gr.h"
 #include "lib2d.h"
 #include "renderer.h"
-
 #include "pserror.h"
+#include "Ddgr.h"
+#include "Macros.h"
+#include "grdefs.h"
 
 #define CLIP_LEFT (vp_InitLeft + vp_Left)
 #define CLIP_TOP (vp_InitTop + vp_Top)

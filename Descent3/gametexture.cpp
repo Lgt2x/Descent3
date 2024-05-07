@@ -265,23 +265,24 @@
  * $NoKeywords: $
  */
 
-#include "grdefs.h"
+#include <stdlib.h>
+#include <string.h>
+
 #include "pstypes.h"
 #include "gametexture.h"
 #include "mono.h"
 #include "bitmap.h"
 #include "pserror.h"
 #include "vclip.h"
-#include "texture.h"
 #include "game.h"
 #include "bumpmap.h"
-#include <stdlib.h>
-#include <string.h>
 #include "procedurals.h"
 #include "ddio.h"
 #include "config.h"
 #include "args.h"
 #include "mem.h"
+#include "linux_fix.h"
+#include "renderer.h"
 
 int Num_textures = 0;
 texture GameTextures[MAX_TEXTURES];

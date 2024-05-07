@@ -49,12 +49,24 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <algorithm>
+
 #include "idmfc.h"
 #include "roboAnarchy.h"
 #include "roboanarchystr.h"
-
-#include <algorithm>
+#include "DMFC.h"
+#include "DMFCKeyCodes.h"
+#include "bitmap.h"
+#include "cfile.h"
+#include "gamedll_header.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "module.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
+#include "renderer.h"
 
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;

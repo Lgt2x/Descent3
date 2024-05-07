@@ -114,11 +114,12 @@
  */
 
 #include <stdlib.h>
+
 #include "gamefont.h"
-#include "game.h"
 #include "grtext.h"
 #include "pserror.h"
 #include "stringtable.h"
+#include "mono.h"
 
 int Game_fonts[NUM_FONTS] = {
     0, 0, 0, 0, 0, 0,

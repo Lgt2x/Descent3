@@ -16,12 +16,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "RendererConfig.h"
+#include "pstypes.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 #ifndef USE_SOFTWARE_TNL
 
 #include "3d.h"
 #include "HardwareInternal.h"
-#include <string.h>
 
 extern vector Clip_plane_point;
 // code a point.  fills in the p3_codes field of the point, and returns the codes

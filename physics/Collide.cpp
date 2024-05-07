@@ -827,8 +827,9 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <algorithm>
+#include <cmath>
 
 #include "collide.h"
 #include "PHYSICS.H"
@@ -844,23 +845,46 @@
 #include "AIMain.h"
 #include "multi.h"
 #include "game.h"
-#include "soundload.h"
 #include "game2dll.h"
 #include "scorch.h"
-#include "ddio.h"
 #include "vecmat.h"
 #include "trigger.h"
-#include "lighting.h"
 #include "hud.h"
 #include "D3ForceFeedback.h"
 #include "demofile.h"
 #include "osiris_dll.h"
 #include "marker.h"
-#include "hud.h"
 #include "levelgoal.h"
 #include "psrand.h"
-
-#include <algorithm>
+#include "aistruct.h"
+#include "aistruct_external.h"
+#include "bitmap.h"
+#include "d3events.h"
+#include "damage_external.h"
+#include "ddio_common.h"
+#include "findintersection.h"
+#include "fireball_external.h"
+#include "fix.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#include "levelgoal_external.h"
+#include "linux_fix.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "osiris_share.h"
+#include "player_external.h"
+#include "polymodel_external.h"
+#include "pstypes.h"
+#include "room.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "terrain.h"
+#include "vecmat_external.h"
+#include "viseffect.h"
+#include "viseffect_external.h"
+#include "weapon_external.h"
 
 #define PLAYER_ROTATION_BY_FORCE_SCALAR 0.12f
 #define NONPLAYER_ROTATION_BY_FORCE_SCALAR 1.0f

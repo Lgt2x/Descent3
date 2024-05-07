@@ -132,13 +132,20 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
+#include <string.h>
+#include <stdlib.h>
+
 #include "grtext.h"
 #include "Macros.h"
 #include "mem.h"
-
-#include <string.h>
-#include <stdlib.h>
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "linux_fix.h"
+#include "mono.h"
+#include "pserror.h"
+#include "ui.h"
+#include "uidraw.h"
+#include "uisys.h"
 
 static UIEdit *UI_current_editbox = NULL;
 

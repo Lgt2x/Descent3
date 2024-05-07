@@ -201,6 +201,9 @@
 #include <windows.h>
 #endif
 
+#include <string.h>
+#include <fcntl.h>
+
 #include "cfile.h"
 #include "manage.h"
 #include "ship.h"
@@ -209,14 +212,20 @@
 #include "pserror.h"
 #include "polymodel.h"
 #include "ddio.h"
-#include "robotfire.h"
 #include "weaponpage.h"
-#include <string.h>
-#include "soundload.h"
 #include "sounds.h"
 #include "soundpage.h"
 #include "genericpage.h"
 #include "args.h"
+#include "linux_fix.h"
+#include "object_external.h"
+#include "objinfo.h"
+#include "polymodel_external.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
+#include "ssl_lib.h"
+#include "weapon.h"
+#include "weapon_external.h"
 
 // shippage commands that are read/written
 // A command is followed by a byte count describing how many bytes

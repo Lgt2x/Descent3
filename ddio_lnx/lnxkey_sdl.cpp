@@ -64,12 +64,15 @@
  * $NoKeywords: $
  */
 
-#include "SDL.h"
 #include "pserror.h"
-#include "mono.h"
 #include "ddio.h"
-#include "ddio_lnx.h"
-#include "application.h"
+#include "SDL_events.h"
+#include "SDL_keycode.h"
+#include "SDL_mouse.h"
+#include "SDL_stdinc.h"
+#include "SDL_video.h"
+#include "ddio_common.h"
+#include "pstypes.h"
 
 #ifdef __PERMIT_GL_LOGGING
 void DGL_EnableLogging(int enable);

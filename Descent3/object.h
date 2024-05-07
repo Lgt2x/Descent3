@@ -632,6 +632,7 @@
 #include "pserror.h"
 #include "object_external_struct.h"
 #include "object_external.h"
+#include "vecmat_external.h"
 
 /*
  *		CONSTANTS

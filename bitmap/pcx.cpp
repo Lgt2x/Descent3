@@ -54,12 +54,14 @@
  * $NoKeywords: $
  */
 
+#include <stdio.h>
+
 #include "mem.h"
 #include "bitmap.h"
-#include "pserror.h"
 #include "pstypes.h"
 #include "grdefs.h"
-#include <stdlib.h>
+#include "cfile.h"
+#include "mono.h"
 
 // load an 8bit pcx image
 int bm_pcx_8bit_alloc_file(CFILE *infile);

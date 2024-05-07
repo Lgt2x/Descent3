@@ -48,13 +48,19 @@
  * $NoKeywords: $
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+
 #include "gamedll_header.h"
-#include "DMFC.h"
 #include "dmfcinternal.h"
 #include "encryption.h"
-
-#include <stdlib.h>
-#include <memory.h>
+#include "Macros.h"
+#include "grdefs.h"
+#include "linux_fix.h"
+#include "multi_external.h"
+#include "pstypes.h"
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

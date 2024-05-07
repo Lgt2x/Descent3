@@ -20,6 +20,7 @@
 #define SPLINTER_H
 
 #include "object.h"
+#include "object_external_struct.h"
 
 // Draws a splinter object
 void DrawSplinterObject(object *obj);

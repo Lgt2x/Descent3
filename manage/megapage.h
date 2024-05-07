@@ -23,6 +23,7 @@
 #include "megacell.h"
 #include "cfile.h"
 #include "pstypes.h"
+#include "manage_external.h"
 
 typedef struct {
   megacell megacell_struct;

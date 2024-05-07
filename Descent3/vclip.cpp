@@ -156,6 +156,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+
 #include "pstypes.h"
 #include "pserror.h"
 #include "bitmap.h"
@@ -164,11 +165,10 @@
 #include "mono.h"
 #include "ddio.h"
 #include "gametexture.h"
-#include "texture.h"
-#include <string.h>
 #include "ctype.h"
 #include "mem.h"
-#include "game.h"
+#include "linux_fix.h"
+#include "renderer.h"
 
 vclip GameVClips[MAX_VCLIPS];
 int Num_vclips = 0;

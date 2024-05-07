@@ -24,16 +24,16 @@
  * $NoKeywords: $
  */
 
-#include "3d.h"
-#include "texture.h"
+#include <string.h>
+#include <stdlib.h>
+#include <algorithm>
+#include <cmath>
+
 #include "gametexture.h"
 #include "lighting.h"
 #include "lightmap.h"
-#include "descent.h"
 #include "game.h"
 #include "room.h"
-#include <string.h>
-#include <stdlib.h>
 #include "findintersection.h"
 #include "lightmap_info.h"
 #include "polymodel.h"
@@ -42,9 +42,15 @@
 #include "config.h"
 #include "dedicated_server.h"
 #include "objinfo.h"
-#include "Macros.h"
-
-#include <algorithm>
+#include "grdefs.h"
+#include "mono.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "terrain.h"
+#include "vecmat.h"
 
 #define NUM_DYNAMIC_CLASSES 7
 #define MAX_DYNAMIC_FACES 2000

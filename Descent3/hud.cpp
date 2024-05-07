@@ -411,13 +411,15 @@
  */
 
 #include "hud.h"
-#include "gauges.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "grdefs.h"
 #include "game.h"
-#include "ddio.h"
 #include "player.h"
 #include "renderer.h"
-#include "descent.h"
 #include "object.h"
 #include "gamefont.h"
 #include "polymodel.h"
@@ -431,14 +433,28 @@
 #include "stringtable.h"
 #include "pstring.h"
 #include "config.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
 #include "gamecinematics.h"
 #include "CtlCfgElem.h"
 #include "ctlconfig.h"
+#include "Controller.h"
+#include "bitmap.h"
+#include "cfile.h"
+#include "controls.h"
+#include "d3events.h"
+#include "grtext.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "pilot_class.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "weapon_external.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //	constants

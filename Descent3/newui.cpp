@@ -298,8 +298,12 @@
  */
 
 #include "newui.h"
+
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+
 #include "game.h"
-#include "descent.h"
 #include "renderer.h"
 #include "3d.h"
 #include "gamefont.h"
@@ -308,12 +312,12 @@
 #include "stringtable.h"
 #include "textaux.h"
 #include "newui_core.h"
-#include "hlsoundlib.h"
 #include "dedicated_server.h"
-
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
+#include "grtext.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "pserror.h"
+#include "uidraw.h"
 
 #define MSGBOX_HEIGHT msgbox.H()
 #define BTN_WIDTH 96

@@ -216,19 +216,23 @@
  * $NoKeywords: $
  */
 
+#include <stdlib.h>
+#include <string.h>
+#include <cmath>
+
 #include "terrain.h"
 #include "3d.h"
 #include "mono.h"
-#include "vecmat.h"
 #include "pserror.h"
 #include "pstypes.h"
 #include "descent.h"
-#include "game.h"
 #include "gameloop.h"
-#include <memory.h>
-#include <stdlib.h>
 #include "config.h"
 #include "dedicated_server.h"
+#include "object.h"
+#include "object_external_struct.h"
+#include "renderer.h"
+#include "vecmat_external.h"
 
 
 int EvaluateBlock(int x, int z, int lod);

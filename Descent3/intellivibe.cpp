@@ -43,6 +43,10 @@
 
 #define DD_ACCESS_RING
 #include "vibeinterface.h"
+#include "controls.h"
+#include "vecmat_external.h"
+
+class oeApplication;
 
 #ifndef WIN32
 void VIBE_Init(oeApplication *app) {}

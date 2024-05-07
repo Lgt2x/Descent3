@@ -41,6 +41,9 @@
  */
 
 #include "idmfc.h"
+
+#include <string.h>
+
 #include "dmfcinternal.h"
 
 /*

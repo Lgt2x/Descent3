@@ -121,9 +121,18 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-
 #include <string.h>
+#include <stdio.h>
+
+#include "UIlib.h"
+#include "SDL_platform.h"
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "pserror.h"
+#include "ui.h"
+#include "uidraw.h"
+#include "uires.h"
+#include "uisys.h"
 
 #ifdef __LINUX__
 int UIButton::m_ButtonFont;

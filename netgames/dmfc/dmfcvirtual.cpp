@@ -66,9 +66,20 @@
  * $NoKeywords: $
  */
 
-#include "DMFC.h"
+#include <stddef.h>
+
 #include "dmfcinternal.h"
 #include "d3events.h"
+#include "controls.h"
+#include "gamedll_header.h"
+#include "grdefs.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
+#include "vecmat_external.h"
 
 //	DMFCBase::InitializeVirtualHandles
 //		Prepares the virtual handles

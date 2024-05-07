@@ -21,6 +21,7 @@
 
 #include "vecmat.h"
 #include "osiris_share.h"
+#include "pstypes.h"
 
 // LOCAL MULTISAFE FUNCTIONS
 void msafe_CallFunction(ubyte type, msafe_struct *mstruct);

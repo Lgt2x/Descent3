@@ -19,6 +19,7 @@
 #ifndef OSIRIS_VECTOR_H
 #define OSIRIS_VECTOR_H
 
+#include <string.h>
 #include <cmath>
 #include <cstdint>
 #include <ctime>

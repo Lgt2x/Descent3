@@ -145,17 +145,14 @@
 
 #include "ObjScript.h"
 
-#include "object.h"
-#include "objinfo.h"
-#include "Mission.h"
-#include "pserror.h"
-#include "trigger.h"
-#include "door.h"
-#include "game.h"
-#include "multi.h"
-#include "osiris_dll.h"
-
 #include <string.h>
+
+#include "object.h"
+#include "Mission.h"
+#include "trigger.h"
+#include "osiris_dll.h"
+#include "object_external.h"
+#include "osiris_share.h"
 
 void InitTriggerScript(trigger *tp);
 void FreeTriggerScript(trigger *tp);

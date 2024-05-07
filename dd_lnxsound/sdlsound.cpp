@@ -16,32 +16,23 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//	NEED THIS SINCE DDSNDLIB is a DD library.
-#include "DDAccess.h"
-
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/time.h>
-#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <stdarg.h>
-#include <errno.h>
-#include "cfile.h"
+
 #include "pserror.h"
 #include "mono.h"
-#include "soundload.h"
 #include "ssl_lib.h"
-#include "mem.h"
-#include "application.h"
 #include "linux/lnxsound.h"
 #include "ddlnxsound.h"
 #include "mixer.h"
 #include "ddio.h"
-#include "SDL.h"
-#include "SDL_thread.h"
 #include "args.h"
+#include "SDL_audio.h"
+#include "SDL_stdinc.h"
+#include "linux_fix.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 
 #define SOUNDLIB_SAMPLE_RATE 22050
 #define SOUNDLIB_SAMPLE_SIZE 16
@@ -802,6 +793,8 @@ static void StreamAudio(void *user_ptr, Uint8 *stream, int len) {
 ///////////////////////////////////////////////////////////////////////
 // llsGeometry
 #include "ddsndgeometry.h"
+
+class oeApplication;
 
 // specify a sound library to associate geometry with
 bool llsGeometry::Init(llsSystem *snd_sys) { return false; }

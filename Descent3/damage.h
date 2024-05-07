@@ -98,9 +98,12 @@
 #ifndef DAMAGE_H
 #define DAMAGE_H
 
+#include <stddef.h>
+
 #include "damage_external.h"
 #include "vecmat.h"
 #include "DeathInfo.h"
+#include "vecmat_external.h"
 
 // Maximum damage magnitude
 #define MAX_DAMAGE_MAG 20.0f

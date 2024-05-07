@@ -55,10 +55,29 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+
 #include "gamedll_header.h"
 #include "idmfc.h"
 #include "HyperAnarchy.h"
 #include "hyperstr.h"
+#include "DMFC.h"
+#include "DMFCKeyCodes.h"
+#include "bitmap.h"
+#include "cfile.h"
+#include "d3events.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "module.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external_struct.h"
+#include "pstypes.h"
+#include "renderer.h"
+#include "room_external.h"
+#include "vecmat_external.h"
+
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;
 object *dObjects;

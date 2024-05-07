@@ -51,10 +51,12 @@
 
 // md5 class include
 #include "md5.h"
+
 #include <byteswap.h>
 #include <string.h>
+#include <stdint.h>
+#include <stdio.h>
 
-#include "stdio.h"
 static FILE *md5log = NULL;
 
 #define MD5_DEBUG_LOG 0

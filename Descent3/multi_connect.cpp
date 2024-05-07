@@ -253,6 +253,10 @@
  *
  */
 
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "multi.h"
 #include "multi_server.h"
 #include "player.h"
@@ -264,12 +268,22 @@
 #include "pilot.h"
 #include "ship.h"
 #include "args.h"
-
-#include "ui.h"
-#include "newui.h"
-#include "multi_dll_mgr.h"
-
 #include "LoadLevel.h"
+#include "/home/louis/dev/Descent/Descent3/md5/md5.h"
+#include "cfile.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "object.h"
+#include "object_external.h"
+#include "pilot_class.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "robotfirestruct_external.h"
 // #define USE_DIRECTPLAY
 
 #ifdef USE_DIRECTPLAY

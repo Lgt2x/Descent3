@@ -184,23 +184,33 @@
  */
 
 #include "gauges.h"
+
+#include <string.h>
+#include <cmath>
+
 #include "gamefont.h"
 #include "hud.h"
 #include "game.h"
 #include "renderer.h"
-#include "render.h"
 #include "player.h"
 #include "polymodel.h"
-#include "gametexture.h"
 #include "bitmap.h"
-#include "vclip.h"
-#include "Inventory.h"
 #include "cockpit.h"
-#include "player.h"
 #include "ship.h"
 #include "3d.h"
 #include "weapon.h"
 #include "stringtable.h"
+#include "fix.h"
+#include "grdefs.h"
+#include "grtext.h"
+#include "object.h"
+#include "object_external.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
 
 //////////////////////////////////////////////////////////////////////////////
 

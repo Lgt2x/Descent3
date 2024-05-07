@@ -290,20 +290,22 @@
 #include <process.h>
 #include <wsipx.h>
 #include <ras.h>
+
 typedef int socklen_t;
 #endif
 #include <stdlib.h>
 #include <string.h>
+#include <netdb.h>
+#include <stdio.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
 #ifdef __LINUX__
 #if !MACOSX
 #include <netinet/in.h>
 #endif
 #include <arpa/inet.h>
 #include <sys/socket.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <sys/time.h>
-#include <stdlib.h>
 #include <unistd.h>
 
 #define TRUE true
@@ -319,29 +321,26 @@ typedef int socklen_t;
 #include "descent.h"
 // #include "../manage/shippage.h"
 #include "appdatabase.h"
-
 #include "pstypes.h"
 #include "pserror.h"
 #include "mono.h"
 #include "networking.h"
 #include "ddio.h"
 #include "mem.h"
-#include "game.h"
 #include "args.h"
 #include "byteswap.h"
+#include "SDL_platform.h"
+#include "cfile.h"
+#include "linux_fix.h"
 
 #ifdef WIN32
 #include "directplay.h"
 #endif
 
-#include "pstring.h"
-
 #ifndef WIN32
 bool Use_DirectPlay = false;
 #endif
 
-
-#include "module.h" //for some nice defines to use below
 
 #define MAX_CONNECT_TRIES 50
 #define MAX_RECEIVE_BUFSIZE 32768
@@ -2048,7 +2047,6 @@ async_dns_lookup *lastaslu = NULL;
 
 #ifdef __LINUX__
 int CDECLCALL gethostbynameworker(void *parm);
-#include "SDL.h"
 #include "SDL_thread.h"
 
 // rcg06192000 use SDL threads.

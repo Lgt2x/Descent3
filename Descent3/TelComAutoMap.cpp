@@ -147,16 +147,14 @@
  */
 
 #include "TelComAutoMap.h"
+
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
+#include <stdio.h>
 
-#include "cfile.h"
 #include "pserror.h"
 #include "ddio.h"
-#include "bitmap.h"
 #include "room.h"
-
 #include "TelCom.h"
 #include "TelComEffects.h"
 #include "renderer.h"
@@ -177,6 +175,23 @@
 #include "player.h"
 #include "marker.h"
 #include "hlsoundlib.h"
+#include "3d.h"
+#include "Controller.h"
+#include "TelComEfxStructs.h"
+#include "application.h"
+#include "ddio_common.h"
+#include "descent.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "grtext.h"
+#include "multi_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external_struct.h"
+#include "room_external.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 
 // Variables needed for automap
 vector AM_view_pos = {0, 0, 0};

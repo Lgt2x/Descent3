@@ -54,8 +54,11 @@
 #include "linux/linux_fix.h" //for stricmp
 #endif
 
+#include <stddef.h>
+
 #include "TelComEfxStructs.h"
 #include "grdefs.h"
+#include "pstypes.h"
 
 //	Return codes of ParseBriefing
 #define PBERR_FILENOTEXIST -1

@@ -114,6 +114,10 @@
 #define VIS_EFFECT_H
 
 #include "viseffect_external.h"
+#include "pstypes.h"
+#include "vecmat_external.h"
+
+struct object;
 
 extern vis_effect *VisEffects;
 extern int Highest_vis_effect_index;

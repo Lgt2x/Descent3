@@ -58,11 +58,8 @@
  */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 #include "lnxscreenmode.h"
-#include "pserror.h"
-#include "args.h"
 
 CLnxVideoModes LinuxVideoMode;
 

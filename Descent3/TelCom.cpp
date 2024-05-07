@@ -494,10 +494,9 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
+
 #include "mono.h"
 #include "renderer.h"
-#include "render.h"
 #include "ddio.h"
 #include "descent.h"
 #include "game.h"
@@ -522,6 +521,23 @@
 #include "psrand.h"
 #include "controls.h"
 #include "d3music.h"
+#include "3d.h"
+#include "Controller.h"
+#include "Macros.h"
+#include "TelComEfxStructs.h"
+#include "ddio_common.h"
+#include "gamefont.h"
+#include "gametexture.h"
+#include "grtext.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "object_external.h"
+#include "player.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "ssl_lib.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 
 #define FRAME_RATE 30.0f
 #define TCPE_TIME 0.5f
@@ -680,9 +696,6 @@ void TelComMain(bool ingame, bool SelectShip) {
       } else {
         Telcom_system.current_status = TS_OFF;
       }
-#ifdef DEMO
-      // Telcom_system.state=TCS_POWEROFF;
-#endif
       break;
     case TS_MAP:
       TelComAutoMap(&Telcom_system);
@@ -691,10 +704,6 @@ void TelComMain(bool ingame, bool SelectShip) {
         Telcom_system.current_status = TS_MAINMENU;
         Telcom_system.state = TCS_POWERON;
       }
-
-#ifdef DEMO
-      // Telcom_system.state=TCS_POWEROFF;
-#endif
       break;
     case TS_CARGO:
 #ifdef DEMO

@@ -19,6 +19,8 @@
 #ifndef GAMEFILEPAGE_H
 #define GAMEFILEPAGE_H
 
+#include <stddef.h>
+
 #include "manage.h"
 #include "cfile.h"
 #include "pstypes.h"

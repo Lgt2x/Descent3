@@ -60,11 +60,16 @@
  * $NoKeywords: $
  */
 
+#include <stdio.h>
+
 #include "gamedll_header.h"
-#include <string.h>
 #include "idmfc.h"
 #include "hoardstr.h"
 #include "hoardaux.h"
+#include "DMFC.h"
+#include "DMFCKeyCodes.h"
+#include "multi_external.h"
+
 extern IDMFC *DMFCBase;
 
 // Displays the Hoard game configuration dialog (Server)

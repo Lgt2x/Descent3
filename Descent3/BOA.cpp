@@ -126,18 +126,25 @@
 #include "neweditor\globals.h"
 #endif
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <cmath>
+
 #include "BOA.h"
 #include "vecmat.h"
 #include "room.h"
-#include <string.h>
-#include <stdlib.h>
 #include "object.h"
-#include "bsp.h"
 #include "pserror.h"
 #include "findintersection.h"
 #include "mem.h"
 #include "doorway.h"
 #include "string.h"
+#include "findintersection_external.h"
+#include "gametexture.h"
+#include "mono.h"
+#include "object_external.h"
+#include "pstypes.h"
+#include "room_external.h"
 
 #define BOA_VERSION 25
 

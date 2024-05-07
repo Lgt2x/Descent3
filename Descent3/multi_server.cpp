@@ -638,6 +638,26 @@
 #include "Mission.h"
 #include "game2dll.h"
 #include "stringtable.h"
+#include "d3events.h"
+#include "damage_external.h"
+#include "descent.h"
+#include "findintersection_external.h"
+#include "gametexture.h"
+#include "manage_external.h"
+#include "networking.h"
+#include "newui_core.h"
+#include "object.h"
+#include "object_external.h"
+#include "objinfo.h"
+#include "pilot_class.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "room.h"
+#include "room_external.h"
+#include "terrain.h"
+#include "vecmat_external.h"
 
 // #define USE_DIRECTPLAY
 
@@ -645,8 +665,12 @@
 #include "directplay.h"
 #endif
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <algorithm>
+
 #include "dedicated_server.h"
-#include "damage.h"
 // #include "gamespy.h"
 #include "multi_world_state.h"
 #include "ObjScript.h"
@@ -657,10 +681,7 @@
 #include "doorway.h"
 #include "object_lighting.h"
 #include "ship.h"
-#include "pstring.h"
 #include "audiotaunts.h"
-
-#include "ui.h"
 #include "newui.h"
 #include "multi_dll_mgr.h"
 #include "spew.h"
@@ -668,8 +689,6 @@
 #include "polymodel.h"
 #include "init.h"
 #include "../md5/md5.h"
-
-#include <algorithm>
 
 void MultiProcessShipChecksum(MD5 *md5, int ship_index);
 

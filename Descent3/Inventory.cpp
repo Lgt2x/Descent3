@@ -290,11 +290,12 @@
 
 #include "Inventory.h"
 
+#include <string.h>
+
 #include "mono.h"
 #include "player.h"
 #include "pserror.h"
 #include "objinfo.h"
-#include "room.h"
 #include "weapon.h"
 #include "game.h"
 #include "multi.h"
@@ -308,6 +309,16 @@
 #include "sounds.h"
 #include "AIMain.h"
 #include "levelgoal.h"
+#include "aistruct.h"
+#include "aistruct_external.h"
+#include "bitmap.h"
+#include "gametexture.h"
+#include "levelgoal_external.h"
+#include "multi_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external_struct.h"
 
 // constructor
 Inventory::Inventory(void) {

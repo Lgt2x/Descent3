@@ -19,12 +19,11 @@
 // testscript.cpp
 // 0.1
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 #include "osiris_import.h"
 #include "osiris_common.h"
-
 #include "module.h"
+#include "object_external.h"
 
 #ifdef __cplusplus
 extern "C" {

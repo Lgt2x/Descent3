@@ -60,10 +60,12 @@
  */
 
 #include "program.h"
+
+#include <SDL_platform.h>
+
 #include "pserror.h"
 #include "descent.h"
-
-#include "appdatabase.h"
+#include "lnxdatabase.h"
 
 program_version Program_version;
 

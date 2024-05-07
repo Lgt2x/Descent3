@@ -18,6 +18,8 @@
 
 #ifndef MULTI_CLIENT_H
 
+#include "vecmat_external.h"
+
 // Do client stuff for this frame
 void MultiDoClientFrame();
 

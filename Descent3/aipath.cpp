@@ -17,18 +17,28 @@
 */
 
 #include "aipath.h"
+
+#include <string.h>
+
 #include "gamepath.h"
 #include "AIGoal.h"
 #include "BOA.h"
 #include "AIMain.h"
 #include "object.h"
 #include "objinfo.h"
-#include "memory.h"
-#include "doorway.h"
 #include "aistruct.h"
 #include "terrain.h"
 #include "psrand.h"
 #include "findintersection.h"
+#include "aistruct_external.h"
+#include "bnode.h"
+#include "findintersection_external.h"
+#include "mono.h"
+#include "object_external.h"
+#include "pserror.h"
+#include "room.h"
+#include "room_external.h"
+#include "vecmat.h"
 
 #define MAX_DYNAMIC_PATHS 50
 #define MAX_NODES 50

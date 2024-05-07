@@ -598,24 +598,37 @@
  * $NoKeywords: $
  */
 
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <algorithm>
+#include <cmath>
+
 #include "objinfo.h"
 #include "polymodel.h"
 #include "pserror.h"
 #include "3d.h"
 #include "mono.h"
-#include "bitmap.h"
 #include "renderer.h"
 #include "manage.h"
 #include "gametexture.h"
-#include "lighting.h"
 #include "ddio.h"
 #include "game.h"
-#include <stdlib.h>
-#include <string.h>
-#include "robotfire.h"
 #include "mem.h"
-
-#include <algorithm>
+#include "cfile.h"
+#include "fix.h"
+#include "grdefs.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "polymodel_external.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 
 int Num_poly_models = 0;
 poly_model Poly_models[MAX_POLY_MODELS];

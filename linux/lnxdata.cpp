@@ -45,15 +45,13 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <pwd.h>
-#include <sys/types.h>
 
-#include "appdatabase.h"
 #include "linux/lnxdatabase.h"
 #include "pserror.h"
 #include "mono.h"
-#include "pserror.h"
 #include "registry.h"
 #include "loki_utils.h"
+#include "pstypes.h"
 
 #define REGISTRY_FILENAME ".Descent3Registry"
 

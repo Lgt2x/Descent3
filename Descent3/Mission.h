@@ -167,6 +167,8 @@
 #ifndef MISSION_H
 #define MISSION_H
 
+#include <stddef.h>
+
 #include "pstypes.h"
 #include "descent.h"
 

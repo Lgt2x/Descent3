@@ -22,6 +22,7 @@
 #include "game.h"
 #include "pilot.h"
 #include "difficulty_external.h"
+#include "pstypes.h"
 
 extern ubyte ingame_difficulty;
 

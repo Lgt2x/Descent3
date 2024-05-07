@@ -464,6 +464,7 @@
  */
 
 #include <stdlib.h>
+
 #include "AIGoal.h"
 #include "aistruct.h"
 #include "aipath.h"
@@ -476,6 +477,17 @@
 #include "psrand.h"
 #include "BOA.h"
 #include "findintersection.h"
+#include "aistruct_external.h"
+#include "findintersection_external.h"
+#include "mono.h"
+#include "object_external.h"
+#include "player.h"
+#include "player_external.h"
+#include "pserror.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 
 extern int AI_unique_goal_id;
 

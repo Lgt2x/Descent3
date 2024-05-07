@@ -77,12 +77,18 @@
 #include <string.h>
 
 #include "ambient.h"
-
 #include "hlsoundlib.h"
-
 #include "room.h"
 #include "game.h"
 #include "psrand.h"
+#include "cfile.h"
+#include "linux_fix.h"
+#include "object.h"
+#include "object_external_struct.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "room_external.h"
+#include "ssl_lib.h"
 
 #define MAX_AMBIENT_SOUND_PATTERNS 100
 asp Ambient_sound_patterns[MAX_AMBIENT_SOUND_PATTERNS];

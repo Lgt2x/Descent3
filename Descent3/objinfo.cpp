@@ -27,21 +27,19 @@
  * $NoKeywords: $
  */
 
-#include "pstypes.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "pserror.h"
 #include "object.h"
 #include "objinfo.h"
-#include "3d.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
 #include "polymodel.h"
 #include "robotfire.h"
-#include "AIMain.h"
 #include "sounds.h"
-#include "stringtable.h"
 #include "mem.h"
+#include "linux_fix.h"
+#include "mono.h"
 
 // The array with information for robots, powerups, buildings, etc.
 object_info Object_info[MAX_OBJECT_IDS];

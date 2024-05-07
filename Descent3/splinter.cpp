@@ -17,19 +17,22 @@
 */
 
 
+#include <algorithm>
+
 #include "fireball.h"
 #include "object.h"
 #include "splinter.h"
 #include "polymodel.h"
 #include "renderer.h"
 #include "gametexture.h"
-
-#include "Macros.h"
-#include <stdlib.h>
-
 #include "psrand.h"
-
-#include <algorithm>
+#include "3d.h"
+#include "fireball_external.h"
+#include "object_external.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 
 // Given an object, renders the representation of this splinter
 void DrawSplinterObject(object *obj) {

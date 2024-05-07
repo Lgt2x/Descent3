@@ -24,9 +24,14 @@
 #ifndef _LIGHTING_H
 #define _LIGHTING_H
 
+#include <stddef.h>
+
 #include "object.h"
 #include "room.h"
 #include "terrain.h"
+#include "pstypes.h"
+#include "room_external.h"
+#include "vecmat_external.h"
 
 #define MAX_LIGHT 1.0
 #define LIGHTMAP_SPACING 5.0

@@ -88,13 +88,15 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
-#include "game.h"
-#include "descent.h"
+
 #include "mono.h"
 #include "cfile.h"
 #include "localization.h"
 #include "mem.h"
 #include "ddio.h"
+#include "linux_fix.h"
+#include "pserror.h"
+#include "pstypes.h"
 
 typedef struct {
   const char *tag;

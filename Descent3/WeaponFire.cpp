@@ -901,33 +901,28 @@
  * $NoKeywords: $
  */
 
+#include <stdlib.h>
+#include <algorithm>
+#include <cmath>
+
 #include "weapon.h"
 #include "descent.h"
-#include "weapon.h"
 #include "polymodel.h"
 #include "room.h"
 #include "object.h"
-#include "terrain.h"
 #include "player.h"
 #include "hud.h"
 #include "hlsoundlib.h"
 #include "gameevent.h"
-#include "polymodel.h"
-#include "lighting.h"
 #include "fireball.h"
-#include <string.h>
-#include <stdlib.h>
 #include "findintersection.h"
 #include "robotfire.h"
 #include "AIMain.h"
-#include "controls.h"
 #include "damage.h"
 #include "sounds.h"
 #include "viseffect.h"
 #include "vclip.h"
 #include "SmallViews.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
 #include "stringtable.h"
 #include "multi.h"
 #include "game2dll.h"
@@ -942,8 +937,38 @@
 #include "psrand.h"
 #include "BOA.h"
 #include "vibeinterface.h"
-
-#include <algorithm>
+#include "3d.h"
+#include "Macros.h"
+#include "aistruct_external.h"
+#include "bitmap.h"
+#include "d3events.h"
+#include "damage_external.h"
+#include "difficulty_external.h"
+#include "findintersection_external.h"
+#include "fireball_external.h"
+#include "fix.h"
+#include "game.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "renderer.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "ship.h"
+#include "ssl_lib.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
+#include "viseffect_external.h"
+#include "weapon_external.h"
 
 bool AreObjectsAttached(const object *obj1, const object *obj2) {
   const bool f_o1_a = (obj1->flags & OF_ATTACHED) != 0;

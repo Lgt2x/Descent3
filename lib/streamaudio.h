@@ -138,10 +138,17 @@
 #ifndef __STREAMAUDIO_H_
 #define __STREAMAUDIO_H_
 
-#include "Adecode.h"
+#include <stddef.h>
 
+#include "Adecode.h"
 #include "ssl_lib.h"
 #include "TaskSystem.h"
+#include "cfile.h"
+#include "pstypes.h"
+
+namespace AudioDecoder {
+class IAudioDecoder;
+}  // namespace AudioDecoder
 
 void *AudioStreamCB(void *user_data, int handle, int *size);
 int ADecodeFileRead(void *data, void *buf, unsigned int qty);
@@ -152,6 +159,7 @@ int StreamGetSoundHandle(int handle);
 //////////////////////////////////////////////////////////////////////////////
 class llsSystem;
 struct CFILE;
+
 //	stream file info
 #define OSF_HDR_SIZE 128
 #define OSF_TAG "OSF1"

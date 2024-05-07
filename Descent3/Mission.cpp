@@ -637,6 +637,11 @@
  * $NoKeywords: $
  */
 #include "Mission.h"
+
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "3d.h"
 #include "LoadLevel.h"
 #include "pserror.h"
@@ -645,12 +650,8 @@
 #include "grdefs.h"
 #include "descent.h"
 #include "ddio.h"
-#include "movie.h"
 #include "program.h"
-#include "object.h"
-#include "objinit.h"
 #include "ObjScript.h"
-#include "application.h"
 #include "TelCom.h"
 #include "game.h"
 #include "cinematics.h"
@@ -659,18 +660,25 @@
 #include "mem.h"
 #include "newui.h"
 #include "stringtable.h"
-#include "AppConsole.h"
 #include "pstring.h"
 #include "dedicated_server.h"
 #include "osiris_dll.h"
 #include "mission_download.h"
 #include "manage.h"
-#include <string.h>
-#include <stdlib.h>
 #include "ship.h"
 #include "BOA.h"
 #include "terrain.h"
 #include "multi.h"
+#include "grtext.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "newui_core.h"
+#include "osiris_share.h"
+#include "renderer.h"
+
 //	---------------------------------------------------------------------------
 //	Data
 //	---------------------------------------------------------------------------
@@ -1257,6 +1265,7 @@ void FreeMission() {
 }
 #include "localization.h"
 #include "levelgoal.h"
+
 // Load the text (goal strings) for a level
 void LoadLevelText(const char *level_filename) {
   char pathname[_MAX_FNAME], filename[_MAX_FNAME];

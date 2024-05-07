@@ -87,6 +87,7 @@
 #include "pstypes.h"
 #include "ObjScript.h"
 #include "vecmat.h"
+#include "object_external_struct.h"
 
 // Trigger flags
 #define TF_UNUSED 1                 //

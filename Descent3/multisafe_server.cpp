@@ -25,6 +25,15 @@
 #include "object.h"
 #include "player.h"
 #include "demofile.h"
+#include "gametexture.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "osiris_share.h"
+#include "player_external_struct.h"
+#include "vecmat.h"
 
 //------------------------
 // MULTISAFE FUNCTIONS

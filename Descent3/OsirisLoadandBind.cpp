@@ -399,13 +399,19 @@
  * $NoKeywords: $
  */
 
+#include <stdlib.h>
+#include <SDL_platform.h>
+#include <ctype.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "osiris_dll.h"
 #include "pserror.h"
 #include "mono.h"
 #include "cfile.h"
 #include "ddio.h"
 #include "manage.h"
-#include <stdlib.h>
 #include "mem.h"
 #include "DllWrappers.h"
 #include "objinfo.h"
@@ -419,6 +425,20 @@
 #include "player.h"
 #include "gamecinematics.h"
 #include "demofile.h"
+#include "aistruct_external.h"
+#include "descent.h"
+#include "gamecinematics_external.h"
+#include "linux_fix.h"
+#include "module.h"
+#include "multi_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "osiris_share.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "pstypes.h"
+#include "vecmat_external.h"
 
 #ifdef _DEBUG
 #define OSIRISDEBUG

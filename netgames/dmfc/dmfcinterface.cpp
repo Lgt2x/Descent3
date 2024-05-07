@@ -62,14 +62,33 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include "dmfcinputcommands.h"
-
 #include <stdlib.h>
-#include <stdarg.h>
 #include <assert.h>
+
+#include "gamedll_header.h"
+#include "dmfcinternal.h"
+#include "Mission.h"
+#include "cfile.h"
+#include "controls.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#include "idmfc.h"
+#include "module.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "osiris_share.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pstypes.h"
+#include "room_external.h"
+#include "ship.h"
+#include "terrain.h"
+#include "vclip.h"
+#include "vecmat_external.h"
+#include "viseffect_external.h"
+#include "weapon.h"
 
 /*
  ***********************************************************

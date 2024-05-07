@@ -38,12 +38,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
 #include <zlib.h>
+#include <stdio.h>
+#include <zconf.h>
+#include <algorithm>
 
 #include "unzip.h"
-
-#include <algorithm>
+#include "pstypes.h"
 
 #define INFLATE_INPUT_BUFFER_MAX 16384
 #define DATA_CHUNK_SIZE 1024

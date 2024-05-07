@@ -98,21 +98,19 @@
  * $NoKeywords: $
  */
 
-#include "mono.h"
-#include "renderer.h"
-#include "render.h"
-#include "grdefs.h"
-#include "ddio.h"
-#include "descent.h"
-#include "game.h"
-#include "cfile.h"
-#include "application.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+
+#include "mono.h"
+#include "grdefs.h"
+#include "ddio.h"
+#include "cfile.h"
 #include "hotspotmap.h"
 #include "mem.h"
 #include "bitmap.h"
 #include "manage.h"
+#include "pserror.h"
 
 void makecorner(int corner_bmp, int back_bmp, const char *tmap, int l, int t, int r, int b);
 

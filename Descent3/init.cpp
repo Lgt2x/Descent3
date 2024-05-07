@@ -910,12 +910,15 @@
 // Initialization routines for Descent3/Editor
 
 #include <stdlib.h>
+#include <SDL_platform.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 
 #include "mono.h"
 #include "application.h"
 #include "gametexture.h"
 #include "object.h"
-#include "vecmat.h"
 #include "init.h"
 #include "config.h"
 #include "3d.h"
@@ -923,7 +926,6 @@
 #include "manage.h"
 #include "bitmap.h"
 #include "ddio.h"
-#include "joystick.h"
 #include "render.h"
 #include "descent.h"
 #include "renderer.h"
@@ -931,25 +933,20 @@
 #include "grdefs.h"
 #include "pserror.h"
 #include "lighting.h"
-#include "program.h"
 #include "polymodel.h"
 #include "door.h"
 #include "terrain.h"
 #include "soundload.h"
 #include "ship.h"
 #include "controls.h"
-#include "texture.h"
 #include "Mission.h"
 #include "findintersection.h"
 #include "appdatabase.h"
-#include "AppConsole.h"
 #include "room.h"
 #include "game.h"
-#include "render.h"
 #include "gamefile.h"
 #include "TelCom.h"
 #include "objinfo.h"
-#include "ObjScript.h"
 #include "cinematics.h"
 #include "lightmap_info.h"
 #include "fireball.h"
@@ -961,11 +958,9 @@
 #include "trigger.h"
 #include "PHYSICS.H"
 #include "special_face.h"
-#include "streamaudio.h"
 #include "voice.h"
 #include "localization.h"
 #include "stringtable.h"
-#include "hlsoundlib.h"
 #include "player.h"
 #include "psrand.h"
 #include "ambient.h"
@@ -986,6 +981,21 @@
 #include "gamecinematics.h"
 #include "debuggraph.h"
 #include "vibeinterface.h"
+#include "cfile.h"
+#include "ddio_common.h"
+#include "ddvid.h"
+#include "debug.h"
+#include "fix.h"
+#include "gamefont.h"
+#include "grtext.h"
+#include "linux_fix.h"
+#include "lnxdatabase.h"
+#include "multi_external.h"
+#include "newui_core.h"
+#include "osiris_share.h"
+#include "pilot_class.h"
+#include "pstypes.h"
+#include "ssl_lib.h"
 
 // Uncomment this for all non-US versions!!
 // #define LASERLOCK
@@ -1002,6 +1012,7 @@
 #include "editor\d3edit.h"
 #include "slew.h"
 #include "gr.h"
+
 #define INIT_MESSAGE(c) SplashMessage c
 #else
 void IntroScreen();
@@ -2462,6 +2473,7 @@ void RestartD3() {
 #if (defined(RELEASE) && defined(WIN32) && (!defined(LASERLOCK)))
 
 #include "io.h"
+
 const char *GetCDVolume(int cd_num);
 
 #endif

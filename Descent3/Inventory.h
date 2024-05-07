@@ -181,6 +181,8 @@
 #ifndef __INVENTORY_H__
 #define __INVENTORY_H__
 
+#include <stddef.h>
+
 #include "pstypes.h"
 #include "cfile.h"
 

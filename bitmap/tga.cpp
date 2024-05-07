@@ -132,18 +132,18 @@
  * $NoKeywords: $
  */
 
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "cfile.h"
 #include "pserror.h"
 #include "pstypes.h"
 #include "bitmap.h"
 #include "mono.h"
 #include "grdefs.h"
-#include "texture.h"
 #include "byteswap.h"
-#include <string.h>
 #include "mem.h"
-
-#include <stdlib.h>
 
 char *Tga_file_data = NULL;
 int Fake_pos = 0;

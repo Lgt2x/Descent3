@@ -64,16 +64,15 @@
  *
  */
 
-#include <cstdarg>
-#include <cstdio>
-
 #include <stdlib.h>
 #include <string.h>
+#include <cstdarg>
+#include <cstdio>
 
 #include "mono.h"
 #include "pserror.h"
 #include "debug.h"
-#include "application.h"
+#include "debugbreak.h"
 
 #define MAX_MSG_LEN 2000
 

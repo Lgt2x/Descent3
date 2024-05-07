@@ -60,8 +60,16 @@
 #ifndef __DMFC_APP_H_
 #define __DMFC_APP_H_
 
+#include <stddef.h>
+
 #include "osiris_share.h"
 #include "d3events.h"
+#include "gamedll_header.h"
+#include "idmfc.h"
+#include "module.h"
+#include "multi_external.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
 
 void OnHUDInterval(void);
 void OnInterval(void);

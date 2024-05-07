@@ -355,6 +355,9 @@
 #include <windows.h>
 #endif
 
+#include <string.h>
+#include <fcntl.h>
+
 #include "cfile.h"
 #include "manage.h"
 #include "genericpage.h"
@@ -364,12 +367,24 @@
 #include "pserror.h"
 #include "polymodel.h"
 #include "ddio.h"
-#include <string.h>
-#include "robotfire.h"
 #include "weapon.h"
 #include "sounds.h"
 #include "mem.h"
 #include "args.h"
+#include "aistruct.h"
+#include "aistruct_external.h"
+#include "deathinfo_external.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "ssl_lib.h"
+#include "weapon_external.h"
 
 #define GENERICFILE_VERSION 27
 

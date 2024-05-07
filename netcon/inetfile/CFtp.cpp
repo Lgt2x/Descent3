@@ -66,12 +66,23 @@
 #ifdef WIN32
 #include <windows.h>
 #include <process.h>
+
 typedef int socklen_t;
 #endif
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <unistd.h>
+
+#include "SDL_platform.h"
+#include "linux_fix.h"
 
 #ifdef __LINUX__
 // sorry, I'm lazy, I guess we could copy the defines
@@ -80,8 +91,6 @@ typedef int socklen_t;
 #include "inetgetfile.h"
 #endif
 
-
-#include "CFtp.h"
 
 #ifdef __LINUX__
 int FTPObjThread(void *obj)

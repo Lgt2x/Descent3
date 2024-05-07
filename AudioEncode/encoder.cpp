@@ -17,8 +17,7 @@
 */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 #include "audio_encode.h"
 #include "mono.h"
 #include "Aencode.h"

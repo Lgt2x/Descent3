@@ -16,6 +16,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
 /*
  * $Logfile: /DescentIII/Main/newui_filedlg.cpp $
  * $Revision: 22 $
@@ -102,20 +106,16 @@
  */
 #include "mono.h"
 #include "renderer.h"
-#include "render.h"
 #include "ddio.h"
-#include "descent.h"
-#include "game.h"
 #include "cfile.h"
-#include "application.h"
-#include <stdlib.h>
-#include <string.h>
 #include "newui.h"
-#include "grtext.h"
-#include "gamefont.h"
 #include "stringtable.h"
-#include "ConfigItem.h" //for colors
 #include "mem.h"
+#include "linux_fix.h"
+#include "manage.h"
+#include "newui_core.h"
+#include "pserror.h"
+#include "ui.h"
 
 newuiListBox *path_list = NULL;
 char *path_edit = NULL;

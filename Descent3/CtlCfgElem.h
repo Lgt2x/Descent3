@@ -81,6 +81,10 @@
 #include "Controller.h"
 #include "controls.h"
 #include "stringtable.h"
+#include "pstypes.h"
+#include "ui.h"
+
+class UIBitmapItem;
 
 //////////////////////////////////////////////////////////////////////////////
 // Data types

@@ -66,6 +66,8 @@
  *
  */
 
+#include <stddef.h>
+
 #include "descent.h"
 
 // Values for the small view windows

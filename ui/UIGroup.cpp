@@ -44,10 +44,15 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
 #include <string.h>
 #include <cstdlib>
+
 #include "mem.h"
+#include "grdefs.h"
+#include "pserror.h"
+#include "ui.h"
+#include "uidraw.h"
+#include "uires.h"
 
 //	----------------------------------------------------------------------------
 //	UIGroup

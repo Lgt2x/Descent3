@@ -21,6 +21,8 @@
 
 #include "game.h"
 #include "object.h"
+#include "object_external.h"
+#include "pstypes.h"
 
 #define MAX_EVENTS 500
 

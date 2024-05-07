@@ -20,12 +20,16 @@
 // 0.1
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <math.h>
+
 #include "osiris_import.h"
 #include "osiris_common.h"
 #include "osiris_vector.h"
-
 #include "module.h"
+#include "damage_external.h"
+#include "deathinfo_external.h"
+#include "object_external.h"
+#include "vecmat_external.h"
 
 #ifdef __cplusplus
 extern "C" {

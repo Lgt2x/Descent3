@@ -51,6 +51,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <strings.h>
+
 // #include "local_malloc.h"
 #include "registry.h"
 #include "mono.h"

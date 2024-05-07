@@ -49,6 +49,7 @@
 #define __HOTSPOTMAP_H_
 
 #include "grdefs.h"
+#include "pstypes.h"
 
 // for the next two defines this is how they work when converting the alpha values into hotspots/windows
 // 0 to MAX_HOTSPOTS-1 = HotSpot (button)

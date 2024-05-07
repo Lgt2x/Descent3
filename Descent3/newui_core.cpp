@@ -182,15 +182,17 @@
  * $NoKeywords: $
  */
 
+#include <string.h>
+#include <stdlib.h>
 #include <cstdarg>
 #include <cstdio>
+#include <cmath>
 
 #include "newui_core.h"
 #include "bitmap.h"
 #include "mem.h"
 #include "pserror.h"
 #include "game.h"
-#include "ddio.h"
 #include "renderer.h"
 #include "descent.h"
 #include "application.h"
@@ -199,8 +201,13 @@
 #include "textaux.h"
 #include "d3music.h"
 #include "hlsoundlib.h"
-
-#include <string.h>
+#include "ddio_common.h"
+#include "linux_fix.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "uidraw.h"
+#include "uires.h"
+#include "uisys.h"
 
 extern void ui_DoCursor();
 

@@ -434,12 +434,11 @@
  * $NoKeywords: $
  */
 
-#include <cstdarg>
-#include <cstdio>
-
-#include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <fcntl.h>
+#include <cstdarg>
+#include <cstdio>
 #if defined(WIN32)
 #include <windows.h>
 #elif defined(__LINUX__)
@@ -464,12 +463,29 @@
 #include "genericpage.h"
 #include "mem.h"
 #include "dedicated_server.h"
-#include "AppConsole.h"
 #include "init.h"
 #include "stringtable.h"
 #include "args.h"
 #include "vclip.h"
 #include "polymodel.h"
+#include "Macros.h"
+#include "bitmap.h"
+#include "debug.h"
+#include "door.h"
+#include "gamefile.h"
+#include "manage_external.h"
+#include "megacell.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "ship.h"
+#include "soundload.h"
+#include "ssl_lib.h"
+#include "weapon.h"
+
 int Old_table_method = 0;
 void mng_WriteNewUnknownPage(CFILE *outfile);
 //	This is for levels

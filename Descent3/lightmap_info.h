@@ -42,6 +42,7 @@
 #include "pstypes.h"
 #include "pserror.h"
 #include "vecmat.h"
+#include "vecmat_external.h"
 
 #define BAD_LMI_INDEX 65535
 

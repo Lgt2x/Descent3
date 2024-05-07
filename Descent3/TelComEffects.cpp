@@ -133,16 +133,20 @@
  * $NoKeywords: $
  */
 
+#include <string.h>
 #include <cstdarg>
 #include <cstdio>
 
 #include "TelComEffects.h"
 #include "mem.h"
 #include "vecmat.h"
-#include <string.h>
 #include "textaux.h"
-#include "hlsoundlib.h"
 #include "soundload.h"
+#include "gamefont.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "pserror.h"
+#include "renderer.h"
 
 tceffect TCEffects[MAX_TCEFFECTS];
 int Screen_roots[MAX_TELCOM_SCREENS];

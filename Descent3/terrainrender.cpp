@@ -788,6 +788,7 @@
  */
 #ifdef NEWEDITOR
 #include "neweditor\globals.h"
+
 void RenderMine(int viewer_roomnum, int flag_automap, int called_from_terrain, bool render_all, bool outline, bool flat,
                 prim *prim);
 #endif
@@ -801,30 +802,35 @@ void RenderMine(int viewer_roomnum, int flag_automap, int called_from_terrain, b
 #include "descent.h"
 #include "render.h"
 #include "game.h"
-#include "texture.h"
-#include "ddio.h"
-#include "polymodel.h"
-#include "lighting.h"
 #include "vecmat.h"
 #include "renderobject.h"
 #include "findintersection.h"
 #include "weapon.h"
 #include "weather.h"
 #include "viseffect.h"
+#include "bitmap.h"
+#include "findintersection_external.h"
+#include "fireball_external.h"
+#include "mono.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "room.h"
+#include "room_external.h"
+#include "vecmat_external.h"
+#include "viseffect_external.h"
 #ifdef EDITOR
 #include "editor\d3edit.h"
 #endif
-#include "fireball.h"
-#include <string.h>
 #include <stdlib.h>
+#include <algorithm>
+
+#include "fireball.h"
 #include "config.h"
 #include "gameloop.h"
 #include "postrender.h"
-#include "Macros.h"
 #include "psrand.h"
 #include "player.h"
-
-#include <algorithm>
 
 #define TERRAIN_PERSPECTIVE_TEXTURE_DEPTH 1 * TERRAIN_SIZE
 #define LOD_ROW_SIZE (MAX_LOD_SIZE + 1)

@@ -95,12 +95,37 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h" //included by all mods, it includes all needed headers, etc.
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <cmath>
+
+#include "gamedll_header.h" //included by all mods, it includes all needed headers, etc.
 #include "idmfc.h" //dmfc! (required)
 #include "Entropy.h"
 #include "Entropystr.h" //our string table for Entropy
 #include "EntropyAux.h"
+#include "DMFC.h"
+#include "DMFCKeyCodes.h"
+#include "Macros.h"
+#include "bitmap.h"
+#include "cfile.h"
+#include "d3events.h"
+#include "damage_external.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "module.h"
+#include "multi_external.h"
+#include "multi_world_state.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "pstypes.h"
+#include "renderer.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "vecmat_external.h"
 
 // the DMFC object, used throughout, and required by all mods
 IDMFC *DMFCBase = NULL;

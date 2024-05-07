@@ -76,16 +76,19 @@
 #include "..\neweditor\globals.h"
 #endif
 
-#include <stdlib.h>
 #include "object.h"
 #include "viseffect.h"
 #include "render.h"
 #include "renderobject.h"
 #include "room.h"
 #include "postrender.h"
-#include "config.h"
 #include "terrain.h"
 #include "renderer.h"
+#include "3d.h"
+#include "object_external_struct.h"
+#include "pserror.h"
+#include "room_external.h"
+#include "vecmat_external.h"
 
 postrender_struct Postrender_list[MAX_POSTRENDERS];
 int Num_postrenders = 0;

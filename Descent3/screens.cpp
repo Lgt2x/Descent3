@@ -186,6 +186,10 @@
  */
 
 #include "screens.h"
+
+#include <stdio.h>
+#include <string.h>
+
 #include "newui.h"
 #include "game.h"
 #include "ddio.h"
@@ -203,6 +207,20 @@
 #include "sounds.h"
 #include "pilot.h"
 #include "joystick.h"
+#include "d3events.h"
+#include "ddio_common.h"
+#include "grtext.h"
+#include "levelgoal_external.h"
+#include "mono.h"
+#include "multi.h"
+#include "multi_external.h"
+#include "newui_core.h"
+#include "object.h"
+#include "pilot_class.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "renderer.h"
+#include "uisys.h"
 
 #define LVLRES_FADEIN_TIME 0.50f
 #define TEXT_REDRAW_COUNT 6.0f

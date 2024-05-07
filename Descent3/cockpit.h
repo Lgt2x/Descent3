@@ -66,6 +66,7 @@
 
 #include "pstypes.h"
 #include "vecmat.h"
+#include "vecmat_external.h"
 
 struct poly_model;
 struct bsp_info;

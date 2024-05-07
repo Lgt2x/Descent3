@@ -38,7 +38,15 @@
  * $NoKeywords: $
  */
 
+#include <stdio.h>
+
 #include "UIlib.h"
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "ui.h"
+#include "uidraw.h"
+#include "uires.h"
+#include "uisys.h"
 
 //	----------------------------------------------------------------------------
 //	UIComboBox

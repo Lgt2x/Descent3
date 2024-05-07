@@ -652,21 +652,32 @@
  * $NoKeywords: $
  */
 #include "menu.h"
+
 #include "mmItem.h"
 #include "game.h"
 #include "gamesequence.h"
 #include "Mission.h"
 #include "multi_ui.h"
-#include "ctlconfig.h"
 #include "config.h"
 #include "gamesave.h"
 #include "demofile.h"
 #include "pilot.h"
-#include "LoadLevel.h"
 #include "stringtable.h"
 #include "mem.h"
 #include "args.h"
-#include "cinematics.h"
+#include "ddio.h"
+#include "ddio_common.h"
+#include "descent.h"
+#include "linux_fix.h"
+#include "manage.h"
+#include "mono.h"
+#include "networking.h"
+#include "newui.h"
+#include "pilot_class.h"
+#include "player.h"
+#include "renderer.h"
+#include "ship.h"
+#include "ui.h"
 
 #ifdef _WIN32
 #define USE_DIRECTPLAY
@@ -677,12 +688,12 @@
 #else
 bool Directplay_lobby_launched_game = false;
 #endif
-#include "multi_dll_mgr.h"
-#include "d3music.h"
-#include "newui_core.h"
-
 #include <string.h>
-#include <algorithm>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "multi_dll_mgr.h"
+#include "newui_core.h"
 
 #define IDV_QUIT 0xff
 //	Menu Item Defines

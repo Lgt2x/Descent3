@@ -39,6 +39,7 @@
  */
 
 #include <cctype>
+#include <cstring>
 
 #include "pstring.h"
 

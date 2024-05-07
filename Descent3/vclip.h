@@ -23,6 +23,7 @@
 #include "pstypes.h"
 #include "fix.h"
 #include "manage.h"
+#include "manage_external.h"
 
 #define MAX_VCLIPS 200
 #define VCLIP_MAX_FRAMES 50
