@@ -73,9 +73,6 @@ typedef int socklen_t;
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <netdb.h>
-#include <unistd.h>
-
 
 #if defined(__LINUX__)
 #include "linux_fix.h"
@@ -87,7 +84,6 @@ typedef int socklen_t;
 #endif
 
 #include "CFtp.h"
-
 
 #ifdef __LINUX__
 int FTPObjThread(void *obj)

@@ -127,18 +127,10 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <arpa/inet.h>
 #include <ctype.h>
-#include <errno.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <sys/ioctl.h>
-#include <sys/select.h>
-#include <sys/socket.h>
-#include <sys/time.h>
-#include <unistd.h>
 
 #include "inetgetfile.h"
+#include "Chttpget.h"
 
 #if defined(__LINUX__)
 #include "linux_fix.h"

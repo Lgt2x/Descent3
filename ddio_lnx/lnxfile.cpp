@@ -294,6 +294,9 @@ int globerrfn(const char *path, int err) {
 }
 
 #if MACOSX
+#include <ctype.h>    // toupper
+#include <dirent.h>   // DIR
+
 int noglob_findnext(struct find_t *f);
 struct find_t {
   DIR *dir;
