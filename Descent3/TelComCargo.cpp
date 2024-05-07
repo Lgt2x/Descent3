@@ -78,30 +78,28 @@
  */
 
 #include "TelComCargo.h"
+
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include <algorithm>
 
-#include "cfile.h"
 #include "pserror.h"
-#include "ddio.h"
-#include "bitmap.h"
-
 #include "TelCom.h"
 #include "renderer.h"
-#include "game.h"
-#include "mem.h"
 #include "stringtable.h"
-#include "Inventory.h"
 #include "player.h"
-#include "gametexture.h"
-#include "textaux.h"
 #include "TelComEfxStructs.h"
 #include "TelComEffects.h"
 #include "weapon.h"
 #include "hlsoundlib.h"
-
-#include <algorithm>
+#include "application.h"
+#include "ddio_common.h"
+#include "descent.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "grtext.h"
+#include "player_external.h"
+#include "pstypes.h"
+#include "object.h"
 
 #define TCBACK_BUTTON_X 500
 #define TCBACK_BUTTON_Y 350

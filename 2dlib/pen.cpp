@@ -91,8 +91,10 @@
  * $NoKeywords: $
  */
 
-#include "lib2d.h"
 #include "pserror.h"
+#include "gr.h"
+#include "grdefs.h"
+#include "renderer.h"
 
 #define CLIP_LEFT (vp_InitLeft + vp_Left)
 #define CLIP_TOP (vp_InitTop + vp_Top)

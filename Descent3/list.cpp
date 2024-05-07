@@ -17,8 +17,13 @@
 */
 
 #include "list.h"
+
+#include <stddef.h>
+
 // #include <malloc.h>
 #include "mem.h"
+#include "mono.h"
+#include "pserror.h"
 
 // Allocates space for a new list node, returning the pointer to it
 listnode *NewListNode(void) {

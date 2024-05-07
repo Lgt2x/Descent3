@@ -41,21 +41,22 @@
  * $NoKeywords: $
  */
 #include "procedurals.h"
+
+#include <string.h>
+#include <algorithm>
+#include <cmath>
+
 #include "bitmap.h"
-#include "gr.h"
 #include "gametexture.h"
-#include "vclip.h"
 #include "game.h"
-#include "texture.h"
 #include "mem.h"
 #include "ddio.h"
 #include "config.h"
-#include <stdlib.h>
-#include <math.h>
-#include <memory.h>
 #include "psrand.h"
-
-#include <algorithm>
+#include "Macros.h"
+#include "grdefs.h"
+#include "mono.h"
+#include "pserror.h"
 
 #define BRIGHT_COLOR 254
 #define PROC_SIZE 128

@@ -279,47 +279,38 @@
  * $NoKeywords: $
  */
 
-#include "ConfigItem.h"
-#include "player.h"
+#include <string.h>
+#include <stdlib.h>
+
 #include "config.h"
-#include "ddio.h"
 #include "newui.h"
 #include "3d.h"
-#include "polymodel.h"
-#include "application.h"
 #include "descent.h"
 #include "mono.h"
-#include "Mission.h"
-#include "ddio.h"
-#include "gamefont.h"
-#include "multi_ui.h"
-#include "cinematics.h"
 #include "hlsoundlib.h"
 #include "terrain.h"
-#include "cfile.h"
-#include "mem.h"
-#include "lighting.h"
 #include "PHYSICS.H"
 #include "pilot.h"
 #include "hud.h"
-#include "voice.h"
 #include "bitmap.h"
 #include "game.h"
-#include "render.h"
 #include "stringtable.h"
 #include "SmallViews.h"
-#include "D3ForceFeedback.h"
-#include "descent.h"
 #include "appdatabase.h"
-#include "hlsoundlib.h"
 #include "soundload.h"
-#include "sounds.h"
 #include "ctlconfig.h"
 #include "d3music.h"
-
-#include <string.h>
-#include <stdlib.h>
-#include <stdarg.h>
+#include "Macros.h"
+#include "controls.h"
+#include "forcefeedback.h"
+#include "grdefs.h"
+#include "lnxdatabase.h"
+#include "newui_core.h"
+#include "pilot_class.h"
+#include "pserror.h"
+#include "renderer.h"
+#include "ssl_lib.h"
+#include "ui.h"
 
 #define STAT_SCORE STAT_TIMER
 

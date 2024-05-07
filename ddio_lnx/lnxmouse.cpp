@@ -81,17 +81,15 @@
 //	Mouse Interface
 // ----------------------------------------------------------------------------
 
-#include <stdlib.h>
 #include <string.h>
+
 #include "pserror.h"
 #include "psclass.h"
-#include "mono.h"
 #include "ddio.h"
 #include "ddio_lnx.h"
-#include "application.h"
-#include "args.h"
-// #include "../lib/linux/dyna_xwin.h"
-#include "SDL.h"
+#include "SDL_events.h"
+#include "lnxapp.h"
+#include "pstypes.h"
 
 bool ddio_mouseGrabbed = false;
 static bool DDIO_mouse_init = false;

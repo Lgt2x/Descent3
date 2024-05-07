@@ -31,12 +31,9 @@
  *
  */
 
-#include "soar.h"
-
 #ifdef SOAR_ENABLED
 
 #include "soar_helpers.h"
-
 #include "object.h"
 #include "vecmat.h"
 #include "controls.h"

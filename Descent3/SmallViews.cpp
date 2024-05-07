@@ -142,9 +142,9 @@
 
 #include "SmallViews.h"
 
-#include "descent.h"
-#include "pserror.h"
+#include <string.h>
 
+#include "pserror.h"
 #include "game.h"
 #include "object.h"
 #include "terrain.h"
@@ -153,13 +153,22 @@
 #include "weapon.h"
 #include "findintersection.h"
 #include "config.h"
-#include "terrain.h"
 #include "gauges.h"
 #include "cockpit.h"
 #include "player.h"
 #include "grtext.h"
-#include "stringtable.h"
 #include "gamefont.h"
+#include "3d.h"
+#include "findintersection_external.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#include "hud.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external.h"
+#include "renderer.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 
 // How many small views
 #define NUM_SMALL_VIEWS 3

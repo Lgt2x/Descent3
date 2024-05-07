@@ -16,6 +16,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+
 /*
  * $Logfile: /DescentIII/main/TelcomEffectsRender.cpp $
  * $Revision: 15 $
@@ -52,9 +56,18 @@
 #include "textaux.h"
 #include "mem.h"
 #include "hlsoundlib.h"
-#include <string.h>
-
-#include <stdlib.h>
+#include "TelCom.h"
+#include "TelComEfxStructs.h"
+#include "bitmap.h"
+#include "cinematics.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "grtext.h"
+#include "mono.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "renderer.h"
+#include "ssl_lib.h"
 
 int glitch_dx = 0, glitch_dy = 0;
 extern tceffect TCEffects[MAX_TCEFFECTS];

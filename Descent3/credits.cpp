@@ -77,6 +77,9 @@
  * $NoKeywords: $
  */
 
+#include <string.h>
+#include <stdio.h>
+
 #include "mono.h"
 #include "pstypes.h"
 #include "ddio.h"
@@ -87,12 +90,14 @@
 #include "bitmap.h"
 #include "descent.h"
 #include "mem.h"
-#include "3d.h"
 #include "d3music.h"
 #include "hlsoundlib.h"
-#include <string.h>
-#include <math.h>
 #include "psrand.h"
+#include "application.h"
+#include "cfile.h"
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "pserror.h"
 
 #if defined(WIN32)
 #include <windows.h>

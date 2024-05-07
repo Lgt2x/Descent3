@@ -29,15 +29,14 @@
  * $NoKeywords: $
  */
 #include "render.h"
+
 #include <stdlib.h>
 #include <string.h>
-#include "descent.h"
+#include <float.h>
+
 #include "3d.h"
 #include "mono.h"
 #include "gametexture.h"
-#include "texture.h"
-#include "vclip.h"
-#include "program.h"
 #include "game.h"
 #include "renderobject.h"
 #include "door.h"
@@ -46,7 +45,6 @@
 #include "room.h"
 #include "lighting.h"
 #include "lightmap.h"
-#include "limits.h"
 #include "lightmap_info.h"
 #include "viseffect.h"
 #include "weapon.h"
@@ -54,22 +52,34 @@
 #include "scorch.h"
 #include "findintersection.h"
 #include "special_face.h"
-#include "BOA.h"
 #include "config.h"
 #include "gameloop.h"
 #include "doorway.h"
 #include "TelComAutoMap.h"
 #include "postrender.h"
 #include "mem.h"
-#include "Macros.h"
 #include "psrand.h"
 #include "player.h"
 #include "args.h"
+#include "bitmap.h"
+#include "findintersection_external.h"
+#include "fireball_external.h"
+#include "grdefs.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external.h"
+#include "polymodel.h"
+#include "pserror.h"
+#include "room_external.h"
+#include "vecmat.h"
+#include "viseffect_external.h"
 #ifdef EDITOR
 #include "editor\d3edit.h"
 #endif
 
 #include <algorithm>
+#include <cmath>
 
 // #define KATMAI
 
@@ -3797,49 +3807,3 @@ int FogBlendFace (g3Point **src,int nv,int *num_solid,int *num_alpha)
 // RenderBlankScreen
 //	Renders a blank screen, to be used for UI callbacks to prevent Hall of mirrors with mouse cursor
 void RenderBlankScreen(void) { rend_ClearScreen(GR_BLACK); }
-#ifdef EDITOR
-// Finds what room & face is visible at a given screen x & y
-// Everything must be set up just like for RenderMineRoom(), and presumably is the same as
-// for the last frame rendered (though it doesn't have to be)
-// Parameters:	x,y - the screen coordinates
-//					start_roomnum - where to start rendering
-//					roomnum,facenum - these are filled in with the found values
-//					if room<0, then an object was found, and the object number is -room-1
-// Returns:		1 if found a room, else 0
-/*int FindRoomFace(short x,short y,int start_roomnum,int *roomnum,int *facenum)
-{
-        //Init search mode
-        search_mode = -1;
-        search_x = x; search_y = y;
-        found_room = INT_MAX;
-        //Render and search
-        RenderMine(start_roomnum,0,0);
-        //Turn search off
-        search_mode = 0;
-        //Set return values
-        *roomnum = found_room;
-        *facenum = found_face;
-        return (found_room != INT_MAX);
-}*/
-// finds what room,face,lumel is visible at a given screen x & y
-// Everything must be set up just like for RenderMineRoom(), and presumably is the same as
-// for the last frame rendered (though it doesn't have to be)
-// Parameters:	x,y - the screen coordinates
-//					start_roomnum - where to start rendering
-//					roomnum,facenum,lumel_num - these are filled in with the found values
-// Returns:		1 if found a room, else 0
-/*int FindLightmapFace(short x,short y,int start_roomnum,int *roomnum,int *facenum,int *lumel_num)
-{
-        Search_lightmaps=1;
-        search_x = x; search_y = y;
-        found_room = INT_MAX;
-        //Get the width & height of the render window
-        rend_GetProjectionParameters(&Render_width,&Render_height);
-        RenderMine(start_roomnum,0,0);
-        Search_lightmaps=0;
-        *roomnum = found_room;
-        *facenum = found_face;
-        *lumel_num=found_lightmap;
-        return (found_room != INT_MAX);
-}*/
-#endif

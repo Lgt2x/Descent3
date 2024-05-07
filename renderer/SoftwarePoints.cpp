@@ -19,9 +19,10 @@
 #include "RendererConfig.h"
 #ifdef USE_SOFTWARE_TNL
 
+#include <string.h>
+
 #include "3d.h"
 #include "SoftwareInternal.h"
-#include <string.h>
 
 extern vector Clip_plane_point;
 // code a point.  fills in the p3_codes field of the point, and returns the codes

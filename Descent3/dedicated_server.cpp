@@ -102,11 +102,12 @@
  * $NoKeywords: $
  */
 
-#include <cstdarg>
-#include <cstdio>
-
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <sys/ioctl.h>
+#include <cstdarg>
+#include <cstdio>
 
 #ifndef __LINUX__
 typedef int socklen_t;
@@ -115,31 +116,35 @@ typedef int socklen_t;
 #include "pstypes.h"
 #include "pserror.h"
 #include "pstring.h"
-#include "cfile.h"
 #include "inffile.h"
 #include "dedicated_server.h"
 #include "multi.h"
 #include "args.h"
 #include "AppConsole.h"
 #include "ddio.h"
-#include "newui.h"
-#include "ui.h"
 #include "multi_dll_mgr.h"
 #include "multi_ui.h"
 #include "Mission.h"
 #include "multi_server.h"
 #include "Macros.h"
-#include "game.h"
 #include "mem.h"
 #include "stringtable.h"
 #include "multi_save_settings.h"
 #include "objinfo.h"
 #include "rtperformance.h"
 #include "player.h"
-#include "stringtable.h"
 #include "init.h"
 #include "ship.h"
 #include "hud.h"
+#include "d3events.h"
+#include "descent.h"
+#include "game2dll.h"
+#include "grdefs.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "player_external_struct.h"
 
 
 bool Dedicated_server = false;
@@ -787,13 +792,11 @@ void PrintDedicatedMessage(const char *fmt, ...) {
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/time.h>
 #include <unistd.h>
 
 #include "linux/linux_fix.h"
 #include "errno.h"
+
 #define BOOL bool
 #ifndef SOCKET
 #define SOCKET int

@@ -20,16 +20,22 @@
 // 0.1
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <float.h>
+#include <cmath>
+
 #include "osiris_import.h"
 #include "osiris_common.h"
 #include "osiris_vector.h"
 #include "DallasFuncs.cpp"
-
 #include "AIGame3_External.h"
-
 #include "module.h"
 #include "psrand.h"
+#include "aistruct_external.h"
+#include "damage_external.h"
+#include "findintersection_external.h"
+#include "fix.h"
+#include "object_external.h"
+#include "vecmat_external.h"
 
 #ifdef __cplusplus
 extern "C" {

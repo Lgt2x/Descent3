@@ -18,12 +18,13 @@
 
 #include <stdlib.h>
 #include <string.h>
+
 #include "lightmap.h"
 #include "pstypes.h"
 #include "pserror.h"
-#include "bitmap.h"
 #include "mono.h"
 #include "mem.h"
+
 #ifndef __LINUX__
 #include "Macros.h"
 #endif

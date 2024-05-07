@@ -17,8 +17,11 @@
 */
 
 #include "args.h"
-#include "mono.h"
+
 #include <string.h>
+#include <strings.h>
+
+#include "mono.h"
 
 #if defined(_WIN32)
 #define strcasecmp stricmp

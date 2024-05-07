@@ -1084,18 +1084,19 @@
  * $NoKeywords: $
  */
 
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+#include <cmath>
+
 #include "pserror.h"
 #include "player.h"
 #include "game.h"
 #include "hud.h"
-#include "gauges.h"
-#include "Mission.h"
 #include "vecmat.h"
 #include "fireball.h"
 #include "polymodel.h"
 #include "findintersection.h"
-#include "hud.h"
-#include "splinter.h"
 #include "PHYSICS.H"
 #include "viseffect.h"
 #include "damage.h"
@@ -1104,10 +1105,8 @@
 #include "gameevent.h"
 #include "gameloop.h"
 #include "descent.h"
-#include "cockpit.h"
 #include "game2dll.h"
 #include "robotfire.h"
-#include "robot.h"
 #include "AIMain.h"
 #include "aipath.h"
 #include "AIGoal.h"
@@ -1118,9 +1117,6 @@
 #include "stringtable.h"
 #include "pilot.h"
 #include "vclip.h"
-#include <stdlib.h>
-#include "objinit.h"
-#include "difficulty.h"
 #include "ddio.h"
 #include "ObjScript.h"
 #include "gamecinematics.h"
@@ -1131,9 +1127,42 @@
 #include "osiris_dll.h"
 #include "gamesequence.h"
 #include "vibeinterface.h"
-
-
-#include <algorithm>
+#include "Controller.h"
+#include "Inventory.h"
+#include "Macros.h"
+#include "aistruct.h"
+#include "aistruct_external.h"
+#include "bitmap.h"
+#include "controls.h"
+#include "d3events.h"
+#include "ddio_common.h"
+#include "difficulty_external.h"
+#include "findintersection_external.h"
+#include "fireball_external.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "mono.h"
+#include "multi_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "pilot_class.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "room.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "terrain.h"
+#include "vecmat_external.h"
+#include "weapon_external.h"
 
 player Players[MAX_PLAYERS];
 int Player_num;
@@ -2250,10 +2279,6 @@ void StartPlayerDeath(int slot, float damage, bool melee, int fate) {
   Death[slot].initial_death_time = Gametime;
   Death[slot].physics_frametime = Gametime;
   Death[slot].fate_frametime = Gametime;
-
-#ifndef RELEASE
-//	debug_deathtype(slot, damage);
-#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////

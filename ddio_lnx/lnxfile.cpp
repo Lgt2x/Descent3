@@ -57,16 +57,9 @@
  * $NoKeywords: $
  */
 
-#include "ddio.h"
-#include "ddio_lnx.h"
-#include "pserror.h"
-#include "mem.h"
-#include "lnxfix.h"
-
 #include <stdlib.h>
 #include <stdarg.h>
 #include <sys/stat.h>
-#include <sys/types.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -75,8 +68,13 @@
 #include <string.h>
 #include <errno.h>
 #include <signal.h>
-#include <dirent.h>
-#include <ctype.h>
+#include <assert.h>
+
+#include "ddio.h"
+#include "pserror.h"
+#include "mem.h"
+#include "lnxfix.h"
+#include "mono.h"
 
 #define _MAX_DIR 256
 
@@ -296,6 +294,9 @@ int globerrfn(const char *path, int err) {
 }
 
 #if MACOSX
+#include <ctype.h>    // toupper
+#include <dirent.h>   // DIR
+
 int noglob_findnext(struct find_t *f);
 struct find_t {
   DIR *dir;

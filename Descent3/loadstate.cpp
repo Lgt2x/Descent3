@@ -179,8 +179,10 @@
  * $NoKeywords: $
  */
 
+#include <string.h>
+#include <algorithm>
+
 #include "gamesave.h"
-#include "descent.h"
 #include "cfile.h"
 #include "Mission.h"
 #include "gamesequence.h"
@@ -194,7 +196,6 @@
 #include "ship.h"
 #include "door.h"
 #include "stringtable.h"
-#include "soar.h"
 #include "weapon.h"
 #include "vclip.h"
 #include "viseffect.h"
@@ -206,7 +207,6 @@
 #include "mem.h"
 #include "osiris_dll.h"
 #include "terrain.h"
-#include <string.h>
 #include "levelgoal.h"
 #include "aistruct.h"
 #include "matcen.h"
@@ -216,8 +216,25 @@
 #include "weather.h"
 #include "cockpit.h"
 #include "hud.h"
-
-#include <algorithm>
+#include "Inventory.h"
+#include "ObjScript.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage.h"
+#include "mono.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player.h"
+#include "player_external_struct.h"
+#include "polymodel.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
+#include "room_external.h"
+#include "vecmat_external.h"
+#include "viseffect_external.h"
 
 void PageInAllData();
 

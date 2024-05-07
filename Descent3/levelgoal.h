@@ -19,11 +19,13 @@
 #ifndef _LEVELGOAL_H_
 #define _LEVELGOAL_H_
 
+#include <cstdlib>
+
 #include "object.h"
 #include "cfile.h"
-#include <cstdlib>
 #include "mem.h"
 #include "levelgoal_external.h"
+#include "object_external.h"
 
 class litem {
 public:

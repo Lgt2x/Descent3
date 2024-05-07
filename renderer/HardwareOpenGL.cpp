@@ -17,26 +17,40 @@
 */
 
 #include "RendererConfig.h"
+
+#include "module.h"
+#include "vecmat_external.h"
 #ifndef USE_SOFTWARE_TNL
 
 #include "byteswap.h"
 #if defined(WIN32)
 #include <windows.h>
+
 #include "ddraw.h"
 #elif defined(__LINUX__)
 #include "linux/linux_fix.h"
-#include "lnxscreenmode.h"
-#else
+#include "SDL.h"
+#include "SDL_error.h"
+#include "SDL_events.h"
+#include "SDL_mouse.h"
+#include "SDL_opengl.h"
+#include "SDL_pixels.h"
+
+#include "SDL_stdinc.h"
+#include "SDL_video.h"
+#include "lnxapp.h"
 #endif
 
 #include "DDAccess.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "pstypes.h"
 #include "pserror.h"
 #include "mono.h"
 #include "3d.h"
 #include "renderer.h"
-#include "ddvid.h"
-#include "ddio.h"
 #include "application.h"
 #include "bitmap.h"
 #include "lightmap.h"
@@ -44,9 +58,6 @@
 #include "grdefs.h"
 #include "mem.h"
 #include "rtperformance.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include "HardwareInternal.h"
 #include "../Descent3/args.h"
 

@@ -39,20 +39,20 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
 #include "debuggraph.h"
 #include "grdefs.h"
-#include "mono.h"
-#include <memory.h>
 #include "pserror.h"
 #include "bitmap.h"
 #include "renderer.h"
 #include "pstypes.h"
 #include "stringtable.h"
-#include "newui.h"
 #include "newui_core.h"
 #include "mem.h"
-#include <string.h>
 #include "game.h"
+#include "ui.h"
 
 #define DATA_TYPE_INT 0
 #define DATA_TYPE_FLOAT 1

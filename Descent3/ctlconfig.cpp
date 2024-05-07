@@ -278,19 +278,36 @@
  * $NoKeywords: $
  */
 #include "ctlconfig.h"
+
+#include <string.h>
+#include <stdio.h>
+
 #include "CtlCfgElem.h"
 #include "ctlconfigtxt.h"
 #include "game.h"
 #include "weapon.h"
 #include "pilot.h"
-#include "bitmap.h"
-#include "multi.h"
 #include "gameloop.h"
 #include "gamefont.h"
 #include "D3ForceFeedback.h"
 #include "hlsoundlib.h"
-#include "ddio.h"
-#include <string.h>
+#include "Controller.h"
+#include "Macros.h"
+#include "controls.h"
+#include "ddio_common.h"
+#include "descent.h"
+#include "forcefeedback.h"
+#include "grdefs.h"
+#include "mono.h"
+#include "newui_core.h"
+#include "pilot_class.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "stringtable.h"
+#include "ui.h"
+#include "uires.h"
+#include "uisys.h"
+
 //////////////////////////////////////////////////////////////////////////////
 #define IDV_KCONFIG 10
 #define IDV_CCONFIG 11

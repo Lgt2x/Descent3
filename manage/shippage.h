@@ -19,10 +19,15 @@
 #ifndef SHIPPAGE_H
 #define SHIPPAGE_H
 
+#include <stddef.h>
+
 #include "manage.h"
 #include "ship.h"
 #include "cfile.h"
 #include "pstypes.h"
+#include "manage_external.h"
+#include "player_external_struct.h"
+#include "robotfirestruct_external.h"
 
 typedef struct {
   ship ship_struct;

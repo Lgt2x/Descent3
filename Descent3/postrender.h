@@ -19,6 +19,8 @@
 #ifndef POSTRENDER_H
 #define POSTRENDER_H
 
+#include "pstypes.h"
+
 #define MAX_POSTRENDERS 3000
 
 #define PRT_OBJECT 0

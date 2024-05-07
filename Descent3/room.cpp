@@ -397,26 +397,27 @@
  */
 
 #include "room.h"
+
+#include <stdlib.h>
+#include <string.h>
+#include <cmath>
+
 #include "mono.h"
 #include "vecmat.h"
 #include "gametexture.h"
-#include "manage.h"
-#include "renderer.h"
 #include "game.h"
-#include "render.h"
-#include "grdefs.h"
-#include <stdlib.h>
-#include <string.h>
 #include "terrain.h"
 #include "findintersection.h"
-#include "lightmap.h"
 #include "lightmap_info.h"
 #include "special_face.h"
 #include "mem.h"
-#include "doorway.h"
 #include "multi_world_state.h"
 #include "damage_external.h"
 #include "descent.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "pserror.h"
 #ifdef EDITOR
 #include "editor\editor_lighting.h"
 #endif

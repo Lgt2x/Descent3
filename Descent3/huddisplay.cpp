@@ -222,6 +222,8 @@
 
 #include <cstdarg>
 #include <cstdio>
+#include <algorithm>
+#include <cmath>
 
 #include "hud.h"
 #include "grtext.h"
@@ -234,11 +236,19 @@
 #include "gametexture.h"
 #include "stringtable.h"
 #include "ship.h"
-#include "config.h"
 #include "multi.h"
-#include "render.h"
-
-#include <algorithm>
+#include "Inventory.h"
+#include "bitmap.h"
+#include "fix.h"
+#include "grdefs.h"
+#include "multi_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //	Data

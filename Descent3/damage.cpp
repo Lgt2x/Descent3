@@ -558,8 +558,8 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
-#include <memory.h>
+#include <algorithm>
+
 #include "damage.h"
 #include "object.h"
 #include "objinfo.h"
@@ -570,11 +570,9 @@
 #include "multi.h"
 #include "game.h"
 #include "sounds.h"
-#include "soundload.h"
 #include "game2dll.h"
 #include "weapon.h"
 #include "ship.h"
-#include "attach.h"
 #include "difficulty.h"
 #include "demofile.h"
 #include "d3music.h"
@@ -582,13 +580,25 @@
 #include "D3ForceFeedback.h"
 #include "multi_server.h"
 #include "doorway.h"
-#include "DeathInfo.h"
 #include "AIGoal.h"
-#include "viseffect.h"
 #include "psrand.h"
 #include "vibeinterface.h"
-
-#include <algorithm>
+#include "aistruct_external.h"
+#include "d3events.h"
+#include "damage_external.h"
+#include "deathinfo_external.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "osiris_share.h"
+#include "player_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "room.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "vecmat.h"
 
 // Shake variables
 static matrix Old_player_orient;

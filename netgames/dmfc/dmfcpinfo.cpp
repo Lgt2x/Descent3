@@ -90,10 +90,11 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
+#include <stdlib.h>
+
 #include "dmfcinternal.h"
-#include <string.h>
+#include "multi_external.h"
+#include "pstypes.h"
 
 
 PInfo::PInfo(int slot) {

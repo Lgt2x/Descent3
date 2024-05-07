@@ -16,19 +16,18 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Lightmap info
-#include "pstypes.h"
-
-#include "lightmap_info.h"
-#include "lightmap.h"
-#include "mono.h"
-#include "Ddgr.h"
-#include "grdefs.h"
-#include "renderer.h"
 #include <stdlib.h>
 #include <string.h>
+
+// Lightmap info
+#include "pstypes.h"
+#include "lightmap_info.h"
+#include "lightmap.h"
+#include "grdefs.h"
+#include "renderer.h"
 #include "mem.h"
 #include "dedicated_server.h"
+#include "pserror.h"
 
 int Num_of_lightmap_info = 0;
 lightmap_info *LightmapInfo = NULL;

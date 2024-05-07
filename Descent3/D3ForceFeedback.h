@@ -63,6 +63,8 @@
 #include "forcefeedback.h"
 #include "vecmat.h"
 #include "object.h"
+#include "object_external_struct.h"
+#include "vecmat_external.h"
 
 // D3Use_force_feedback
 // true if the user wants force feedback during play (if available)

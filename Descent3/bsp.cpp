@@ -46,12 +46,22 @@
  */
 
 #include "bsp.h"
+
+#include <stdlib.h>
+#include <math.h>
+
 #include "room.h"
 #include "mem.h"
 #include "polymodel.h"
-#include <stdlib.h>
 #include "object.h"
 #include "psrand.h"
+#include "mono.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "room_external.h"
+#include "vecmat.h"
 
 #define BSP_TREE_VERSION 10003
 

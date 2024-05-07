@@ -119,6 +119,8 @@
  */
 
 #include <stdio.h>
+#include <ctype.h>
+#include <string.h>
 
 #include "pstypes.h"
 #include "mem.h"
@@ -130,14 +132,22 @@
 #include "newui.h"
 #include "ddio.h"
 #include "stringtable.h"
-#include "multi_dll_mgr.h"
 // #include "inetgetfile.h"
 #include "grtext.h"
 #include "Mission.h"
 #include "mission_download.h"
 #include "renderer.h"
-
 #include "unzip.h"
+#include "application.h"
+#include "cfile.h"
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "manage.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "newui_core.h"
+#include "pserror.h"
+#include "uires.h"
 
 int Got_url;
 msn_urls msn_URL = {"", {"", "", "", "", ""}};

@@ -87,13 +87,14 @@
 #ifndef __PILOT_CLASS_H_
 #define __PILOT_CLASS_H_
 
+#include <stddef.h>
+
 #include "pstypes.h"
 #include "controls.h"
 #include "Controller.h"
 #include "cfile.h"
 #include "weapon.h"
 #include "config.h"
-
 // YUCK!
 #include "descent.h" //just for MSN_NAMELEN
 

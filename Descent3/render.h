@@ -166,6 +166,8 @@
 #define RENDER_H
 
 #include "3d.h"
+#include "pstypes.h"
+#include "vecmat_external.h"
 
 // Variables for debug/test
 #if (defined(_DEBUG) || defined(NEWEDITOR))

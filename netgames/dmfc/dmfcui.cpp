@@ -115,9 +115,15 @@
  * $NoKeywords: $
  */
 
+#include <stddef.h>
+
 #include "gamedll_header.h"
-#include "DMFC.h"
 #include "dmfcinternal.h"
+#include "DMFCKeyCodes.h"
+#include "bitmap.h"
+#include "manage_external.h"
+#include "multi_external.h"
+#include "pstypes.h"
 
 extern char **DMFCStringTable;
 extern int DMFCStringTableSize;

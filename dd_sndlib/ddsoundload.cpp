@@ -95,13 +95,15 @@
 #include "linux/linux_fix.h"
 #endif
 
-#include "ssl_lib.h"
-#include <cstdlib>
-#include "cfile.h"
-#include "mem.h"
-#include "pserror.h"
 #include <string.h>
+#include <stdio.h>
+#include <cstdlib>
+
+#include "ssl_lib.h"
+#include "cfile.h"
 #include "byteswap.h"
+#include "mono.h"
+#include "pstypes.h"
 
 sound_info Sounds[MAX_SOUNDS];
 sound_file_info SoundFiles[MAX_SOUND_FILES];

@@ -19,6 +19,8 @@
 #ifndef DLLWRAPPERS_H_
 #define DLLWRAPPERS_H_
 
+#include <stddef.h>
+
 #include "pserror.h"
 #include "cfile.h"
 #include "gamefont.h"
@@ -30,6 +32,10 @@
 #include "object.h"
 #include "hlsoundlib.h"
 #include "Inventory.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
+#include "ssl_lib.h"
+#include "vecmat_external.h"
 
 // plays a 3dsound
 int D3W_Play3dSound(int sound_index, object *cur_obj, float volume = MAX_GAME_VOLUME, int flags = 0);

@@ -87,23 +87,19 @@
  */
 
 #include "ConfigItem.h"
-#include "ddio.h"
-#include "newui.h"
-#include "application.h"
-#include "descent.h"
-#include "mono.h"
-#include "ddio.h"
-#include "gamefont.h"
-#include "multi_ui.h"
-#include "cfile.h"
-#include "mem.h"
-#include "game.h"
-#include "stringtable.h"
 
 #include <string.h>
-#include <stdlib.h>
 #include <stdarg.h>
+#include <stdio.h>
+
+#include "newui.h"
+#include "mono.h"
+#include "gamefont.h"
+#include "mem.h"
 #include "stringtable.h"
+#include "grtext.h"
+#include "pserror.h"
+#include "uires.h"
 
 #define UI_CHECKBOX_OFF_CHAR 28
 #define UI_CHECKBOX_ON_CHAR 29

@@ -16,12 +16,18 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdio.h>
+#include <string.h>
+
 #include "object.h"
 #include "marker.h"
 #include "polymodel.h"
 #include "player.h"
 #include "multi.h"
 #include "game.h"
+#include "mono.h"
+#include "object_external.h"
+#include "pserror.h"
 #ifdef _DEBUG
 #include "AIMain.h"
 #endif

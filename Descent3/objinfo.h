@@ -313,6 +313,12 @@
 #include "object.h"
 #include "manage.h"
 #include "DeathInfo.h"
+#include "aistruct.h"
+#include "manage_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
+#include "robotfirestruct.h"
 
 #ifdef NEWEDITOR
 #include "..\neweditor\ned_Object.h"

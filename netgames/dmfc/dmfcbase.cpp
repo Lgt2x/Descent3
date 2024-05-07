@@ -467,14 +467,53 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include "dmfcinputcommands.h"
-
 #include <stdlib.h>
 #include <stdarg.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 #include <algorithm>
+#include <cmath>
+
+#include "gamedll_header.h"
+#include "dmfcinternal.h"
+#include "dmfcinputcommands.h"
+#include "Inventory.h"
+#include "Macros.h"
+#include "Mission.h"
+#include "args.h"
+#include "bitmap.h"
+#include "cfile.h"
+#include "controls.h"
+#include "gamefont.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#include "hud.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage_external.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "osiris_share.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pstypes.h"
+#include "renderer.h"
+#include "room_external.h"
+#include "ship.h"
+#include "terrain.h"
+#include "vclip.h"
+#include "viseffect_external.h"
+#include "weapon.h"
+
+class IMenuItem;
 
 char **DMFCStringTable;
 int DMFCStringTableSize = 0;
@@ -766,7 +805,6 @@ void DMFCBase::SaveSettings(void) {
 //
 //	Initialized all the functions for a multiplayer game...must be first thing called
 void DMFCBase::LoadFunctions(int *api_func) {
-#include "dmfcdllinit.h"
 }
 
 // DMFCBase::GameInit

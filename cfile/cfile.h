@@ -82,6 +82,7 @@
 
 #include "pstypes.h"
 
+
 struct library;
 
 // The structure for a CFILE

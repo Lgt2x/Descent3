@@ -68,30 +68,25 @@
  * $NoKeywords: $
  */
 
+#include <stdlib.h>
+#include <ctype.h>
+#include <sys/time.h>
+#include <term.h>
+#include <termios.h>
+#include <sys/select.h>
+
 #include "application.h"
 #include "linux/lnxapp.h"
 #include "mono.h"
-#include <stdlib.h>
-#include "ddio.h"
-// #include "local_malloc.h"
-#include <unistd.h>
-#include <ctype.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <term.h>
-#include <termios.h>
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifdef buttons // termios.h defines buttons, but SDL's headers use that symbol.
 #undef buttons
 #endif
 
 #include <stdio.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <errno.h>
-#include <string.h>
-#include <assert.h>
-#include <SDL.h>
 
 static struct termios Linux_initial_terminal_settings;
 

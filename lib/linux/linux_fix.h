@@ -21,6 +21,7 @@
 
 #include <sys/stat.h>
 #include <math.h>
+#include <strings.h>
 
 #define LOKI_VERSION ""
 

@@ -134,6 +134,8 @@
  *
  */
 
+#include <string.h>
+
 #include "multi.h"
 #include "multi_client.h"
 #include "game.h"
@@ -144,6 +146,19 @@
 #include "stringtable.h"
 #include "d3serial.h"
 #include "ship.h"
+#include "descent.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage_external.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "object.h"
+#include "pilot_class.h"
+#include "player_external.h"
+#include "pserror.h"
+#include "pstypes.h"
 
 #define WEAPONS_LOAD_UPDATE_INTERVAL 2.0
 

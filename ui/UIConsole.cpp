@@ -54,14 +54,18 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
+#include <string.h>
+#include <stdio.h>
+
 #include "grtext.h"
 #include "mem.h"
 #include "textaux.h"
-
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
+#include "grdefs.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "ui.h"
+#include "uidraw.h"
+#include "uires.h"
 
 #define CONSOLE_LINE_FILLER 128
 

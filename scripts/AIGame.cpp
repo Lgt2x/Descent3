@@ -21,12 +21,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <cmath>
+
 #include "osiris_import.h"
 #include "osiris_common.h"
 #include "osiris_vector.h"
 #include "DallasFuncs.cpp"
-
 #include "module.h"
+#include "aistruct_external.h"
+#include "damage_external.h"
+#include "deathinfo_external.h"
+#include "difficulty_external.h"
+#include "findintersection_external.h"
+#include "fireball_external.h"
+#include "fix.h"
+#include "levelgoal_external.h"
+#include "object_external.h"
+#include "player_external.h"
+#include "robotfirestruct_external.h"
+#include "vecmat_external.h"
 
 #ifdef __cplusplus
 extern "C" {

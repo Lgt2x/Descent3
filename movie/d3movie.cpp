@@ -16,12 +16,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdlib.h>
-
 #ifdef __LINUX__
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/uio.h>
 
 #define O_BINARY 0
 #endif
@@ -31,24 +27,34 @@
 #ifdef WIN32
 #include <MMSystem.h>
 #include <io.h>
+
 #include "dsound.h"
 #endif
 
 #include <fcntl.h>
 #include <string.h>
+#include <stdint.h>
+#include <stdio.h>
 
 #include "movie.h"
-#include "mvelibw.h"
-#include "pserror.h"
 #include "renderer.h"
 #include "application.h"
 #include "ddio.h"
-#include "ddvid.h"
 #include "grtext.h"
 #include "mem.h"
 #include "bitmap.h"
 #include "gamefont.h"
 #include "game.h"
+#include "mvelibw.h"
+
+#include "cfile.h"
+#include "ddio_common.h"
+#include "grdefs.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "mono.h"
+#include "pstypes.h"
 
 namespace {
 MovieFrameCallback_fp Movie_callback = NULL;

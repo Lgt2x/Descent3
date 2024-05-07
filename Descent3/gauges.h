@@ -86,6 +86,7 @@
 #include "pstypes.h"
 #include "vecmat.h"
 #include "hud.h"
+#include "vecmat_external.h"
 
 // Hack vars for turning off the monitors
 extern bool Disable_primary_monitor, Disable_secondary_monitor;

@@ -182,7 +182,12 @@
 #define __PILOT_H_
 
 #include <stdlib.h>
+
 #include "pilot_class.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "pstypes.h"
 
 /*
 #include "controls.h"

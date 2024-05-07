@@ -162,14 +162,35 @@
  * $NoKeywords: $
  */
 
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <algorithm>
+
 #include "gamedll_header.h"
 #include "idmfc.h"
 #include "monsterball.h"
-#include <string.h>
 #include "monsterstr.h"
-
-
-#include <algorithm>
+#include "DMFC.h"
+#include "DMFCKeyCodes.h"
+#include "bitmap.h"
+#include "cfile.h"
+#include "findintersection.h"
+#include "findintersection_external.h"
+#include "fireball_external.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage_external.h"
+#include "object_external.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "renderer.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "viseffect_external.h"
 
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;

@@ -37,13 +37,11 @@
  *
  */
 
+#include <string.h>
 #include <cstdarg>
 #include <cstdio>
 
 #include "ssl_lib.h"
-#include "pserror.h"
-
-#include <string.h>
 
 llsSystem::llsSystem() {
   m_lib_error_code = SSL_OK;

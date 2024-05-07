@@ -19,9 +19,10 @@
 #include "RendererConfig.h"
 #ifdef USE_SOFTWARE_TNL
 
+#include <float.h>
+
 #include "3d.h"
 #include "SoftwareInternal.h"
-#include <float.h>
 
 vector View_position;
 float View_zoom;

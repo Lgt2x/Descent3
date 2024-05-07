@@ -290,6 +290,9 @@
 #include <windows.h>
 #endif
 
+#include <string.h>
+#include <stdio.h>
+
 #include "cfile.h"
 #include "manage.h"
 #include "weapon.h"
@@ -299,14 +302,20 @@
 #include "vclip.h"
 #include "polymodel.h"
 #include "soundpage.h"
-#include "soundload.h"
 #include "ddio.h"
 #include "gametexture.h"
 #include "texpage.h"
-#include <string.h>
 #include "sounds.h"
 #include "genericpage.h"
 #include "args.h"
+#include "bitmap.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "pstypes.h"
+#include "ssl_lib.h"
 
 // weaponpage commands that are read/written
 // A command is followed by a byte count describing how many bytes

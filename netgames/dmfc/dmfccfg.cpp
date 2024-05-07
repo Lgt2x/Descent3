@@ -48,9 +48,15 @@
  * $NoKeywords: $
  */
 
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "gamedll_header.h"
-#include "DMFC.h"
 #include "dmfcinternal.h"
+#include "Macros.h"
+#include "cfile.h"
 
 
 extern char **DMFCStringTable;

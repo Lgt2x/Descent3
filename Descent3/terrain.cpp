@@ -21,27 +21,28 @@
 #else
 #include <stdlib.h>
 #endif
+#include <string.h>
+
 #include "vecmat.h"
-#include "object.h"
 #include "mono.h"
 #include "terrain.h"
 #include "pserror.h"
-#include "texture.h"
-#include "bitmap.h"
 #include "gametexture.h"
 #include "lighting.h"
 #include "lightmap.h"
 #include "weather.h"
-#include <string.h>
 #include "mem.h"
-#include "Macros.h"
 #include "dedicated_server.h"
 #include "psrand.h"
+#include "cfile.h"
+#include "fix.h"
+#include "renderer.h"
 #ifdef EDITOR
 #include "editor\d3edit.h"
 #endif
 
 #include <algorithm>
+#include <cmath>
 
 #define SKY_RADIUS 2500.0
 #define DEFAULT_LIGHT_SOURCE                                                                                           \

@@ -76,11 +76,27 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
 #include <string.h>
+#include <stdio.h>
+
+#include "gamedll_header.h"
 #include "idmfc.h"
 #include "tanDMFC.h"
 #include "tanarchystr.h"
+#include "DMFC.h"
+#include "DMFCKeyCodes.h"
+#include "bitmap.h"
+#include "cfile.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "module.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external_struct.h"
+#include "pstypes.h"
+#include "renderer.h"
+
 IDMFC *DMFCBase = NULL;
 IDmfcStats *dstat = NULL;
 player *dPlayers;

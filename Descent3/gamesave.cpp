@@ -264,12 +264,16 @@
  */
 
 #include "gamesave.h"
+
+#include <string.h>
+#include <fcntl.h>
+#include <stdio.h>
+
 #include "descent.h"
 #include "newui.h"
 #include "cfile.h"
 #include "Mission.h"
 #include "gamesequence.h"
-#include "gameevent.h"
 #include "gameloop.h"
 #include "game.h"
 #include "stringtable.h"
@@ -281,7 +285,6 @@
 #include "door.h"
 #include "doorway.h"
 #include "ship.h"
-#include "soar.h"
 #include "hud.h"
 #include "weapon.h"
 #include "viseffect.h"
@@ -291,12 +294,27 @@
 #include "osiris_dll.h"
 #include "levelgoal.h"
 #include "aistruct.h"
-#include <string.h>
 #include "matcen.h"
-#include "hud.h"
 #include "marker.h"
 #include "d3music.h"
 #include "weather.h"
+#include "3d.h"
+#include "Inventory.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "newui_core.h"
+#include "object_external.h"
+#include "player.h"
+#include "player_external_struct.h"
+#include "polymodel.h"
+#include "pserror.h"
+#include "renderer.h"
+#include "robotfirestruct.h"
+#include "room_external.h"
+#include "ui.h"
+#include "uires.h"
+#include "viseffect_external.h"
 
 // function prototypes.
 

@@ -60,17 +60,25 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
+#include <fcntl.h>
+#include <string.h>
+#include <algorithm>
+
 #include "bitmap.h"
-#include "player.h"
-#include "pilot.h"
 #include "cfile.h"
 #include "mono.h"
 #include "ddio.h"
 #include "manage.h"
 #include "PilotPicsAPI.h"
 #include "mem.h"
-
-#include <algorithm>
+#include "Macros.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage_external.h"
+#include "pilot_class.h"
+#include "pserror.h"
 
 #define PILOTPIC_DATABASE_HOG "PPics.Hog"
 #define PILOTPIC_DATABASE_INDEX "PPics.idx"

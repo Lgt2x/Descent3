@@ -47,10 +47,10 @@
 #ifndef NEWPYRO_H
 #define NEWPYRO_H
 
+#include "vecmat.h"
+
 struct tGauge;
 struct tGaugePos;
-
-#include "vecmat.h"
 
 //	rendering functions
 

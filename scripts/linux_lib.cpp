@@ -18,8 +18,7 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
+#include <strings.h>
 
 void _splitpath(const char *path, char *drive, char *dir, char *fname, char *ext);
 int _vsnprintf(char *buffer, size_t count, const char *format, va_list argptr);

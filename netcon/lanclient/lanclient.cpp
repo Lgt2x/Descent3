@@ -263,16 +263,21 @@
  * $NoKeywords: $
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "ui.h"
 #include "newui.h"
 #include "grdefs.h"
-#include "player.h"
 #include "game.h"
-#include "pilot.h"
 #include "module.h"
 #include "ddio_common.h"
-
-#include "inetgetfile.h"
+#include "con_dll.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "newui_core.h"
+#include "pstypes.h"
 
 #ifdef __STATIC_NETWORK_CLIENTS
 #define DLLMultiCall DLLMultiCall_LAN
@@ -282,8 +287,6 @@
 #define AutoLoginAndJoinGame AutoLoginAndJoinGame_LAN
 #endif
 
-#define TXT_DLL_SAVESETTINGS TXT(27)
-#define TXT_DLL_LOADSETTINGS TXT(28)
 
 ///////////////////////////////////////////////
 // localization header
@@ -309,7 +312,6 @@
 #define MULTI_USE_ALL_OPTIONS 1
 
 #include "lanclient.h"
-#include "DLLUiItems.h"
 
 using namespace lanclient;
 
@@ -338,7 +340,6 @@ static bool All_ok = true;
 // Initializes the game function pointers
 void DLLFUNCCALL DLLMultiInit(int *api_func) {
   Use_netgame_flags = 1;
-#include "mdllinit.h"
   DLLCreateStringTable("lanclient.str", &StringTable, &StringTableSize);
   DLLmprintf((0, "%d strings loaded from string table\n", StringTableSize));
   if (!StringTableSize) {

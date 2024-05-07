@@ -15,12 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <chrono>
+#include <stdint.h>
 #include <iostream>
 #include <algorithm>
-#include <chrono>
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <array>
+#include <cctype>
+#include <ctime>
+#include <exception>
+#include <iterator>
+#include <vector>
 
 #include "d3_version.h"
 #include "HogFormat.h"

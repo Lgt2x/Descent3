@@ -16,12 +16,15 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "UIlib.h"
+#include <string.h>
+
 #include "uisys.h"
 #include "pserror.h"
-#include "grtext.h"
-#include <string.h>
 #include "mem.h"
+#include "grdefs.h"
+#include "pstypes.h"
+#include "uidraw.h"
+#include "uires.h"
 
 //@@void *UIItem::operator new(size_t mem, UIItem *item, tUIResClass class_type)
 //@@{

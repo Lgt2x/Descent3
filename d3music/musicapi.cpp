@@ -16,10 +16,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <limits>
+
 #include "d3music.h"
 #include "music.h"
-#include "Macros.h"
-#include <limits>
+#include "mono.h"
+#include "psclass.h"
+#include "pserror.h"
 
 #ifdef min
 #undef min

@@ -61,9 +61,16 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-
 //	Construction and destruction
+
+#include <stddef.h>
+
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "pserror.h"
+#include "ui.h"
+#include "uires.h"
+#include "uisys.h"
 
 UISlider::UISlider() {
   switch_item = slider_item = NULL;

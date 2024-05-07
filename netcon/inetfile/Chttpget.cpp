@@ -127,9 +127,14 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #include "inetgetfile.h"
 #include "Chttpget.h"
+
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 #ifndef WIN32
 #include "mem.h"
@@ -758,9 +763,6 @@ void __cdecl http_gethostbynameworker(void *parm)
 int http_gethostbynameworker(void *parm)
 #endif
 {
-#ifdef __LINUX__
-  // df_pthread_detach(df_pthread_self());
-#endif
   async_dns_lookup *lookup = (async_dns_lookup *)parm;
   HOSTENT *he = gethostbyname(lookup->host);
   if (he == NULL) {

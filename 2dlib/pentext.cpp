@@ -81,14 +81,15 @@
  * $NoKeywords: $
  */
 
+#include <string.h>
 #include <cstdio>
 #include <cstdarg>
 
-#include <string.h>
-#include <assert.h>
 #include "gr.h"
-#include "mono.h"
 #include "renderer.h"
+#include "grdefs.h"
+#include "pserror.h"
+#include "pstypes.h"
 
 #define CLIP_LEFT (vp_InitLeft + vp_Left)
 #define CLIP_TOP (vp_InitTop + vp_Top)

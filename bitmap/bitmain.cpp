@@ -300,8 +300,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
+#include <algorithm>
+
 #include "cfile.h"
-#include "texture.h"
 #include "bitmap.h"
 #include "pstypes.h"
 #include "pserror.h"
@@ -312,10 +314,8 @@
 #include "bumpmap.h"
 #include "mem.h"
 #include "psrand.h"
-
 #include "Macros.h"
-
-#include <algorithm>
+#include "grdefs.h"
 
 #define BM_FILETYPE_TGA 1
 #define BM_FILETYPE_PCX 2

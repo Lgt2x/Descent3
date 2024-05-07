@@ -19,12 +19,22 @@
 
 
 #include "attach.h"
+
+#include <cmath>
+
 #include "terrain.h"
 #include "multi.h"
 #include "game.h"
 #include "demofile.h"
 #include "polymodel.h"
 #include "objinfo.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "vecmat.h"
 
 /*	// Determines the necessary orientation and position of the moving object
         f_use_uvec = true;

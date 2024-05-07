@@ -77,12 +77,18 @@
  * $NoKeywords: $
  */
 
-#include "UIlib.h"
-
 //	----------------------------------------------------------------------------
 //	UIHotspot
 //		This is simply a region within the parent window that when clicked on
 //		or key pressed, does something.
+
+#include <stddef.h>
+
+#include "ddio_common.h"
+#include "pserror.h"
+#include "ui.h"
+#include "uires.h"
+#include "uisys.h"
 
 UIHotspot::UIHotspot() {
   m_ItemOff = NULL;

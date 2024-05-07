@@ -16,6 +16,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+
 #include "pstypes.h"
 #include "pserror.h"
 #include "game.h"
@@ -26,7 +30,6 @@
 #include "player.h"
 #include "mono.h"
 #include "hud.h"
-#include "Inventory.h"
 #include "multi_server.h"
 #include "ship.h"
 #include "DllWrappers.h"
@@ -36,18 +39,15 @@
 #include "module.h"
 #include "localization.h"
 #include "weapon.h"
-#include "voice.h"
 #include "gametexture.h"
 #include "Mission.h"
 #include "damage.h"
-#include "ui.h"
 #include "newui.h"
 #include "multi_dll_mgr.h"
 #include "controls.h"
 #include "gameloop.h"
 #include "gamesequence.h"
 #include "dedicated_server.h"
-#include "attach.h"
 #include "PilotPicsAPI.h"
 #include "vclip.h"
 #include "osiris_dll.h"
@@ -61,8 +61,27 @@
 #include "viseffect.h"
 #include "ObjScript.h"
 #include "args.h"
-
-#include <algorithm>
+#include "3d.h"
+#include "bitmap.h"
+#include "cfile.h"
+#include "d3events.h"
+#include "ddio.h"
+#include "descent.h"
+#include "findintersection.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#include "grtext.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "multi.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "newui_core.h"
+#include "player_external_struct.h"
+#include "renderer.h"
+#include "uisys.h"
+#include "vecmat.h"
 
 void SelectNextCameraView(int window);
 #define NUM_CAMERA_VIEWS 3

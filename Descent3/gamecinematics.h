@@ -59,6 +59,7 @@
 #include "vecmat_external.h"
 #include "gamecinematics_external.h"
 #include "hud.h"
+#include "pstypes.h"
 
 //	Cinematic_Init
 //

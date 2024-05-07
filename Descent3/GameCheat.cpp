@@ -131,14 +131,15 @@
  * $NoKeywords: $
  */
 
+#include <stdio.h>
+#include <string.h>
+
 #include "player.h"
 #include "object.h"
 #include "hud.h"
 #include "weapon.h"
 #include "hlsoundlib.h"
 #include "game.h"
-#include "ddio.h"
-#include "soundload.h"
 #include "sounds.h"
 #include "damage.h"
 #include "rtperformance.h"
@@ -147,8 +148,22 @@
 #include "multi.h"
 #include "stringtable.h"
 #include "ship.h"
-#include "render.h"
-#include "renderer.h"
+#include "Inventory.h"
+#include "damage_external.h"
+#include "ddio_common.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "pstypes.h"
+#include "robotfirestruct_external.h"
+#include "room.h"
+#include "room_external.h"
+#include "weapon_external.h"
 
 #define CHEATSPOT 14
 bool IsCheater = false;

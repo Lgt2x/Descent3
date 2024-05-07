@@ -114,18 +114,23 @@
  */
 
 #include "CtlCfgElem.h"
-#include "descent.h"
 
+#include <string.h>
+
+#include "descent.h"
 #include "Macros.h"
-#include "ddio.h"
 #include "application.h"
 #include "renderer.h"
 #include "stringtable.h"
 #include "gamefont.h"
 #include "localization.h"
-
-#include <string.h>
-#include "joystick.h"
+#include "controls.h"
+#include "ddio_common.h"
+#include "manage_external.h"
+#include "newui_core.h"
+#include "pserror.h"
+#include "uires.h"
+#include "uisys.h"
 
 // all controller binding texts
 char Ctltext_KeyBindings[][16] = {"",

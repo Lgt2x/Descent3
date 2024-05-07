@@ -23,6 +23,7 @@
 #include "objinfo.h"
 #include "object.h"
 #include "ship.h"
+#include "object_external_struct.h"
 
 void FireOnOffWeapon(object *obj);
 

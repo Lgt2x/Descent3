@@ -38,12 +38,10 @@
  * $NoKeywords: $
  */
 
+#include <stdio.h>
+
 #include "debug.h"
 #include "mono.h"
-#include <assert.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 

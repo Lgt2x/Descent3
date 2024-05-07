@@ -381,35 +381,37 @@
  * $NoKeywords: $
  */
 #include <stdlib.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "pserror.h"
-#include "grdefs.h"
-#include "mono.h"
 #include "cfile.h"
-
 #include "init.h"
 #include "game.h"
 #include "program.h"
 #include "descent.h"
 #include "menu.h"
-#include "Mission.h"
 #include "ddio.h"
-#include "controls.h"
-#include "Controller.h"
 #include "gamesequence.h"
 #include "stringtable.h"
 #include "dedicated_server.h"
 #include "networking.h"
 #include "hlsoundlib.h"
 #include "player.h"
-#include "pilot.h"
 #include "newui.h"
 #include "credits.h"
 #include "cinematics.h"
 #include "args.h"
 #include "multi_dll_mgr.h"
 #include "localization.h"
-#include "mem.h"
+#include "Inventory.h"
+#include "Macros.h"
+#include "d3_version.h"
+#include "ddio_common.h"
+#include "manage.h"
+#include "newui_core.h"
+#include "player_external_struct.h"
 //	---------------------------------------------------------------------------
 //	Variables
 //	---------------------------------------------------------------------------
@@ -779,8 +781,8 @@ void D3DeferHandler(bool is_active) {
 //	this is called when you hit a debug break!
 //	---------------------------------------------------------------------------
 #ifndef RELEASE
-#include "debug.h"
 #include "renderer.h"
+
 extern int rend_initted; // from game.cpp
 
 void D3DebugStopHandler() {
@@ -821,10 +823,6 @@ const char *GetCDVolume(int cd_num) {
     // We've got the disk already in the drive!
     return p;
   } else {
-// Don't prompt for CD if not a release build
-#ifndef RELEASE
-// return NULL;
-#endif
 
     // prompt them to enter the disk...
     do {

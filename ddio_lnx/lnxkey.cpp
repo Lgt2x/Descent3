@@ -46,22 +46,11 @@
  * $NoKeywords: $
  */
 
-// ----------------------------------------------------------------------------
-//	Keyboard Interface
-// ----------------------------------------------------------------------------
-#include "pserror.h"
-#include "mono.h"
 #include "ddio.h"
-#include "ddio_lnx.h"
-#include "application.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <string.h>
-#include <sys/time.h>
-#include <sys/types.h>
+#include "ddio_common.h"
+#include "debug.h"
+#include "lnxapp.h"
+#include "pstypes.h"
 
 volatile struct tLnxKeys {
   union {

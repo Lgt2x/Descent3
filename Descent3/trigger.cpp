@@ -114,18 +114,23 @@
  */
 
 #include "trigger.h"
+
 #include "room.h"
 #include "object.h"
 //@$-#include "d3x.h"
 #include "pserror.h"
 #include "osiris_dll.h"
 #include "levelgoal.h"
+#include "ObjScript.h"
+#include "levelgoal_external.h"
+#include "mono.h"
+#include "object_external.h"
+#include "osiris_share.h"
+#include "room_external.h"
 
 #ifdef LINUX
 #include <stdlib.h>
 #endif
-
-#include <string.h>
 
 // The maximum number of triggers that can be in the mine
 #define MAX_TRIGGERS 100

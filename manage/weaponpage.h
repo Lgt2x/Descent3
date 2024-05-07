@@ -20,10 +20,13 @@
 #ifndef WEAPONPAGE_H
 #define WEAPONPAGE_H
 
+#include <stddef.h>
+
 #include "manage.h"
 #include "weapon.h"
 #include "cfile.h"
 #include "pstypes.h"
+#include "manage_external.h"
 
 typedef struct {
   weapon weapon_struct;

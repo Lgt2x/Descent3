@@ -120,6 +120,9 @@
 #if defined(WIN32)
 #include <windows.h>
 #endif
+#include <string.h>
+#include <stdio.h>
+
 #include "cfile.h"
 #include "manage.h"
 #include "soundpage.h"
@@ -128,7 +131,11 @@
 #include "soundload.h"
 #include "ddio.h"
 #include "args.h"
-#include <string.h>
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "pstypes.h"
+
 // soundpage commands that are read/written
 // A command is followed by a byte count describing how many bytes
 // are in the data for the command

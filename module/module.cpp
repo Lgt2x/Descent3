@@ -92,9 +92,10 @@
  * $NoKeywords: $
  */
 #include "module.h"
-#include "pstypes.h"
+
 #include "pserror.h"
-#include "ddio.h"
+
+#include "mono.h"
 
 #ifdef __LINUX__
 #include <dlfcn.h>
@@ -102,10 +103,6 @@
 bool mod_FindRealFileNameCaseInsenstive(const char *directory, const char *filename, char *new_filename);
 #endif
 
-#include "module.h"
-#include "pstypes.h"
-#include "pserror.h"
-#include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
 #if defined(__LINUX__)
@@ -485,16 +482,8 @@ int mod_GetLastError(void) {
 }
 
 #ifdef __LINUX__
-#include <assert.h>
-#include <stdarg.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <fcntl.h>
 #include <unistd.h>
-#include <utime.h>
 #include <glob.h>
-#include <string.h>
-#include <errno.h>
 #include <ctype.h>
 
 void dd_GetWorkingDir(char *path, int len);

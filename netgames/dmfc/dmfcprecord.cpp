@@ -82,11 +82,14 @@
  * $NoKeywords: $
  */
 
-#include "gamedll_header.h"
-#include "DMFC.h"
-#include "dmfcinternal.h"
 #include <stdlib.h>
 #include <string.h>
+
+#include "dmfcinternal.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "player_external_struct.h"
+#include "pstypes.h"
 
 player_record Player_records[MAX_PLAYER_RECORDS];
 int Pnum_to_PRec[DLLMAX_PLAYERS];

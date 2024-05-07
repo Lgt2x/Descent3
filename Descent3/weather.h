@@ -19,6 +19,8 @@
 #ifndef WEATHER_H
 #define WEATHER_H
 
+#include "pstypes.h"
+
 #define WEATHER_FLAGS_RAIN 1
 #define WEATHER_FLAGS_LIGHTNING 2
 #define WEATHER_FLAGS_SNOW 4

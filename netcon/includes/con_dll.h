@@ -264,8 +264,11 @@
  */
 ///////////////////////////////////////////////
 
+#pragma once
+
 #include "ship.h"
 #include "pstypes.h"
+#include "pilot_class.h"
 
 #ifdef __LINUX__
 #include <string.h>
@@ -909,6 +912,10 @@ void MultiplayerOptionsMenu();
 // Returns true if we are starting a game
 #define MAX_DLLS 40
 char dll_text[MAX_DLLS][_MAX_PATH];
+
+#define TXT_DLL_SAVESETTINGS TXT(27)
+#define TXT_DLL_LOADSETTINGS TXT(28)
+
 
 int StartMultiplayerGameMenu() {
   void *game_name_text = DLLCreateNewUITextItem(TXT(10), UICOL_TEXT_NORMAL, -1);    // TXT_LC_GAMENAME

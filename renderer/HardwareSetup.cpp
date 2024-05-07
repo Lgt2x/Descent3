@@ -17,12 +17,13 @@
 */
 
 #include "RendererConfig.h"
+#include "vecmat_external.h"
 #ifndef USE_SOFTWARE_TNL
 
 #include <stdlib.h>
 #include <string.h>
+
 #include "3d.h"
-#include "pserror.h"
 #include "HardwareInternal.h"
 #include "renderer.h"
 

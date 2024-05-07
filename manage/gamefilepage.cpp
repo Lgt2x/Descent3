@@ -20,6 +20,9 @@
 #include <windows.h>
 #endif
 
+#include <string.h>
+#include <stdio.h>
+
 #include "cfile.h"
 #include "manage.h"
 #include "mono.h"
@@ -28,8 +31,11 @@
 #include "gamefile.h"
 #include "gamefilepage.h"
 #include "args.h"
-
-#include <string.h>
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage_external.h"
+#include "pstypes.h"
 
 // gamefilepage commands that are read/written
 // A command is followed by a byte count describing how many bytes

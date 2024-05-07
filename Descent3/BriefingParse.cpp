@@ -61,17 +61,24 @@
  * $NoKeywords: $
  */
 #include "BriefingParse.h"
-#include "TelComEffects.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
+
+#include "TelComEffects.h"
 #include "cfile.h"
 #include "pserror.h"
-#include "game.h"
 #include "mem.h"
 #include "voice.h"
-#include "streamaudio.h"
-#include "ddio.h"
+#include "TelCom.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "mono.h"
 
 //	constructor
 CBriefParse::CBriefParse() {

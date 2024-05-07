@@ -1025,8 +1025,9 @@
 #include <profiler.h>
 #endif
 
-#include "gamesequence.h"
+#include <string.h>
 
+#include "gamesequence.h"
 #include "game.h"
 #include "gameloop.h"
 #include "descent.h"
@@ -1035,16 +1036,13 @@
 #include "BOA.h"
 #include "gameevent.h"
 #include "AIMain.h"
-
 #include "soar_helpers.h"
-
 #include "terrain.h"
 #include "hlsoundlib.h"
 #include "SmallViews.h"
 #include "polymodel.h"
 #include "gametexture.h"
 #include "hud.h"
-#include "findintersection.h"
 #include "menu.h"
 #include "newui.h"
 #include "cockpit.h"
@@ -1052,7 +1050,6 @@
 #include "buddymenu.h"
 #include "mem.h"
 #include "soundload.h"
-#include "robot.h"
 #include "screens.h"
 #include "game2dll.h"
 #include "ship.h"
@@ -1069,7 +1066,6 @@
 #include "doorway.h"
 #include "matcen.h"
 #include "dedicated_server.h"
-#include "networking.h"
 #include "levelgoal.h"
 #include "demofile.h"
 #include "lightmap_info.h"
@@ -1086,11 +1082,52 @@
 #include "multi_dll_mgr.h"
 #include "multi_ui.h"
 #include "gamepath.h"
-#include "vclip.h"
 #include "bsp.h"
 #include "vibeinterface.h"
-
 #include "args.h"
+#include "Controller.h"
+#include "Inventory.h"
+#include "aistruct.h"
+#include "application.h"
+#include "bitmap.h"
+#include "config.h"
+#include "controls.h"
+#include "d3events.h"
+#include "ddio.h"
+#include "door.h"
+#include "grdefs.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage.h"
+#include "manage_external.h"
+#include "mono.h"
+#include "multi.h"
+#include "multi_external.h"
+#include "newui_core.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "osiris_share.h"
+#include "pilot_class.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "renderer.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "room.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "uisys.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
+#include "weapon.h"
+#include "weapon_external.h"
+
 void ResetHudMessages(void);
 
 //	Variables

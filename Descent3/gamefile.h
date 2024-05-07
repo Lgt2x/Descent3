@@ -21,6 +21,7 @@
 
 #include "pstypes.h"
 #include "manage.h"
+#include "manage_external.h"
 
 #define MAX_GAMEFILES 1500
 

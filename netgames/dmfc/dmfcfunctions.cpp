@@ -117,10 +117,24 @@
  * $NoKeywords: $
  */
 
-#include "DMFC.h"
-#include "dmfcinternal.h"
-#include "dmfcinputcommands.h"
+#include <stddef.h>
+
 #include "gamedll_header.h"
+#include "3d.h"
+#include "Inventory.h"
+#include "cfile.h"
+#include "findintersection.h"
+#include "grdefs.h"
+#include "hud.h"
+#include "module.h"
+#include "networking.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
+#include "renderer.h"
+#include "room_external.h"
+#include "spew.h"
+#include "vecmat_external.h"
+#include "viseffect_external.h"
 
 // Determine if we are building the DLL, or not.  If we are building the DMFC
 // DLL, than we need to define some things

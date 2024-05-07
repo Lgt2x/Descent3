@@ -19,9 +19,10 @@
 #include "RendererConfig.h"
 #ifdef USE_SOFTWARE_TNL
 
+#include <string.h>
+
 #include "3d.h"
 #include "SoftwareInternal.h"
-#include <string.h>
 
 struct InstanceContext {
   matrix m_viewMatrix;     // matrix

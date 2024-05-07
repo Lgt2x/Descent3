@@ -856,17 +856,29 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
+#include <cmath>
+
 #include "mono.h"
 #include "findintersection.h"
 #include "pserror.h"
 #include "collide.h"
 #include "terrain.h"
-// #include "bspfi.h"
-#include "3d.h"
 #include "room.h"
-#include "descent.h"
 #include "weapon.h"
+#include "bitmap.h"
+#include "findintersection_external.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external.h"
+#include "polymodel_external.h"
+#include "pstypes.h"
+#include "room_external.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 
 #ifndef NED_PHYSICS
 #include "gametexture.h"
@@ -874,7 +886,6 @@
 #include "..\neweditor\ned_GameTexture.h"
 #endif
 
-#include "BOA.h"
 #include "polymodel.h"
 #include "PHYSICS.H"
 #include "player.h"

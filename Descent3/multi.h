@@ -492,11 +492,16 @@
 #ifndef MULTI_H
 #define MULTI_H
 
+#include <stddef.h>
+
 #include "pstypes.h"
 #include "vecmat_external.h"
 #include "object_external_struct.h"
 #include "object_external.h"
 #include "player_external.h"
+#include "byteswap.h"
+#include "networking.h"
+#include "room_external.h"
 
 #if defined(__LINUX__)
 #include "linux/linux_fix.h"

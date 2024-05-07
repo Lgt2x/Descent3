@@ -19,10 +19,14 @@
 #ifndef SOUNDPAGE_H
 #define SOUNDPAGE_H
 
+#include <stddef.h>
+
 #include "manage.h"
 #include "soundload.h"
 #include "cfile.h"
 #include "pstypes.h"
+#include "manage_external.h"
+#include "ssl_lib.h"
 
 typedef struct {
   sound_info sound_struct;

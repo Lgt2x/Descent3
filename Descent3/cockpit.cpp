@@ -189,6 +189,11 @@
 //			render cockpit
 //			deactivate cockpit.
 #include "cockpit.h"
+
+#include <string.h>
+#include <stdio.h>
+#include <algorithm>
+
 #include "game.h"
 #include "polymodel.h"
 #include "hud.h"
@@ -197,12 +202,21 @@
 #include "player.h"
 #include "room.h"
 #include "hlsoundlib.h"
-#include "soundload.h"
 #include "sounds.h"
-
-#include <string.h>
-
-#include <algorithm>
+#include "bitmap.h"
+#include "fix.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage_external.h"
+#include "mono.h"
+#include "object.h"
+#include "object_external_struct.h"
+#include "player_external.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "renderer.h"
+#include "room_external.h"
 
 #define COCKPIT_ANIM_TIME 2.0f
 #define COCKPIT_DORMANT_FRAME 0.0

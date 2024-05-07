@@ -49,10 +49,10 @@
  * $NoKeywords: $
  */
 
-#include "grtext.h"
 #include <string.h>
-#include <stdlib.h>
 #include <stdio.h>
+
+#include "grtext.h"
 
 //	textaux_WordWrap
 //

@@ -105,6 +105,9 @@
 #define AIGOAL_H_
 
 #include "object.h"
+#include "aistruct.h"
+#include "object_external_struct.h"
+#include "pstypes.h"
 
 // Clears and removes all goals for a robot
 void GoalClearAll(object *obj);

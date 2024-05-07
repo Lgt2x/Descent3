@@ -41,14 +41,17 @@
  * $NoKeywords: $
  */
 
-#include "Controller.h"
 #include <string.h>
-#include <memory.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <cmath>
+
+#include "Controller.h"
 #include "ddio.h"
 #include "pserror.h"
 #include "joystick.h"
 #include "inffile.h"
-
 // Sorry! This is needed for the semi-hacky mouselook support
 #include "descent.h"
 #include "player.h"
@@ -56,6 +59,19 @@
 #include "pilot.h"
 #include "multi.h"
 #include "game.h"
+#include "Macros.h"
+#include "controls.h"
+#include "ddio_common.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "mono.h"
+#include "multi_external.h"
+#include "pilot_class.h"
+#include "player_external.h"
+#include "pstypes.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 // End of hacky includes
 
 #define JOY_DEADZONE 0.20f

@@ -17,7 +17,6 @@
 */
 
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
@@ -38,6 +37,7 @@
 #include "cfile.h"
 #include "hogfile.h" //info about library file
 #include "mem.h"
+#include "mono.h"
 
 // Library structures
 typedef struct {

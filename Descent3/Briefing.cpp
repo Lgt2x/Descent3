@@ -203,21 +203,28 @@
  */
 
 #include "Briefing.h"
-#include "BriefingParse.h"
-#include <stdlib.h>
+
 #include <string.h>
-#include <ctype.h>
-#include "game.h"
+#include <stdio.h>
+
+#include "BriefingParse.h"
 #include "mem.h"
 #include "hlsoundlib.h"
-#include "voice.h"
-#include "streamaudio.h"
-#include "pserror.h"
-#include "ddio.h"
 #include "descent.h"
 #include "TelCom.h"
 #include "TelComEffects.h"
 #include "Mission.h"
+#include "TelComEfxStructs.h"
+#include "application.h"
+#include "cfile.h"
+#include "ddio_common.h"
+#include "gamefont.h"
+#include "grdefs.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "mono.h"
+#include "pstypes.h"
 
 typedef struct {
   const char *name;

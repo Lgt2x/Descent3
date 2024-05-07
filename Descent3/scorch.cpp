@@ -95,7 +95,7 @@
  *
  */
 
-#include <stdlib.h>
+#include <algorithm>
 
 #include "pserror.h"
 #include "renderer.h"
@@ -105,8 +105,10 @@
 #include "config.h"
 #include "object_external_struct.h" //for ROOMNUM_OUTSIDE macro
 #include "psrand.h"
-
-#include <algorithm>
+#include "gametexture.h"
+#include "pstypes.h"
+#include "room_external.h"
+#include "vecmat.h"
 
 // Structure for storing scorch marks
 typedef struct {

@@ -19,7 +19,11 @@
 #ifndef _ATTACH_H_
 #define _ATTACH_H_
 
+#include <stddef.h>
+
 #include "object.h"
+#include "object_external_struct.h"
+#include "vecmat_external.h"
 
 bool AttachDoPosOrient(object *parent, char parent_ap, object *child, char child_ap, bool f_parent,
                        bool f_move_obj = true, vector *pos = NULL, matrix *orient = NULL, bool f_dropping_off = false);

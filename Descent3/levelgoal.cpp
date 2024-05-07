@@ -156,15 +156,14 @@
  */
 
 #include "levelgoal.h"
+
+#include <stdio.h>
+
 #include "mem.h"
 #include "string.h"
 #include "hud.h"
 #include "game.h"
-#include "gamesequence.h"
 #include "stringtable.h"
-#include <stdarg.h>
-#include "pstring.h"
-#include "hlsoundlib.h"
 #include "sounds.h"
 #include "osiris_dll.h"
 #include "room.h"
@@ -175,8 +174,19 @@
 #include "demofile.h"
 #include "osiris_share.h"
 #include "multisafe.h"
-#include "multi.h"
 #include "multi_world_state.h"
+#include "grdefs.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "mono.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "object_external_struct.h"
+#include "player_external_struct.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "room_external.h"
 
 #define GOAL_MESSAGE_TIME 10.0
 #define GOAL_MESSAGE_COLOR GR_RGB(0, 242, 148)

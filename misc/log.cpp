@@ -18,6 +18,12 @@
 
 #include "log.h"
 
+#include "spdlog/sinks/stdout_sinks.h" // IWYU pragma: keep
+#include "spdlog/spdlog.h"             // IWYU pragma: keep
+
+#include <memory>
+#include <string>
+
 void InitLog() {
     // Set the logging pattern
     spdlog::set_pattern("%T [%l] %s:%!:%# %v");

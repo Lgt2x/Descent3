@@ -439,6 +439,11 @@
  */
 
 #include "viseffect.h"
+
+#include <stdlib.h>
+#include <string.h>
+#include <algorithm>
+
 #include "fireball.h"
 #include "terrain.h"
 #include "game.h"
@@ -446,8 +451,6 @@
 #include "vclip.h"
 #include "gametexture.h"
 #include "object.h"
-#include <memory.h>
-#include <stdlib.h>
 #include "PHYSICS.H"
 #include "weapon.h"
 #include "lighting.h"
@@ -458,8 +461,21 @@
 #include "polymodel.h"
 #include "psrand.h"
 #include "mem.h"
-
-#include <algorithm>
+#include "3d.h"
+#include "bitmap.h"
+#include "descent.h"
+#include "fireball_external.h"
+#include "fix.h"
+#include "grdefs.h"
+#include "mono.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "renderer.h"
+#include "room_external.h"
+#include "vecmat.h"
 
 // DAJ vis_effect VisEffects[max_vis_effects];
 // DAJ ushort VisDeadList[max_vis_effects];

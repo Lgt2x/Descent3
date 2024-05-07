@@ -278,48 +278,58 @@
  */
 #ifdef WIN32
 #include <crtdbg.h>
+
 #include "windows.h"
 #endif
+#include <stdio.h>
+#include <string.h>
+
 #include "ui.h"
 #include "newui.h"
 #include "game.h"
 #include "gamefont.h"
 #include "multi.h"
 #include "multi_client.h"
-#include "manage.h"
 #include "Mission.h"
 #include "pilot.h"
-#include "ui.h"
-#include "newui.h"
 #include "pstypes.h"
 #include "pserror.h"
 #include "descent.h"
-#include "game.h"
 #include "room.h"
 #include "object.h"
 #include "terrain.h"
 #include "player.h"
 #include "mono.h"
-#include "hud.h"
-#include "Inventory.h"
 #include "multi_server.h"
 #include "multi_ui.h"
 #include "ship.h"
-#include "soundload.h"
-#include "spew.h"
 #include "DllWrappers.h"
 #include "appdatabase.h"
 #include "module.h"
-#include "ship.h"
 #include "localization.h"
 #include "stringtable.h"
 #include "dedicated_server.h"
 #include "multi_save_settings.h"
 #include "multi_dll_mgr.h"
 #include "mission_download.h"
-#include "module.h"
 #include "mem.h"
 #include "args.h"
+#include "application.h"
+#include "cfile.h"
+#include "ddio.h"
+#include "ddio_common.h"
+#include "grdefs.h"
+#include "grtext.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "lnxdatabase.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "newui_core.h"
+#include "renderer.h"
+#include "uires.h"
+#include "uisys.h"
 // #define USE_DIRECTPLAY
 
 #ifdef USE_DIRECTPLAY

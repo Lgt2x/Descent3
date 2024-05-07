@@ -56,21 +56,16 @@
  * $NoKeywords: $
  */
 
-#include "DDAccess.h"
-#include "application.h"
-#include "AppConsole.h"
-#include "TaskSystem.h"
-#include "mono.h"
-#include "pstring.h"
 #include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <ctype.h>
-
-#include "linux/dyna_curses.h"
-
+#include <stdlib.h>
 #include <algorithm>
+
+#include "AppConsole.h"
+#include "linux/dyna_curses.h"
+#include "lnxapp.h"
 
 //////////////////////////////////////////////////
 // Defines

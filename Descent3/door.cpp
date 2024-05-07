@@ -122,8 +122,9 @@
 #include "door.h"
 #include "pserror.h"
 #include "polymodel.h"
-#include "game.h"
-#include "doorway.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 //	---------------------------------------------------------------------------
 //	Globals

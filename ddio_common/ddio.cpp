@@ -88,9 +88,13 @@
  * $NoKeywords: $
  */
 #include "ddio.h"
+
+#include <stdlib.h>
+
 #include "joystick.h"
 #include "pserror.h"
-#include <stdlib.h>
+#include "mono.h"
+
 static bool DDIO_initialized = false;
 // ----------------------------------------------------------------------------
 //	Common initialization

@@ -130,9 +130,9 @@
 
 #include "ddio.h"
 #include "pserror.h"
-#include "Macros.h"
-
-#include <stdlib.h>
+#include "ddio_common.h"
+#include "debug.h"
+#include "pstypes.h"
 
 #define KEY_QUEUE_SIZE 16
 

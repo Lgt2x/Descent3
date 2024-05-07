@@ -84,11 +84,12 @@
 #ifndef GAMESAVE_H
 #define GAMESAVE_H
 
+#include <stddef.h>
+
 #include "pstypes.h"
 #include "cfile.h"
 #include "object.h"
 #include "objinfo.h"
-
 #include "gametexture.h"
 #include "bitmap.h"
 #include "ddio.h"
@@ -97,6 +98,10 @@
 #include "ship.h"
 #include "weapon.h"
 #include "polymodel.h"
+#include "aistruct.h"
+#include "mono.h"
+#include "object_external_struct.h"
+#include "polymodel_external.h"
 
 #define GAMESAVE_SLOTS 8    // maximum number of savegames
 #define GAMESAVE_DESCLEN 31 // gamesave description maximum length.

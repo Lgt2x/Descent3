@@ -333,14 +333,14 @@
 */
 
 #include "weapon.h"
+
+#include <string.h>
+#include <algorithm>
+
 #include "pstypes.h"
 #include "pserror.h"
 #include "object.h"
 #include "3d.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
 #include "bitmap.h"
 #include "vclip.h"
 #include "game.h"
@@ -348,18 +348,26 @@
 #include "player.h"
 #include "hud.h"
 #include "hlsoundlib.h"
-#include "soundload.h"
 #include "objinfo.h"
 #include "gametexture.h"
 #include "ship.h"
-#include "gauges.h"
 #include "sounds.h"
 #include "stringtable.h"
 #include "Macros.h"
 #include "cfile.h"
 #include "AIMain.h"
-
-#include <algorithm>
+#include "aistruct.h"
+#include "aistruct_external.h"
+#include "grdefs.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "object_external.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "renderer.h"
+#include "robotfirestruct_external.h"
 
 // #include "samirlog.h"
 #define LOGFILE(_s)

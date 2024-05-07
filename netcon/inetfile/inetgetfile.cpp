@@ -71,15 +71,14 @@
 #endif
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-
 
 // include inetgetfile.h before CFtp.h and Chttpget.h because it has some winsock defines
 // to make Linux happy
 #include "inetgetfile.h"
-#include "CFtp.h"
-#include "Chttpget.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
 
 extern char *Proxy_server;
 extern short Proxy_port;

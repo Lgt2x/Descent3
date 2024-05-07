@@ -187,6 +187,12 @@
  * $NoKeywords: $
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <algorithm>
+#include <cmath>
+
 #include "pstypes.h"
 #include "pserror.h"
 #include "grtext.h"
@@ -195,13 +201,9 @@
 #include "vecmat.h"
 #include "mem.h"
 #include "gamepath.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "game.h"
 #include "AIGoal.h"
 #include "aipath.h"
-#include "objinfo.h"
 #include "player.h"
 #include "ddio.h"
 #include "gamefont.h"
@@ -213,8 +215,19 @@
 #include "osiris_dll.h"
 #include "multi.h"
 #include "weapon.h"
-
-#include <algorithm>
+#include "aistruct.h"
+#include "aistruct_external.h"
+#include "bitmap.h"
+#include "ddio_common.h"
+#include "fix.h"
+#include "grdefs.h"
+#include "mono.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "osiris_share.h"
+#include "player_external.h"
+#include "vecmat_external.h"
 
 #ifdef _DEBUG
 bool Cinematics_enabled = true;

@@ -68,13 +68,17 @@
  * $NoKeywords: $
  */
 
-#include "lib2d.h"
-
-#include "bitmap.h"
-
 #include <string.h>
-#include <stdlib.h>
+
+#include "lib2d.h"
+#include "bitmap.h"
 #include "mem.h"
+#include "Ddgr.h"
+#include "gr.h"
+#include "grdefs.h"
+#include "mono.h"
+#include "pserror.h"
+#include "pstypes.h"
 
 //	----------------------------------------------------------------------------
 //	constructor and destructor

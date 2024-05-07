@@ -89,6 +89,7 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 
 #include "forcefeedback.h"
 #include "D3ForceFeedback.h"
@@ -97,6 +98,14 @@
 #include "weapon.h"
 #include "ddio.h"
 #include "psrand.h"
+#include "cfile.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage.h"
+#include "manage_external.h"
+#include "object_external.h"
+#include "vecmat.h"
 
 extern float Gametime;
 

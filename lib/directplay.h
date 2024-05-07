@@ -46,6 +46,8 @@
 
 #include "dplay.h"
 #include "dplobby.h"
+#include "networking.h"
+#include "pstypes.h"
 
 typedef struct _modem_list {
   char name[200];

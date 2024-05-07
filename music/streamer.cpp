@@ -62,6 +62,10 @@
 
 #include "music.h"
 #include "streamaudio.h"
+#include "mono.h"
+#include "psclass.h"
+#include "pserror.h"
+#include "pstypes.h"
 
 oms_stream::oms_stream() {}
 

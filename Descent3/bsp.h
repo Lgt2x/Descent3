@@ -44,6 +44,8 @@
 #include "list.h"
 #include "vecmat.h"
 #include "cfile.h"
+#include "pstypes.h"
+#include "vecmat_external.h"
 
 #define BSP_IN_FRONT 1
 #define BSP_BEHIND 2

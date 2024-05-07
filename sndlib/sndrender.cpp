@@ -53,12 +53,13 @@
 #include "ddsndgeometry.h"
 #include "sndrender.h"
 #include "room.h"
-#include "object.h"
-#include "descent.h"
-#include "application.h"
-#include "ddio.h"
 #include "soundload.h"
 #include "gametexture.h"
+#include "mono.h"
+#include "object_external_struct.h"
+#include "pserror.h"
+#include "room_external.h"
+#include "vecmat_external.h"
 
 #ifdef LINUX
 #include <string.h>

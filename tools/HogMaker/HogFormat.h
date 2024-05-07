@@ -21,6 +21,7 @@
 #include <cstdint>
 #include <filesystem>
 #include <vector>
+#include <iosfwd>
 
 #include "IOOps.h"
 

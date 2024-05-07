@@ -116,6 +116,9 @@
  * $NoKeywords: $
  */
 
+#include <string.h>
+#include <stdlib.h>
+
 #include "pserror.h"
 #include "renderer.h"
 #include "gr.h"
@@ -123,9 +126,10 @@
 #include "cfile.h"
 #include "bitmap.h"
 #include "mem.h"
-
-#include <string.h>
-#include <stdlib.h>
+#include "Ddgr.h"
+#include "Macros.h"
+#include "grdefs.h"
+#include "pstypes.h"
 
 #define FT_COLOR 1
 #define FT_PROPORTIONAL 2

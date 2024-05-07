@@ -191,7 +191,14 @@
 #include "linux/linux_fix.h" //fix some of the stricmp's
 #endif
 
+#include <stddef.h>
+
 #include "newui_core.h"
+#include "bitmap.h"
+#include "grdefs.h"
+#include "pstypes.h"
+#include "ui.h"
+#include "uires.h"
 
 // flags for creating a newui window
 #define NUWF_TITLENONE 0x00000000    // don't display a title bar

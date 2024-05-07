@@ -17,9 +17,8 @@
 */
 
 #include <stdlib.h>
-#include <memory.h>
-
 #include <limits>
+#include <cmath>
 
 #include "object.h"
 #include "PHYSICS.H"
@@ -28,14 +27,8 @@
 #include "vecmat.h"
 #include "game.h"
 #include "terrain.h"
-#include "descent.h"
-#include "weapon.h"
 #include "polymodel.h"
 #include "fireball.h"
-#include "damage.h"
-#include "gameevent.h"
-#include "hlsoundlib.h"
-#include "soundload.h"
 #include "viseffect.h"
 #include "multi.h"
 #include "attach.h"
@@ -43,6 +36,24 @@
 #include "player.h"
 #include "demofile.h"
 #include "vibeinterface.h"
+#include "aistruct_external.h"
+#include "findintersection_external.h"
+#include "fix.h"
+#include "gametexture.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "mono.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "objinfo.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "room.h"
+#include "vecmat_external.h"
+#include "viseffect_external.h"
 
 // Global variables for physics system
 ubyte Default_player_terrain_leveling = 0;

@@ -16,9 +16,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <memory.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
 #include "mono.h"
 #include "ssl_lib.h"
 #include "mixer.h"

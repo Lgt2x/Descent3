@@ -148,12 +148,14 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <math.h>
+#include <assert.h>
+#include <cmath>
 
 #include "vecmat.h"
-#include "mono.h"
 #include "pserror.h"
 #include "psrand.h"
+#include "fix.h"
+#include "vecmat_external.h"
 
 const vector Zero_vector = {0.0, 0.0, 0.0};
 const matrix Identity_matrix = IDENTITY_MATRIX;

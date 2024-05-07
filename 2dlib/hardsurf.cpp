@@ -37,6 +37,7 @@
  */
 
 #include "gr.h"
+#include "Ddgr.h"
 
 //	----------------------------------------------------------------------------
 //	constructor and destructor

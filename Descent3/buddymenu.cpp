@@ -52,30 +52,32 @@
  * $NoKeywords: $
  */
 
-#include "help.h"
-#include "mono.h"
-#include "renderer.h"
-#include "render.h"
-#include "ddio.h"
-#include "descent.h"
-#include "game.h"
-#include "cfile.h"
-#include "application.h"
-#include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
+#include <stdio.h>
+
+#include "mono.h"
+#include "ddio.h"
+#include "game.h"
 #include "newui.h"
 #include "grtext.h"
 #include "gamefont.h"
 #include "AIMain.h"
-#include "robot.h"
 #include "hud.h"
 #include "stringtable.h"
 #include "textaux.h"
 #include "multi.h"
-
 #include "osiris_share.h"
-#include "multi.h"
+#include "aistruct_external.h"
+#include "ddio_common.h"
+#include "multi_external.h"
+#include "networking.h"
+#include "newui_core.h"
+#include "object.h"
+#include "object_external_struct.h"
+#include "player.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "ui.h"
 
 #define GB_MENU_REQ_TEXT 1
 #define GB_MENU_REQ_SELECT 2

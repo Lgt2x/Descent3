@@ -17,11 +17,15 @@
 */
 
 #include "RendererConfig.h"
+#include "pserror.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 #ifndef USE_SOFTWARE_TNL
+
+#include <string.h>
 
 #include "3d.h"
 #include "HardwareInternal.h"
-#include <string.h>
 
 struct InstanceContext {
   matrix m_viewMatrix;     // matrix

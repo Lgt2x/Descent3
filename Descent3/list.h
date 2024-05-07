@@ -23,6 +23,7 @@
 #include "pserror.h"
 
 typedef struct listnode {
+
   void *data;
   struct listnode *next;
   struct listnode *prev;

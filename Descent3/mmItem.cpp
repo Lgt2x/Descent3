@@ -110,6 +110,9 @@
  */
 
 #include "mmItem.h"
+
+#include <string.h>
+
 #include "game.h"
 #include "program.h"
 #include "descent.h"
@@ -117,12 +120,23 @@
 #include "hlsoundlib.h"
 #include "soundload.h"
 #include "d3music.h"
-
 #include "ddio.h"
 // #include <malloc.h>
 #include "mem.h"
-
-#include <string.h>
+#include "application.h"
+#include "cfile.h"
+#include "d3_version.h"
+#include "grtext.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage_external.h"
+#include "newui_core.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "renderer.h"
+#include "uidraw.h"
+#include "uisys.h"
 
 // externed from newui.cpp
 extern int UI_frame_result;
@@ -295,8 +309,6 @@ void mmItem::OnDraw() {
 
 //////////////////////////////////////////////////////////////////////////////
 //	MAIN MENU INTERFACE CODE
-
-#include "stdlib.h" //need this to get _MAX_PATH, which really ought to be in ddio.h
 
 bool static_menu_background = false;
 

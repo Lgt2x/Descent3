@@ -17,11 +17,12 @@
 */
 
 #include "robotfire.h"
+
+#include <stdlib.h>
+
 #include "object.h"
 #include "objinfo.h"
-
 #include "config.h" // for game toggles.
-#include "objinfo.h"
 #include "weapon.h"
 #include "ship.h"
 #include "game.h"
@@ -34,10 +35,21 @@
 #include "SmallViews.h"
 #include "PHYSICS.H"
 #include "AIMain.h"
-
-#include <stdlib.h>
-
 #include "psrand.h"
+#include "aistruct.h"
+#include "aistruct_external.h"
+#include "descent.h"
+#include "mono.h"
+#include "multi_external.h"
+#include "object_external.h"
+#include "player_external.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "robotfirestruct_external.h"
+#include "ssl_lib.h"
+#include "vecmat_external.h"
+#include "weapon_external.h"
+
 // Fires a multiplayer and AI on/off weapon
 void FireOnOffWeapon(object *objp) {
   if (objp->type == OBJ_PLAYER) {

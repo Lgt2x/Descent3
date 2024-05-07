@@ -22,6 +22,8 @@
 #include "cfile.h"
 #include "vecmat.h"
 #include "matcen_external.h"
+#include "pstypes.h"
+#include "vecmat_external.h"
 
 #define MAX_MATCENS 60
 #define MAX_MATCEN_NAME_LEN 32

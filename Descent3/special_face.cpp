@@ -16,13 +16,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pstypes.h"
-
-#include "special_face.h"
-#include "mono.h"
 #include <stdlib.h>
 #include <string.h>
+
+#include "pstypes.h"
+#include "special_face.h"
 #include "mem.h"
+#include "pserror.h"
 
 int Num_of_special_faces = 0;
 special_face SpecialFaces[MAX_SPECIAL_FACES];

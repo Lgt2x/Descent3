@@ -59,18 +59,6 @@
 #endif
 
 #include "rtperformance.h"
-#include "pstypes.h"
-#include "mono.h"
-#include "descent.h"
-#include "manage.h"
-#include "ddio.h"
-#include "cfile.h"
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-#include <algorithm>
 
 float rtp_startlog_time;
 

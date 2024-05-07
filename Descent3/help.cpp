@@ -126,21 +126,13 @@
  */
 
 #include "help.h"
-#include "mono.h"
-#include "renderer.h"
-#include "render.h"
-#include "ddio.h"
-#include "descent.h"
-#include "game.h"
-#include "cfile.h"
-#include "application.h"
+
 #include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include "newui.h"
-#include "grtext.h"
-#include "gamefont.h"
+
 #include "stringtable.h"
+#include "ddio_common.h"
+#include "newui_core.h"
+#include "ui.h"
 
 #define TITLETEXT TXT_HELP
 int HelpText[] = {TXI_ESC,

@@ -127,6 +127,9 @@
  */
 
 #include "doorway.h"
+
+#include <stddef.h>
+
 #include "door.h"
 #include "pserror.h"
 #include "mem.h"
@@ -134,9 +137,16 @@
 #include "polymodel.h"
 #include "game.h"
 #include "hlsoundlib.h"
-#include "stringtable.h"
 #include "player.h"
 #include "osiris_dll.h"
+#include "mono.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "osiris_share.h"
+#include "polymodel_external.h"
+#include "room_external.h"
+#include "ssl_lib.h"
 
 //	---------------------------------------------------------------------------
 //	Globals

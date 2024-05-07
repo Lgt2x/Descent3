@@ -266,6 +266,8 @@
  */
 
 #include <stdio.h>
+#include <string.h>
+
 #include "cfile.h"
 #include "objinfo.h"
 #include "ship.h"
@@ -273,7 +275,6 @@
 #include "newui.h"
 #include "hud.h"
 #include "stringtable.h"
-#include "program.h"
 #include "Mission.h"
 #include "game.h"
 #include "gamesequence.h"
@@ -283,13 +284,10 @@
 #include "ObjScript.h"
 #include "hlsoundlib.h"
 #include "viseffect.h"
-#include "collide.h"
 #include "sounds.h"
-#include "fireball.h"
 #include "attach.h"
 #include "gameloop.h"
 #include "multi.h"
-#include "multisafe.h"
 #include "osiris_dll.h"
 #include "args.h"
 #include "gamecinematics.h"
@@ -298,6 +296,34 @@
 // We borrow a lot of code from the savegame system
 #include "gamesave.h"
 #include "demofile.h"
+#include "ddio.h"
+#include "descent.h"
+#include "findintersection.h"
+#include "findintersection_external.h"
+#include "fireball_external.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "manage.h"
+#include "mono.h"
+#include "newui_core.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player.h"
+#include "player_external.h"
+#include "player_external_struct.h"
+#include "polymodel.h"
+#include "polymodel_external.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "uires.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
+#include "viseffect_external.h"
+#include "weapon_external.h"
 
 extern bool is_multi_demo;
 CFILE *Demo_cfp = NULL;

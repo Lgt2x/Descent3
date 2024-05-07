@@ -45,6 +45,7 @@
 #define __TCAUTOMAP_H_
 
 #include "TelCom.h"
+#include "pstypes.h"
 
 // This is the function called by TelCom
 //  return true if TelCom should exit to TelCom Main Menu

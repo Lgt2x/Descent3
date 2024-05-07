@@ -16,6 +16,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// #include <malloc.h>
+#include <stdlib.h>
+#include <string.h>
+
 /*
  * $Logfile: /DescentIII/main/ObjInit.cpp $
  * $Revision: 170 $
@@ -607,18 +611,24 @@
 #include "AIMain.h"
 #include "fireball.h"
 #include "objinfo.h"
-#include "Mission.h"
 #include "robotfire.h"
 #include "door.h"
 #include "vclip.h"
 #include "polymodel.h"
-#include "robot.h"
 #include "sounds.h"
 #include "mem.h"
 #include "marker.h"
-// #include <malloc.h>
-#include <stdlib.h>
 #include "psrand.h"
+#include "aistruct_external.h"
+#include "object.h"
+#include "object_external.h"
+#include "object_external_struct.h"
+#include "player_external.h"
+#include "polymodel_external.h"
+#include "robotfirestruct.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
+
 // Allocate and initialize an effect_info struct for an object
 void ObjCreateEffectInfo(object *objp) {
   if (objp->effect_info)

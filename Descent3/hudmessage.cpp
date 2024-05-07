@@ -322,24 +322,21 @@
  * $NoKeywords: $
  */
 
-#include <cstdarg>
-#include <cstdio>
-
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <cstdarg>
+#include <cstdio>
+
 #include "grdefs.h"
 #include "hud.h"
 #include "game.h"
-#include "ddio.h"
 #include "gamefont.h"
-#include "newui.h"
 #include "multi.h"
 #include "player.h"
 #include "game2dll.h"
 #include "stringtable.h"
 #include "dedicated_server.h"
-#include "AppConsole.h"
 #include "demofile.h"
 #include "mem.h"
 #include "textaux.h"
@@ -350,6 +347,20 @@
 #include "sounds.h"
 #include "hlsoundlib.h"
 #include "args.h"
+#include "Macros.h"
+#include "cfile.h"
+#include "d3events.h"
+#include "ddio_common.h"
+#include "grtext.h"
+#if defined(__LINUX__)
+#include "linux_fix.h"
+#endif
+#include "mono.h"
+#include "multi_external.h"
+#include "player_external_struct.h"
+#include "pserror.h"
+#include "pstypes.h"
+#include "renderer.h"
 
 #define HUD_MESSAGE_NORMAL 0
 #define HUD_MESSAGE_BLINKING 1

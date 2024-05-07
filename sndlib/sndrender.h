@@ -39,6 +39,9 @@
 #ifndef SNDRENDER_H
 #define SNDRENDER_H
 
+#include "pstypes.h"
+#include "ssl_lib.h"
+
 #define SOUND_RENDER_RADIUS 120.0f
 #define SOUND_RENDER_ROOM_LIMIT 16
 

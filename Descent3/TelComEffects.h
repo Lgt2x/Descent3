@@ -125,6 +125,7 @@
 #include "TelComEfxStructs.h"
 #include "TelCom.h"
 #include "vecmat_external.h"
+#include "bitmap.h"
 
 /*
 ***************************************************************************************

@@ -91,8 +91,13 @@
 #include "lib2d.h"
 #include "pserror.h"
 #include "bitmap.h"
-#include "texture.h"
 #include "renderer.h"
+#include "Ddgr.h"
+#include "Macros.h"
+#include "fix.h"
+#include "gr.h"
+#include "grdefs.h"
+#include "pstypes.h"
 
 inline unsigned XLAT_RGB_TO_16(ddgr_color c) {
   unsigned char r, g, b;

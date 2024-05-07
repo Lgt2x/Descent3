@@ -17,6 +17,10 @@
 */
 
 #include "RendererConfig.h"
+#include "mono.h"
+#include "pstypes.h"
+#include "vecmat.h"
+#include "vecmat_external.h"
 #ifndef USE_SOFTWARE_TNL
 
 #include "pserror.h"

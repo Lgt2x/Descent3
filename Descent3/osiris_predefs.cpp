@@ -431,6 +431,8 @@
  * $NoKeywords: $
  */
 #include <stdarg.h>
+#include <string.h>
+
 #include "osiris_predefs.h"
 #include "object.h"
 #include "mono.h"
@@ -470,6 +472,26 @@
 #include "localization.h"
 #include "psrand.h"
 #include "demofile.h"
+#include "Macros.h"
+#include "ObjScript.h"
+#include "aistruct.h"
+#include "aistruct_external.h"
+#include "findintersection_external.h"
+#include "gametexture.h"
+#include "grdefs.h"
+#include "levelgoal_external.h"
+#include "manage_external.h"
+#include "mem.h"
+#include "multi_external.h"
+#include "osiris_dll.h"
+#include "player.h"
+#include "player_external_struct.h"
+#include "polymodel_external.h"
+#include "robotfirestruct.h"
+#include "robotfirestruct_external.h"
+#include "room_external.h"
+#include "ssl_lib.h"
+#include "vecmat.h"
 
 int *hack_ilist = NULL;
 int hack_list[100];
