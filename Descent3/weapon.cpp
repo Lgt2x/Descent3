@@ -334,7 +334,6 @@
 
 #include "weapon.h"
 
-#include <stdio.h>
 #include <string.h>
 #include <algorithm>
 

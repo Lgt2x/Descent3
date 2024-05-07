@@ -356,7 +356,7 @@
 #endif
 
 #include <string.h>
-#include <fcntl.h>
+#include <stdio.h>
 
 #include "cfile.h"
 #include "manage.h"

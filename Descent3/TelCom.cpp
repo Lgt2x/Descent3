@@ -538,6 +538,7 @@
 #include "ssl_lib.h"
 #include "vecmat.h"
 #include "vecmat_external.h"
+#include "fix.h"
 
 #define FRAME_RATE 30.0f
 #define TCPE_TIME 0.5f

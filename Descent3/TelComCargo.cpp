@@ -99,6 +99,7 @@
 #include "grtext.h"
 #include "player_external.h"
 #include "pstypes.h"
+#include "object.h"
 
 #define TCBACK_BUTTON_X 500
 #define TCBACK_BUTTON_Y 350

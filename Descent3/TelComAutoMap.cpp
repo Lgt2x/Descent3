@@ -148,7 +148,6 @@
 
 #include "TelComAutoMap.h"
 
-#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 

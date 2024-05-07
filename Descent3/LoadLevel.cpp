@@ -1243,7 +1243,6 @@
 
 #include <string.h>
 #include <SDL_platform.h>
-#include <fcntl.h>
 
 #include "LoadLevel.h"
 #include "cfile.h"

@@ -20,7 +20,7 @@
 // 0.1
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+#include <cmath>
 
 #include "osiris_import.h"
 #include "osiris_common.h"

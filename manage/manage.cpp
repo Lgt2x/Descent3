@@ -436,7 +436,6 @@
 
 #include <errno.h>
 #include <string.h>
-#include <fcntl.h>
 #include <cstdarg>
 #include <cstdio>
 #if defined(WIN32)

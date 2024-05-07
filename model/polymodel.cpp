@@ -600,7 +600,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <fcntl.h>
 #include <stdio.h>
 #include <algorithm>
 #include <cmath>

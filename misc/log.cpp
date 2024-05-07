@@ -18,8 +18,8 @@
 
 #include "log.h"
 
-#include "spdlog/sinks/stdout_sinks.h"
-#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_sinks.h" // IWYU pragma: keep
+#include "spdlog/spdlog.h"             // IWYU pragma: keep
 
 #include <memory>
 #include <string>

@@ -558,7 +558,6 @@
  * $NoKeywords: $
  */
 
-#include <stdlib.h>
 #include <algorithm>
 
 #include "damage.h"

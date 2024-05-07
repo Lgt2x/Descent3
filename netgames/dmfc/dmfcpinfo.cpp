@@ -90,7 +90,6 @@
  * $NoKeywords: $
  */
 
-#include <string.h>
 #include <stdlib.h>
 
 #include "dmfcinternal.h"

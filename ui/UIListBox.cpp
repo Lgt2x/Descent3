@@ -160,6 +160,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <math.h>
 
 #include "UIlib.h"
 #include "ddio_common.h"

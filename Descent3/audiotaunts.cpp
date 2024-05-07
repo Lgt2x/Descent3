@@ -18,7 +18,7 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <fcntl.h>
+#include <stdio.h>
 
 #include "mono.h"
 #include "pserror.h"

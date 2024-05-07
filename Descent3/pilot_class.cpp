@@ -134,7 +134,6 @@
 #include "pilot_class.h"
 
 #include <string.h>
-#include <stdlib.h>
 
 #include "ddio.h"
 #include "hud.h"
