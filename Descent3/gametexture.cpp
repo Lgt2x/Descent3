@@ -281,7 +281,9 @@
 #include "config.h"
 #include "args.h"
 #include "mem.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "renderer.h"
 
 int Num_textures = 0;

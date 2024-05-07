@@ -1141,7 +1141,9 @@
 #include "fireball_external.h"
 #include "gametexture.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 #include "multi_external.h"
 #include "object.h"

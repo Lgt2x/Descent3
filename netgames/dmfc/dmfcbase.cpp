@@ -490,7 +490,9 @@
 #include "gametexture.h"
 #include "grdefs.h"
 #include "hud.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "multi_external.h"
 #include "networking.h"

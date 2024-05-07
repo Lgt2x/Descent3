@@ -75,7 +75,9 @@
 #include "TelCom.h"
 #include "gamefont.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 
 //	constructor

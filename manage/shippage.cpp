@@ -217,7 +217,9 @@
 #include "soundpage.h"
 #include "genericpage.h"
 #include "args.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "object_external.h"
 #include "objinfo.h"
 #include "polymodel_external.h"

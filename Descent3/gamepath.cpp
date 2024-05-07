@@ -70,7 +70,9 @@
 
 #include "gamepath.h"
 
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 
 game_path GamePaths[MAX_GAME_PATHS];

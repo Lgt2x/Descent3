@@ -374,7 +374,9 @@
 #include "aistruct.h"
 #include "aistruct_external.h"
 #include "deathinfo_external.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "object.h"
 #include "object_external.h"

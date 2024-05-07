@@ -176,7 +176,9 @@
 #include "multisafe.h"
 #include "multi_world_state.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 #include "multi_external.h"
 #include "networking.h"

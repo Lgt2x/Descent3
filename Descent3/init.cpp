@@ -988,7 +988,9 @@
 #include "fix.h"
 #include "gamefont.h"
 #include "grtext.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "lnxdatabase.h"
 #include "multi_external.h"
 #include "newui_core.h"

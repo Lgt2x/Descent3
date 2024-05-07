@@ -202,7 +202,9 @@
 #include "d3music.h"
 #include "hlsoundlib.h"
 #include "ddio_common.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "mono.h"
 #include "uidraw.h"

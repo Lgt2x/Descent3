@@ -271,7 +271,9 @@
 #include "LoadLevel.h"
 #include "/home/louis/dev/Descent/Descent3/md5/md5.h"
 #include "cfile.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "mono.h"
 #include "multi_external.h"

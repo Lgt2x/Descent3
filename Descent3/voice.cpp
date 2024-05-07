@@ -66,7 +66,9 @@
 #include "streamaudio.h"
 #include "hlsoundlib.h"
 #include "soundload.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "mono.h"
 #include "pstypes.h"

@@ -110,7 +110,9 @@
 #include "newui.h"
 #include "stringtable.h"
 #include "mem.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage.h"
 #include "newui_core.h"
 #include "pserror.h"

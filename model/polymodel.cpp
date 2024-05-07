@@ -618,7 +618,9 @@
 #include "cfile.h"
 #include "fix.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "object_external.h"
 #include "object_external_struct.h"

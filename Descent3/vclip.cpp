@@ -167,7 +167,9 @@
 #include "gametexture.h"
 #include "ctype.h"
 #include "mem.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "renderer.h"
 
 vclip GameVClips[MAX_VCLIPS];

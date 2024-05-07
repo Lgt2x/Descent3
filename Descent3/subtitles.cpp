@@ -67,7 +67,9 @@
 #include "args.h"
 #include "cfile.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 
 // Subtitle data

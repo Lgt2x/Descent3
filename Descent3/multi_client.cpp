@@ -147,7 +147,9 @@
 #include "d3serial.h"
 #include "ship.h"
 #include "descent.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "mono.h"
 #include "multi_external.h"

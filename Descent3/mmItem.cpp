@@ -127,7 +127,9 @@
 #include "cfile.h"
 #include "d3_version.h"
 #include "grtext.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "newui_core.h"
 #include "pserror.h"

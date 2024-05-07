@@ -352,7 +352,9 @@
 #include "d3events.h"
 #include "ddio_common.h"
 #include "grtext.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 #include "multi_external.h"
 #include "player_external_struct.h"

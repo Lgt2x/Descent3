@@ -44,7 +44,9 @@
  *
  */
 
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "networking.h"
 #include "pstypes.h"
 

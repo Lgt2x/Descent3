@@ -124,7 +124,9 @@
 #include "dmfcinternal.h"
 #include "Macros.h"
 #include "bitmap.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "multi_external.h"
 #include "object_external.h"
 #include "object_external_struct.h"

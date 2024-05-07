@@ -38,7 +38,9 @@
 #include "player.h"
 #include "d3events.h"
 #include "descent.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "multi_external.h"
 #include "object.h"
 #include "object_external.h"

@@ -187,7 +187,9 @@
 #include "mem.h"
 #include "ddio.h"
 #include "debug.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 
 #ifndef RELEASE
 #include <time.h>

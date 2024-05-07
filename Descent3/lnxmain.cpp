@@ -37,7 +37,9 @@
 #include "loki_utils.h"
 #include "log.h"
 #include "d3_version.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "lnxapp.h"
 #include "lnxdatabase.h"
 #include "osiris_share.h"

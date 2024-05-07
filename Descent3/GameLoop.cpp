@@ -867,7 +867,9 @@
 #include "ddio_common.h"
 #include "findintersection_external.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "matcen_external.h"
 #include "multi_external.h"
 #include "networking.h"

@@ -19,7 +19,9 @@
 #ifndef LNXAPP_H
 #define LNXAPP_H
 
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "application.h"
 
 // if no-display/input specifier is given, it will use defaults

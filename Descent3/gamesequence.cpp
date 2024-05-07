@@ -1096,7 +1096,9 @@
 #include "ddio.h"
 #include "door.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage.h"
 #include "manage_external.h"
 #include "mono.h"

@@ -30,7 +30,9 @@
 #include "args.h"
 #include "SDL_audio.h"
 #include "SDL_stdinc.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "vecmat.h"
 #include "vecmat_external.h"
 

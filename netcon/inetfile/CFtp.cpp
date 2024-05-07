@@ -82,7 +82,9 @@ typedef int socklen_t;
 #include <unistd.h>
 
 #include "SDL_platform.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 
 #ifdef __LINUX__
 // sorry, I'm lazy, I guess we could copy the defines

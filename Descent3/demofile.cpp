@@ -303,7 +303,9 @@
 #include "fireball_external.h"
 #include "gametexture.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage.h"
 #include "mono.h"
 #include "newui_core.h"

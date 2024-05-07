@@ -275,7 +275,9 @@
 #include "ddio.h"
 #include "args.h"
 #include "soundpage.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "ssl_lib.h"
 
 // Texpage commands that are read/written

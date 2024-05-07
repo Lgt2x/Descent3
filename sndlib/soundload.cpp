@@ -242,7 +242,9 @@
 #include "SDL_platform.h"
 #include "aistruct.h"
 #include "gametexture.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "mono.h"
 #include "objinfo.h"

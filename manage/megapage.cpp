@@ -74,7 +74,9 @@
 #include "mono.h"
 #include "pserror.h"
 #include "gametexture.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "pstypes.h"
 #if defined(LINUX)
 #include <string.h>

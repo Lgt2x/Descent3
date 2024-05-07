@@ -54,7 +54,9 @@
 #include "fireball_external.h"
 #include "fix.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "multi_external.h"
 #include "object_external.h"
 #include "player.h"

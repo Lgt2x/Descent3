@@ -94,7 +94,9 @@
 #include "localization.h"
 #include "mem.h"
 #include "ddio.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "pserror.h"
 #include "pstypes.h"
 

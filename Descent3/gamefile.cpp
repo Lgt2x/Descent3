@@ -21,7 +21,9 @@
 
 #include "pserror.h"
 #include "gamefile.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 
 gamefile Gamefiles[MAX_GAMEFILES];
 int Num_gamefiles = 0;

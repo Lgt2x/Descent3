@@ -427,7 +427,9 @@
 #include "aistruct_external.h"
 #include "descent.h"
 #include "gamecinematics_external.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "module.h"
 #include "multi_external.h"
 #include "object.h"

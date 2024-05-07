@@ -218,7 +218,9 @@
 #include "hud.h"
 #include "Inventory.h"
 #include "ObjScript.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage.h"
 #include "mono.h"
 #include "object_external.h"

@@ -220,7 +220,9 @@
 #include "ddio_common.h"
 #include "gamefont.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 #include "pstypes.h"
 

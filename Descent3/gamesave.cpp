@@ -300,7 +300,9 @@
 #include "weather.h"
 #include "3d.h"
 #include "Inventory.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "newui_core.h"
 #include "object_external.h"
 #include "player.h"

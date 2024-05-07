@@ -676,7 +676,9 @@
 #include "descent.h"
 #include "fireball_external.h"
 #include "levelgoal_external.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "mono.h"
 #include "multi_external.h"

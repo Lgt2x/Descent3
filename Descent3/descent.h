@@ -131,7 +131,9 @@
 #include <stdlib.h>
 
 #include "application.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 
 // The name of this product
 #ifdef DEMO

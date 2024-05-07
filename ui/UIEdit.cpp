@@ -140,7 +140,9 @@
 #include "mem.h"
 #include "ddio_common.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 #include "pserror.h"
 #include "ui.h"

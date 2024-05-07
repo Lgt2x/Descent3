@@ -146,7 +146,9 @@
 #include "stringtable.h"
 #include "Macros.h"
 #include "difficulty_external.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "player.h"
 

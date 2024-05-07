@@ -331,7 +331,9 @@ typedef int socklen_t;
 #include "byteswap.h"
 #include "SDL_platform.h"
 #include "cfile.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 
 #ifdef WIN32
 #include "directplay.h"

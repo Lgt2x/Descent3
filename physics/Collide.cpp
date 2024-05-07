@@ -868,7 +868,9 @@
 #include "gametexture.h"
 #include "grdefs.h"
 #include "levelgoal_external.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "multi_external.h"
 #include "object_external.h"
 #include "object_external_struct.h"

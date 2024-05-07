@@ -30,7 +30,9 @@
 #include "dedicated_server.h"
 #include "bitmap.h"
 #include "Macros.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 
 #ifdef DEBUG

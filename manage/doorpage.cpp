@@ -160,7 +160,9 @@
 #include "ddio.h"
 #include "soundpage.h"
 #include "args.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "object.h"
 #include "pstypes.h"
 #include "ssl_lib.h"

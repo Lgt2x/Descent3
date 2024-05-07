@@ -359,7 +359,9 @@
 #include "aistruct.h"
 #include "aistruct_external.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "object_external.h"
 #include "player_external.h"
 #include "player_external_struct.h"

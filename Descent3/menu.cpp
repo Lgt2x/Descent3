@@ -668,7 +668,9 @@
 #include "ddio.h"
 #include "ddio_common.h"
 #include "descent.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage.h"
 #include "mono.h"
 #include "networking.h"

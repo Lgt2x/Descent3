@@ -82,7 +82,9 @@
 #include "game.h"
 #include "psrand.h"
 #include "cfile.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "object.h"
 #include "object_external_struct.h"
 #include "pserror.h"

@@ -38,7 +38,9 @@
 #include "robotfire.h"
 #include "sounds.h"
 #include "mem.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 
 // The array with information for robots, powerups, buildings, etc.

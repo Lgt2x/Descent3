@@ -131,7 +131,9 @@
 #include "soundload.h"
 #include "ddio.h"
 #include "args.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "pstypes.h"
 
 // soundpage commands that are read/written

@@ -180,7 +180,9 @@
 #include "fireball_external.h"
 #include "gamefont.h"
 #include "grdefs.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "object_external.h"
 #include "player_external.h"

@@ -309,7 +309,9 @@
 #include "genericpage.h"
 #include "args.h"
 #include "bitmap.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "object_external_struct.h"
 #include "objinfo.h"
 #include "pstypes.h"

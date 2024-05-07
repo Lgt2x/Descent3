@@ -110,7 +110,9 @@
 #include "polymodel.h"
 #include "player.h"
 #include "robotfire.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "object_external.h"
 #include "objinfo.h"
 

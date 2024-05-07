@@ -62,7 +62,9 @@
 #include "Macros.h"
 #include "controls.h"
 #include "ddio_common.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 #include "multi_external.h"
 #include "pilot_class.h"

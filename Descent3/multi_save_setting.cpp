@@ -76,7 +76,9 @@
 #include "objinfo.h"
 #include "ship.h"
 #include "multi_save_settings.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "mono.h"
 #include "multi_external.h"
 #include "object_external.h"

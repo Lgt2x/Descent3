@@ -42,7 +42,9 @@
 
 #include "pserror.h"
 #include "megacell.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 
 megacell Megacells[MAX_MEGACELLS];
 int Num_megacells = 0;

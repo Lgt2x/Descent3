@@ -31,7 +31,9 @@
 #include "gamefile.h"
 #include "gamefilepage.h"
 #include "args.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "pstypes.h"
 

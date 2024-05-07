@@ -73,7 +73,9 @@
 #include "PilotPicsAPI.h"
 #include "mem.h"
 #include "Macros.h"
+#if defined(__LINUX__)
 #include "linux_fix.h"
+#endif
 #include "manage_external.h"
 #include "pilot_class.h"
 #include "pserror.h"
