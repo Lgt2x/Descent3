@@ -1242,7 +1242,6 @@
 #endif
 
 #include <string.h>
-#include <SDL_platform.h>
 
 #include "LoadLevel.h"
 #include "cfile.h"

@@ -119,7 +119,6 @@
  */
 
 #include <stdio.h>
-#include <SDL_platform.h>
 #include <ctype.h>
 #include <string.h>
 

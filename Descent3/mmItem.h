@@ -68,7 +68,6 @@
  */
 #ifndef MMITEM_H
 #define MMITEM_H
-#include <SDL_platform.h>
 
 #include "newui.h"
 #include "psclass.h"

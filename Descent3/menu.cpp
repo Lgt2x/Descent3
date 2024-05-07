@@ -654,6 +654,7 @@
 #include "menu.h"
 
 #include <algorithm>
+#include "cinematics.h"
 #include "mmItem.h"
 #include "game.h"
 #include "gamesequence.h"

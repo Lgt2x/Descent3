@@ -492,7 +492,6 @@
 #ifndef MULTI_H
 #define MULTI_H
 
-#include <SDL_platform.h>
 #include <stddef.h>
 
 #include "pstypes.h"

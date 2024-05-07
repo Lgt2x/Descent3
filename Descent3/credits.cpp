@@ -78,7 +78,6 @@
  */
 
 #include <string.h>
-#include <SDL_platform.h>
 #include <stdio.h>
 
 #include "mono.h"

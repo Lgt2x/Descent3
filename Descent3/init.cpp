@@ -910,7 +910,6 @@
 // Initialization routines for Descent3/Editor
 
 #include <stdlib.h>
-#include <SDL_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>

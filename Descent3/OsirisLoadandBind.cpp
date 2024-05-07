@@ -400,7 +400,6 @@
  */
 
 #include <stdlib.h>
-#include <SDL_platform.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>

@@ -61,7 +61,6 @@
 
 #include "program.h"
 
-#include <SDL_platform.h>
 
 #include "pserror.h"
 #include "descent.h"

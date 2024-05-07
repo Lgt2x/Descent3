@@ -281,7 +281,6 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <SDL_platform.h>
 
 #include "config.h"
 #include "newui.h"

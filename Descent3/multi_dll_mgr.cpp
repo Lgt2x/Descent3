@@ -281,7 +281,6 @@
 
 #include "windows.h"
 #endif
-#include <SDL_platform.h>
 #include <stdio.h>
 #include <string.h>
 
