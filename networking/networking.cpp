@@ -329,7 +329,7 @@ typedef int socklen_t;
 #include "mem.h"
 #include "args.h"
 #include "byteswap.h"
-#include "SDL_platform.h"
+
 #include "cfile.h"
 #if defined(__LINUX__)
 #include "linux_fix.h"

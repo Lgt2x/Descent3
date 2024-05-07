@@ -139,7 +139,7 @@
 #include <unistd.h>
 
 #include "inetgetfile.h"
-#include "SDL_platform.h"
+
 #if defined(__LINUX__)
 #include "linux_fix.h"
 #endif

@@ -653,6 +653,7 @@
  */
 #include "menu.h"
 
+#include <algorithm>
 #include "mmItem.h"
 #include "game.h"
 #include "gamesequence.h"

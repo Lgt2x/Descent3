@@ -125,7 +125,7 @@
 #include <stdio.h>
 
 #include "UIlib.h"
-#include "SDL_platform.h"
+
 #include "ddio_common.h"
 #include "grdefs.h"
 #include "pserror.h"

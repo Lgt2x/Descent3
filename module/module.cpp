@@ -94,7 +94,7 @@
 #include "module.h"
 
 #include "pserror.h"
-#include "SDL_platform.h"
+
 #include "mono.h"
 
 #ifdef __LINUX__

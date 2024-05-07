@@ -111,7 +111,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include <bits/types/struct_FILE.h>
 
 #include "grtextlib.h"
 #include "cfile.h"

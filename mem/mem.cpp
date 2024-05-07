@@ -209,7 +209,7 @@
 
 #include "mem.h"
 #include "pserror.h"
-#include "SDL_platform.h"
+
 #include "mono.h"
 // #include "args.h"
 // #include "ddio.h"

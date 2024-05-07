@@ -24,7 +24,7 @@
 #include "pserror.h"
 #include "mono.h"
 #include "mem.h"
-#include "SDL_platform.h"
+
 #ifndef __LINUX__
 #include "Macros.h"
 #endif

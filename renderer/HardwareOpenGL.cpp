@@ -22,7 +22,7 @@
 #include "SDL_mouse.h"
 #include "SDL_opengl.h"
 #include "SDL_pixels.h"
-#include "SDL_platform.h"
+
 #include "SDL_stdinc.h"
 #include "SDL_video.h"
 #include "begin_code.h"

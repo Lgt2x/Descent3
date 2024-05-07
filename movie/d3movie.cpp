@@ -43,10 +43,8 @@
 #include "bitmap.h"
 #include "gamefont.h"
 #include "game.h"
-#include "/home/louis/dev/Descent/Descent3/libmve/SystemInterfaces.h"
-#include "/home/louis/dev/Descent/Descent3/libmve/lnxdsound.h"
-#include "/home/louis/dev/Descent/Descent3/libmve/mvelibl.h"
-#include "SDL_platform.h"
+#include "mvelibw.h"
+
 #include "cfile.h"
 #include "ddio_common.h"
 #include "grdefs.h"

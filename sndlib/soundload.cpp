@@ -239,7 +239,7 @@
 #include "door.h"
 #include "room.h"
 #include "doorway.h"
-#include "SDL_platform.h"
+
 #include "aistruct.h"
 #include "gametexture.h"
 #if defined(__LINUX__)

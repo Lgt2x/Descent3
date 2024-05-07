@@ -73,25 +73,20 @@ typedef int socklen_t;
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <arpa/inet.h>
 #include <netdb.h>
-#include <netinet/in.h>
-#include <sys/select.h>
-#include <sys/socket.h>
-#include <sys/time.h>
 #include <unistd.h>
 
-#include "SDL_platform.h"
+
 #if defined(__LINUX__)
 #include "linux_fix.h"
-#endif
 
-#ifdef __LINUX__
 // sorry, I'm lazy, I guess we could copy the defines
 // that we need to transalte winsock->linux into this header...but no need to now
 #include "SDL_thread.h"
 #include "inetgetfile.h"
 #endif
+
+#include "CFtp.h"
 
 
 #ifdef __LINUX__

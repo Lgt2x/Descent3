@@ -34,7 +34,7 @@
 #include "sndrender.h"
 #include "voice.h"
 #include "descent.h"
-#include "SDL_platform.h"
+
 #include "findintersection_external.h"
 #include "object.h"
 #include "object_external.h"
