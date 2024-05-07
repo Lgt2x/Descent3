@@ -16,6 +16,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "RendererConfig.h"
 #include "pstypes.h"
 #include "vecmat.h"
 #include "vecmat_external.h"

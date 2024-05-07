@@ -16,17 +16,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "SDL.h"
-#include "SDL_error.h"
-#include "SDL_events.h"
-#include "SDL_mouse.h"
-#include "SDL_opengl.h"
-#include "SDL_pixels.h"
+#include "RendererConfig.h"
 
-#include "SDL_stdinc.h"
-#include "SDL_video.h"
-#include "begin_code.h"
-#include "lnxapp.h"
 #include "module.h"
 #include "vecmat_external.h"
 #ifndef USE_SOFTWARE_TNL
@@ -38,9 +29,19 @@
 #include "ddraw.h"
 #elif defined(__LINUX__)
 #include "linux/linux_fix.h"
-#else
+#include "SDL.h"
+#include "SDL_error.h"
+#include "SDL_events.h"
+#include "SDL_mouse.h"
+#include "SDL_opengl.h"
+#include "SDL_pixels.h"
+
+#include "SDL_stdinc.h"
+#include "SDL_video.h"
+#include "lnxapp.h"
 #endif
 
+#include "DDAccess.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

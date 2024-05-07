@@ -22,6 +22,8 @@
 #define O_BINARY 0
 #endif
 
+#include "DDAccess.h"
+
 #ifdef WIN32
 #include <MMSystem.h>
 #include <io.h>
