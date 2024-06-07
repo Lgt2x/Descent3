@@ -4,48 +4,22 @@
 		{
 			"name": "defaults",
 			"hidden": true,
+			"generator": "Ninja Multi-Config",
 			"binaryDir": "${sourceDir}/builds/${presetName}"
 		},
 		{
-			"name": "win32",
+			"name": "win",
 			"inherits": "defaults",
-			"generator": "Ninja Multi-Config",
+			"toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
 			"condition": {
 				"type": "equals",
 				"lhs": "${hostSystemName}",
 				"rhs": "Windows"
-			},
-			"architecture": {
-				"strategy": "external",
-				"value": "x86"
-			},
-			"cacheVariables": {
-				"VCPKG_TARGET_TRIPLET": "x86-windows"
-			},
-			"toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-		},
-		{
-			"name": "win64",
-			"inherits": "defaults",
-			"generator": "Ninja Multi-Config",
-			"condition": {
-				"type": "equals",
-				"lhs": "${hostSystemName}",
-				"rhs": "Windows"
-			},
-			"cacheVariables": {
-				"VCPKG_TARGET_TRIPLET": "x64-windows"
-			},
-			"architecture": {
-				"strategy": "external",
-				"value": "x64"
-			},
-			"toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+			}
 		},
 		{
 			"name": "mac",
 			"inherits": "defaults",
-			"generator": "Ninja Multi-Config",
 			"condition": {
 				"type": "equals",
 				"lhs": "${hostSystemName}",
@@ -55,7 +29,6 @@
 		{
 			"name": "linux",
 			"inherits": "defaults",
-			"generator": "Ninja Multi-Config",
 			"condition": {
 				"type": "equals",
 				"lhs": "${hostSystemName}",
@@ -65,12 +38,8 @@
 	],
 	"buildPresets": [
 		{
-			"name": "win32",
-			"configurePreset": "win32"
-		},
-		{
-			"name": "win64",
-			"configurePreset": "win64"
+			"name": "win",
+			"configurePreset": "win"
 		},
 		{
 			"name": "mac",
@@ -90,16 +59,10 @@
 			}
 		},
 		{
-			"name": "win32",
+			"name": "win",
 			"inherits": "defaults",
-			"description": "Testing under Windows x86",
-			"configurePreset": "win32"
-		},
-		{
-			"name": "win64",
-			"inherits": "defaults",
-			"description": "Testing under Windows x64",
-			"configurePreset": "win64"
+			"description": "Testing under Windows",
+			"configurePreset": "win"
 		},
 		{
 			"name": "mac",

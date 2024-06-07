@@ -22,12 +22,12 @@ jobs:
       matrix:
         os:
           - runner: windows-latest
-            preset: win32
+            preset: win
             cc: cl
             cxx: cl
             name: Windows-x86
           - runner: windows-latest
-            preset: win64
+            preset: win
             cc: cl
             cxx: cl
             name: Windows-x64
@@ -76,7 +76,7 @@ jobs:
       - name: Install Windows dependencies
         if: ${{ matrix.os.runner == 'windows-latest' }}
         run: choco install ninja
-      
+
       - uses: ilammy/msvc-dev-cmd@v1
         if: ${{ matrix.os.runner == 'windows-latest' }}
         with:
