@@ -406,7 +406,6 @@ t_cfg_element Cfg_joy_elements[] = {{-1, CtlText_WeaponGroup, CCITEM_WPN_X2, CCI
 static void ctl_cfg_set_and_verify_changes(int16_t fnid, ct_type elem_type, uint8_t controller, uint8_t elem, int8_t slot);
 static void ctl_cfg_element_options_dialog(int16_t fnid);
 // used for adjusting settings.
-static int weapon_select_dialog(int wpn, bool is_secondary);
 #define UID_KEYCFG_ID 0x1000
 #define UID_JOYCFG_ID 0x1100
 #define UID_PRIMARY_WPN 0x1200
@@ -1075,56 +1074,7 @@ void ctl_cfg_element_options_dialog(int16_t fnid) {
   wnd.Close();
   wnd.Destroy();
 }
-// used in weapon selection: returns new slot.
-int weapon_select_dialog(int wpn, bool is_secondary) {
-  newuiTiledWindow wnd;
-  newuiListBox *lbox;
-  newuiSheet *sheet;
-  int res, i;
-  uint16_t retval;
-  wpn &= (~WPNSEL_SKIP);
-  wnd.Create(NULL, 0, 0, 320, 288);
-  sheet = wnd.GetSheet();
-  sheet->NewGroup(NULL, 116, 210, NEWUI_ALIGN_HORIZ);
-  sheet->AddButton(TXT_OK, UID_OK);
-  sheet->AddButton(TXT_CANCEL, UID_CANCEL);
-  sheet->NewGroup(NULL, 0, 0);
-  sheet->AddText(TXT_WPNCFGHELP3);
-  sheet->AddText(TXT(Static_weapon_names_msg[wpn]));
-  sheet->NewGroup(NULL, 0, 40);
-  lbox = sheet->AddListBox(192, 160, UID_WPNLIST, UILB_NOSORT);
-  // add primaries or secondaries.
-  for (i = 0; i < 10; i++) {
-    int wpnidx;
-    char str[64];
-    wpnidx = is_secondary ? GetAutoSelectSecondaryWpnIdx(i) : GetAutoSelectPrimaryWpnIdx(i);
-    if (wpnidx != WPNSEL_INVALID) {
-      if (wpnidx & WPNSEL_SKIP) {
-        wpnidx &= (~WPNSEL_SKIP);
-        snprintf(str, sizeof(str), TXT_WPNSELBTN, TXT(Static_weapon_names_msg[wpnidx]));
-      } else {
-        snprintf(str, sizeof(str), "%s", TXT(Static_weapon_names_msg[wpnidx]));
-      }
-      lbox->AddItem(str);
-    } else {
-      lbox->AddItem("ERR-WPN");
-    }
-  }
-  wnd.Open();
-  res = wnd.DoUI();
-  wnd.Close();
-  switch (res) {
-  case UID_WPNLIST:
-  case UID_OK:
-    retval = lbox->GetCurrentIndex();
-    break;
-  default:
-    retval = -1;
-  }
-  wnd.Destroy();
 
-  return retval;
-}
 void joystick_calibration() {
 #if defined(WIN32)
   extern bool Win32JoystickCalibrate();

@@ -2100,23 +2100,6 @@ void MakeBOA(void) {
 
 static int Current_sort_room;
 
-static int face_sort_func1(const int16_t *a, const int16_t *b) {
-  if (Rooms[Current_sort_room].faces[*a].min_xyz.y > Rooms[Current_sort_room].faces[*b].min_xyz.y)
-    return -1;
-  else if (Rooms[Current_sort_room].faces[*a].min_xyz.y < Rooms[Current_sort_room].faces[*b].min_xyz.y)
-    return 1;
-  else
-    return 0;
-}
-
-static int face_sort_func2(const int16_t *a, const int16_t *b) {
-  if (Rooms[Current_sort_room].faces[*a].max_xyz.y < Rooms[Current_sort_room].faces[*b].max_xyz.y)
-    return -1;
-  else if (Rooms[Current_sort_room].faces[*a].max_xyz.y > Rooms[Current_sort_room].faces[*b].max_xyz.y)
-    return 1;
-  else
-    return 0;
-}
 
 #define MAX_REGIONS_PER_ROOM 200
 

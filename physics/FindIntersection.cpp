@@ -969,7 +969,6 @@ int Fvi_num_recorded_faces = 0;
 
 static int do_fvi_terrain();
 static int fvi_room(int room_index, int from_portal, int room_obj = -1);
-static void do_fvi_rooms(int initial_room_index);
 /// Find the point on the specified plane where the line intersects.
 /// - returns: true if point found, false if line parallel to plane.
 /// - parameter new_pnt: is the found point on the plane.
@@ -2818,7 +2817,6 @@ int fvi_FindIntersection(fvi_query *fq, fvi_info *hit_data, bool no_subdivision)
     ASSERT(!(Rooms[fq->startroom].flags & RF_EXTERNAL)); // If we hit this, it is not FVI's fault
                                                          // The caller to fvi has a bug
     FVI_room_counter++;
-    // do_fvi_rooms(fq->startroom);
     fvi_room(fq->startroom, -1);
 
     ASSERT(fvi_num_rooms_visited >= 1);
