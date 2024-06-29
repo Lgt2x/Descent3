@@ -25,7 +25,7 @@
 
 #include <cstdlib>
 #include <cstring>
-#include <csignal>
+#include <filesystem>
 
 #ifndef WIN32
 #include <unistd.h>
@@ -50,7 +50,7 @@ extern bool ddio_mouseGrabbed;
 const char *DMFCGetString(int d);
 // void *x = (void *) DMFCGetString;   // just force a reference to dmfc.so ...
 
-char *__orig_pwd = NULL;
+std::filesystem::path orig_pwd;
 
 bool linux_permit_gamma = false;
 
@@ -361,9 +361,10 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szCmdLine, int nC
   GatherArgs(szCmdLine);
 #else
 int main(int argc, char *argv[]) {
-  __orig_pwd = getcwd(NULL, 0);
   GatherArgs(argv);
 #endif
+
+  orig_pwd = std::filesystem::current_path();
 
   /* Setup the logging system */
   InitLog();
