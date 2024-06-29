@@ -293,10 +293,6 @@ int ddio_ff_Acquire(tDevice dev);
 // -------------------------------------------------------------------
 int ddio_ff_Unacquire(tDevice dev);
 // -------------------------------------------------------------------
-// ddio_ff_SetCoopLevel
-// -------------------------------------------------------------------
-static int ddio_ff_SetCoopLevel(tDevice dev, int coop_level);
-// -------------------------------------------------------------------
 // ddio_ffjoy_Query
 // Purpose:
 //    Besides checking what buttons/axis are available, this function

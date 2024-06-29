@@ -179,7 +179,6 @@ BOOL CALLBACK FFEnumCallback(LPCDIDEVICEINSTANCE pdinst, LPVOID pvRef);
 static int		ddio_ffjoy_AcquireErr(HRESULT res, int dev_num);
 static int		ddio_ffjoy_UnacquireErr(HRESULT res, int dev_num);
 
-static int		ddio_ff_SetCoopLevel(tDevice dev, int coop_level);
 int ddio_ffb_Init(void);
 
 void *getwindowhandle(void)
@@ -436,40 +435,6 @@ int ddio_ff_Unacquire(tDevice dev)
 
 
 // -------------------------------------------------------------------
-// ddio_ff_SetCoopLevel
-// -------------------------------------------------------------------
-static int ddio_ff_SetCoopLevel(tDevice dev, int coop_level)
-{
-	HWND hwin;
-
-	if (!(hwin=(HWND)getwindowhandle()))
-	{
-		mprintf(0,"ddio_ff_SetCoopLevel: couldn't get window handle\n");
-	}
-
-	// Set a single joystick
-	// ---------------------
-	if (dev < kMaxJoy){
-		if (DID2_Joy[dev]){
-			// Set the cooperative level to share the device
-			// ---------------------------------------------
-			if (IDirectInputDevice2_SetCooperativeLevel(DID2_Joy[dev], (HWND)getwindowhandle(), coop_level)!= DI_OK){ 
-				mprintf(0,"ddio_ff_SetCoopLevel: Could not set dinput device coop level\n");
-				return 0; 
-			}
-		}
-	}else// Set all single joysticks
-		if (dev == kMaxJoy){
-			int i;
-			for (i=kJoy1; i<kMaxJoy; i++){
-				ddio_ff_SetCoopLevel((tDevice)i, coop_level);
-			}
-		}
-
-	return 1;
-}
-
-// -------------------------------------------------------------------
 // DIEnumJoysticks_Callback
 // Purpose:
 //    Initialize all connected joysticks.
@@ -516,13 +481,6 @@ BOOL CALLBACK FFEnumCallback(LPCDIDEVICEINSTANCE pdinst, LPVOID pvRef)
 		IDirectInputDevice_Unacquire(pdev);
 		IDirectInputDevice_Release (pdev);
 		return DIENUM_CONTINUE; 
-	}
-
-	// Set the cooperative level 
-	// -------------------------
-	if (!ddio_ff_SetCoopLevel((tDevice)numJoy, DDIO_JOY_COOP_FLAGS)){
-		mprintf(0,"DIEnumJoysticks_Callback: Could not set dinput coop level\n");
-		return FALSE;
 	}
 
 	// Done with Device1
