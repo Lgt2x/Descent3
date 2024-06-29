@@ -1069,19 +1069,7 @@ void BuildRoomListSub(int start_room_num, clip_wnd *wnd, int depth) {
     }
   }
 }
-// compare function for room z sort
-float Room_z_depth[MAX_ROOMS + MAX_PALETTE_ROOMS];
-static int Room_z_sort_func(const int16_t *a, const int16_t *b) {
-  float az, bz;
-  az = Room_z_depth[*a];
-  bz = Room_z_depth[*b];
-  if (az < bz)
-    return 1;
-  else if (az > bz)
-    return -1;
-  else
-    return 0;
-}
+
 // build a list of rooms to be rendered
 // fills in Render_list & N_render_rooms
 void BuildRoomList(int start_room_num) {

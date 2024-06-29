@@ -500,10 +500,6 @@ static inline UISnazzyTextItem *MonitorSmallText(const char *text) {
   return new UISnazzyTextItem(0, MONITOR9_NEWUI_FONT, text, NEWUI_MONITORFONT_COLOR);
 }
 
-static inline UISnazzyTextItem *MonitorLargeText(const char *text) {
-  return new UISnazzyTextItem(0, MONITOR15_NEWUI_FONT, text, NEWUI_MONITORFONT_COLOR);
-}
-
 static inline UISnazzyTextItem *GadgetSmallText(const char *text) {
   return new UISnazzyTextItem(0, GADGET9_NEWUI_FONT, text, NEWUI_GADGETFONT_COLOR);
 }

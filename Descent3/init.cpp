@@ -1004,7 +1004,6 @@ static void SetInitMessageLength(const char *c, float amount); // portion of tot
 extern void UpdateInitMessage(float amount);                   // amount is 0 to 1
 static void SetupTempDirectory(void);
 static void DeleteTempFiles(void);
-static void PreGameCdCheck();
 static void InitIOSystems(bool editor);
 static void InitStringTable();
 static void InitGraphics(bool editor);
