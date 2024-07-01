@@ -435,18 +435,20 @@ static FILE *open_file_in_directory_case_sensitive(const std::filesystem::path &
                                                    const std::filesystem::path &filename, const char *mode,
                                                    char *new_filename);
 
+#include <iostream>
+
 bool cf_FindRealFileNameCaseInsenstive(const std::filesystem::path &fname, char *new_filename,
                                        const std::filesystem::path &directory) {
   bool use_dir = false;
   std::filesystem::path dir_to_use, file_to_use;
   std::filesystem::path real_dir;
-  char real_file[_MAX_PATH];
+  std::string real_file;
 
   if (!directory.empty()) {
     // there is a directory for this path
     use_dir = true;
     real_dir = directory;
-    strcpy(real_file, fname.u8string().c_str());
+    real_file = fname.u8string();
   } else {
     // there may be a directory in the path (*sigh*)
     std::filesystem::path t_dir = fname.parent_path();
@@ -455,14 +457,12 @@ bool cf_FindRealFileNameCaseInsenstive(const std::filesystem::path &fname, char 
       dir_to_use = t_dir;
       real_dir = dir_to_use;
       file_to_use = fname.filename();
-      strncpy(real_file, file_to_use.u8string().c_str(), strlen(file_to_use.u8string().c_str()));
-
-      mprintf(1, "CFILE: Found directory \"%s\" in filename, new filename is \"%s\"\n",
-              real_dir.u8string().c_str(), real_file);
+      real_file  = file_to_use.u8string();
     } else {
       use_dir = false;
       // real_dir = nullptr;
-      strncpy(real_file, fname.u8string().c_str(), strlen(fname.u8string().c_str()));
+
+      real_file = fname.u8string();
     }
   }
 
@@ -495,7 +495,7 @@ bool cf_FindRealFileNameCaseInsenstive(const std::filesystem::path &fname, char 
 
       // create a wildcard patter full of ? replacing letters (except the first one)
       char *wptr = wildcard_pattern;
-      char *fptr = &real_file[1];
+      char *fptr = &const_cast<char*>(real_file.c_str())[1];
       *wptr = first_letter;
       wptr++;
       while (*fptr) {
@@ -545,7 +545,7 @@ bool cf_FindRealFileNameCaseInsenstive(const std::filesystem::path &fname, char 
     bool gotfile;
     CFindFiles ff;
     for (gotfile = ff.Start(wpattern, namebuffer); gotfile; gotfile = ff.Next(namebuffer)) {
-      if (!stricmp(namebuffer, real_file)) {
+      if (!stricmp(namebuffer, real_file.c_str())) {
         // we found a match!
         found_match = true;
         break;
@@ -555,7 +555,6 @@ bool cf_FindRealFileNameCaseInsenstive(const std::filesystem::path &fname, char 
 
     if (found_match) {
       strcpy(new_filename, namebuffer);
-      mprintf(1, "CFILE: Using \"%s\" instead of \"%s\"\n", new_filename, real_file);
       break;
     }
   }

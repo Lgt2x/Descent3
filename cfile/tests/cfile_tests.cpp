@@ -18,6 +18,7 @@
 
 #include <filesystem>
 #include <vector>
+#include <algorithm>
 #include <gtest/gtest.h>
 #include "cfile.h"
 
