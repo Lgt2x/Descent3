@@ -56,8 +56,8 @@ if(FORCE_COLORED_OUTPUT)
 endif()
 
 if(EMSCRIPTEN)
-  add_compile_options(--use-port=zlib -sUSE_SDL=2)
-  add_link_options(--use-port=zlib -sUSE_SDL=2)
+  add_compile_options(--use-port=zlib -sUSE_SDL=2 -sALLOW_MEMORY_GROWTH)
+  add_link_options(--use-port=zlib -sUSE_SDL=2 --embed-file data -sFULL_ES2=1 -sALLOW_MEMORY_GROWTH -sSTACK_SIZE=524288) # Need to copy game data into BUILD_DIR/data
   add_subdirectory(emscripten)
 endif()
 
@@ -197,7 +197,9 @@ include_directories(
 )
 
 add_subdirectory(third_party)
-
+if(EMSCRIPTEN)
+add_subdirectory(gl4es)
+endif()
 add_subdirectory(2dlib)
 add_subdirectory(AudioEncode)
 add_subdirectory(bitmap)

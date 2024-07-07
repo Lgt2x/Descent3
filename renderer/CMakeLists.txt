@@ -22,9 +22,11 @@ set(CPPS
 
 add_library(renderer STATIC ${HEADERS} ${CPPS})
 target_link_libraries(renderer PRIVATE
-  
   bitmap
   ddio
   mem
   misc
+  GL
 )
+
+target_include_directories(renderer PUBLIC ${CMAKE_SOURCE_DIR}/gl4es/include)

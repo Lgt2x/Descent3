@@ -26,6 +26,14 @@
 #include <windows.h>
 #endif
 
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#include <emscripten/html5.h>
+// #include "GL/gl.h"
+// #include "GL/glext.h"
+extern "C" void initialize_gl4es();
+#endif
+
 #include "byteswap.h"
 #include "pserror.h"
 #include "mono.h"
@@ -641,6 +649,10 @@ int opengl_Init(oeApplication *app, renderer_preferred_state *pref_state) {
   int width, height;
   int retval = 1;
   int i;
+
+#ifdef EMSCRIPTEN
+  initialize_gl4es();
+#endif
 
   mprintf(0, "Setting up opengl mode!\n");
 

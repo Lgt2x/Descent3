@@ -245,22 +245,23 @@ extern char loadedLibrary[_MAX_PATH];
 module *LoadOpenGLDLL(const char *dllname) {
   mprintf(0, "Loading OpenGL dll...\n");
 
-  std::filesystem::path tmp = std::filesystem::current_path();
-  std::filesystem::current_path(orig_pwd);
-  int rc = SDL_GL_LoadLibrary(dllname[0] ? dllname : nullptr);
-  std::filesystem::current_path(tmp);
+  // std::filesystem::path tmp = std::filesystem::current_path();
+  // std::filesystem::current_path(orig_pwd);
+  // int rc = SDL_GL_LoadLibrary(dllname[0] ? dllname : nullptr);
+  // std::filesystem::current_path(tmp);
 
-  if (rc < 0) {
-    const char *sdlErr = SDL_GetError();
-    mprintf(0, "OpenGL: Couldn't open library [%s].\n", dllname[0] ? dllname : "system default");
-    mprintf(0, "OpenGL:  SDL error is [%s].", sdlErr);
-    return NULL;
-  }
+  // if (rc < 0) {
+  //   const char *sdlErr = SDL_GetError();
+  //   mprintf(0, "OpenGL: Couldn't open library [%s].\n", dllname[0] ? dllname : "system default");
+  //   mprintf(0, "OpenGL:  SDL error is [%s].", sdlErr);
+  //   return NULL;
+  // }
 
-  strcpy(loadedLibrary, dllname);
+  // strcpy(loadedLibrary, dllname);
 
 
-  dglAlphaFunc = (glAlphaFunc_fp)mod_GetSymbol(&OpenGLDLLInst, "glAlphaFunc", 255);
+  // dglAlphaFunc = (glAlphaFunc_fp)mod_GetSymbol(&OpenGLDLLInst, "glAlphaFunc", 255);
+  
   if (!dglAlphaFunc)
     goto dll_error;
 
