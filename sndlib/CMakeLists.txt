@@ -16,7 +16,7 @@ target_link_libraries(sndlib PRIVATE
   mem
   misc
   stream_audio
-  SDL2-static SDL2main
+  
 )
 target_include_directories(sndlib PUBLIC
   $<BUILD_INTERFACE:

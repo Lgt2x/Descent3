@@ -100,7 +100,7 @@
 #include "linux_fix.h"
 
 // Linux includes/defines
-#if defined(__LINUX__)
+#if defined(__LINUX__) && !EMSCRIPTEN
 #include <linux/types.h>
 // #include <linux/if.h>
 #endif

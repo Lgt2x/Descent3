@@ -56,8 +56,8 @@ if(FORCE_COLORED_OUTPUT)
 endif()
 
 if(EMSCRIPTEN)
-  add_compile_options(--use-port=zlib --use-port=sdl2)
-  add_link_options(--use-port=zlib --use-port=sdl2)
+  add_compile_options(--use-port=zlib -sUSE_SDL=2)
+  add_link_options(--use-port=zlib -sUSE_SDL=2)
 endif()
 
 include(GNUInstallDirs)
@@ -243,7 +243,12 @@ endif()
 
 add_subdirectory(Descent3)
 
-add_subdirectory(tools)
-add_subdirectory(netcon)
-add_subdirectory(netgames)
-add_subdirectory(scripts)
+# add_subdirectory(tools)
+
+
+
+if(BUILD_EDITOR AND CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  add_subdirectory(scripts)
+  add_subdirectory(netcon)
+  add_subdirectory(netgames)
+endif()

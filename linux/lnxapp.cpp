@@ -72,9 +72,11 @@
 #include <cctype>
 #if defined(POSIX)
 #include <sys/time.h>
+#endif
+#if __LINUX__ && !EMSCRIPTEN
 #include <term.h>
 #include <termios.h>
-#else
+#elif WIN32
 #include "winsock.h"
 #endif
 
@@ -134,7 +136,7 @@ oeLnxApplication::oeLnxApplication(unsigned flags) {
   m_AppActive = true;
 
   if (flags & OEAPP_CONSOLE) {
-#if defined(POSIX)
+#if __LINUX__ && !EMSCRIPTEN
     tcgetattr(0, &Linux_initial_terminal_settings);
 #endif
     con_Create(m_Flags);
