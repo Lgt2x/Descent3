@@ -41,8 +41,8 @@ if(FORCE_COLORED_OUTPUT)
 endif()
 
 if(EMSCRIPTEN)
-  add_compile_options(--use-port=zlib -sUSE_SDL=2)
-  add_link_options(--use-port=zlib -sUSE_SDL=2)
+  add_compile_options(--use-port=zlib -sUSE_SDL=2 -sALLOW_MEMORY_GROWTH)
+  add_link_options(--use-port=zlib -sUSE_SDL=2 --embed-file data -sFULL_ES2=1 -sALLOW_MEMORY_GROWTH -sSTACK_SIZE=524288) # Need to copy game data into BUILD_DIR/data
   add_subdirectory(emscripten)
 endif()
 
@@ -116,7 +116,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux" OR CMAKE_SYSTEM_NAME STREQUAL "Emscripten"
   set(PLATFORM_INCLUDES "lib/linux" ${SDL2_INCLUDE_DIR} ${SDL2_INCLUDE_DIRS})
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   message("Building for MAC OSX")
-  add_compile_definitions(__LINUX__ MACOSX=1 _USE_OGL_ACTIVE_TEXTURES PRIMARY_HOG=\"d3-osx.hog\")
+  add_compile_definitions(__LINUX__ MACOSX=1 PRIMARY_HOG=\"d3-osx.hog\")
   set(PLATFORM_INCLUDES "lib/linux" ${SDL2_INCLUDE_DIR} ${SDL2_INCLUDE_DIRS})
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   # Windows.h defines to avoid as many issues as possible.
@@ -182,7 +182,9 @@ include_directories(
 )
 
 add_subdirectory(third_party)
-
+if(EMSCRIPTEN)
+add_subdirectory(gl4es)
+endif()
 add_subdirectory(2dlib)
 add_subdirectory(AudioEncode)
 add_subdirectory(bitmap)
