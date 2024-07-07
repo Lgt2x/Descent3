@@ -100,7 +100,7 @@
 #include "linux_fix.h"
 
 // Linux includes/defines
-#if !MACOSX
+#if !MACOSX && !EMSCRIPTEN
 #include <linux/types.h>
 // #include <linux/if.h>
 #endif

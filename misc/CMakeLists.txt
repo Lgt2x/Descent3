@@ -10,7 +10,7 @@ set(CPPS
 add_library(misc STATIC ${CPPS})
 target_link_libraries(misc PRIVATE
   ddebug
-  SDL2-static SDL2main
+  
 )
 target_include_directories(misc PUBLIC
   $<BUILD_INTERFACE:

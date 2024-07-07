@@ -1,6 +1,6 @@
 set(CPPS
   debug.cpp
-  $<$<PLATFORM_ID:Darwin,Linux>:
+  $<$<PLATFORM_ID:Darwin,Linux,Emscripten>:
     lnxdebug.cpp
     lnxmono.cpp
   >
@@ -9,6 +9,8 @@ set(CPPS
     winmono.cpp
   >
 )
+
+# message(${PLATFORM_ID})
 
 add_library(ddebug STATIC ${CPPS})
 add_dependencies(ddebug get_git_hash)

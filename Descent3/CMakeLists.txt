@@ -290,11 +290,11 @@ file(GLOB_RECURSE INCS "../lib/*.h")
 add_executable(Descent3 WIN32 ${HEADERS} ${CPPS} ${INCS})
 target_link_libraries(Descent3 PRIVATE
   2dlib AudioEncode bitmap cfile czip d3music dd_video ddebug ddio libmve libacm
-  fix grtext manage mem misc model module movie stream_audio linux SDL2-static SDL2main
+  fix grtext manage mem misc model module movie stream_audio linux 
   music networking physics renderer rtperformance sndlib ui unzip vecmat md5
   ${PLATFORM_LIBS})
 target_include_directories(Descent3 PRIVATE ${PROJECT_BINARY_DIR}/lib)
-add_dependencies(Descent3 get_git_hash Direct_TCP_IP_Hog NetgamesDir Parallax_Online_Hog)
+add_dependencies(Descent3 get_git_hash)
 install(TARGETS Descent3 RUNTIME)
 
 if(BUILD_TESTING)

@@ -70,11 +70,13 @@
 
 #include <cstdlib>
 #include <cctype>
-#ifdef __LINUX__
+#if __LINUX__
 #include <sys/time.h>
+#endif
+#if __LINUX__ && !EMSCRIPTEN
 #include <term.h>
 #include <termios.h>
-#else
+#elif WIN32
 #include "winsock.h"
 #endif
 
@@ -85,7 +87,7 @@
 #undef buttons
 #endif
 
-#ifdef __LINUX__
+#if __LINUX__ && !EMSCRIPTEN
 static struct termios Linux_initial_terminal_settings;
 #endif
 
@@ -122,7 +124,7 @@ void LnxAppShutdown() {
   LinuxAppDontCallShutdown = true;
   if (LinuxAppFlags & OEAPP_CONSOLE) {
     con_Destroy();
-#ifdef __LINUX__
+#if __LINUX__ && !EMSCRIPTEN
     tcsetattr(0, TCSANOW, &Linux_initial_terminal_settings);
 #endif
   }
@@ -134,7 +136,7 @@ oeLnxApplication::oeLnxApplication(unsigned flags) {
   m_AppActive = true;
 
   if (flags & OEAPP_CONSOLE) {
-#ifdef __LINUX__
+#if __LINUX__ && !EMSCRIPTEN
     tcgetattr(0, &Linux_initial_terminal_settings);
 #endif
     con_Create(m_Flags);
@@ -150,7 +152,7 @@ oeLnxApplication::oeLnxApplication(unsigned flags) {
 
 //	Create object with a premade info
 oeLnxApplication::oeLnxApplication(tLnxAppInfo *appinfo) {
-#ifdef __LINUX__
+#if __LINUX__ && !EMSCRIPTEN
   tcgetattr(0, &Linux_initial_terminal_settings);
 #endif
   m_Flags = appinfo->flags;

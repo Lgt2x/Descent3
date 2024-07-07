@@ -89,14 +89,14 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   set(HOG_NAME "win")
 endif()
 
-add_custom_target(HogFull
-  COMMAND $<TARGET_FILE:HogMaker>
-    "$<TARGET_FILE_DIR:Descent3>/d3-${HOG_NAME}.hog"
-    "${CMAKE_SOURCE_DIR}/scripts/data/fullhog/d3-${HOG_NAME}-fullhog.txt"
-    "$<TARGET_FILE_DIR:AIGame>"
-  DEPENDS ${SCRIPTS} HogMaker data/fullhog/d3-${HOG_NAME}-fullhog.txt
-  COMMENT "Generate fullhog/d3-${HOG_NAME}.hog"
-)
+# add_custom_target(HogFull
+#   COMMAND $<TARGET_FILE:HogMaker>
+#     "$<TARGET_FILE_DIR:Descent3>/d3-${HOG_NAME}.hog"
+#     "${CMAKE_SOURCE_DIR}/scripts/data/fullhog/d3-${HOG_NAME}-fullhog.txt"
+#     "$<TARGET_FILE_DIR:AIGame>"
+#   DEPENDS ${SCRIPTS} HogMaker data/fullhog/d3-${HOG_NAME}-fullhog.txt
+#   COMMENT "Generate fullhog/d3-${HOG_NAME}.hog"
+# )
 
 # Place file next to Descent3 executable on installation
 install(FILES "$<TARGET_FILE_DIR:Descent3>/d3-${HOG_NAME}.hog" DESTINATION ${CMAKE_INSTALL_DATADIR})
