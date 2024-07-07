@@ -1,5 +1,5 @@
 /*
-* Descent 3 
+* Descent 3
 * Copyright (C) 2024 Parallax Software
 *
 * This program is free software: you can redistribute it and/or modify
@@ -73,7 +73,7 @@
 #if __LINUX__
 #include <sys/time.h>
 #endif
-#if __LINUX__ && !EMSCRIPTEN
+#if defined(__LINUX__) && !defined(__EMSCRIPTEN__)
 #include <term.h>
 #include <termios.h>
 #elif WIN32
@@ -87,7 +87,7 @@
 #undef buttons
 #endif
 
-#if __LINUX__ && !EMSCRIPTEN
+#if defined(__LINUX__) && !defined(__EMSCRIPTEN__)
 static struct termios Linux_initial_terminal_settings;
 #endif
 
@@ -99,7 +99,7 @@ void con_Destroy();
 void con_Defer();
 
 void Sleep(int millis) {
-  struct timeval tv{};
+  struct timeval tv {};
   tv.tv_sec = 0;
   tv.tv_usec = millis * 1000;
   select(0, nullptr, nullptr, nullptr, &tv);
@@ -124,7 +124,7 @@ void LnxAppShutdown() {
   LinuxAppDontCallShutdown = true;
   if (LinuxAppFlags & OEAPP_CONSOLE) {
     con_Destroy();
-#if __LINUX__ && !EMSCRIPTEN
+#if defined(__LINUX__) && !defined(__EMSCRIPTEN__)
     tcsetattr(0, TCSANOW, &Linux_initial_terminal_settings);
 #endif
   }
@@ -136,7 +136,7 @@ oeLnxApplication::oeLnxApplication(unsigned flags) {
   m_AppActive = true;
 
   if (flags & OEAPP_CONSOLE) {
-#if __LINUX__ && !EMSCRIPTEN
+#if defined(__LINUX__) && !defined(__EMSCRIPTEN__)
     tcgetattr(0, &Linux_initial_terminal_settings);
 #endif
     con_Create(m_Flags);
@@ -152,7 +152,7 @@ oeLnxApplication::oeLnxApplication(unsigned flags) {
 
 //	Create object with a premade info
 oeLnxApplication::oeLnxApplication(tLnxAppInfo *appinfo) {
-#if __LINUX__ && !EMSCRIPTEN
+#if defined(__LINUX__) && !defined(__EMSCRIPTEN__)
   tcgetattr(0, &Linux_initial_terminal_settings);
 #endif
   m_Flags = appinfo->flags;
@@ -230,8 +230,7 @@ void oeLnxApplication::set_sizepos(int x, int y, int w, int h) {
 
 const char *oeLnxApplication::get_window_name(void) { return "Descent 3"; }
 
-void oeLnxApplication::clear_window(void) {
-}
+void oeLnxApplication::clear_window(void) {}
 
 // initializes OS components.
 void oeLnxApplication::os_init() {
