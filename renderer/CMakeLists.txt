@@ -22,7 +22,7 @@ set(CPPS
 
 add_library(renderer STATIC ${HEADERS} ${CPPS})
 target_link_libraries(renderer PRIVATE
-  SDL2::SDL2
+  SDL2-static SDL2main
   bitmap
   ddio
   mem

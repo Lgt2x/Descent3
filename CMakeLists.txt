@@ -55,6 +55,11 @@ if(FORCE_COLORED_OUTPUT)
   endif()
 endif()
 
+if(EMSCRIPTEN)
+  add_compile_options(--use-port=zlib --use-port=sdl2)
+  add_link_options(--use-port=zlib --use-port=sdl2)
+endif()
+
 include(GNUInstallDirs)
 if(FORCE_PORTABLE_INSTALL)
   set(CMAKE_INSTALL_BINDIR ".")
@@ -111,12 +116,15 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
   add_compile_options("-Wno-multichar;-Wall")
 endif()
 
-find_package(SDL2 REQUIRED)
-# Some versions of the SDL2 find_package set SDL2_INCLUDE_DIR and some set a plural SDL2_INCLUDE_DIRS. Check both.
-message("SDL2 Include Dir is ${SDL2_INCLUDE_DIR} ${SDL2_INCLUDE_DIRS}")
+if (NOT EMSCRIPTEN)
+  find_package(SDL2 REQUIRED)
+  # Some versions of the SDL2 find_package set SDL2_INCLUDE_DIR and some set a plural SDL2_INCLUDE_DIRS. Check both.
+  message("SDL2 Include Dir is ${SDL2_INCLUDE_DIR} ${SDL2_INCLUDE_DIRS}")
+endif()
 
+message(${CMAKE_SYSTEM_NAME})
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" OR CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
   message("Building for Linux")
   add_compile_definitions(POSIX __LINUX__ _USE_OGL_ACTIVE_TEXTURES PRIMARY_HOG=\"d3-linux.hog\")
   set(PLATFORM_INCLUDES "lib/linux" ${SDL2_INCLUDE_DIR} ${SDL2_INCLUDE_DIRS})
@@ -168,7 +176,9 @@ endif()
 add_compile_definitions($<$<CONFIG:Release>:RELEASE>)
 add_compile_definitions($<$<CONFIG:Debug>:_DEBUG>)
 
-find_package(ZLIB REQUIRED)
+if (NOT EMSCRIPTEN)
+  find_package(ZLIB REQUIRED)
+endif()
 
 if(ENABLE_LOGGER)
   message("Enabling Logging")
