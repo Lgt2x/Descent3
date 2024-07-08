@@ -19,6 +19,8 @@
 #ifndef GAMEDLL_HEADER_H
 #define GAMEDLL_HEADER_H
 
+#include <filesystem>
+
 #include "spew.h"
 #include "gamefont.h"
 #include "hud.h"
@@ -399,7 +401,7 @@ DMFCDLLOUT(cfeof_fp DLLcfeof;)
 // Tells if the file exists
 // Returns non-zero if file exists.  Also tells if the file is on disk
 //	or in a hog -  See return values in cfile.h
-typedef int (*cfexist_fp)(const char *filename);
+typedef int (*cfexist_fp)(const std::filesystem::path& filename);
 DMFCDLLOUT(cfexist_fp DLLcfexist;)
 
 // Reads the specified number of bytes from a file into the buffer

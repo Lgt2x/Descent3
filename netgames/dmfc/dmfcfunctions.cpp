@@ -122,6 +122,8 @@
 #include "dmfcinputcommands.h"
 #include "gamedll_header.h"
 
+#include <filesystem>
+
 void (*DLLGetGameAPI)(game_api *);
 bool (*DLLAddHUDMessage)(const char *format, ...);
 void (*DLLDebug_ConsolePrintf)(int n, const char *format, ...);
@@ -190,7 +192,7 @@ void (*DLLrend_DrawScaledChunkedBitmap)(chunked_bitmap *chunk, int x, int y, int
 void (*DLLOpenCFILE)(CFILE **handle, const char *filename, const char *mode);
 void (*DLLcfclose)(CFILE *cfp);
 int (*DLLcfeof)(CFILE *cfp);
-int (*DLLcfexist)(const char *filename);
+int (*DLLcfexist)(const std::filesystem::path& filename);
 int (*DLLcf_ReadBytes)(uint8_t *buf, int count, CFILE *cfp);
 int (*DLLcf_ReadInt)(CFILE *cfp);
 int16_t (*DLLcf_ReadShort)(CFILE *cfp);
