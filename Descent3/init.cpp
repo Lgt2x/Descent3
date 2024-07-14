@@ -1405,10 +1405,15 @@ void InitIOSystems(bool editor) {
 
   // Set the base directory
   int dirarg = 1;
-  std::string dir =  "/data";
   int exedirarg = FindArg("-useexedir");
   if (dirarg) {
+#ifdef EMSCRIPTEN
+    std::string dir =  "/data";
     strncpy(Base_directory, dir.c_str(), sizeof(Base_directory) - 1);
+#else
+  int dirarg = FindArg("-setdir");
+  strncpy(Base_directory, GameArgs[dirarg + 1], sizeof(Base_directory) - 1);
+#endif
     Base_directory[sizeof(Base_directory) - 1] = '\0';
   } else if (exedirarg) {
     char exec_path[_MAX_PATH];
@@ -1888,8 +1893,10 @@ void InitD3Systems1(bool editor) {
 
   //	network initialization
   if (!FindArg("-nonetwork")) {
-    // nw_InitNetworking();
-    // nw_InitSockets(Gameport);
+#ifndef EMSCRIPTEN
+    nw_InitNetworking();
+    nw_InitSockets(Gameport);
+#endif
   }
 
   int timeoutarg = FindArg("-timeout");

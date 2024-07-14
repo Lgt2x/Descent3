@@ -70,7 +70,7 @@
 
 #include <cstdlib>
 #include <cctype>
-#if __LINUX__
+#ifdef __LINUX__
 #include <sys/time.h>
 #endif
 #if defined(__LINUX__) && !defined(__EMSCRIPTEN__)

@@ -3,4 +3,4 @@ set(CPPS unzip.cpp)
 
 add_library(unzip STATIC ${HEADERS} ${CPPS})
 
-target_link_libraries(unzip ${ZLIB_LIBRARIES})
+target_link_libraries(unzip $<$<PLATFORM_ID:Linux>:ZLIB::ZLIB>)
