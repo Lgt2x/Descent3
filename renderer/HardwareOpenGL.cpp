@@ -29,8 +29,6 @@
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
 #include <emscripten/html5.h>
-// #include "GL/gl.h"
-// #include "GL/glext.h"
 extern "C" void initialize_gl4es();
 #endif
 
@@ -209,27 +207,24 @@ void opengl_GetDLLFunctions(void) {
 #else
 #define mod_GetSymbol(x, funcStr, y) __SDL_mod_GetSymbol(funcStr)
 
-  oglActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC)mod_GetSymbol(OpenGLDLLHandle, "glActiveTextureARB", 255);
-  oglClientActiveTextureARB =
-      (PFNGLCLIENTACTIVETEXTUREARBPROC)mod_GetSymbol(OpenGLDLLHandle, "glClientActiveTextureARB", 255);
-  oglMultiTexCoord4f = (PFNGLMULTITEXCOORD4FARBPROC)mod_GetSymbol(OpenGLDLLHandle, "glMultiTexCoord4f", 255);
-  if (!oglMultiTexCoord4f) {
-    oglMultiTexCoord4f = (PFNGLMULTITEXCOORD4FARBPROC)mod_GetSymbol(OpenGLDLLHandle, "glMultiTexCoord4fARB", 255);
-  }
-  if (oglActiveTextureARB == NULL || oglClientActiveTextureARB == NULL || oglMultiTexCoord4f == NULL) {
-    goto dll_error;
-  }
+  // oglActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC)&glActiveTextureARB;
+  // oglClientActiveTextureARB =
+  //     (PFNGLCLIENTACTIVETEXTUREARBPROC)&gl4es_glClientActiveTextureARB;
+  // oglMultiTexCoord4f = (PFNGLMULTITEXCOORD4FARBPROC)&gl4es_glMultiTexCoord4f;
+  // if (oglActiveTextureARB == NULL || oglClientActiveTextureARB == NULL || oglMultiTexCoord4f == NULL) {
+  //   goto dll_error;
+  // }
 
 #undef mod_GetSymbol
 #endif
 
-  UseMultitexture = true;
+  UseMultitexture = false;
   return;
 
 dll_error:
-  oglActiveTextureARB = NULL;
-  oglClientActiveTextureARB = NULL;
-  oglMultiTexCoord4f = NULL;
+  // oglActiveTextureARB = NULL;
+  // oglClientActiveTextureARB = NULL;
+  // oglMultiTexCoord4f = NULL;
   UseMultitexture = false;
 }
 
@@ -423,7 +418,7 @@ int opengl_Setup(oeApplication *app, int *width, int *height) {
 
   SDL_SetEventFilter(d3SDLEventFilter, NULL);
 
-  bool fullscreen = true;
+  bool fullscreen = false;
 
   if (FindArgChar("-fullscreen", 'f')) {
     fullscreen = true;
@@ -460,18 +455,18 @@ int opengl_Setup(oeApplication *app, int *width, int *height) {
       strcpy(gl_library, "opengl32.dll");
 #endif
       OpenGLDLLHandle = LoadOpenGLDLL(gl_library);
-      if (!(OpenGLDLLHandle)) {
-        success = false;
-      }
+      // if (!(OpenGLDLLHandle)) {
+      //   success = false;
+      // }
     } // if
 
-    if (!success) {
-      char buffer[512];
-      snprintf(buffer, sizeof(buffer), "Failed to load library [%s].\n", gl_library);
-      fprintf(stderr, "%s", buffer);
-      rend_SetErrorMessage(buffer);
-      return 0;
-    } // if
+    // if (!success) {
+    //   char buffer[512];
+    //   snprintf(buffer, sizeof(buffer), "Failed to load library [%s].\n", gl_library);
+    //   fprintf(stderr, "%s", buffer);
+    //   rend_SetErrorMessage(buffer);
+    //   return 0;
+    // } // if
   }
 
 #ifdef __PERMIT_GL_LOGGING
@@ -1530,7 +1525,7 @@ void gpu_BindTexture(int handle, int map_type, int slot) {
 void gpu_RenderPolygon(PosColorUVVertex *vData, uint32_t nv) {
   dglVertexPointer(3, GL_FLOAT, sizeof(*vData), &vData->pos);
   dglColorPointer(4, GL_FLOAT, sizeof(*vData), &vData->color);
-  oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
+  // oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
   dglTexCoordPointer(4, GL_FLOAT, sizeof(*vData), &vData->uv);
 
   if (gpu_state.cur_texture_quality == 0) {
@@ -1538,7 +1533,7 @@ void gpu_RenderPolygon(PosColorUVVertex *vData, uint32_t nv) {
     dglDisableClientState(GL_TEXTURE_COORD_ARRAY);
   }
 
-  oglClientActiveTextureARB(GL_TEXTURE0_ARB + 1);
+  // oglClientActiveTextureARB(GL_TEXTURE0_ARB + 1);
   dglDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
   // draw the data in the arrays
@@ -1546,7 +1541,7 @@ void gpu_RenderPolygon(PosColorUVVertex *vData, uint32_t nv) {
 
   if (gpu_state.cur_texture_quality == 0) {
     // re-enable textures
-    oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
+    // oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
     dglEnableClientState(GL_TEXTURE_COORD_ARRAY);
   }
 
@@ -1557,9 +1552,9 @@ void gpu_RenderPolygon(PosColorUVVertex *vData, uint32_t nv) {
 void gpu_RenderPolygonUV2(PosColorUV2Vertex *vData, uint32_t nv) {
   dglVertexPointer(3, GL_FLOAT, sizeof(*vData), &vData->pos);
   dglColorPointer(4, GL_FLOAT, sizeof(*vData), &vData->color);
-  oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
+  // oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
   dglTexCoordPointer(4, GL_FLOAT, sizeof(*vData), &vData->uv0);
-  oglClientActiveTextureARB(GL_TEXTURE0_ARB + 1);
+  // oglClientActiveTextureARB(GL_TEXTURE0_ARB + 1);
   dglEnableClientState(GL_TEXTURE_COORD_ARRAY);
   dglTexCoordPointer(4, GL_FLOAT, sizeof(*vData), &vData->uv1);
 

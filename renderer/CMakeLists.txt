@@ -30,6 +30,6 @@ target_link_libraries(renderer PRIVATE
 )
 
 if(EMSCRIPTEN)
-  target_include_directories(renderer PUBLIC ${CMAKE_SOURCE_DIR}/gl4es/include)
+  target_include_directories(renderer PUBLIC ${CMAKE_SOURCE_DIR})
   target_link_libraries(renderer PRIVATE GL)
 endif()
