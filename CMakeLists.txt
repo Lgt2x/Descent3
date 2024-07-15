@@ -40,12 +40,6 @@ if(FORCE_COLORED_OUTPUT)
   endif()
 endif()
 
-if(EMSCRIPTEN)
-  add_compile_options(--use-port=zlib -sUSE_SDL=2 -g -sALLOW_MEMORY_GROWTH)
-  add_link_options(--use-port=zlib -sUSE_SDL=2 -g --embed-file data -sFULL_ES2=1 -sALLOW_MEMORY_GROWTH -sSTACK_SIZE=524288) # Need to copy game data into BUILD_DIR/data
-  add_subdirectory(emscripten)
-endif()
-
 include(GNUInstallDirs)
 if(FORCE_PORTABLE_INSTALL)
   set(CMAKE_INSTALL_BINDIR ".")
@@ -102,17 +96,17 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
   add_compile_options("-Wno-multichar;-Wall")
 endif()
 
-if (NOT EMSCRIPTEN)
-  find_package(SDL2 REQUIRED)
-  # Some versions of the SDL2 find_package set SDL2_INCLUDE_DIR and some set a plural SDL2_INCLUDE_DIRS. Check both.
-  message("SDL2 Include Dir is ${SDL2_INCLUDE_DIR} ${SDL2_INCLUDE_DIRS}")
-endif()
+find_package(SDL2 REQUIRED)
+# Some versions of the SDL2 find_package set SDL2_INCLUDE_DIR and some set a plural SDL2_INCLUDE_DIRS. Check both.
+message("SDL2 Include Dir is ${SDL2_INCLUDE_DIR} ${SDL2_INCLUDE_DIRS}")
 
-message(${CMAKE_SYSTEM_NAME})
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" OR CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   message("Building for Linux")
   add_compile_definitions(__LINUX__ PRIMARY_HOG=\"d3-linux.hog\")
+  if (NOT EMSCRIPTEN)
+    add_compile_definitions(_USE_OGL_ACTIVE_TEXTURES)
+  endif()
   set(PLATFORM_INCLUDES "lib/linux" ${SDL2_INCLUDE_DIR} ${SDL2_INCLUDE_DIRS})
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   message("Building for MAC OSX")
@@ -162,9 +156,7 @@ endif()
 add_compile_definitions($<$<CONFIG:Release>:RELEASE>)
 add_compile_definitions($<$<CONFIG:Debug>:_DEBUG>)
 
-if (NOT EMSCRIPTEN)
-  find_package(ZLIB REQUIRED)
-endif()
+find_package(ZLIB REQUIRED)
 
 if(ENABLE_LOGGER)
   message("Enabling Logging")
@@ -182,9 +174,7 @@ include_directories(
 )
 
 add_subdirectory(third_party)
-# if(EMSCRIPTEN)
-add_subdirectory(gl4es)
-# endif()
+
 add_subdirectory(2dlib)
 add_subdirectory(AudioEncode)
 add_subdirectory(bitmap)
@@ -231,12 +221,7 @@ endif()
 
 add_subdirectory(Descent3)
 
-# add_subdirectory(tools)
-
-
-
-if(BUILD_EDITOR AND CMAKE_SYSTEM_NAME STREQUAL "Windows")
-  add_subdirectory(scripts)
-  add_subdirectory(netcon)
-  add_subdirectory(netgames)
-endif()
+add_subdirectory(tools)
+add_subdirectory(netcon)
+add_subdirectory(netgames)
+add_subdirectory(scripts)
