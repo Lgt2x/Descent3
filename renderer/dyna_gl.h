@@ -1,20 +1,20 @@
 /*
-* Descent 3 
-* Copyright (C) 2024 Parallax Software
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Descent 3
+ * Copyright (C) 2024 Parallax Software
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #pragma once
 
@@ -29,7 +29,6 @@
 #ifdef EMSCRIPTEN
 #include "gl4es/include/GL/gl.h"
 #include "gl4es/include/GL/glext.h"
-
 
 // extern "C" void gl4es_glActiveTextureARB(GLenum texture);
 // extern "C" void gl4es_glClientActiveTextureARB(GLenum texture);
@@ -55,8 +54,7 @@ extern "C" void gl4es_glDisable(GLenum cap);
 extern "C" void gl4es_glDisableClientState(GLenum cap);
 extern "C" void gl4es_glDrawArrays(GLenum mode, GLint first, GLsizei count);
 extern "C" void gl4es_glDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
-extern "C" void gl4es_glDrawPixels(GLsizei width, GLsizei height, GLenum format, GLenum type,
-                                          const GLvoid *pixels);
+extern "C" void gl4es_glDrawPixels(GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels);
 extern "C" void gl4es_glEnable(GLenum cap);
 extern "C" void gl4es_glEnableClientState(GLenum array);
 extern "C" void gl4es_glEnd(void);
@@ -65,7 +63,7 @@ extern "C" void gl4es_glFogf(GLenum pname, GLfloat param);
 extern "C" void gl4es_glFogfv(GLenum pname, const GLfloat *params);
 extern "C" void gl4es_glFogi(GLenum pname, GLint param);
 extern "C" GLenum gl4es_glGetError(void);
-extern "C" const GLubyte * gl4es_glGetString(GLenum name);
+extern "C" const GLubyte *gl4es_glGetString(GLenum name);
 extern "C" void gl4es_glHint(GLenum target, GLenum mode);
 extern "C" void gl4es_glLoadIdentity(void);
 extern "C" void gl4es_glLoadMatrixf(const GLfloat *m);
@@ -79,12 +77,11 @@ extern "C" void gl4es_glScissor(GLint x, GLint y, GLsizei width, GLsizei height)
 extern "C" void gl4es_glShadeModel(GLenum mode);
 extern "C" void gl4es_glTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
 extern "C" void gl4es_glTexEnvf(GLenum target, GLenum pname, GLfloat param);
-extern "C" void gl4es_glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width,
-                                          GLsizei height, GLint border, GLenum format, GLenum type,
-                                          const GLvoid *pixels);
+extern "C" void gl4es_glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height,
+                                   GLint border, GLenum format, GLenum type, const GLvoid *pixels);
 extern "C" void gl4es_glTexParameteri(GLenum target, GLenum pname, GLint param);
 extern "C" void gl4es_glTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width,
-                                             GLsizei height, GLenum format, GLenum type, const GLvoid *pixels);
+                                      GLsizei height, GLenum format, GLenum type, const GLvoid *pixels);
 extern "C" void gl4es_glVertex2i(GLint, GLint);
 extern "C" void gl4es_glVertex3f(GLfloat, GLfloat, GLfloat);
 extern "C" void gl4es_glVertexPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
@@ -197,16 +194,20 @@ typedef void(GLFUNCCALL *glBitmap_fp)(GLsizei width, GLsizei height, GLfloat xor
                                       GLfloat ymove, const GLubyte *bitmap);
 
 // FBO entry points for render-to-texture ...
-typedef void (GLFUNCCALL *glGenFramebuffersEXT_fp) (GLsizei n, GLuint *framebuffers);
-typedef void (GLFUNCCALL *glGenRenderbuffersEXT_fp) (GLsizei n, GLuint *renderbuffers);
-typedef void (GLFUNCCALL *glBindFramebufferEXT_fp) (GLenum target, GLuint framebuffer);
-typedef void (GLFUNCCALL *glBindRenderbufferEXT_fp)(GLenum target, GLuint renderbuffer);
-typedef void (GLFUNCCALL *glRenderbufferStorageEXT_fp) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
-typedef void (GLFUNCCALL *glFramebufferRenderbufferEXT_fp) (GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
-typedef GLenum (GLFUNCCALL *glCheckFramebufferStatusEXT_fp) (GLenum target);
-typedef void (GLFUNCCALL *glDeleteRenderbuffersEXT_fp) (GLsizei n, const GLuint *renderbuffers);
-typedef void (GLFUNCCALL *glDeleteFramebuffersEXT_fp) (GLsizei n, const GLuint *framebuffers);
-typedef void (GLFUNCCALL *glBlitFramebufferEXT_fp) (GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
+typedef void(GLFUNCCALL *glGenFramebuffersEXT_fp)(GLsizei n, GLuint *framebuffers);
+typedef void(GLFUNCCALL *glGenRenderbuffersEXT_fp)(GLsizei n, GLuint *renderbuffers);
+typedef void(GLFUNCCALL *glBindFramebufferEXT_fp)(GLenum target, GLuint framebuffer);
+typedef void(GLFUNCCALL *glBindRenderbufferEXT_fp)(GLenum target, GLuint renderbuffer);
+typedef void(GLFUNCCALL *glRenderbufferStorageEXT_fp)(GLenum target, GLenum internalformat, GLsizei width,
+                                                      GLsizei height);
+typedef void(GLFUNCCALL *glFramebufferRenderbufferEXT_fp)(GLenum target, GLenum attachment, GLenum renderbuffertarget,
+                                                          GLuint renderbuffer);
+typedef GLenum(GLFUNCCALL *glCheckFramebufferStatusEXT_fp)(GLenum target);
+typedef void(GLFUNCCALL *glDeleteRenderbuffersEXT_fp)(GLsizei n, const GLuint *renderbuffers);
+typedef void(GLFUNCCALL *glDeleteFramebuffersEXT_fp)(GLsizei n, const GLuint *framebuffers);
+typedef void(GLFUNCCALL *glBlitFramebufferEXT_fp)(GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0,
+                                                  GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask,
+                                                  GLenum filter);
 
 #if defined(WIN32)
 typedef HGLRC(GLFUNCCALL *wglCreateContext_fp)(HDC);
@@ -274,17 +275,6 @@ DYNAEXTERN(glColor4fv_fp, dglColor4fv);
 DYNAEXTERN(glVertex3fv_fp, dglVertex3fv);
 DYNAEXTERN(glTexCoord4fv_fp, dglTexCoord4fv);
 
-DYNAEXTERN(glGenFramebuffersEXT_fp, dglGenFramebuffersEXT);
-DYNAEXTERN(glGenRenderbuffersEXT_fp, dglGenRenderbuffersEXT);
-DYNAEXTERN(glBindFramebufferEXT_fp, dglBindFramebufferEXT);
-DYNAEXTERN(glBindRenderbufferEXT_fp, dglBindRenderbufferEXT);
-DYNAEXTERN(glRenderbufferStorageEXT_fp, dglRenderbufferStorageEXT);
-DYNAEXTERN(glFramebufferRenderbufferEXT_fp, dglFramebufferRenderbufferEXT);
-DYNAEXTERN(glCheckFramebufferStatusEXT_fp, dglCheckFramebufferStatusEXT);
-DYNAEXTERN(glDeleteFramebuffersEXT_fp, dglDeleteFramebuffersEXT);
-DYNAEXTERN(glDeleteRenderbuffersEXT_fp, dglDeleteRenderbuffersEXT);
-DYNAEXTERN(glBlitFramebufferEXT_fp, dglBlitFramebufferEXT);
-
 #ifdef DECLARE_OPENGL
 static module OpenGLDLLInst;
 
@@ -327,9 +317,10 @@ module *LoadOpenGLDLL(const char *dllname) {
 
   strcpy(loadedLibrary, dllname);
 
+#ifdef EMSCRIPTEN
 
   dglAlphaFunc = (glAlphaFunc_fp)&gl4es_glAlphaFunc;
-  
+
   if (!dglAlphaFunc)
     goto dll_error;
 
@@ -540,6 +531,221 @@ module *LoadOpenGLDLL(const char *dllname) {
   dglTexCoord4fv = (glTexCoord4fv_fp)&gl4es_glTexCoord4fv;
   if (!dglTexCoord4fv)
     goto dll_error;
+
+#else
+
+  dglAlphaFunc = (glAlphaFunc_fp)mod_GetSymbol(&OpenGLDLLInst, "glAlphaFunc", 255);
+  if (!dglAlphaFunc)
+    goto dll_error;
+
+  dglBegin = (glBegin_fp)mod_GetSymbol(&OpenGLDLLInst, "glBegin", 255);
+  if (!dglBegin)
+    goto dll_error;
+
+  dglBindTexture = (glBindTexture_fp)mod_GetSymbol(&OpenGLDLLInst, "glBindTexture", 255);
+  if (!dglBindTexture)
+    goto dll_error;
+
+  dglBlendFunc = (glBlendFunc_fp)mod_GetSymbol(&OpenGLDLLInst, "glBlendFunc", 255);
+  if (!dglBlendFunc)
+    goto dll_error;
+
+  dglClear = (glClear_fp)mod_GetSymbol(&OpenGLDLLInst, "glClear", 255);
+  if (!dglClear)
+    goto dll_error;
+
+  dglClearColor = (glClearColor_fp)mod_GetSymbol(&OpenGLDLLInst, "glClearColor", 255);
+  if (!dglClearColor)
+    goto dll_error;
+
+  dglClearDepth = (glClearDepth_fp)mod_GetSymbol(&OpenGLDLLInst, "glClearDepth", 255);
+  if (!dglClearDepth)
+    goto dll_error;
+
+  dglColor3ub = (glColor3ub_fp)mod_GetSymbol(&OpenGLDLLInst, "glColor3ub", 255);
+  if (!dglColor3ub)
+    goto dll_error;
+
+  dglColor4ub = (glColor4ub_fp)mod_GetSymbol(&OpenGLDLLInst, "glColor4ub", 255);
+  if (!dglColor4ub)
+    goto dll_error;
+
+  dglColor4f = (glColor4f_fp)mod_GetSymbol(&OpenGLDLLInst, "glColor4f", 255);
+  if (!dglColor4f)
+    goto dll_error;
+
+  dglColorPointer = (glColorPointer_fp)mod_GetSymbol(&OpenGLDLLInst, "glColorPointer", 255);
+  if (!dglColorPointer)
+    goto dll_error;
+
+  dglNormalPointer = (glNormalPointer_fp)mod_GetSymbol(&OpenGLDLLInst, "glNormalPointer", 255);
+  if (!dglNormalPointer)
+    goto dll_error;
+
+  dglDeleteTextures = (glDeleteTextures_fp)mod_GetSymbol(&OpenGLDLLInst, "glDeleteTextures", 255);
+  if (!dglDeleteTextures)
+    goto dll_error;
+
+  dglDepthFunc = (glDepthFunc_fp)mod_GetSymbol(&OpenGLDLLInst, "glDepthFunc", 255);
+  if (!dglDepthFunc)
+    goto dll_error;
+
+  dglDepthMask = (glDepthMask_fp)mod_GetSymbol(&OpenGLDLLInst, "glDepthMask", 255);
+  if (!dglDepthMask)
+    goto dll_error;
+
+  dglDepthRange = (glDepthRange_fp)mod_GetSymbol(&OpenGLDLLInst, "glDepthRange", 255);
+  if (!dglDepthRange)
+    goto dll_error;
+
+  dglDisable = (glDisable_fp)mod_GetSymbol(&OpenGLDLLInst, "glDisable", 255);
+  if (!dglDisable)
+    goto dll_error;
+
+  dglDisableClientState = (glDisableClientState_fp)mod_GetSymbol(&OpenGLDLLInst, "glDisableClientState", 255);
+  if (!dglDisableClientState)
+    goto dll_error;
+
+  dglDrawArrays = (glDrawArrays_fp)mod_GetSymbol(&OpenGLDLLInst, "glDrawArrays", 255);
+  if (!dglDrawArrays)
+    goto dll_error;
+
+  dglDrawElements = (glDrawElements_fp)mod_GetSymbol(&OpenGLDLLInst, "glDrawElements", 255);
+  if (!dglDrawElements)
+    goto dll_error;
+
+  dglDrawPixels = (glDrawPixels_fp)mod_GetSymbol(&OpenGLDLLInst, "glDrawPixels", 255);
+  if (!dglDrawPixels)
+    goto dll_error;
+
+  dglEnable = (glEnable_fp)mod_GetSymbol(&OpenGLDLLInst, "glEnable", 255);
+  if (!dglEnable)
+    goto dll_error;
+
+  dglEnableClientState = (glEnableClientState_fp)mod_GetSymbol(&OpenGLDLLInst, "glEnableClientState", 255);
+  if (!dglEnableClientState)
+    goto dll_error;
+
+  dglEnd = (glEnd_fp)mod_GetSymbol(&OpenGLDLLInst, "glEnd", 255);
+  if (!dglEnd)
+    goto dll_error;
+
+  dglFlush = (glFlush_fp)mod_GetSymbol(&OpenGLDLLInst, "glFlush", 255);
+  if (!dglFlush)
+    goto dll_error;
+
+  dglFogf = (glFogf_fp)mod_GetSymbol(&OpenGLDLLInst, "glFogf", 255);
+  if (!dglFogf)
+    goto dll_error;
+
+  dglFogfv = (glFogfv_fp)mod_GetSymbol(&OpenGLDLLInst, "glFogfv", 255);
+  if (!dglFogfv)
+    goto dll_error;
+
+  dglFogi = (glFogi_fp)mod_GetSymbol(&OpenGLDLLInst, "glFogi", 255);
+  if (!dglFogi)
+    goto dll_error;
+
+  dglGetError = (glGetError_fp)mod_GetSymbol(&OpenGLDLLInst, "glGetError", 255);
+  if (!dglGetError)
+    goto dll_error;
+
+  dglGetString = (glGetString_fp)mod_GetSymbol(&OpenGLDLLInst, "glGetString", 255);
+  if (!dglGetString)
+    goto dll_error;
+
+  dglHint = (glHint_fp)mod_GetSymbol(&OpenGLDLLInst, "glHint", 255);
+  if (!dglHint)
+    goto dll_error;
+
+  dglLoadIdentity = (glLoadIdentity_fp)mod_GetSymbol(&OpenGLDLLInst, "glLoadIdentity", 255);
+  if (!dglLoadIdentity)
+    goto dll_error;
+
+  dglLoadMatrixf = (glLoadMatrixf_fp)mod_GetSymbol(&OpenGLDLLInst, "glLoadMatrixf", 255);
+  if (!dglLoadMatrixf)
+    goto dll_error;
+
+  dglMatrixMode = (glMatrixMode_fp)mod_GetSymbol(&OpenGLDLLInst, "glMatrixMode", 255);
+  if (!dglMatrixMode)
+    goto dll_error;
+
+  dglOrtho = (glOrtho_fp)mod_GetSymbol(&OpenGLDLLInst, "glOrtho", 255);
+  if (!dglOrtho)
+    goto dll_error;
+
+  dglPixelStorei = (glPixelStorei_fp)mod_GetSymbol(&OpenGLDLLInst, "glPixelStorei", 255);
+  if (!dglPixelStorei)
+    goto dll_error;
+
+  dglPixelTransferi = (glPixelTransferi_fp)mod_GetSymbol(&OpenGLDLLInst, "glPixelTransferi", 255);
+  if (!dglPixelTransferi)
+    goto dll_error;
+
+  dglPolygonOffset = (glPolygonOffset_fp)mod_GetSymbol(&OpenGLDLLInst, "glPolygonOffset", 255);
+  if (!dglPolygonOffset)
+    goto dll_error;
+
+  dglReadPixels = (glReadPixels_fp)mod_GetSymbol(&OpenGLDLLInst, "glReadPixels", 255);
+  if (!dglReadPixels)
+    goto dll_error;
+
+  dglScissor = (glScissor_fp)mod_GetSymbol(&OpenGLDLLInst, "glScissor", 255);
+  if (!dglScissor)
+    goto dll_error;
+
+  dglShadeModel = (glShadeModel_fp)mod_GetSymbol(&OpenGLDLLInst, "glShadeModel", 255);
+  if (!dglShadeModel)
+    goto dll_error;
+
+  dglTexCoordPointer = (glTexCoordPointer_fp)mod_GetSymbol(&OpenGLDLLInst, "glTexCoordPointer", 255);
+  if (!dglTexCoordPointer)
+    goto dll_error;
+
+  dglTexEnvf = (glTexEnvf_fp)mod_GetSymbol(&OpenGLDLLInst, "glTexEnvf", 255);
+  if (!dglTexEnvf)
+    goto dll_error;
+
+  dglTexImage2D = (glTexImage2D_fp)mod_GetSymbol(&OpenGLDLLInst, "glTexImage2D", 255);
+  if (!dglTexImage2D)
+    goto dll_error;
+
+  dglTexParameteri = (glTexParameteri_fp)mod_GetSymbol(&OpenGLDLLInst, "glTexParameteri", 255);
+  if (!dglTexParameteri)
+    goto dll_error;
+
+  dglTexSubImage2D = (glTexSubImage2D_fp)mod_GetSymbol(&OpenGLDLLInst, "glTexSubImage2D", 255);
+  if (!dglTexSubImage2D)
+    goto dll_error;
+
+  dglVertex2i = (glVertex2i_fp)mod_GetSymbol(&OpenGLDLLInst, "glVertex2i", 255);
+  if (!dglVertex2i)
+    goto dll_error;
+
+  dglVertex3f = (glVertex3f_fp)mod_GetSymbol(&OpenGLDLLInst, "glVertex3f", 255);
+  if (!dglVertex3f)
+    goto dll_error;
+
+  dglVertexPointer = (glVertexPointer_fp)mod_GetSymbol(&OpenGLDLLInst, "glVertexPointer", 255);
+  if (!dglVertexPointer)
+    goto dll_error;
+
+  dglViewport = (glViewport_fp)mod_GetSymbol(&OpenGLDLLInst, "glViewport", 255);
+  if (!dglViewport)
+    goto dll_error;
+
+  dglColor4fv = (glColor4fv_fp)mod_GetSymbol(&OpenGLDLLInst, "glColor4fv", 255);
+  if (!dglColor4fv)
+    goto dll_error;
+
+  dglVertex3fv = (glVertex3fv_fp)mod_GetSymbol(&OpenGLDLLInst, "glVertex3fv", 255);
+  if (!dglVertex3fv)
+    goto dll_error;
+
+  dglTexCoord4fv = (glTexCoord4fv_fp)mod_GetSymbol(&OpenGLDLLInst, "glTexCoord4fv", 255);
+  if (!dglTexCoord4fv)
+    goto dll_error;
+#endif
 
 #if defined(WIN32)
   dwglCreateContext = (wglCreateContext_fp)&gl4es_wglCreateContext;

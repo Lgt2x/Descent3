@@ -146,22 +146,6 @@ bool opengl_Blending_on = 0;
 
 static oeApplication *ParentApplication = NULL;
 
-/* framebuffer object for backbuffer, scale to window size without changing resolution.  --ryan, 2019. */
-#define GL_DEPTH_COMPONENT16_EXT 0x81A5
-#define GL_READ_FRAMEBUFFER_EXT 0x8CA8
-#define GL_DRAW_FRAMEBUFFER_EXT 0x8CA9
-#define GL_FRAMEBUFFER_COMPLETE_EXT 0x8CD5
-#define GL_COLOR_ATTACHMENT0_EXT 0x8CE0
-#define GL_DEPTH_ATTACHMENT_EXT 0x8D00
-#define GL_STENCIL_ATTACHMENT_EXT 0x8D20
-#define GL_FRAMEBUFFER_EXT 0x8D40
-#define GL_RENDERBUFFER_EXT 0x8D41
-static GLuint GOpenGLFBO = 0;
-static GLuint GOpenGLRBOColor = 0;
-static GLuint GOpenGLRBODepth = 0;
-static GLuint GOpenGLFBOWidth = 0;
-static GLuint GOpenGLFBOHeight = 0;
-
 #if 0
 int checkForGLErrors( const char *file, int line )
 {
@@ -207,24 +191,26 @@ void opengl_GetDLLFunctions(void) {
 #else
 #define mod_GetSymbol(x, funcStr, y) __SDL_mod_GetSymbol(funcStr)
 
-  // oglActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC)&glActiveTextureARB;
-  // oglClientActiveTextureARB =
-  //     (PFNGLCLIENTACTIVETEXTUREARBPROC)&gl4es_glClientActiveTextureARB;
-  // oglMultiTexCoord4f = (PFNGLMULTITEXCOORD4FARBPROC)&gl4es_glMultiTexCoord4f;
-  // if (oglActiveTextureARB == NULL || oglClientActiveTextureARB == NULL || oglMultiTexCoord4f == NULL) {
-  //   goto dll_error;
-  // }
-
+  oglActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC)mod_GetSymbol(OpenGLDLLHandle, "glActiveTextureARB", 255);
+  oglClientActiveTextureARB =
+      (PFNGLCLIENTACTIVETEXTUREARBPROC)mod_GetSymbol(OpenGLDLLHandle, "glClientActiveTextureARB", 255);
+  oglMultiTexCoord4f = (PFNGLMULTITEXCOORD4FARBPROC)mod_GetSymbol(OpenGLDLLHandle, "glMultiTexCoord4f", 255);
+  if (!oglMultiTexCoord4f) {
+    oglMultiTexCoord4f = (PFNGLMULTITEXCOORD4FARBPROC)mod_GetSymbol(OpenGLDLLHandle, "glMultiTexCoord4fARB", 255);
+  }
+  if (oglActiveTextureARB == NULL || oglClientActiveTextureARB == NULL || oglMultiTexCoord4f == NULL) {
+    goto dll_error;
+  }
 #undef mod_GetSymbol
 #endif
 
-  UseMultitexture = false;
+  UseMultitexture = true;
   return;
 
 dll_error:
-  // oglActiveTextureARB = NULL;
-  // oglClientActiveTextureARB = NULL;
-  // oglMultiTexCoord4f = NULL;
+  oglActiveTextureARB = NULL;
+  oglClientActiveTextureARB = NULL;
+  oglMultiTexCoord4f = NULL;
   UseMultitexture = false;
 }
 
@@ -397,24 +383,21 @@ extern bool ddio_mouseGrabbed;
 int SDLCALL d3SDLEventFilter(void *userdata, SDL_Event *event);
 
 int opengl_Setup(oeApplication *app, int *width, int *height) {
-  int winw = Video_res_list[Game_video_resolution].width;
-  int winh = Video_res_list[Game_video_resolution].height;
 
   // rcg09182000 don't need to quitsubsystem anymore...
   //    SDL_QuitSubSystem(SDL_INIT_VIDEO);  // here goes nothing...
   //    Already_loaded = false;
   SDL_ClearError();
-  if (!SDL_WasInit(SDL_INIT_VIDEO)) {
-    const int rc = SDL_Init(SDL_INIT_VIDEO);
-    if (rc != 0) {
-      char buffer[512];
-      snprintf(buffer, sizeof(buffer), "SDL_GetError() reports \"%s\".\n", SDL_GetError());
-      fprintf(stderr, "SDL: SDL_Init() failed! rc == (%d).\n", rc);
-      fprintf(stderr, "%s", buffer);
-      rend_SetErrorMessage(buffer);
-      return (0);
-    }
-  }
+
+  int rc = SDL_Init(SDL_INIT_VIDEO);
+  if (rc != 0) {
+    char buffer[512];
+    snprintf(buffer, sizeof(buffer), "SDL_GetError() reports \"%s\".\n", SDL_GetError());
+    fprintf(stderr, "SDL: SDL_Init() failed! rc == (%d).\n", rc);
+    fprintf(stderr, "%s", buffer);
+    rend_SetErrorMessage(buffer);
+    return (0);
+  } // if
 
   SDL_SetEventFilter(d3SDLEventFilter, NULL);
 
@@ -489,127 +472,27 @@ int opengl_Setup(oeApplication *app, int *width, int *height) {
   } // if
 #endif
 
-  SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-  SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-  SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+  SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
+  SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
+  SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
   SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
   Uint32 flags = SDL_WINDOW_OPENGL;
 
   if (fullscreen) {
-    flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+    flags |= SDL_WINDOW_FULLSCREEN;
   }
 
+  GSDLWindow = SDL_CreateWindow("Descent 3", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, *width, *height, flags);
   if (!GSDLWindow) {
-    GSDLWindow = SDL_CreateWindow("Descent 3", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, winw, winh, flags);
-    if (!GSDLWindow) {
-      mprintf(0, "OpenGL: SDL window creation failed: %s", SDL_GetError());
-      return 0;
-    }
-  } else {
-    SDL_SetWindowSize(GSDLWindow, winw, winh);
-    SDL_SetWindowFullscreen(GSDLWindow, flags);
-  }
-
-  if (!GSDLGLContext) {
-    GSDLGLContext = SDL_GL_CreateContext(GSDLWindow);
-    if (!GSDLGLContext) {
-      mprintf(0, "OpenGL: OpenGL context creation failed: %s", SDL_GetError());
-      SDL_DestroyWindow(GSDLWindow);
-      GSDLWindow = NULL;
-      return 0;
-    }
-  }
-
-  // clear the window framebuffer to start.
-  dglClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-  dglClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  SDL_GL_SwapWindow(GSDLWindow);
-
-  bool fbo_available = true;
-  if (!SDL_GL_ExtensionSupported("GL_EXT_framebuffer_object")) {
-    mprintf(0, "OpenGL: GL_EXT_framebuffer_object extension is not available");
-    fbo_available = false;
-  }
-
-  if (!SDL_GL_ExtensionSupported("GL_EXT_framebuffer_blit")) {
-    mprintf(0, "OpenGL: GL_EXT_framebuffer_blit extension is not available");
-    fbo_available = false;
-  }
-
-  if (fbo_available) {
-#define LOOKUP_GL_SYM(x)                                                                                               \
-  dgl##x = (gl##x##_fp)SDL_GL_GetProcAddress("gl" #x);                                                                 \
-  if (dgl##x == NULL) {                                                                                                \
-    mprintf(0, "OpenGL: gl%s function not found!", #x);                                                                \
-    fbo_available = false;                                                                                             \
-  }
-    LOOKUP_GL_SYM(GenFramebuffersEXT);
-    LOOKUP_GL_SYM(GenRenderbuffersEXT);
-    LOOKUP_GL_SYM(BindFramebufferEXT);
-    LOOKUP_GL_SYM(BindRenderbufferEXT);
-    LOOKUP_GL_SYM(RenderbufferStorageEXT);
-    LOOKUP_GL_SYM(FramebufferRenderbufferEXT);
-    LOOKUP_GL_SYM(CheckFramebufferStatusEXT);
-    LOOKUP_GL_SYM(DeleteFramebuffersEXT);
-    LOOKUP_GL_SYM(DeleteRenderbuffersEXT);
-    LOOKUP_GL_SYM(BlitFramebufferEXT);
-  }
-
-  if (!fbo_available) {
-    mprintf(0, "OpenGL: We need missing Framebuffer Object support, giving up");
-    SDL_GL_DeleteContext(GSDLGLContext);
-    SDL_DestroyWindow(GSDLWindow);
-    GSDLGLContext = NULL;
-    GSDLWindow = NULL;
+    mprintf(0, "OpenGL: SDL window creation failed: %s", SDL_GetError());
     return 0;
   }
 
-  /* Tear down the backbuffer and rebuild at new dimensions... */
-  if (GOpenGLFBO) {
-    dglBindFramebufferEXT(GL_FRAMEBUFFER_EXT, GOpenGLFBO);
-    dglFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, 0);
-    dglFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, 0);
-    dglBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
-    dglBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-    dglDeleteFramebuffersEXT(1, &GOpenGLFBO);
-    dglDeleteRenderbuffersEXT(1, &GOpenGLRBOColor);
-    dglDeleteRenderbuffersEXT(1, &GOpenGLRBODepth);
-    GOpenGLFBOWidth = GOpenGLFBOHeight = GOpenGLFBO = GOpenGLRBOColor = GOpenGLRBODepth = 0;
-  }
-
-  const GLsizei w = (GLsizei)*width;
-  const GLsizei h = (GLsizei)*height;
-
-  GOpenGLFBOWidth = w;
-  GOpenGLFBOHeight = h;
-
-  dglGenFramebuffersEXT(1, &GOpenGLFBO);
-  dglBindFramebufferEXT(GL_FRAMEBUFFER_EXT, GOpenGLFBO);
-
-  dglGenRenderbuffersEXT(1, &GOpenGLRBOColor);
-  dglBindRenderbufferEXT(GL_RENDERBUFFER_EXT, GOpenGLRBOColor);
-  dglRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_RGB, w, h);
-  dglFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, GOpenGLRBOColor);
-
-  dglGenRenderbuffersEXT(1, &GOpenGLRBODepth);
-  dglBindRenderbufferEXT(GL_RENDERBUFFER_EXT, GOpenGLRBODepth);
-  dglRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT16_EXT, w, h);
-  dglFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, GOpenGLRBODepth);
-
-  if (dglCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT) {
-    mprintf(0, "OpenGL: our framebuffer object is incomplete, giving up");
-    dglFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, 0);
-    dglFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, 0);
-    dglBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
-    dglBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-    dglDeleteFramebuffersEXT(1, &GOpenGLFBO);
-    dglDeleteRenderbuffersEXT(1, &GOpenGLRBOColor);
-    dglDeleteRenderbuffersEXT(1, &GOpenGLRBODepth);
-    GOpenGLFBO = GOpenGLRBOColor = GOpenGLRBODepth = 0;
-    SDL_GL_DeleteContext(GSDLGLContext);
+  GSDLGLContext = SDL_GL_CreateContext(GSDLWindow);
+  if (!GSDLGLContext) {
+    mprintf(0, "OpenGL: OpenGL context creation failed: %s", SDL_GetError());
     SDL_DestroyWindow(GSDLWindow);
-    GSDLGLContext = NULL;
     GSDLWindow = NULL;
     return 0;
   }
@@ -857,10 +740,9 @@ void opengl_Close(const bool just_resizing) {
     SDL_GL_MakeCurrent(NULL, NULL);
     SDL_GL_DeleteContext(GSDLGLContext);
     GSDLGLContext = NULL;
-    GOpenGLFBOWidth = GOpenGLFBOHeight = GOpenGLFBO = GOpenGLRBOColor = GOpenGLRBODepth = 0;
   }
 
-  if (!just_resizing && GSDLWindow) {
+  if (GSDLWindow) {
     SDL_DestroyWindow(GSDLWindow);
     GSDLWindow = NULL;
   }
@@ -1525,7 +1407,7 @@ void gpu_BindTexture(int handle, int map_type, int slot) {
 void gpu_RenderPolygon(PosColorUVVertex *vData, uint32_t nv) {
   dglVertexPointer(3, GL_FLOAT, sizeof(*vData), &vData->pos);
   dglColorPointer(4, GL_FLOAT, sizeof(*vData), &vData->color);
-  // oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
+  oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
   dglTexCoordPointer(4, GL_FLOAT, sizeof(*vData), &vData->uv);
 
   if (gpu_state.cur_texture_quality == 0) {
@@ -1533,7 +1415,7 @@ void gpu_RenderPolygon(PosColorUVVertex *vData, uint32_t nv) {
     dglDisableClientState(GL_TEXTURE_COORD_ARRAY);
   }
 
-  // oglClientActiveTextureARB(GL_TEXTURE0_ARB + 1);
+  oglClientActiveTextureARB(GL_TEXTURE0_ARB + 1);
   dglDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
   // draw the data in the arrays
@@ -1541,7 +1423,7 @@ void gpu_RenderPolygon(PosColorUVVertex *vData, uint32_t nv) {
 
   if (gpu_state.cur_texture_quality == 0) {
     // re-enable textures
-    // oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
+    oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
     dglEnableClientState(GL_TEXTURE_COORD_ARRAY);
   }
 
@@ -1552,9 +1434,9 @@ void gpu_RenderPolygon(PosColorUVVertex *vData, uint32_t nv) {
 void gpu_RenderPolygonUV2(PosColorUV2Vertex *vData, uint32_t nv) {
   dglVertexPointer(3, GL_FLOAT, sizeof(*vData), &vData->pos);
   dglColorPointer(4, GL_FLOAT, sizeof(*vData), &vData->color);
-  // oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
+  oglClientActiveTextureARB(GL_TEXTURE0_ARB + 0);
   dglTexCoordPointer(4, GL_FLOAT, sizeof(*vData), &vData->uv0);
-  // oglClientActiveTextureARB(GL_TEXTURE0_ARB + 1);
+  oglClientActiveTextureARB(GL_TEXTURE0_ARB + 1);
   dglEnableClientState(GL_TEXTURE_COORD_ARRAY);
   dglTexCoordPointer(4, GL_FLOAT, sizeof(*vData), &vData->uv1);
 
@@ -1715,39 +1597,8 @@ void rend_Flip(void) {
   OpenGL_polys_drawn = 0;
   OpenGL_verts_processed = 0;
 
-  // if we're rendering to an FBO, scale to the window framebuffer!
-  if (GOpenGLFBO != 0) {
-    int w, h;
-    SDL_GL_GetDrawableSize(GSDLWindow, &w, &h);
-
-    int scaledHeight, scaledWidth;
-    if (w < h) {
-      scaledWidth = w;
-      scaledHeight = (int)(((((double)GOpenGLFBOHeight) / ((double)GOpenGLFBOWidth))) * ((double)w));
-    } else {
-      scaledHeight = h;
-      scaledWidth = (int)(((((double)GOpenGLFBOWidth) / ((double)GOpenGLFBOHeight))) * ((double)h));
-    }
-
-    const int centeredX = (w - scaledWidth) / 2;
-    const int centeredY = (h - scaledHeight) / 2;
-
-    dglBindFramebufferEXT(GL_DRAW_FRAMEBUFFER_EXT, 0);
-    dglClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    dglClear(GL_COLOR_BUFFER_BIT); // in case the Steam Overlay wrote to places we don't blit over.
-    dglBlitFramebufferEXT(0, 0, GOpenGLFBOWidth, GOpenGLFBOHeight, centeredX, centeredY, centeredX + scaledWidth,
-                          centeredY + scaledHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-    dglBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-  }
-
   SDL_GL_SwapWindow(GSDLWindow);
 
-  // go back to drawing on the FBO until we want to blit to the window framebuffer again.
-  if (GOpenGLFBO != 0) {
-    dglBindFramebufferEXT(GL_FRAMEBUFFER_EXT, GOpenGLFBO);
-    dglViewport(0, 0, GOpenGLFBOWidth, GOpenGLFBOHeight);
-    dglScissor(0, 0, GOpenGLFBOWidth, GOpenGLFBOHeight);
-  }
 
 #ifdef __PERMIT_GL_LOGGING
   if (__glLog == true) {
@@ -2179,7 +2030,6 @@ void rend_TransformSetToPassthru(void) {
 
   // Viewport
   dglViewport(0, 0, width, height);
-  dglScissor(0, 0, width, height);
 
   // ModelView
   dglMatrixMode(GL_MODELVIEW);
