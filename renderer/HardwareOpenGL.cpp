@@ -190,7 +190,15 @@ void opengl_GetDLLFunctions(void) {
     goto dll_error;
 #else
 #define mod_GetSymbol(x, funcStr, y) __SDL_mod_GetSymbol(funcStr)
-
+#ifdef EMSCRIPTEN
+  oglActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC)gl4es_glActiveTexture;
+  oglClientActiveTextureARB =
+      (PFNGLCLIENTACTIVETEXTUREARBPROC)gl4es_glClientActiveTexture;
+  oglMultiTexCoord4f = (PFNGLMULTITEXCOORD4FARBPROC)gl4es_glMultiTexCoord4f;
+  if (oglActiveTextureARB == NULL || oglClientActiveTextureARB == NULL || oglMultiTexCoord4f == NULL) {
+    goto dll_error;
+  }
+#else
   oglActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC)mod_GetSymbol(OpenGLDLLHandle, "glActiveTextureARB", 255);
   oglClientActiveTextureARB =
       (PFNGLCLIENTACTIVETEXTUREARBPROC)mod_GetSymbol(OpenGLDLLHandle, "glClientActiveTextureARB", 255);
@@ -201,6 +209,7 @@ void opengl_GetDLLFunctions(void) {
   if (oglActiveTextureARB == NULL || oglClientActiveTextureARB == NULL || oglMultiTexCoord4f == NULL) {
     goto dll_error;
   }
+#endif
 #undef mod_GetSymbol
 #endif
 

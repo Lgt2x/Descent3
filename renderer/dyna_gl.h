@@ -30,8 +30,8 @@
 #include "gl4es/include/GL/gl.h"
 #include "gl4es/include/GL/glext.h"
 
-// extern "C" void gl4es_glActiveTextureARB(GLenum texture);
-// extern "C" void gl4es_glClientActiveTextureARB(GLenum texture);
+extern "C" void gl4es_glActiveTexture(GLenum texture);
+extern "C" void gl4es_glClientActiveTexture(GLenum texture);
 extern "C" void gl4es_glMultiTexCoord4f(GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
 extern "C" void gl4es_glMultiTexCoord4fARB(GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
 extern "C" void gl4es_glAlphaFunc(GLenum func, GLclampf ref);
