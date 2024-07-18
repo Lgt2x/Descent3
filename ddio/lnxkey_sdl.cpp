@@ -390,7 +390,7 @@ int sdlKeyFilter(const SDL_Event *event) {
         if (flags & SDL_WINDOW_FULLSCREEN) {
           flags &= ~SDL_WINDOW_FULLSCREEN_DESKTOP;
         } else {
-          flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+          flags |= SDL_WINDOW_FULLSCREEN;
         }
         SDL_SetWindowFullscreen(GSDLWindow, flags);
         return(0);
