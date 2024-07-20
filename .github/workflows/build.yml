@@ -87,7 +87,7 @@ jobs:
         run: cmake --build --preset ${{ matrix.os.preset }} --config ${{ matrix.build_type }} --verbose
 
       - name: Run ${{ matrix.build_type }} Unittests
-        run: ctest --preset ${{ matrix.os.preset }} --config ${{ matrix.build_type }}
+        run: ctest --preset ${{ matrix.os.preset }} -C ${{ matrix.build_type }}
 
       - name: Local install
         # There no cmake install presets so install in traditional way
@@ -95,6 +95,10 @@ jobs:
 
       - name: Package
         run: cmake --build --preset ${{ matrix.os.preset }} --config ${{ matrix.build_type }} --target package
+
+      - name: Copy Package Windows
+        run: copy builds\win\Descent3Installer.exe builds\win\installed
+        if: ${{ matrix.os.runner == 'windows-latest' }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
