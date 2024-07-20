@@ -237,3 +237,19 @@ add_subdirectory(tools)
 add_subdirectory(netcon)
 add_subdirectory(netgames)
 add_subdirectory(scripts)
+
+# Game packaging
+set(CPACK_PACKAGE_NAME "Descent 3 Open Source")
+set(CPACK_PACKAGE_VENDOR "Descent Developpers")
+set(CPACK_PACKAGE_DESCRIPTION "WARNING: This distribution does not include game data, which need to be obtained from official sources to run the game.")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Descent 3 Open Source community port")
+set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/DescentDevelopers/Descent3/")
+set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/LICENSE)
+set(CPACK_PACKAGE_FILE_NAME Descent3Installer)
+
+# Windows-specific installer
+set(CPACK_NSIS_MUI_ICON ${CMAKE_SOURCE_DIR}/Descent3/Descent3.ico)
+set(CPACK_NSIS_WELCOME_TITLE_3LINES ON)
+set(CPACK_NSIS_WELCOME_TITLE "Descent 3 Community port\\\\nWarning: This distribution does not include game data")
+
+include(CPack)

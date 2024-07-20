@@ -3,11 +3,10 @@ name: Descent 3 Build
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: [ "*" ]
     paths-ignore:
       - '**/README.md'
       - '**/LICENSE'
-      - '**/.github/**'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
@@ -88,11 +87,14 @@ jobs:
         run: cmake --build --preset ${{ matrix.os.preset }} --config ${{ matrix.build_type }} --verbose
 
       - name: Run ${{ matrix.build_type }} Unittests
-        run: ctest --preset ${{ matrix.os.preset }} -C ${{ matrix.build_type }}
+        run: ctest --preset ${{ matrix.os.preset }} --config ${{ matrix.build_type }}
 
       - name: Local install
         # There no cmake install presets so install in traditional way
         run: cmake --install builds/${{ matrix.os.preset }}/ --config ${{ matrix.build_type }}
+
+      - name: Package
+        run: cmake --build --preset ${{ matrix.os.preset }} --config ${{ matrix.build_type }} --target package
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
