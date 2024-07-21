@@ -19,7 +19,7 @@ set(CPPS
 )
 add_library(ddio STATIC ${CPPS})
 target_link_libraries(ddio PRIVATE
-  ${SDL2_LIBRARIES}
+  $<$<PLATFORM_ID:Linux>:$<$<PLATFORM_ID:Linux>:SDL2::SDL2>>
   ddebug
   mem
   misc

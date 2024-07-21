@@ -297,7 +297,7 @@ file(GLOB_RECURSE INCS "../lib/*.h")
 add_executable(Descent3 WIN32 ${HEADERS} ${CPPS} ${INCS} ${MANIFEST})
 target_link_libraries(Descent3 PRIVATE
   2dlib AudioEncode bitmap cfile czip d3music dd_video ddebug ddio libmve libacm
-  fix grtext manage mem misc model module movie stream_audio linux 
+  fix grtext manage mem misc model module movie stream_audio linux $<$<PLATFORM_ID:Linux>:SDL2::SDL2>
   music networking physics renderer rtperformance sndlib ui unzip vecmat md5
   ${PLATFORM_LIBS})
 target_include_directories(Descent3 PRIVATE ${PROJECT_BINARY_DIR}/lib)

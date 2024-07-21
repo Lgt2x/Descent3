@@ -26,7 +26,10 @@ target_link_libraries(renderer PRIVATE
   ddio
   mem
   misc
-  GL
+  $<$<PLATFORM_ID:Linux>:SDL2::SDL2>
 )
 
-target_include_directories(renderer PUBLIC ${CMAKE_SOURCE_DIR}/gl4es/include)
+if(EMSCRIPTEN)
+  target_include_directories(renderer PUBLIC ${CMAKE_SOURCE_DIR}/gl4es/include)
+  target_link_libraries(renderer PRIVATE GL)
+endif()
