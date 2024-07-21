@@ -246,9 +246,22 @@ endif()
 
 add_subdirectory(Descent3)
 
-if (NOT EMSCRIPTEN)
-  add_subdirectory(tools)
-  add_subdirectory(netcon)
-  add_subdirectory(netgames)
-  add_subdirectory(scripts)
+# Always build HogMaker natively. Build it as external project, 
+include(ExternalProject)
+ExternalProject_Add(HogMaker
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/tools
+    BINARY_DIR ${CMAKE_BINARY_DIR}/tools
+    INSTALL_COMMAND ""
+    CMAKE_CACHE_ARGS
+      -DCMAKE_TOOLCHAIN_FILE:FILEPATH=${CMAKE_SOURCE_DIR}/cmake/nativetoolchain.cmake # FIXME: use VCPKG.cmake
+)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  set(HogMakerBin ${CMAKE_BINARY_DIR}/tools/HogMakerBin.exe)
+else()
+  set(HogMakerBin ${CMAKE_BINARY_DIR}/tools/HogMakerBin)
 endif()
+
+add_subdirectory(tools)
+add_subdirectory(netcon)
+add_subdirectory(netgames)
+add_subdirectory(scripts)

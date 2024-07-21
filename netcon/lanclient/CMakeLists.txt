@@ -11,14 +11,13 @@ target_link_libraries(Direct_TCP_IP PRIVATE
   $<$<PLATFORM_ID:Windows>:ws2_32>
 )
 
-# add_custom_target(Direct_TCP_IP_Hog
-#   COMMAND $<TARGET_FILE:HogMaker>
-#   "$<TARGET_FILE_DIR:Descent3>/online/Direct TCP~IP.d3c"
-#   "${CMAKE_SOURCE_DIR}/netcon/lanclient/TCP_IP.d3c.txt"
-#   "${CMAKE_SOURCE_DIR}/scripts/data/fullhog/"
-#   "$<TARGET_FILE_DIR:Direct_TCP_IP>"
-
-#   DEPENDS Direct_TCP_IP HogMaker
-#   COMMENT "Generate 'Direct TCP~IP.d3c'"
-# )
+add_custom_target(Direct_TCP_IP_Hog
+  COMMAND ${HogMakerBin}
+  "$<TARGET_FILE_DIR:Descent3>/online/Direct TCP~IP.d3c"
+  "${CMAKE_SOURCE_DIR}/netcon/lanclient/TCP_IP.d3c.txt"
+  "${CMAKE_SOURCE_DIR}/scripts/data/fullhog/"
+  "$<TARGET_FILE_DIR:Direct_TCP_IP>"
+  DEPENDS Direct_TCP_IP HogMaker
+  COMMENT "Generate 'Direct TCP~IP.d3c'"
+)
 install(FILES "$<TARGET_FILE_DIR:Descent3>/online/Direct TCP~IP.d3c" DESTINATION ${CMAKE_INSTALL_DATADIR}/online)
