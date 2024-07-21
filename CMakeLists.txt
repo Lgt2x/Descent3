@@ -58,6 +58,7 @@ endif()
 if(EMSCRIPTEN)
   add_compile_options(--use-port=zlib -sUSE_SDL=2)
   add_link_options(--use-port=zlib -sUSE_SDL=2)
+  add_subdirectory(emscripten)
 endif()
 
 include(GNUInstallDirs)

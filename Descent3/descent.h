@@ -205,7 +205,11 @@ void WinMainInitEditor(unsigned hwnd, unsigned hinst);
 void Descent3();
 
 //	Runs the game, or editor
+#ifdef __EMSCRIPTEN__
 void MainLoop();
+#else
+bool MainLoop();
+#endif
 
 //	the defer handler
 void D3DeferHandler(bool is_active);

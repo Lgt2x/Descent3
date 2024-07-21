@@ -1,5 +1,5 @@
 /*
-* Descent 3 
+* Descent 3
 * Copyright (C) 2024 Parallax Software
 *
 * This program is free software: you can redistribute it and/or modify
@@ -386,6 +386,10 @@
 #include <filesystem>
 #include <vector>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 #include "pserror.h"
 #include "grdefs.h"
 #include "mono.h"
@@ -505,7 +509,29 @@ void Descent3() {
 
     SetFunctionMode(MENU_MODE);
 
-    MainLoop();
+#ifdef __EMSCRIPTEN__
+    emscripten_set_main_loop(MainLoop, 0, 1);
+#else
+    while (MainLoop() == 0) {
+    }
+#endif
+
+    // Clean up these items so we don't report them as leaked memory
+    Sound_system.KillSoundLib(true);
+    for (int a = 0; a < MAX_PLAYERS; a++) {
+      Players[a].inventory.Reset(false, INVRESET_ALL);
+      Players[a].counter_measures.Reset(false, INVRESET_ALL);
+    }
+
+#if defined(OEM)
+    if (!Dedicated_server)
+      ShowStaticScreen("oemupsell.ogf");
+#elif defined(DEMO)
+    if (!Dedicated_server)
+      ShowStaticScreen("upsell.ogf");
+#endif
+    FreeMultiDLL();
+    SetScreenMode(SM_NULL);
 
     // delete the lock file in the temp directory (as long as it belongs to us)
     if (!ddio_DeleteLockFile(std::filesystem::path(Descent3_temp_directory))) {
@@ -531,71 +557,64 @@ extern int max_one_second;
 
 // #endif
 
+#ifdef __EMSCRIPTEN__
 void MainLoop() {
+#else
+bool MainLoop() {
+#endif
   int exit_game = 0;
 
-  while (!exit_game) {
-    if (Dedicated_server && !(Function_mode == GAME_MODE || Function_mode == QUIT_MODE))
-      SetFunctionMode(GAME_MODE);
+  if (Dedicated_server && !(Function_mode == GAME_MODE || Function_mode == QUIT_MODE))
+    SetFunctionMode(GAME_MODE);
 
-    switch (Function_mode) {
-    case QUIT_MODE:
-      exit_game = 1;
-      break;
-    case MENU_MODE:
-      exit_game = MainMenu();
-      break;
-    case RESTORE_GAME_MODE: // do special sequencing for load games.
-      SetGameState(GAMESTATE_LOADGAME);
-      PlayGame();
-      break;
+  switch (Function_mode) {
+  case QUIT_MODE:
+    exit_game = 1;
+    break;
+  case MENU_MODE:
+    exit_game = MainMenu();
+    break;
+  case RESTORE_GAME_MODE: // do special sequencing for load games.
+    SetGameState(GAMESTATE_LOADGAME);
+    PlayGame();
+    break;
 
-    case GAME_MODE:
-      SetGameState(GAMESTATE_NEW);
-      PlayGame(); // Does what is says.
-      break;
-    case LOADDEMO_MODE:
-      SetGameState(GAMESTATE_LOADDEMO);
-      PlayGame();
-      break;
-    case CREDITS_MODE:
-      Credits_Display();
-      Function_mode = MENU_MODE;
-      break;
-    case GAMEGAUGE_MODE:
-      break;
+  case GAME_MODE:
+    SetGameState(GAMESTATE_NEW);
+    PlayGame(); // Does what is says.
+    break;
+  case LOADDEMO_MODE:
+    SetGameState(GAMESTATE_LOADDEMO);
+    PlayGame();
+    break;
+  case CREDITS_MODE:
+    Credits_Display();
+    Function_mode = MENU_MODE;
+    break;
+  case GAMEGAUGE_MODE:
+    break;
 #ifdef EDITOR
-    case EDITOR_GAME_MODE: // run level and then instead of menus, go to editor.
-      QuickPlayGame();
-      Function_mode = EDITOR_MODE;
-      break;
-    case EDITOR_MODE:
-      SetScreenMode(SM_NULL);
-      exit_game = 1; // this MainLoop call should be issued from editor, so
-                     // this should just return to the editor
-      break;
+  case EDITOR_GAME_MODE: // run level and then instead of menus, go to editor.
+    QuickPlayGame();
+    Function_mode = EDITOR_MODE;
+    break;
+  case EDITOR_MODE:
+    SetScreenMode(SM_NULL);
+    exit_game = 1; // this MainLoop call should be issued from editor, so
+                   // this should just return to the editor
+    break;
 #endif
-
-    default:
-      Int3(); // Bogus function mode
-    }
-  }
-  // Clean up these items so we don't report them as leaked memory
-  Sound_system.KillSoundLib(true);
-  for (int a = 0; a < MAX_PLAYERS; a++) {
-    Players[a].inventory.Reset(false, INVRESET_ALL);
-    Players[a].counter_measures.Reset(false, INVRESET_ALL);
+  default:
+    Int3(); // Bogus function mode
   }
 
-#if defined(OEM)
-  if (!Dedicated_server)
-    ShowStaticScreen("oemupsell.ogf");
-#elif defined(DEMO)
-  if (!Dedicated_server)
-    ShowStaticScreen("upsell.ogf");
+#ifdef __EMSCRIPTEN__
+  if (exit_game == 1) {
+    emscripten_cancel_main_loop(); /* this should "kill" the app. */
+  }
+#else
+  return exit_game;
 #endif
-  FreeMultiDLL();
-  SetScreenMode(SM_NULL);
 }
 
 #if (defined(OEM) || defined(DEMO) || defined(RELEASE))
