@@ -3,16 +3,8 @@ name: Descent 3 Build
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
-    paths-ignore:
-      - '**/README.md'
-      - '**/LICENSE'
-      - '**/.github/**'
-  pull_request:
-    branches: [ "main" ]
-    paths-ignore:
-      - '**/README.md'
-      - '**/LICENSE'
+    branches: [ "*" ]
+
 
 jobs:
   build:
