@@ -1422,17 +1422,13 @@ void InitIOSystems(bool editor) {
 
   Descent->set_defer_handler(D3DeferHandler);
 
-#ifndef RELEASE
-  if (!editor && !FindArg("-windowed")) {
+  if (!editor && !FindArgChar("-windowed", 'w')) {
     if (Dedicated_server) {
       ddio_MouseMode(MOUSE_STANDARD_MODE);
     } else {
       ddio_MouseMode(MOUSE_EXCLUSIVE_MODE);
     }
   }
-#else
-  ddio_MouseMode(MOUSE_EXCLUSIVE_MODE);
-#endif
 
   //	do io init stuff
   io_info.obj = Descent;
@@ -2128,7 +2124,7 @@ void RestartD3() {
 
   mprintf(0, "Restarting D3...\n");
 
-  if (!FindArg("-windowed")) {
+  if (!FindArgChar("-windowed", 'w')) {
     if (Dedicated_server) {
       ddio_MouseMode(MOUSE_STANDARD_MODE);
     } else {
