@@ -2557,10 +2557,6 @@ void GameRenderFrame(void) {
   if (Dedicated_server)
     return;
 
-#ifndef RELEASE
-  Mine_depth = 0;
-#endif
-
   // increase our timing for the powerup sparkles, used globally by all
   Last_powerup_sparkle_time += Frametime;
 

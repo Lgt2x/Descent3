@@ -121,9 +121,7 @@ bool Render_inside_only = 0;
 #define Shell_render_flag 0
 #endif
 
-#ifndef RELEASE
-int Mine_depth;
-#endif
+
 #ifndef EDITOR
 #define Search_lightmaps 0
 #else  // ifndef EDITOR
@@ -800,9 +798,7 @@ void BuildRoomListSub(int start_room_num, clip_wnd *wnd, int depth) {
   }
 
   ASSERT(N_render_rooms < MAX_RENDER_ROOMS);
-#ifndef RELEASE
-  Mine_depth++;
-#endif
+
   Rooms_visited[start_room_num] = 1;
   Room_depth_list[start_room_num] = depth;
   // If this room is a closed (non-seethrough) door, don't check any of its portals,

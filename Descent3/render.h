@@ -190,9 +190,6 @@ extern bool Render_inside_only;
 #endif
 extern int16_t use_opengl_1555_format; // DAJ
 
-#ifndef RELEASE
-extern int Mine_depth;
-#endif
 // Macro for checking Outline mode
 #define OUTLINE_ON(flag) ((Outline_mode & (flag + OM_ON)) == (flag + OM_ON))
 
