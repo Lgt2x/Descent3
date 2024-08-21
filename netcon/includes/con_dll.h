@@ -1038,8 +1038,7 @@ int StartMultiplayerGameMenu() {
     });
   }
 
-#ifdef RELEASE
-  // TODO: Make sure the main mission is always listed -- even on a minimal install
+  // Make sure the main mission is always listed
   if (!FindMsnItem("Descent 3: Retribution")) {
     mi = (msn_list *)DLLmem_malloc(sizeof(msn_list));
 
@@ -1049,7 +1048,7 @@ int StartMultiplayerGameMenu() {
     mi->ti = DLLCreateNewUITextItem(mi->msn_name, UICOL_LISTBOX_LO);
     DLLListAddItem(list_1, mi->ti);
   }
-#endif
+
   const char *p;
 #else
   void *msn_single_ti = DLLCreateNewUITextItem("Polaris", UICOL_LISTBOX_LO);
