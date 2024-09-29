@@ -131,7 +131,7 @@ class HogReader:
             )
 
     def read_string(self, size):
-        return self.read_bytes(size).decode("ascii").rstrip("\x00").strip()
+        return self.read_bytes(size).decode("ascii", "ignore").rstrip("\x00").strip()
 
     def read_int32(self):
         return unpack(ENDIANNESS + "i", self.read_bytes(4))[0]
@@ -163,5 +163,5 @@ if __name__ == "__main__":
             reader.extract(extracted_files)
         elif action == actions[2]:
             reader = HogReader()
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"Error {e.args}")
