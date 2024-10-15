@@ -1364,8 +1364,6 @@ float sdlgameController::get_trigger_value(int8_t controller, uint8_t axis, ct_f
     LOG_WARNING << "unsupported format for function sdlgameController::get_trigger_value.";
   }
 
-  LOG_DEBUG << "Axis " << axis << " value is " << val << " raw " << axisval;
-
   return val;
 }
 //	do some pov stuff
