@@ -161,14 +161,14 @@ cmake ..
 make HogMaker
 ```
 
-Now you ready for cross-compilation. Create cross-compile directory and configure project in it, but this time add
+Now, you are ready for cross-compilation. Create a new cross-compilation build directory and configure the project in it, but this time add
 `-DCMAKE_TOOLCHAIN_FILE=MyToolchain.cmake` and `-DHogMaker_DIR=<path-to-Descent3/build-native/` options. This enables
 cross-compilation environment.
 
 ```shell
 mkdir build-cross
 cd build-cross
-cmake -DCMAKE_TOOLCHAIN_FILE=MyToolchain.cmake -DHogMaker_DIR=~/src/build-native/ ..
+cmake -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/MyToolChain.cmake -DHogMaker_DIR=../build-native/ ..
 make
 ```
 

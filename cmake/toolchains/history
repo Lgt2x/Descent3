@@ -1,0 +1,289 @@
+history
+
+root@eb45941eb940:/Descent3/build-cross# history
+    1  sudo apt install -y --no-install-recommends git ninja-build g++ ca-certificates gpg wget curl pkg-config autoconf automake libtool libltdl-dev make python3-jinja2 libx11-dev libxft-dev libxext-dev libwayland-dev libxkbcommon-dev libegl1-mesa-dev libibus-1.0-dev libasound2-dev libpulse-dev libaudio-dev libjack-dev libsndio-dev curl zip unzip tar
+    2  test -f /usr/share/doc/kitware-archive-keyring/copyright || wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
+    3  echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
+    4  sudo apt update
+    5  sudo apt install cmake
+    6  git clone https://github.com/microsoft/vcpkg
+    7  export VCPKG_ROOT="$PWD/vcpkg"
+    8  git clone https://github.com/DescentDevelopers/Descent3
+    9  cd Descent3
+   10  sudo
+   11  apt install -y --no-install-recommends git ninja-build g++ ca-certificates gpg wget curl pkg-config autoconf automake libtool libltdl-dev make python3-jinja2 libx11-dev libxft-dev libxext-dev libwayland-dev libxkbcommon-dev libegl1-mesa-dev libibus-1.0-dev libasound2-dev libpulse-dev libaudio-dev libjack-dev libsndio-dev curl zip unzip tar
+   12  test -f /usr/share/doc/kitware-archive-keyring/copyright || wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
+   13  echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | tee /etc/apt/sources.list.d/kitware.list >/dev/null
+   14  apt update
+   15  apt install cmake
+   16  git clone https://github.com/microsoft/vcpkg
+   17  export VCPKG_ROOT="$PWD/vcpkg"
+   18  git clone https://github.com/DescentDevelopers/Descent3
+   19  cd Descent3
+   20  apt update
+   21  apt install -y --no-install-recommends git ninja-build g++ ca-certificates gpg wget curl pkg-config autoconf automake libtool libltdl-dev make python3-jinja2 libx11-dev libxft-dev libxext-dev libwayland-dev libxkbcommon-dev libegl1-mesa-dev libibus-1.0-dev libasound2-dev libpulse-dev libaudio-dev libjack-dev libsndio-dev curl zip unzip tar
+   22  test -f /usr/share/doc/kitware-archive-keyring/copyright || wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
+   23  echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | tee /etc/apt/sources.list.d/kitware.list >/dev/null
+   24  apt update
+   25  apt install cmake
+   26  git clone https://github.com/microsoft/vcpkg
+   27  export VCPKG_ROOT="$PWD/vcpkg"
+   28  git clone https://github.com/DescentDevelopers/Descent3
+   29  cd Descent3
+   30  cmake
+   31  apt install cmake
+   32  apt install libssl
+   33  apt update
+   34  apt upgrade
+   35  apt dist-upgrade
+   36  apt install cmake
+   37  sudo apt-get update
+   38  sudo apt-get install ca-certificates gpg wget
+   39  apt-get update
+   40  apt-get install ca-certificates gpg wget
+   41  test -f /usr/share/doc/kitware-archive-keyring/copyright || wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
+   42  test -f /usr/share/doc/kitware-archive-keyring/copyright || wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
+   43  echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
+   44  sudo apt-get update
+   45  echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main' | tee /etc/apt/sources.list.d/kitware.list >/dev/null
+   46  apt-get install kitware-archive-keyring
+   47  apt install cmake
+   48  git clone https://github.com/microsoft/vcpkg
+   49  export VCPKG_ROOT="$PWD/vcpkg"
+   50  git clone https://github.com/DescentDevelopers/Descent3
+   51  cd Descent3
+   52  sudo apt install gcc make gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
+   53  apt install gcc make gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
+   54  mkdir build-native
+   55  cd build-native/
+   56  cmake ..
+   57  make HogMaker
+   58  cmake ..
+   59  make
+   60  cd ../..
+   61  l
+   62  cd ..
+   63  rm -fr Descent3/
+   64  git clone https://github.com/DescentDevelopers/Descent3
+   65  mkdir build-native
+   66  cd build-native/
+   67  cmake ..
+   68  cd Des
+   69  cd ../Descent3/
+   70  mkdir build-native
+   71  cd build-native/
+   72  cmake ..
+   73  cd ../..
+   74  rm -fr Descent3/
+   75  git clone https://github.com/winterheart/Descent3/tree/cfile-multisearch
+   76  git clone https://github.com/winterheart/Descent3
+   77  cd Descent3/
+   78  git checkout cfile-multisearch
+   79  git log
+   80  mkdir build-native
+   81  cd build-native/
+   82  cmake ..
+   83  cd ..
+   84  git clone https://github.com/microsoft/vcpkg
+   85  cmake ..
+   86  cd -
+   87  cmake ..
+   88  submodule
+   89  git submodule update --init --recursive
+   90  cmake ..
+   91  make HogMaker
+   92  l
+   93  l tools/
+   94  cd ..
+   95  mkdir build-cross
+   96  cd build-cross/
+   97  cmake -DCMAKE_TOOLCHAIN_FILE=../../cmake/toolchains/linux-arm-clang-toolchain.cmake  -DHogMaker_DIR=../build-native/ -S ../..
+   98  cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchains/linux-arm-clang-toolchain.cmake  -DHogMaker_DIR=../build-native/ -S ..
+   99  nano ../cmake/toolchains/linux-arm-clang-toolchain.cmake
+  100  apt install nano
+  101  nano ../cmake/toolchains/linux-arm-clang-toolchain.cmake
+  102  mkdir ../cmake/toolchains
+  103  nano ../cmake/toolchains/linux-arm-clang-toolchain.cmake
+  104  ls /usr/aarch64-linux-gnu/
+  105  ls /usr/aarch64-linux-gnu/bin/
+  106  aarch64-linux-gnu-gcc
+  107  nano ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  108  nano ../cmake/toolchains/vcpkg-triplet-aarch64.cmake
+  109  cat ../vcpkg/triplets/community/arm64-linux.cmake
+  110  nano ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  111  cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake -DHogMaker_DIR=../build-native/
+  112  cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake -DHogMaker_DIR=../build-native/ ..
+  113  cat ./cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  114  cat ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  115  cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake -DHogMaker_DIR=../build-native/ ..
+  116  cat ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  117  cmake -DCMAKE_TOOLCHAIN_FILE="../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  118  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  119  aarch64-linux-gnu-g++
+  120  history
+  121  aarch64-linux-gnu-gcc
+  122  aarch64-linux-gnu-g++
+  123  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  124  file /usr/aarch64-linux-gnu/lib/ld-linux-aarch64.so.1
+  125  file /usr/aarch64-linux-gnu/lib/
+  126* ls /usr/aarch64-linux-gnu/lib/libc
+  127  nano ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  128  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  129  ls /usr/aarch64-linux-gnu/lib/libc.so.6
+  130  file /usr/aarch64-linux-gnu/lib/libc.so.6
+  131  nano ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  132  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  133  nano ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  134  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  135  nano ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  136  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  137  nano ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  138  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  139  which aarch64-linux-gnu-g++
+  140  nano ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  141  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  142  aarch64-linux-gnu-g++
+  143  aarch64-linux-gnu-gcc
+  144  apt install gcc make g++-aarch64-linux-gnu
+  145  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  146  nano ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  147  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  148  /usr/bin/aarch64-linux-gnu-g++
+  149  nano ../cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  150  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  151  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  152  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  153  clear
+  154  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  155  nano ../CMakeLists.txt
+  156  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  157  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  158  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  159  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  160  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  161  nano ../CMakeLists.txt
+  162  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  163  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  164  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  165  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  166  cmake --build .
+  167  cmake --build . -j8
+  168  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ ..
+  169  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  170  nano $VCPKG_ROOT/triplets/arm64-linux-d3
+  171  nano $VCPKG_ROOT/triplets/arm64-linux-d3.cmake
+  172  git status
+  173  git reset ../CMakeLists.txt
+  174  git status
+  175  git restore ../CMakeLists.txt
+  176  git status
+  177  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TRIPLET=arm64-linux ..
+  178  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  179  /bin/aarch64-linux-gnu-g++
+  180  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  181  c /Descent3/vcpkg/buildtrees/dbus/config-arm64-linux-out.log
+  182  less /Descent3/vcpkg/buildtrees/dbus/config-arm64-linux-out.log
+  183  apt install less
+  184  less /Descent3/vcpkg/buildtrees/dbus/config-arm64-linux-out.log
+  185  nano ../vcpkg/ports/dbus/portfile.cmake
+  186  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  187  less /Descent3/vcpkg/buildtrees/dbus/config-arm64-linux-out.log
+  188  nano ../vcpkg/ports/dbus/portfile.cmake
+  189  nano ../vcpkg/ports/dbus/cmake-tempdir.patch
+  190  nano ../vcpkg/ports/dbus/portfile.cmake
+  191  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  192  less /Descent3/vcpkg/buildtrees/dbus/config-arm64-linux-out.log
+  193  ../vcpkg/vcpkg update
+  194  nano ../vcpkg/ports/dbus/portfile.cmake
+  195  nano ../vcpkg/ports/dbus/cmake-tempdir.patch
+  196  nano ../vcpkg/ports/dbus/portfile.cmake
+  197  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  198  nano ../vcpkg/ports/dbus/portfile.cmake
+  199  locate
+  200  apt install plocate
+  201  locate portfile.cmake
+  202  locate portfile.cmake | grep dbus
+  203  echo $VCPKG_ROOT/
+  204  rm -fr /vcpkg/
+  205  rm -fr /Descent3/vcpkg/buildtrees/versioning_/versions/dbus/ce28359a2d828a06b421d8a7b3841f83d98f0ed4/
+  206  rm -fr /Descent3/vcpkg/buildtrees/dbus/
+  207  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  208  less /Descent3/vcpkg/buildtrees/dbus/config-arm64-linux-out.log
+  209  nano ../vcpkg/ports/dbus/portfile.cmake
+  210  mv ../vcpkg/ports/dbus/cmake-tempdir.patch ../vcpkg/ports/dbus/cmake.tempdir.patch
+  211  nano ../vcpkg/ports/dbus/portfile.cmake
+  212  sudo updatedb
+  213  updatedb
+  214  locate portfile.cmake | grep dbus
+  215  nano /Descent3/vcpkg/buildtrees/versioning_/versions/dbus/ce28359a2d828a06b421d8a7b3841f83d98f0ed4/portfile.cmake
+  216  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  217  nano /Descent3/vcpkg/buildtrees/versioning_/versions/dbus/ce28359a2d828a06b421d8a7b3841f83d98f0ed4/portfile.cmake
+  218  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  219  nano /Descent3/vcpkg/buildtrees/versioning_/versions/dbus/ce28359a2d828a06b421d8a7b3841f83d98f0ed4/portfile.cmake
+  220  locate getpeereid.patch
+  221  rm -fr /Descent3/vcpkg/buildtrees/versioning_/versions/dbus
+  222  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  223  less /Descent3/vcpkg/buildtrees/dbus/config-arm64-linux-out.log
+  224  nano ../vcpkg/ports/dbus/portfile.cmake
+  225  updatedb
+  226  locate portfile.cmake | grep dbus
+  227  nano /Descent3/vcpkg/buildtrees/versioning_/versions/dbus/ce28359a2d828a06b421d8a7b3841f83d98f0ed4/portfile.cmake
+  228  nano ../vcpkg/ports/dbus/portfile.cmake
+  229  nano /Descent3/vcpkg/buildtrees/versioning_/versions/dbus/ce28359a2d828a06b421d8a7b3841f83d98f0ed4/portfile.cmake
+  230  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  231  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  232  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  233  cd CMakeFiles/cmTC_0e2ca.dir/
+  234  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  235  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  236  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  237  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  238  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  239  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  240  cmake --build .
+  241  cmake --build . -j
+  242  ccmake .
+  243  apt install cmake-ncurses-gui
+  244  apt install cmake-curses-gui
+  245  ccmake .
+  246  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  247  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  248  cmake --build . -j
+  249  cmake --build . -k 0
+  250  make -v
+  251  make -V
+  252  make --trace
+  253  make --trace -j7
+  254  make --trace
+  255  make --trace -j7
+  256  updatedb
+  257  locate HogMakerConfig.cmake
+  258  nano tools/CMakeFiles/
+  259  nano ../tools/CMakeLists.txt
+  260  git remote get-url origin
+  261  git checkout cmake_install.cmake
+  262  git checkout cmake-makehogs
+  263  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  264  locate HogMakerConfig.cmake
+  265  apt install ranger
+  266  ranger .
+  267  cd ../build-native/
+  268  ccmake .
+  269  make install
+  270  make HogMaker
+  271  make install HogMaker
+  272  f
+  273  make install HogMaker
+  274  ranger
+  275  cd ../build-cross/
+  276  ranger
+  277  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DHogMaker_DIR=../build-native/ -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  278  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  279  nano ../tools/CMakeLists.txt
+  280  nano /Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake
+  281  ccmake .
+  282  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  283  nano ../tools/CMakeLists.txt
+  284  cmake -DCMAKE_TOOLCHAIN_FILE="/Descent3/cmake/toolchains/linux-aarch64-gcc-toolchain.cmake" -DVCPKG_TARGET_TRIPLET=arm64-linux ..
+  285  nano ../cmake/HogMaker.cmake
+  286  history

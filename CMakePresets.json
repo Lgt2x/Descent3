@@ -42,6 +42,31 @@
 				"lhs": "${hostSystemName}",
 				"rhs": "Linux"
 			}
+		},
+		{
+			"name": "linux-cross-arm",
+			"inherits": "defaults",
+			"generator": "Ninja Multi-Config",
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Linux"
+			},
+			"cacheVariables": {
+				"VCPKG_TARGET_TRIPLET": "arm64-linux",
+				"CMAKE_TOOLCHAIN_FILE": "${",
+				"DHogMaker_DIR"
+			},
+		},
+		{
+			"name": "linux",
+			"inherits": "defaults",
+			"generator": "Ninja Multi-Config",
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Linux"
+			}
 		}
 	],
 	"buildPresets": [
