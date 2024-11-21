@@ -1,4 +1,4 @@
-/*
+ /*
 * Descent 3 
 * Copyright (C) 2024 Parallax Software
 *
