@@ -93,7 +93,7 @@ static void joy_CloseStick(tJoystick joy);
 
 //	initializes a joystick
 //		if server_adr is valid, a link is opened to another machine with a controller.
-static bool joy_InitStick(tJoystick joy, char *server_adr);
+static bool joy_InitStick(tJoystick joy);
 
 //	---------------------------------------------------------------------------
 //	functions
@@ -114,12 +114,12 @@ bool joy_Init() {
 
   // rcg06182000 specific joystick support.
   if (specificJoy >= 0) {
-    joy_InitStick((tJoystick)specificJoy, nullptr);
+    joy_InitStick((tJoystick)specificJoy);
   } // if
   else {
     //	initialize joystick list
     for (int i = 0; i < MAX_JOYSTICKS; i++) {
-      joy_InitStick((tJoystick)i, nullptr);
+      joy_InitStick((tJoystick)i);
     }
   } // else
   return true;
@@ -134,15 +134,10 @@ void joy_Close() {
 }
 
 //	initializes a joystick
-//		if server_adr is valid, a link is opened to another machine with a controller.
-static bool joy_InitStick(tJoystick joy, char *server_adr) {
+static bool joy_InitStick(tJoystick joy) {
   //	close down already open joystick.
   joy_CloseStick(joy);
 
-  //	okay, now if this is a remote joystick, open it
-  if (server_adr) {
-    return false;
-  }
   SDL_Joystick *stick = SDL_OpenJoystick(joy);
   Joysticks[joy].handle = stick;
   if (stick) {
