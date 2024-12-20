@@ -772,7 +772,7 @@ void sdlgameController::extctl_getpos(int id) {
 
   timer_val = timer_GetTime();
 
-  joy_GetRawPos((tJoystick)id, &ji);
+  joy_GetRawPos((tJoystick_id)id, &ji);
 
   // if(g_accum_frame_time == 0.0f) {
   m_ExtCtlStates[id].x = (int)ji.x;
@@ -893,7 +893,7 @@ bool sdlgameController::enum_controllers() {
     //	check if device is plugged in.
     if (joy_IsValid(dev)) {
       // query the joystick's capabilites to see if joystick is truly valid
-      joy_GetJoyInfo((tJoystick)dev, &jc);
+      joy_GetJoyInfo((tJoystick_id)dev, &jc);
 
       m_ControlList[num_devs].id = dev;
       m_ControlList[num_devs].buttons = jc.num_btns;

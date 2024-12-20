@@ -68,7 +68,6 @@
 #include <cstdint>
 
 //	joystick ids.  used to initialize a stick and get its position
-#define MAX_JOYSTICKS 8
 #define JOYPOV_NUM 4
 
 //	these flags tell what axes these controllers control.
@@ -94,7 +93,7 @@
 
 #define JOYAXIS_RANGE 256
 
-typedef int tJoystick;
+typedef int tJoystick_id;
 
 #define JOYSTICK_1 0
 #define JOYSTICK_2 1
@@ -107,9 +106,9 @@ typedef int tJoystick;
 
 struct tJoyInfo {
   char name[128];
-  unsigned axes_mask;
-  unsigned trigger_axis_mask;
-  unsigned num_btns;
+  uint32_t axes_mask;
+  uint32_t trigger_axis_mask;
+  uint32_t num_btns;
 };
 
 //	shared between joystick remote server and local client.
@@ -137,16 +136,16 @@ bool joy_Init();
 void joy_Close();
 
 //	retreive information about joystick.
-void joy_GetJoyInfo(tJoystick joy, tJoyInfo *info);
+void joy_GetJoyInfo(tJoystick_id joy, tJoyInfo *info);
 
 //	retreive position of joystick
-void joy_GetPos(tJoystick joy, tJoyPos *pos);
+void joy_GetPos(tJoystick_id joy, tJoyPos *pos);
 
 //	retreive uncalibrated position of joystick
-void joy_GetRawPos(tJoystick joy, tJoyPos *pos);
+void joy_GetRawPos(tJoystick_id joy, tJoyPos *pos);
 
 //	returns true if joystick valid
-bool joy_IsValid(tJoystick joy);
+bool joy_IsValid(tJoystick_id joy);
 
 // run by ddio_Frame
 void ddio_InternalJoyFrame();

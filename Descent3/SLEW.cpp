@@ -232,10 +232,10 @@ void SlewControlInit() {
 
   if (joy_IsValid(JOYSTICK_1)) {
     tJoyPos joystate;
-    tJoystick joyid = JOYSTICK_1;
+    tJoystick_id joyid = JOYSTICK_1;
 
     Joystick_active = (int)joyid;
-    joy_GetPos((tJoystick)Joystick_active, &joystate); // get all the stick values
+    joy_GetPos((tJoystick_id)Joystick_active, &joystate); // get all the stick values
 
     if ((abs(joystate.x) > 32) || (abs(joystate.y) > 32))
       EditorMessageBox("Warning: Your joystick is not centered.  You should either center it now or recalibrate.");
@@ -328,7 +328,7 @@ int SlewFrame(object *obj, int movement_limitations) {
     bool joyx_moved = false;
     bool joyy_moved = false;
 
-    joy_GetPos((tJoystick)Joystick_active, &joystate); // get all the stick values
+    joy_GetPos((tJoystick_id)Joystick_active, &joystate); // get all the stick values
 
     joy_x = joystate.x;
     joy_y = joystate.y;

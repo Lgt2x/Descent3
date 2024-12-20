@@ -386,7 +386,7 @@ bool PostLevelResults(bool success) {
     int key = ddio_KeyInKey();
 
     tJoyPos jp;
-    joy_GetPos((tJoystick)JOYSTICK_1, &jp);
+    joy_GetPos((tJoystick_id)JOYSTICK_1, &jp);
     if (jp.buttons) {
       rval = true;
       break;
