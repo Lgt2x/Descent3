@@ -77,7 +77,7 @@ typedef int socklen_t;
 #if defined(POSIX)
 // sorry, I'm lazy, I guess we could copy the defines
 // that we need to transalte winsock->linux into this header...but no need to now
-#include "SDL_thread.h"
+#include <SDL3/SDL_thread.h>
 #include "inetgetfile.h"
 #endif
 
