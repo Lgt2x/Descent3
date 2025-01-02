@@ -164,7 +164,7 @@ endif()
 
 find_package(glm REQUIRED)
 
-if (USE_EXTERNAL_SDL OR DEFINED USING_VCPKG)
+if (USE_EXTERNAL_SDL OR DEFINED USING_VCPKG AND NOT CMAKE_CROSSCOMPILING)
   find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
 endif()
 
@@ -192,8 +192,6 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   add_link_options("$<$<CONFIG:Release>:/LTCG>")
 
   add_compile_definitions(WIN32 _CRT_SECURE_NO_WARNINGS _CRT_SECURE_NO_DEPRECATE _CRT_NONSTDC_NO_DEPRECATE)
-
-  set(PLATFORM_INCLUDES "lib/win/DirectX" "lib/win")
 
   set(CMAKE_FIND_LIBRARY_PREFIXES "")
   set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
@@ -242,7 +240,10 @@ include_directories(
   "lib"     # TODO: Remove after untying all modules
   "linux"   # -*-
   "Descent3"
-  $<$<PLATFORM_ID:Windows>:"${PLATFORM_INCLUDES}">
+  $<$<PLATFORM_ID:Windows>:
+    "lib/win/DirectX"
+    "lib/win"
+  >
 )
 
 add_subdirectory(third_party)
