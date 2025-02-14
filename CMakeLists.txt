@@ -44,8 +44,6 @@ option(ENABLE_MEM_RTL "Enable Real-time library memory management functions (dis
 option(FATAL_GL_ERRORS "Check OpenGL calls and raise exceptions on errors." OFF)
 option(FORCE_COLORED_OUTPUT "Always produce ANSI-colored compiler warnings/errors (GCC/Clang only; esp. useful with Ninja)." OFF)
 option(FORCE_PORTABLE_INSTALL "Install all files into local directory defined by CMAKE_INSTALL_PREFIX" ON)
-option(USE_EXTERNAL_PLOG "Use system plog library instead of bundled version" OFF)
-option(USE_EXTERNAL_SDL "Use system SDL3 library instead of bundled version" OFF)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   option(BUILD_EDITOR "Build internal editor" OFF)
 endif()
@@ -163,14 +161,10 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
 endif()
 
 find_package(glm REQUIRED)
+find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
+find_package(plog REQUIRED)
+find_package(ZLIB REQUIRED)
 
-if (USE_EXTERNAL_SDL OR DEFINED USING_VCPKG AND NOT CMAKE_CROSSCOMPILING)
-  find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
-endif()
-
-if(USE_EXTERNAL_PLOG OR DEFINED USING_VCPKG)
-  find_package(plog REQUIRED)
-endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux" OR CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
   message("Building for Linux")
@@ -220,8 +214,6 @@ endif()
 
 add_compile_definitions($<$<CONFIG:Release>:RELEASE>)
 add_compile_definitions($<$<CONFIG:Debug>:_DEBUG>)
-
-find_package(ZLIB REQUIRED)
 
 if(ENABLE_LOGGER)
   message("Enabling Logging")
