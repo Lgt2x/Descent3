@@ -83,7 +83,7 @@
 //	globals
 
 static int specificJoy = -1;
-struct Joystick_t{
+struct Joystick_t {
   SDL_Joystick *handle;
   tJoyInfo caps;
 };
@@ -138,7 +138,7 @@ void joy_Close() {
   for (int i = 0; i < Joysticks.size(); i++) {
     joy_CloseStick((tJoystick_id)i);
   }
-  SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
+  SDL_QuitSubSystem(SDL_INIT_GAMEPAD);
 }
 
 //	initializes a joystick
@@ -158,22 +158,27 @@ static bool joy_InitStick(tJoystick_id joy) {
 
     std::array<uint16_t, 6> axis_flags{JOYFLAG_XVALID, JOYFLAG_YVALID, JOYFLAG_ZVALID,
                                        JOYFLAG_RVALID, JOYFLAG_UVALID, JOYFLAG_VVALID};
-    for (int axis = 0; axis < SDL_JoystickNumAxes(stick); axis++) {
+    for (int axis = 0; axis < SDL_GetNumJoystickAxes(stick); axis++) {
       caps.axes_mask |= axis_flags[axis];
 
-      if (SDL_IsGameController(joy)) {
-        auto controller = SDL_GameControllerOpen(joy);
+      if (SDL_IsGamepad(joy)) {
+        SDL_Gamepad * controller = SDL_OpenGamepad(joy);
 
-        auto left = SDL_GameControllerGetBindForAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT);
-        auto right = SDL_GameControllerGetBindForAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
-
-        if (left.bindType == SDL_CONTROLLER_BINDTYPE_AXIS && left.value.axis == axis) {
-          LOG_DEBUG << "Axis " << axis << " is the left analog trigger";
-          caps.trigger_axis_mask |= axis_flags[axis];
-        } else if (right.bindType == SDL_CONTROLLER_BINDTYPE_AXIS && right.value.axis == axis) {
-          LOG_DEBUG << "Axis " << axis << " is the right analog trigger";
-          caps.trigger_axis_mask |= axis_flags[axis];
+        int binding_count = 0;
+        SDL_GamepadBinding **bindings = SDL_GetGamepadBindings(controller, &binding_count);
+        for (int i = 0; i < binding_count; i++) {
+          if (bindings[i]->input_type == SDL_GAMEPAD_BINDTYPE_AXIS && bindings[i]->output_type == SDL_GAMEPAD_BINDTYPE_AXIS) {
+              LOG_DEBUG << "Axis input is " << bindings[i]->input.axis.axis << " min " << bindings[i]->input.axis.axis_min << " max " << bindings[i]->input.axis.axis_max;
+              LOG_DEBUG << "Axis output is " << bindings[i]->output.axis.axis << " min " << bindings[i]->output.axis.axis_min << " max " << bindings[i]->output.axis.axis_max;
+              if (bindings[i]->output.axis.axis == SDL_GAMEPAD_AXIS_LEFT_TRIGGER) {
+                caps.trigger_axis_mask |= axis_flags[axis];
+              }
+              if (bindings[i]->output.axis.axis == SDL_GAMEPAD_AXIS_RIGHT_TRIGGER) {
+                caps.trigger_axis_mask |= axis_flags[axis];
+              }
+            }
         }
+        SDL_free(bindings);
       }
 
       else {
@@ -181,7 +186,7 @@ static bool joy_InitStick(tJoystick_id joy) {
         // We try to guess whether it is a one-directional analog trigger based on its initial value.
 
         int16_t initialVal = 0;
-        SDL_JoystickGetAxisInitialState(stick, axis, &initialVal);
+        SDL_GetJoystickAxisInitialState(stick, axis, &initialVal);
         LOG_DEBUG << "Initial axis " << axis << " value is " << initialVal;
 
         if (initialVal < -32768 * 0.75) {
@@ -232,7 +237,7 @@ bool joy_IsValid(tJoystick_id joy) {
       return false;
     }
   }
-  return (Joysticks.at(joy).handle != NULL);
+  return joy < Joysticks.size() && (Joysticks.at(joy).handle != NULL);
 }
 
 //	retreive information about joystick.
