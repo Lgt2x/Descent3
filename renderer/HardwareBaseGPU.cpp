@@ -347,17 +347,15 @@ int rend_SetPreferredState(renderer_preferred_state *pref_state, bool reinit) {
   if (gpu_state.initted) {
     LOG_DEBUG << "Inside pref state!";
 
-    // Change gamma if needed
     if (pref_state->width != gpu_state.screen_width || pref_state->height != gpu_state.screen_height ||
-        old_state.bit_depth != pref_state->bit_depth) {
-      reinit = true;
+        old_state.bit_depth != pref_state->bit_depth || reinit) {
+      rend_ReInit();
     }
 
-    if (reinit) {
-      retval = rend_ReInit();
-    } else if (old_state.gamma != pref_state->gamma) {
+    if (old_state.gamma != pref_state->gamma) {
       rend_SetGammaValue(pref_state->gamma);
-    } else if (old_state.fullscreen != pref_state->fullscreen) {
+    }
+    if (old_state.fullscreen != pref_state->fullscreen) {
       rend_SetFullScreen(pref_state->fullscreen);
     }
   } else {

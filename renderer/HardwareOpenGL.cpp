@@ -443,7 +443,7 @@ int opengl_Setup(oeApplication *app, const int *width, const int *height) {
     SDL_SetWindowRelativeMouseMode(GSDLWindow, grabMouse);
     SDL_SetWindowKeyboardGrab(GSDLWindow, grabMouse);
 
-    SDL_SetWindowFullscreen(GSDLWindow, Game_fullscreen);
+    rend_SetFullScreen(Game_fullscreen);
   } else if (!Game_fullscreen) {
     SDL_SetWindowSize(GSDLWindow, winw, winh);
   }
