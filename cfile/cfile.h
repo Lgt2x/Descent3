@@ -201,6 +201,11 @@ bool cf_IsFileInHog(const std::filesystem::path &filename, const std::filesystem
 // Returns: 0 if error, else library handle that can be used to close the library
 int cf_OpenLibrary(const std::filesystem::path &libname);
 
+// Open a HOG file required for the game execution.
+// If the file is not found, display an error message and let the user choose the directory
+// where the file is located. This directory will be written in the database for future executions
+int cf_OpenRequredLibrary(const std::filesystem::path &libname);
+
 // Closes a library file.
 // Parameters:  handle: the handle returned by cf_OpenLibrary()
 void cf_CloseLibrary(int handle);

@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <SDL3/SDL_messagebox.h>
+#include <SDL3/SDL_dialog.h>
+
 #include <algorithm>
 #include <cstdio>
 #include <cstdlib>
@@ -35,6 +38,7 @@
 #include "log.h"
 #include "mem.h"
 #include "pserror.h"
+#include "descent.h"
 
 // Library structures
 struct library_entry {
@@ -89,10 +93,7 @@ void cf_AddBaseDirectory(const std::filesystem::path &base_directory) {
 /* After you call this function, you must call cf_AddBaseDirectory() at least
  * once before you use anything else from this module.
  */
-void cf_ClearBaseDirectories() {
-  Base_directories.clear();
-}
-
+void cf_ClearBaseDirectories() { Base_directories.clear(); }
 
 std::filesystem::path cf_LocatePathCaseInsensitiveHelper(const std::filesystem::path &relative_path,
                                                          const std::filesystem::path &starting_dir) {
@@ -114,7 +115,7 @@ std::filesystem::path cf_LocatePathCaseInsensitiveHelper(const std::filesystem::
     // Search component in search_path
     auto const &it = std::filesystem::directory_iterator(result);
 
-    auto found = std::find_if(it, end(it), [&path_it](const auto& dir_entry) {
+    auto found = std::find_if(it, end(it), [&path_it](const auto &dir_entry) {
       return stricmp(dir_entry.path().filename().u8string().c_str(), path_it->u8string().c_str()) == 0;
     });
 
@@ -187,9 +188,7 @@ std::vector<std::filesystem::path> cf_LocateMultiplePaths(const std::filesystem:
 /* Not all Base_directories are necessarily writable, but this function will
  * return one that should be writable.
  */
-std::filesystem::path cf_GetWritableBaseDirectory() {
-  return Base_directories.front();
-}
+std::filesystem::path cf_GetWritableBaseDirectory() { return Base_directories.front(); }
 
 // Generates a cfile error
 void ThrowCFileError(int type, CFILE *file, const char *msg) {
@@ -201,14 +200,59 @@ void ThrowCFileError(int type, CFILE *file, const char *msg) {
 
 static void cf_Close();
 
+#include <iostream>
+#include <SDL3/SDL_timer.h>
+
 // searches through the open HOG files, and opens a file if it finds it in any of the libs
 static CFILE *open_file_in_lib(const char *filename);
 
-// Opens a HOG file.  Future calls to cfopen(), etc. will look in this HOG.
-// Parameters:  libname - path to the HOG file, relative to one of the Base_directories.
-// NOTE:	libname must be valid for the entire execution of the program.  Therefore, Base_directories
-// 			must not change.
-// Returns: 0 if error, else library handle that can be used to close the library
+int cf_OpenRequredLibrary(const std::filesystem::path &libname) {
+  int result = cf_OpenLibrary(libname);
+
+  if (result) {
+    return result;
+  }
+
+  const SDL_MessageBoxButtonData buttons[2] = {
+      SDL_MessageBoxButtonData{0, 0, "Exit"},
+      SDL_MessageBoxButtonData{0, 1, "Select directory"},
+  };
+
+  SDL_MessageBoxData message = {
+      0, nullptr, "Error", "Could not find required data file 'd3.hog'. Please select its location in your filesystem.", 2, buttons, nullptr,
+  };
+
+  int button = 0;
+  SDL_ShowMessageBox(&message, &button);
+
+  if (button == 0) {
+    return 0;
+  }
+
+  struct data {
+    int &result;
+    const std::filesystem::path &libname;
+    bool selected;
+  };
+  auto callback = [](void *userdata, const char *const *filelist, int filter) {
+    auto d = reinterpret_cast<data *>(userdata);
+    d->selected = true;
+    cf_AddBaseDirectory(filelist[0]);
+    d->result = cf_OpenRequredLibrary(d->libname);
+  };
+
+  auto d = data{result, libname, false};
+  SDL_ShowOpenFolderDialog(callback, &d, nullptr, "/home/louis/dev/Descent", false);
+
+  while(!d.selected) {
+    SDL_Delay(100);
+    Descent->defer();
+  };
+
+  return d.result;
+}
+
+
 int cf_OpenLibrary(const std::filesystem::path &libname) {
   FILE *fp;
   int i;
@@ -989,7 +1033,7 @@ uint32_t cf_GetfileCRC(const std::filesystem::path &src) {
 }
 
 int cf_DoForeachFileInLibrary(int handle, const std::filesystem::path &ext,
-                               const std::function<void(std::filesystem::path)> &func) {
+                              const std::function<void(std::filesystem::path)> &func) {
   auto search_library = Libraries;
   while (search_library && search_library->handle != handle) {
     search_library = search_library->next;

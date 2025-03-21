@@ -1011,7 +1011,8 @@ std::filesystem::path config_base_directory;
 // used to update load bar.
 static void SetInitMessageLength(const char *c, float amount); // portion of total bar to fill (0 to 1)
 extern void UpdateInitMessage(float amount);                   // amount is 0 to 1
-static void SetupTempDirectory(void);
+static void SetupTempDirectory();
+static int InitHogFiles();
 // Delete all temp files with regex "d3[smocti].+\\.tmp"
 static void DeleteTempFiles();
 static void InitIOSystems(bool editor);
@@ -1502,39 +1503,7 @@ void InitIOSystems(bool editor) {
 #endif
   }
 
-  // Init hogfiles
-  INIT_MESSAGE(("Checking for HOG files."));
-  int d3_hid, extra_hid, sys_hid, extra13_hid;
-  std::filesystem::path hog_name;
-
-#ifdef DEMO
-  // DAJ	d3_hid = cf_OpenLibrary("d3demo.hog");
-  hog_name = "d3demo.hog";
-#else
-  hog_name = "d3.hog";
-#endif
-  d3_hid = cf_OpenLibrary(hog_name);
-
-  // JC: Steam release uses extra1.hog instead of extra.hog, so try loading it first
-  // Open this file if it's present for stuff we might add later
-  extra_hid = cf_OpenLibrary("extra1.hog");
-  if (extra_hid == 0) {
-    extra_hid = cf_OpenLibrary("extra.hog");
-  }
-
-  // JC: Steam release uses extra.hog instead of merc.hog, so try loading it last (so we don't conflict with the above)
-  // Open mercenary hog if it exists
-  merc_hid = cf_OpenLibrary("merc.hog");
-  if (merc_hid == 0) {
-    merc_hid = cf_OpenLibrary("extra.hog");
-  }
-
-  // Open this for extra 1.3 code (Black Pyro, etc)
-  extra13_hid = cf_OpenLibrary("extra13.hog");
-
-  // last library opened is the first to be searched for dynamic libs, so put
-  // this one at the end to find our newly build script libraries first
-  sys_hid = cf_OpenLibrary(PRIMARY_HOG);
+  int sys_hid = InitHogFiles();
 
   // Check to see if there is a -mission command line option
   // if there is, attempt to open that hog/mn3 so it can override such
@@ -1975,7 +1944,7 @@ void InitD3Systems2(bool editor) {
   Localize_ctl_bindings();
 }
 
-void SetupTempDirectory(void) {
+void SetupTempDirectory() {
   // NOTE: No string tables are available at this point
   //--------------------------------------------------
 
@@ -2057,6 +2026,44 @@ void SetupTempDirectory(void) {
   }
   // restore working dir
   ddio_SetWorkingDir(cf_GetWritableBaseDirectory().u8string().c_str());
+}
+
+int InitHogFiles() {
+  // Init hogfiles
+  INIT_MESSAGE(("Checking for HOG files."));
+  int d3_hid, extra_hid, sys_hid, extra13_hid;
+  std::filesystem::path hog_name;
+
+#ifdef DEMO
+  // DAJ	d3_hid = cf_OpenLibrary("d3demo.hog");
+  hog_name = "d3demo.hog";
+#else
+  hog_name = "d3.hog";
+#endif
+  d3_hid = cf_OpenRequredLibrary(hog_name);
+
+  // JC: Steam release uses extra1.hog instead of extra.hog, so try loading it first
+  // Open this file if it's present for stuff we might add later
+  extra_hid = cf_OpenLibrary("extra1.hog");
+  if (extra_hid == 0) {
+    extra_hid = cf_OpenLibrary("extra.hog");
+  }
+
+  // JC: Steam release uses extra.hog instead of merc.hog, so try loading it last (so we don't conflict with the above)
+  // Open mercenary hog if it exists
+  merc_hid = cf_OpenLibrary("merc.hog");
+  if (merc_hid == 0) {
+    merc_hid = cf_OpenLibrary("extra.hog");
+  }
+
+  // Open this for extra 1.3 code (Black Pyro, etc)
+  extra13_hid = cf_OpenLibrary("extra13.hog");
+
+  // last library opened is the first to be searched for dynamic libs, so put
+  // this one at the end to find our newly build script libraries first
+  sys_hid = cf_OpenLibrary(PRIMARY_HOG);
+
+  return sys_hid;
 }
 
 void DeleteTempFiles() {
