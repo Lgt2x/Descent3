@@ -1415,7 +1415,7 @@ void InitIOSystems(bool editor) {
     writable_base_directory = std::filesystem::current_path();
   }
 
-  ddio_SetWorkingDir(writable_base_directory.u8string().c_str());
+  ddio_SetWorkingDir((const char*)writable_base_directory.u8string().c_str());
   cf_AddBaseDirectory(writable_base_directory);
 
   // Set any additional base directories
@@ -2034,15 +2034,15 @@ void SetupTempDirectory(void) {
     exit(1);
   }
   // restore working dir
-  ddio_SetWorkingDir(cf_GetWritableBaseDirectory().u8string().c_str());
+  ddio_SetWorkingDir((const char*)cf_GetWritableBaseDirectory().u8string().c_str());
 }
 
 void DeleteTempFiles() {
   ddio_DoForeachFile(Descent3_temp_directory, std::regex("d3[smocti].+\\.tmp"), [](const std::filesystem::path &path) {
     std::error_code ec;
     std::filesystem::remove(path, ec);
-    LOG_WARNING_IF(ec).printf("Unable to remove temporary file %s: %s\n", path.u8string().c_str(),
-                              ec.message().c_str());
+    LOG_WARNING_IF(ec).printf("Unable to remove temporary file %s: %s\n", (const char*)path.u8string().c_str(),
+                              (const char*)ec.message().c_str());
   });
 }
 

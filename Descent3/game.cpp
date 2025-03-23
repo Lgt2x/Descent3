@@ -1281,7 +1281,7 @@ void DoScreenshot() {
   count = 1;
   while (!done) {
     snprintf(str, sizeof(str), "Screenshot%.3d.png", count);
-    ddio_MakePath(filename, cf_GetWritableBaseDirectory().u8string().c_str(), str, NULL);
+    ddio_MakePath(filename, (const char*)cf_GetWritableBaseDirectory().u8string().c_str(), str, NULL);
     infile = (CFILE *)cfopen(filename, "rb");
     if (infile == NULL) {
       done = 1;
