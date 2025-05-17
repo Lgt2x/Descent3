@@ -191,14 +191,4 @@ bool ddio_KeyFrame() {
   return true;
 }
 
-void ddio_InternalKeyFrame(void) {
-  switch (Keyboard_mode) {
-  case Input_null:
-    ddio_null_InternalKeyFrame();
-    break;
-  case Input_sdl:
-    return ddio_sdl_InternalKeyFrame();
-  }
-}
-
 void ddio_SetKeyboardLanguage(int) {}

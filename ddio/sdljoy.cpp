@@ -66,168 +66,203 @@
  * $NoKeywords: $
  */
 
+#include "joystick.h"
+
+#include <SDL3/SDL_gamepad.h>
+#include <SDL3/SDL_joystick.h>
+#include <SDL3/SDL_stdinc.h>
 #include <cstdlib>
 #include <cstdint>
-#include <cstring>
-#include <array>
+#include <plog/Log.h>
 #include <vector>
 
 #include <SDL3/SDL.h>
 
-// rcg06182000 need this for specific joystick stuff.
 #include "args.h"
-#include "joystick.h"
 #include "log.h"
 
 //	---------------------------------------------------------------------------
 //	globals
 
-static int specificJoy = -1;
+static tJoystick_id specificJoy = -1;
+
+struct GamepadBindings {
+  std::vector<uint32_t> axis_bindings;
+  std::vector<uint32_t> pov_bindings;
+  std::vector<uint32_t> button_bindings;
+};
+
 struct Joystick_t {
+  SDL_JoystickID id;
   SDL_Joystick *handle;
-  tJoyInfo caps;
+  tJoyInfo info;
+  GamepadBindings bindings;
 };
 
 static std::vector<Joystick_t> Joysticks;
 
-static int joyGetNumDevs(void);
+namespace {
 
-//		closes connection with controller.
-static void joy_CloseStick(tJoystick_id joy);
+inline uint32_t map_hat(Uint8 value) {
+  switch (value) {
+  case SDL_HAT_CENTERED:
+    return JOYPOV_CENTER;
+    break;
+  case SDL_HAT_UP:
+    return JOYPOV_CENTER;
+    break;
+  case SDL_HAT_UP | SDL_HAT_RIGHT:
+    return 0x20;
+    break;
+  case SDL_HAT_RIGHT:
+    return JOYPOV_RIGHT;
+    break;
+  case SDL_HAT_RIGHT | SDL_HAT_DOWN:
+    return 0x60;
+    break;
+  case SDL_HAT_DOWN:
+    return 0x80;
+    break;
+  case SDL_HAT_DOWN | SDL_HAT_LEFT:
+    return 0xA0;
+    break;
+  case SDL_HAT_LEFT:
+    return JOYPOV_LEFT;
+    break;
+  case SDL_HAT_LEFT | SDL_HAT_UP:
+    return 0xE0;
+    break;
+  default:
+    return JOYPOV_CENTER;
+  }
+}
 
-//	initializes a joystick
-//		if server_adr is valid, a link is opened to another machine with a controller.
-static bool joy_InitStick(tJoystick_id joy);
+/**
+ * Closes connection with controller.
+ */
+static void joy_CloseStick(tJoystick_id joy) {
+  SDL_CloseJoystick(Joysticks.at(joy).handle);
+  Joysticks[joy].handle = nullptr;
+}
+
+/**
+ * Initialize the `Joysticks` vector with SDL joysticks ids, taking the `-joystick` argument into account
+ */
+bool joy_InitStick(tJoystick_id joy) {
+  //	close down already open joystick.
+  ::joy_CloseStick(joy);
+
+  SDL_JoystickID SDL_joyId = Joysticks.at(joy).id;
+
+  SDL_Joystick *stick = SDL_OpenJoystick(SDL_joyId);
+  Joysticks.at(joy).handle = stick;
+  if (!stick) {
+    LOG_WARNING << "Could not open joystick #" << joy << " : " << SDL_GetError();
+    return false;
+  }
+
+  tJoyInfo &caps = Joysticks.at(joy).info;
+  caps.name = SDL_GetJoystickNameForID(SDL_joyId);
+  caps.num_btns = SDL_GetNumJoystickButtons(stick);
+  caps.num_axis = SDL_GetNumJoystickAxes(stick);
+  caps.num_povs = SDL_GetNumJoystickHats(stick);
+
+  GamepadBindings &bind = Joysticks.at(joy).bindings;
+  bind.button_bindings.resize(caps.num_btns, SDL_GAMEPAD_BUTTON_INVALID);
+  bind.axis_bindings.resize(caps.num_axis, SDL_GAMEPAD_AXIS_INVALID);
+  bind.pov_bindings.resize(caps.num_axis, SDL_GAMEPAD_AXIS_INVALID);
+
+  if (SDL_IsGamepad(joy)) {
+    SDL_Gamepad *controller = SDL_OpenGamepad(SDL_joyId);
+    int binding_count = 0;
+    SDL_GamepadBinding **bindings = SDL_GetGamepadBindings(controller, &binding_count);
+    for (int i = 0; i < binding_count; i++) {
+      if (bindings[i]->input_type == SDL_GAMEPAD_BINDTYPE_AXIS &&
+          bindings[i]->output_type == SDL_GAMEPAD_BINDTYPE_AXIS) {
+        bind.axis_bindings.at(bindings[i]->input.axis.axis) = bindings[i]->output.axis.axis;
+      } else if (bindings[i]->input_type == SDL_GAMEPAD_BINDTYPE_HAT &&
+                 bindings[i]->output_type == SDL_GAMEPAD_BINDTYPE_AXIS) {
+        bind.pov_bindings.at(bindings[i]->input.hat.hat) = bindings[i]->output.axis.axis;
+      } else if (bindings[i]->input_type == SDL_GAMEPAD_BINDTYPE_BUTTON &&
+                 bindings[i]->output_type == SDL_GAMEPAD_BINDTYPE_BUTTON) {
+        bind.button_bindings.at(bindings[i]->input.button) = bindings[i]->output.button;
+      }
+    }
+    SDL_free(bindings);
+  }
+
+  LOG_DEBUG.printf("JOYSTICK: Initialized stick named [%s].", caps.name.c_str());
+  LOG_DEBUG.printf("JOYSTICK: (%d) axes, (%d) hats, and (%d) buttons.", caps.num_btns, caps.num_povs, caps.num_axis);
+
+  return (Joysticks.at(joy).handle != nullptr);
+}
+
+
+/**
+ * Allocate the `Jotsticks` strucutre, storing joystick information
+*/
+int joyCreateStructures() {
+  int joyCount = 0;
+  SDL_JoystickID *joystickIds = SDL_GetJoysticks(&joyCount);
+
+  if ((specificJoy >= 0)) {
+    if (specificJoy < joyCount) {
+      LOG_INFO.printf("Found requested joystick #%d", specificJoy);
+      Joysticks.resize(1);
+    } else {
+      LOG_WARNING.printf("Could not find the requested joystick #%d, only found %d joysticks", specificJoy, joyCount);
+      return 0;
+    }
+  } else {
+    Joysticks.resize(joyCount);
+  }
+
+  // Set the values for SDL joystick Ids
+  for (int id = 0; id < joyCount; id++) {
+    if (specificJoy == -1 || id == specificJoy) {
+      Joysticks.at(id).id = joystickIds[id];
+    }
+  }
+
+  LOG_INFO.printf("Joystick: Found %d joysticks.", Joysticks.size());
+  SDL_free(joystickIds);
+
+  return Joysticks.size();
+}
+
+} // namespace
 
 //	---------------------------------------------------------------------------
-//	functions
 
 //	joystick system initialization
 bool joy_Init() {
   //	reinitialize joystick if already initialized.
   joy_Close();
   if (!SDL_InitSubSystem(SDL_INIT_GAMEPAD)) {
-    LOG_ERROR << "Could not initialize Joystick";
+    LOG_ERROR << "Could not initialize SDL Gamepad subsystem";
     return false;
   }
 
-  // rcg06182000 add support for specific joydev.
   int rc = FindArgChar("-joystick", 'j');
   specificJoy = -1;
-  if ((rc > 0) && (GameArgs[rc + 1] != NULL)) {
+  if (rc > 0) {
     specificJoy = atoi(GameArgs[rc + 1]);
   }
 
-  Joysticks.resize(joyGetNumDevs());
+  ::joyCreateStructures();
 
-  // rcg06182000 specific joystick support.
-  if (specificJoy >= 0) {
-    joy_InitStick((tJoystick_id)specificJoy);
-  } // if
-  else {
-    //	initialize joystick list
-    for (int i = 0; i < Joysticks.size(); i++) {
-      joy_InitStick((tJoystick_id)i);
-    }
-  } // else
-  return true;
+  bool success = true;
+  for (tJoystick_id joyId = 0; joyId < static_cast<tJoystick_id>(Joysticks.size()); joyId++) {
+    success &= ::joy_InitStick(joyId);
+  }
+  return success;
 }
 
 void joy_Close() {
-  //	initialize joystick list
-  for (int i = 0; i < Joysticks.size(); i++) {
-    joy_CloseStick((tJoystick_id)i);
+  for (tJoystick_id joyId = 0; joyId < static_cast<tJoystick_id>(Joysticks.size()); joyId++) {
+    joy_CloseStick(joyId);
   }
   SDL_QuitSubSystem(SDL_INIT_GAMEPAD);
-}
-
-//	initializes a joystick
-static bool joy_InitStick(tJoystick_id joy) {
-  //	close down already open joystick.
-  joy_CloseStick(joy);
-
-  SDL_Joystick *stick = SDL_OpenJoystick(joy);
-  Joysticks.at(joy).handle = stick;
-  if (stick) {
-    tJoyInfo caps;
-
-    memset(&caps, 0, (sizeof(caps)));
-    strncpy(caps.name, SDL_GetJoystickNameForID(joy), sizeof(caps.name) - 1);
-    caps.num_btns = SDL_GetNumJoystickButtons(stick);
-    int axes = SDL_GetNumJoystickAxes(stick);
-
-    std::array<uint16_t, 6> axis_flags{JOYFLAG_XVALID, JOYFLAG_YVALID, JOYFLAG_ZVALID,
-                                       JOYFLAG_RVALID, JOYFLAG_UVALID, JOYFLAG_VVALID};
-    for (int axis = 0; axis < SDL_GetNumJoystickAxes(stick); axis++) {
-      caps.axes_mask |= axis_flags[axis];
-
-      if (SDL_IsGamepad(joy)) {
-        SDL_Gamepad * controller = SDL_OpenGamepad(joy);
-
-        int binding_count = 0;
-        SDL_GamepadBinding **bindings = SDL_GetGamepadBindings(controller, &binding_count);
-        for (int i = 0; i < binding_count; i++) {
-          if (bindings[i]->input_type == SDL_GAMEPAD_BINDTYPE_AXIS && bindings[i]->output_type == SDL_GAMEPAD_BINDTYPE_AXIS) {
-              LOG_DEBUG << "Axis input is " << bindings[i]->input.axis.axis << " min " << bindings[i]->input.axis.axis_min << " max " << bindings[i]->input.axis.axis_max;
-              LOG_DEBUG << "Axis output is " << bindings[i]->output.axis.axis << " min " << bindings[i]->output.axis.axis_min << " max " << bindings[i]->output.axis.axis_max;
-              if (bindings[i]->output.axis.axis == SDL_GAMEPAD_AXIS_LEFT_TRIGGER) {
-                caps.trigger_axis_mask |= axis_flags[axis];
-              }
-              if (bindings[i]->output.axis.axis == SDL_GAMEPAD_AXIS_RIGHT_TRIGGER) {
-                caps.trigger_axis_mask |= axis_flags[axis];
-              }
-            }
-        }
-        SDL_free(bindings);
-      }
-
-      else {
-        // Joystick is not recognized as a game controller.
-        // We try to guess whether it is a one-directional analog trigger based on its initial value.
-
-        int16_t initialVal = 0;
-        SDL_GetJoystickAxisInitialState(stick, axis, &initialVal);
-        LOG_DEBUG << "Initial axis " << axis << " value is " << initialVal;
-
-        if (initialVal < -32768 * 0.75) {
-          // Axis is an analog button/trigger, because it's initial value
-          // is at the start of the range and not in the middle
-          LOG_DEBUG << "Axis " << axis << " is an analog button";
-          caps.trigger_axis_mask |= axis_flags[axis];
-        } else {
-          LOG_DEBUG << "Axis " << axis << " is a bidirectional axis";
-        }
-      }
-    }
-
-    int hats = SDL_GetNumJoystickHats(stick);
-    switch (hats) {
-    default:
-      // Fall through to 4 hats
-    case 4:
-      caps.axes_mask |= JOYFLAG_POV4VALID;
-    case 3:
-      caps.axes_mask |= JOYFLAG_POV3VALID;
-    case 2:
-      caps.axes_mask |= JOYFLAG_POV2VALID;
-    case 1:
-      caps.axes_mask |= JOYFLAG_POVVALID;
-    case 0:
-      break;
-    }
-    Joysticks.at(joy).caps = caps;
-
-    LOG_DEBUG.printf("JOYSTICK: Initialized stick named [%s].", caps.name);
-    LOG_DEBUG.printf("JOYSTICK: (%d) axes, (%d) hats, and (%d) buttons.", axes, hats, caps.num_btns);
-  }
-
-  return (Joysticks.at(joy).handle != NULL);
-}
-
-//  closes connection with controller.
-static void joy_CloseStick(tJoystick_id joy) {
-  SDL_CloseJoystick(Joysticks.at(joy).handle);
-  Joysticks[joy].handle = nullptr;
 }
 
 //	returns true if joystick valid
@@ -237,126 +272,51 @@ bool joy_IsValid(tJoystick_id joy) {
       return false;
     }
   }
-  return joy < Joysticks.size() && (Joysticks.at(joy).handle != NULL);
+  return joy < static_cast<tJoystick_id>(Joysticks.size()) && (Joysticks.at(joy).handle != nullptr);
+}
+
+uint32_t joy_GetCount() {
+  return Joysticks.size();
 }
 
 //	retreive information about joystick.
-void joy_GetJoyInfo(tJoystick_id joy, tJoyInfo *info) { memcpy(info, &Joysticks.at(joy).caps, sizeof(tJoyInfo)); }
+tJoyInfo joy_GetJoyInfo(tJoystick_id joy) { return Joysticks.at(joy).info; }
 
 //	retreive uncalibrated position of joystick
-#define LNX_JOYAXIS_RANGE 65535
-void joy_GetRawPos(tJoystick_id joy, tJoyPos *pos) {
-  joy_GetPos(joy, pos);
+tJoyPos joy_GetRawPos(tJoystick_id joy) {
+  tJoyPos pos = joy_GetPos(joy);
 
-  pos->x = (pos->x + 32767);
-  pos->y = (pos->y + 32767);
-  pos->z = (pos->z + 32767);
-  pos->r = (pos->r + 32767);
-  pos->u = (pos->u + 32767);
-  pos->v = (pos->v + 32767);
-}
-
-static inline uint32_t map_hat(Uint8 value) {
-  uint32_t mapped = 0;
-
-  switch (value) {
-  case SDL_HAT_CENTERED:
-    mapped = JOYPOV_CENTER;
-    break;
-  case SDL_HAT_UP:
-    mapped = 0x00;
-    break;
-  case SDL_HAT_UP | SDL_HAT_RIGHT:
-    mapped = 0x20;
-    break;
-  case SDL_HAT_RIGHT:
-    mapped = 0x40;
-    break;
-  case SDL_HAT_RIGHT | SDL_HAT_DOWN:
-    mapped = 0x60;
-    break;
-  case SDL_HAT_DOWN:
-    mapped = 0x80;
-    break;
-  case SDL_HAT_DOWN | SDL_HAT_LEFT:
-    mapped = 0xA0;
-    break;
-  case SDL_HAT_LEFT:
-    mapped = 0xC0;
-    break;
-  case SDL_HAT_LEFT | SDL_HAT_UP:
-    mapped = 0xE0;
-    break;
+  for (uint32_t i = 0; i < Joysticks[joy].info.num_axis; ++i) {
+    pos.axis[i] += 32767;
   }
-  return mapped;
+
+  return pos;
 }
 
-//	returns the state of a stick, remote or otherwise
-void joy_GetPos(tJoystick_id joy, tJoyPos *pos) {
+//	returns the state of a stick
+tJoyPos joy_GetPos(tJoystick_id joy) {
+  tJoyPos pos;
   SDL_Joystick *stick;
-  int i;
-
-  memset(pos, 0, (sizeof(*pos)));
 
   //	retrieve joystick info from the net, or locally.
   stick = Joysticks[joy].handle;
-  if (stick) {
-    uint32_t mask;
-
-    mask = Joysticks[joy].caps.axes_mask;
-    if (mask & JOYFLAG_XVALID) {
-      pos->x = SDL_GetJoystickAxis(stick, 0);
-    }
-    if (mask & JOYFLAG_YVALID) {
-      pos->y = SDL_GetJoystickAxis(stick, 1);
-    }
-    if (mask & JOYFLAG_ZVALID) {
-      pos->z = SDL_GetJoystickAxis(stick, 2);
-    }
-    if (mask & JOYFLAG_RVALID) {
-      pos->r = SDL_GetJoystickAxis(stick, 3);
-    }
-    if (mask & JOYFLAG_UVALID) {
-      pos->u = SDL_GetJoystickAxis(stick, 4);
-    }
-    if (mask & JOYFLAG_VVALID) {
-      pos->v = SDL_GetJoystickAxis(stick, 5);
-    }
-    for (i = 0; i < JOYPOV_NUM; ++i) {
-      if (mask & (JOYFLAG_POVVALID << i)) {
-        pos->pov[i] = map_hat(SDL_GetJoystickHat(stick, i));
-      }
-    }
-    for (i = Joysticks[joy].caps.num_btns; i >= 0; --i) {
-      if (SDL_GetJoystickButton(stick, i)) {
-        pos->buttons |= (1 << i);
-      }
-    }
-  }
-}
-
-static int joyGetNumDevs(void) {
-  int found = 0;
-
-  int joyCount = 0;
-  SDL_JoystickID *joysticks = SDL_GetJoysticks(&joyCount);
-
-  if ((specificJoy >= 0) && (specificJoy < joyCount)) {
-    LOG_INFO.printf("Found requested joystick #%d", specificJoy);
-    found = 1;
-  } else {
-    LOG_WARNING.printf("Could not find requested joystick #%d", specificJoy);
-    specificJoy = -1;
-  }
-  if (specificJoy < 0) {
-    found = joyCount;
+  if (!stick) {
+    return pos;
   }
 
-  LOG_INFO.printf("Joystick: Found %d joysticks.", found);
-  SDL_free(joysticks);
-  return found;
-}
+  for (uint32_t i = 0; i < Joysticks[joy].info.num_axis; ++i) {
+      pos.axis[i] = SDL_GetJoystickAxis(stick, i);
+  }
 
-void ddio_InternalJoyFrame(void) {
-  // All the work is done already in SDL_PumpEvents()
+  for (uint32_t i = 0; i < Joysticks[joy].info.num_povs; ++i) {
+    pos.pov[i] = ::map_hat(SDL_GetJoystickHat(stick, i));
+  }
+
+  for (uint32_t i = Joysticks[joy].info.num_btns; i >= 0; --i) {
+    if (SDL_GetJoystickButton(stick, i)) {
+      pos.buttons |= (1 << i);
+    }
+  }
+
+  return pos;
 }

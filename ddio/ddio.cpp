@@ -88,6 +88,7 @@
  * $NoKeywords: $
  */
 
+#include <SDL3/SDL_events.h>
 #include <cstdlib>
 
 #include "ddio.h"
@@ -119,8 +120,8 @@ bool ddio_Init(ddio_init_info *init_info) {
   }
   first_time = false;
   DDIO_initialized = true;
-  joy_Init();
-  return res;
+
+  return joy_Init();
 }
 void ddio_Close() {
   if (DDIO_initialized) {
@@ -140,9 +141,8 @@ void ddio_Resume() {
   ddio_InternalKeyResume();
   ddio_InternalMouseResume();
 }
+
 // handles buffered input from devices once per frame.
 void ddio_Frame() {
-  ddio_InternalKeyFrame();
-  ddio_InternalMouseFrame();
-  ddio_InternalJoyFrame();
+  SDL_PumpEvents();
 }

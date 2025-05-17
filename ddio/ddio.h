@@ -217,7 +217,6 @@ bool ddio_InternalKeyInit(ddio_init_info *init_info);
 void ddio_InternalKeyClose();
 
 // handled internally if keyboard system needs additional processing per frame
-void ddio_InternalKeyFrame();
 void ddio_InternalKeySuspend();
 void ddio_InternalKeyResume();
 
@@ -276,9 +275,6 @@ void ddio_MouseReset();
 
 // resets mouse queue and button info only.
 void ddio_MouseQueueFlush();
-
-// handled internally if mouse system needs additional processing per frame
-void ddio_InternalMouseFrame();
 
 // used to prevent mouse input from being registered
 void ddio_InternalMouseSuspend();

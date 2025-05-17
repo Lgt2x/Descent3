@@ -66,23 +66,15 @@
 #define JOYSTICK_H
 
 #include <cstdint>
+#include <string>
+#include <vector>
 
-//	joystick ids.  used to initialize a stick and get its position
-#define JOYPOV_NUM 4
+#define JOYPOV_NUM 16
+#define JOYAXIS_NUM 16
+#define JOYBUTTON_NUM 32
 
-//	these flags tell what axes these controllers control.
-#define JOYFLAG_XVALID 1
-#define JOYFLAG_YVALID 2
-#define JOYFLAG_ZVALID 4
-#define JOYFLAG_RVALID 8
-#define JOYFLAG_UVALID 16
-#define JOYFLAG_VVALID 32
-#define JOYFLAG_POVVALID 64
-#define JOYFLAG_POV2VALID 128
-#define JOYFLAG_POV3VALID 256
-#define JOYFLAG_POV4VALID 512
+typedef uint32_t tJoystick_id;
 
-//	set in joystate.pov
 #define JOYPOV_DIR 8
 #define JOYPOV_MAXVAL 0x100
 #define JOYPOV_UP 0
@@ -91,64 +83,38 @@
 #define JOYPOV_LEFT 0xc0
 #define JOYPOV_CENTER 0xff
 
-#define JOYAXIS_RANGE 256
-
-typedef int tJoystick_id;
-
-#define JOYSTICK_1 0
-#define JOYSTICK_2 1
-#define JOYSTICK_3 2
-#define JOYSTICK_4 3
-#define JOYSTICK_5 4
-#define JOYSTICK_6 5
-#define JOYSTICK_7 6
-#define JOYSTICK_8 7
-
 struct tJoyInfo {
-  char name[128];
-  uint32_t axes_mask;
-  uint32_t trigger_axis_mask;
+  std::string name;
+  uint32_t num_axis;
   uint32_t num_btns;
+  uint32_t num_povs;
 };
-
-//	shared between joystick remote server and local client.
-#define JOY_PORT 3192
-#define JOY_REQTERM "RTRM"
-#define JOY_TERM "TERM"
-#define JOY_POS "POSI"
-#define JOY_INFO "INFO"
-#define JOY_POLL "POLL"
 
 struct tJoyPos {
-  int x;
-  int y;
-  int z;
-  int r;
-  int u;
-  int v;
-  unsigned buttons;
-  unsigned btn;
-  unsigned pov[JOYPOV_NUM];
+  uint32_t buttons;
+  std::vector<uint32_t> axis;
+  std::vector<uint32_t> pov;
 };
 
-//	joystick system initialization
+// joystick system initialization
+// return true if joysticks have been initialized properly
 bool joy_Init();
 void joy_Close();
 
-//	retreive information about joystick.
-void joy_GetJoyInfo(tJoystick_id joy, tJoyInfo *info);
+// retreive information about joystick.
+tJoyInfo joy_GetJoyInfo(tJoystick_id joy);
 
-//	retreive position of joystick
-void joy_GetPos(tJoystick_id joy, tJoyPos *pos);
+// retreive position of joystick
+tJoyPos joy_GetPos(tJoystick_id joy);
 
-//	retreive uncalibrated position of joystick
-void joy_GetRawPos(tJoystick_id joy, tJoyPos *pos);
+// retreive uncalibrated position of joystick
+tJoyPos joy_GetRawPos(tJoystick_id joy);
 
-//	returns true if joystick valid
+// returns true if joystick is valid
 bool joy_IsValid(tJoystick_id joy);
 
-// run by ddio_Frame
-void ddio_InternalJoyFrame();
+// return the joystick count
+uint32_t joy_GetCount();
 
 // DAJ Added to support InSprocket
 #endif

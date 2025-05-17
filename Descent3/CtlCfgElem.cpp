@@ -125,7 +125,6 @@
 #include "gamefont.h"
 #include "localization.h"
 #include "pserror.h"
-#include "joystick.h"
 
 // all controller binding texts
 static char Ctltext_KeyBindings[][16] = {"",

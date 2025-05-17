@@ -1120,7 +1120,6 @@ void ProcessButtons() {
     PollControls();
     if (Controller->get_joy_raw_values(&x, &y) || Controller->get_mouse_raw_values(&x, &y)) {
       // death.
-      LOG_DEBUG << "here?";
 
       if (Total_time_dead < DEATH_RESPAWN_TIME)
         return;

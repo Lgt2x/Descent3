@@ -412,13 +412,6 @@ bool sdlMouseMotionFilter(SDL_Event const *event) {
   return false;
 }
 
-//	This function will handle all mouse events.
-void ddio_InternalMouseFrame(void) {
-  static unsigned frame_count = 0;
-  SDL_PumpEvents();
-  frame_count++;
-}
-
 /*	x, y = absolute mouse position
         dx, dy = mouse deltas since last call
         return value is mouse button mask
