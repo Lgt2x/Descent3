@@ -51,17 +51,15 @@ public:
   ct_config_data get_controller_value(ct_type type_req) override;
 
   // fill `val` with the axis and controller values if axis value is over a threshold. Used for control mapping.
-  void get_controller_axis_value(int controllerId, unsigned int axis_ctf_flag, uint8_t axis_ct_flag,
-                                 ct_config_data *val);
+  void get_controller_axis_value(int controllerId, uint8_t axis, ct_config_data *val);
 
   // fill `val` with the axis and controller values if trigger value is over a threshold
-  void get_controller_trigger_value(int controllerId, unsigned int axis_ctf_flag, uint8_t axis_ct_flag,
-                                    ct_config_data *val);
+  void get_controller_trigger_value(int controllerId, uint8_t axis, ct_config_data *val);
 
-  //	sets the configuration of a function (type must be of an array == CTLBINDS_PER_FUNC)
+  //	sets the configuration of a function
   void set_controller_function(int id, const ct_type *type, ct_config_data value, const uint8_t *flags) override;
 
-  //	returns information about a requested function (type must be of an array == CTLBINDS_PER_FUNC)
+  //	returns information about a requested function
   void get_controller_function(int id, ct_type *type, ct_config_data *value, uint8_t *flags) override;
 
   //	temporarily enables or disables a function
@@ -84,7 +82,7 @@ public:
 
   // get raw values for the controllers
   int get_mouse_raw_values(int *x, int *y) override;
-  unsigned get_joy_raw_values(int *x, int *y) override;
+  unsigned int get_joy_buttons() override;
 
   // retrieves binding text for desired function, binding, etc.
   const char *get_binding_text(ct_type type, uint8_t ctrl, uint8_t bind) override;
@@ -94,18 +92,18 @@ public:
 
 private:
   struct t_controller {
-    int id = CTID::INVALID;
-    uint16_t buttons = 0;
-    uint32_t btnmask = 0;
-    float normalizer[CT_NUM_AXES]{};
-    float sens[CT_NUM_AXES]{};
-    float sensmod[CT_NUM_AXES]{};
+    int8_t id = CTID::INVALID;
+    tJoyInfo info;
+    uint32_t btnmask = 0; // Remove?
+    std::vector<float> normalizer;
+    std::vector<float> sens;
+    std::vector<float> sensmod;
     float deadzone = 0;
   };
 
   struct ct_element {
     ct_format format{};
-    int8_t ctl[CTLBINDS_PER_FUNC]{};
+    int8_t ctl[CTLBINDS_PER_FUNC]{};    // Reference to a t_controller id
     uint8_t value[CTLBINDS_PER_FUNC]{};
     ct_type ctype[CTLBINDS_PER_FUNC]{};
     uint8_t flags[2]{};
@@ -113,17 +111,24 @@ private:
   };
 
   static const int CT_MAX_BUTTONS = 32;
+
+  struct pov_state {
+    int last_pov;
+    float povstarts[JOYPOV_DIR];
+    float povtimes[JOYPOV_DIR];
+    uint8_t povpresses[JOYPOV_DIR];
+  };
+
+  struct btn_state {
+    float btnstarts;
+    float btntimes;
+    uint8_t btnpresses;
+  };
+
   struct t_extctlstate {
-    int x = 0, y = 0, z = 0, r = 0, u = 0, v = 0;
-    int pov[JOYPOV_NUM]{};
-    int last_pov[JOYPOV_NUM]{};
-    float povstarts[JOYPOV_NUM][JOYPOV_DIR]{};
-    float povtimes[JOYPOV_NUM][JOYPOV_DIR]{};
-    uint8_t povpresses[JOYPOV_NUM][JOYPOV_DIR]{};
-    uint32_t buttons = 0;
-    uint8_t btnpresses[CT_MAX_BUTTONS]{};
-    float btnstarts[CT_MAX_BUTTONS]{};
-    float btntimes[CT_MAX_BUTTONS]{};
+    tJoyPos pos;
+    std::vector<pov_state> pov_pos;
+    std::vector<btn_state> btn_pos;
   };
 
   struct t_msestate {

@@ -113,9 +113,12 @@
  * $NoKeywords: $
  */
 
+#include <cstdint>
 #include <cstring>
 
 #include "CtlCfgElem.h"
+#include "controller.h"
+#include "controls.h"
 #include "descent.h"
 
 #include "Macros.h"
@@ -946,41 +949,22 @@ int cfg_element_ui::DoUI() {
       // get each type of input.
       Controller->poll();
 
-      ccfgdata = Controller->get_controller_value(ctMouseButton);
-      new_type = ctMouseButton;
-      if (!GCV_VALID_RESULT(ccfgdata)) {
-        ccfgdata = Controller->get_controller_value(ctPOV);
-        new_type = ctPOV;
-        if (!GCV_VALID_RESULT(ccfgdata)) {
-          ccfgdata = Controller->get_controller_value(ctPOV2);
-          new_type = ctPOV2;
-          if (!GCV_VALID_RESULT(ccfgdata)) {
-            ccfgdata = Controller->get_controller_value(ctPOV3);
-            new_type = ctPOV3;
-            if (!GCV_VALID_RESULT(ccfgdata)) {
-              ccfgdata = Controller->get_controller_value(ctPOV4);
-              new_type = ctPOV4;
-              if (!GCV_VALID_RESULT(ccfgdata)) {
-                ccfgdata = Controller->get_controller_value(ctButton); // read hats before buttons
-                new_type = ctButton;
-                if (!GCV_VALID_RESULT(ccfgdata)) {
-                  ccfgdata = Controller->get_controller_value(ctAnalogTrigger);
-                  new_type = ctAnalogTrigger;
-                }
-              }
-            }
-          }
-        }
+      std::array types{ctMouseButton, ctPOV, ctButton, ctAnalogTrigger};
+      for (auto& type: types) {
+        ccfgdata = Controller->get_controller_value(type);
+        if (GCV_VALID_RESULT(ccfgdata)) {
+          new_type = type;
+          break;
+        }  
       }
+
       if (GCV_VALID_RESULT(ccfgdata) && !catch_press) {
         m_type = new_type;
         m_element = GCV_VALUE(ccfgdata);
         m_controller = GCV_CONTROLLER(ccfgdata);
         catch_press = true;
-        //	mprintf(0, "HERE?\n");
       } else if (catch_press) {
         quit = true;
-        //	mprintf(0, "THERE?\n");
       }
       break;
     }

@@ -106,7 +106,7 @@ public:
   virtual bool draw(int x, int y, int w, int h) { return false; };
   virtual int width() { return 0; };
   virtual int height() { return 0; };
-  virtual tUIResClass class_type() { return uiItem; };
+  virtual tUIResClass class_type() const { return uiItem; };
   virtual void set_alpha(uint8_t alpha){};
   virtual uint8_t get_alpha() const { return 0; };
   virtual void set_color(ddgr_color col){};
@@ -294,7 +294,6 @@ public:
   virtual void set_alpha(uint8_t alph) { alpha = alph; };
   virtual uint8_t get_alpha() const { return alpha; };
 
-  // const UIPrimativeItem& UIPrimativeItem::operator =(const UIPrimativeItem& item)	// JCA made Mac compatible
   const UIPrimativeItem &operator=(const UIPrimativeItem &item) {
     color = item.color;
     alpha = item.alpha;

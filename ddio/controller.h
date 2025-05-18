@@ -137,7 +137,7 @@ enum ct_type {
   ctKey,    // fn value: lobyte(key constant), hibyte(alternate key constant)
   ctMouseAxis,
   ctMouseButton,
-  ctPOV2,
+  ctPOV2, // TODO: remove
   ctPOV3,
   ctPOV4, // auxillary POV values.
   ctAnalogTrigger
@@ -251,7 +251,7 @@ public:
 
   // get raw values for the controllers
   virtual int get_mouse_raw_values(int *x, int *y) = 0;
-  virtual unsigned get_joy_raw_values(int *x, int *y) = 0;
+  virtual unsigned int get_joy_buttons() = 0;
 
   //	toggles use of deadzone for controllers. ctl can be 0 to ???
   // dead zone is from 0.0 to 0.5

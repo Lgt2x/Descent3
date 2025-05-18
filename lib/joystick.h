@@ -73,7 +73,7 @@
 #define JOYAXIS_NUM 16
 #define JOYBUTTON_NUM 32
 
-typedef uint32_t tJoystick_id;
+typedef int32_t tJoystick_id;
 
 #define JOYPOV_DIR 8
 #define JOYPOV_MAXVAL 0x100
@@ -85,15 +85,15 @@ typedef uint32_t tJoystick_id;
 
 struct tJoyInfo {
   std::string name;
-  uint32_t num_axis;
-  uint32_t num_btns;
-  uint32_t num_povs;
+  uint8_t num_axis = 0;
+  uint8_t num_btns = 0;
+  uint8_t num_povs = 0;
 };
 
 struct tJoyPos {
-  uint32_t buttons;
-  std::vector<uint32_t> axis;
-  std::vector<uint32_t> pov;
+  uint64_t buttons;
+  std::vector<int32_t> axis;
+  std::vector<uint8_t> pov;
 };
 
 // joystick system initialization
@@ -112,6 +112,8 @@ tJoyPos joy_GetRawPos(tJoystick_id joy);
 
 // returns true if joystick is valid
 bool joy_IsValid(tJoystick_id joy);
+
+bool joy_AxisIsTrigger(tJoystick_id joy, uint8_t axisId);
 
 // return the joystick count
 uint32_t joy_GetCount();

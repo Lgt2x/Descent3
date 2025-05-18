@@ -84,7 +84,7 @@
 //	---------------------------------------------------------------------------
 //	globals
 
-static tJoystick_id specificJoy = -1;
+static int16_t specificJoy = -1;
 
 struct GamepadBindings {
   std::vector<uint32_t> axis_bindings;
@@ -103,7 +103,7 @@ static std::vector<Joystick_t> Joysticks;
 
 namespace {
 
-inline uint32_t map_hat(Uint8 value) {
+inline uint8_t map_hat(uint8_t value) {
   switch (value) {
   case SDL_HAT_CENTERED:
     return JOYPOV_CENTER;
@@ -202,7 +202,7 @@ bool joy_InitStick(tJoystick_id joy) {
  * Allocate the `Jotsticks` strucutre, storing joystick information
 */
 int joyCreateStructures() {
-  int joyCount = 0;
+  int32_t joyCount = 0;
   SDL_JoystickID *joystickIds = SDL_GetJoysticks(&joyCount);
 
   if ((specificJoy >= 0)) {
@@ -218,7 +218,7 @@ int joyCreateStructures() {
   }
 
   // Set the values for SDL joystick Ids
-  for (int id = 0; id < joyCount; id++) {
+  for (int32_t id = 0; id < joyCount; id++) {
     if (specificJoy == -1 || id == specificJoy) {
       Joysticks.at(id).id = joystickIds[id];
     }
@@ -279,6 +279,11 @@ uint32_t joy_GetCount() {
   return Joysticks.size();
 }
 
+bool joy_AxisIsTrigger(tJoystick_id joy, uint8_t axisId) {
+  auto bind = Joysticks.at(joy).bindings.axis_bindings.at(axisId);
+  return (bind == SDL_GAMEPAD_AXIS_LEFT_TRIGGER || bind == SDL_GAMEPAD_AXIS_RIGHT_TRIGGER);
+}
+
 //	retreive information about joystick.
 tJoyInfo joy_GetJoyInfo(tJoystick_id joy) { return Joysticks.at(joy).info; }
 
@@ -286,7 +291,7 @@ tJoyInfo joy_GetJoyInfo(tJoystick_id joy) { return Joysticks.at(joy).info; }
 tJoyPos joy_GetRawPos(tJoystick_id joy) {
   tJoyPos pos = joy_GetPos(joy);
 
-  for (uint32_t i = 0; i < Joysticks[joy].info.num_axis; ++i) {
+  for (uint8_t i = 0; i < Joysticks[joy].info.num_axis; ++i) {
     pos.axis[i] += 32767;
   }
 
@@ -304,15 +309,15 @@ tJoyPos joy_GetPos(tJoystick_id joy) {
     return pos;
   }
 
-  for (uint32_t i = 0; i < Joysticks[joy].info.num_axis; ++i) {
+  for (uint8_t i = 0; i < Joysticks[joy].info.num_axis; ++i) {
       pos.axis[i] = SDL_GetJoystickAxis(stick, i);
   }
 
-  for (uint32_t i = 0; i < Joysticks[joy].info.num_povs; ++i) {
+  for (uint8_t i = 0; i < Joysticks[joy].info.num_povs; ++i) {
     pos.pov[i] = ::map_hat(SDL_GetJoystickHat(stick, i));
   }
 
-  for (uint32_t i = Joysticks[joy].info.num_btns; i >= 0; --i) {
+  for (uint8_t i = Joysticks[joy].info.num_btns; i >= 0; --i) {
     if (SDL_GetJoystickButton(stick, i)) {
       pos.buttons |= (1 << i);
     }

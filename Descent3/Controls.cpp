@@ -491,7 +491,7 @@ ct_function Controller_needs[NUM_CONTROLLER_FUNCTIONS] = {
     {ctfPITCH_DOWNBUTTON, ctDigital, {ctButton, ctButton}, {0, 0}, {0, 0}},
     {ctfPITCH_UPKEY, ctTime, {ctKey, ctKey}, {KEY_DOWN, KEY_PAD2}, {0, 0}},
     {ctfPITCH_UPBUTTON, ctDigital, {ctButton, ctButton}, {0, 0}, {0, 0}},
-    {ctfBANK_RIGHTAXIS, ctAnalog, {ctAxis, ctAxis}, {CT_R_AXIS, 0}, {0, 0}},
+    {ctfBANK_RIGHTAXIS, ctAnalog, {ctAxis, ctAxis}, {0, 0}, {0, 0}},
     {ctfBANK_RIGHTKEY, ctTime, {ctKey, ctKey}, {KEY_E, KEY_PAD9}, {0, 0}},
     {ctfBANK_RIGHTBUTTON, ctDigital, {ctButton, ctButton}, {0, 0}, {0, 0}},
     {ctfBANK_LEFTKEY, ctTime, {ctKey, ctKey}, {KEY_Q, KEY_PAD7}, {0, 0}},

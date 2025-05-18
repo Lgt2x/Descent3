@@ -1113,14 +1113,14 @@ void RestoreCameraRearviews() {
 }
 
 void ProcessButtons() {
-  // If dead, any key not handled above will eand the death sequence
+  // If dead, any key not handled above will end the death sequence
   // this shouldn't be called in ReadPlayerControls since the player is DEAD!
   if (Players[Player_num].flags & PLAYER_FLAGS_DEAD) {
     int x, y;
     PollControls();
-    if (Controller->get_joy_raw_values(&x, &y) || Controller->get_mouse_raw_values(&x, &y)) {
-      // death.
-
+    if (Controller->get_joy_buttons() || Controller->get_mouse_raw_values(&x, &y)) {
+      // Player pressed a button or moved mouse
+      
       if (Total_time_dead < DEATH_RESPAWN_TIME)
         return;
 
