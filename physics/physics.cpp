@@ -1917,7 +1917,6 @@ void do_walking_sim(object *obj) {
   Fvi_num_recorded_faces = 0;
 
   int n_ignore_objs = 0;                    // The number of ignored objects
-  int ignore_obj_list[MAX_IGNORE_OBJS + 1]; // List of ignored objects
 
   int fate;            // Collision type for response code
   vector movement_vec; // Movement in this frame
@@ -2363,13 +2362,8 @@ void do_walking_sim(object *obj) {
       if (!(obj->flags & OF_DEAD)) {
         if ((obj->mtype.phys_info.flags & PF_PERSISTENT) ||
             (Objects[hit_info.hit_object[0]].mtype.phys_info.flags & PF_PERSISTENT)) {
-          if (n_ignore_objs < MAX_IGNORE_OBJS)
-            ignore_obj_list[n_ignore_objs++] = hit_info.hit_object[0];
         } else if (Objects[hit_info.hit_object[0]].type == OBJ_POWERUP || obj->type == OBJ_POWERUP ||
                    Objects[hit_info.hit_object[0]].type == OBJ_MARKER || obj->type == OBJ_MARKER) {
-          if (n_ignore_objs < MAX_IGNORE_OBJS)
-            ignore_obj_list[n_ignore_objs++] = hit_info.hit_object[0];
-
           count--;
           if (count < -1)
             count = -1;

@@ -999,7 +999,7 @@ void GenerateDefaultDeath(object *obj, int *death_flags, float *delay_time) {
       // If you change this assumption, tell Jerry
       if (!alternate_death && Object_info[obj->id].anim) {
         if (obj->control_type == CT_AI &&
-            Object_info[obj->id].anim[obj->ai_info->movement_type].elem[AS_DEATH].to != 0.0f) {
+            Object_info[obj->id].anim[obj->ai_info->movement_type].elem[AS_DEATH].to != 0) {
           // compute time remaining in current animation
           scalar extra_time = obj->rtype.pobj_info.anim_time *
                              (obj->rtype.pobj_info.anim_end_frame - obj->rtype.pobj_info.anim_frame) /

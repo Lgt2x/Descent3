@@ -88,7 +88,7 @@ public:
   const char *get_binding_text(ct_type type, uint8_t ctrl, uint8_t bind) override;
 
   // toggles use of deadzone for controllers
-  void set_controller_deadzone(int ctl, float deadzone) override;
+  void set_controller_deadzone(uint8_t ctl, float deadzone) override;
 
 private:
   struct t_controller {

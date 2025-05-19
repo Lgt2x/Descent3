@@ -397,6 +397,7 @@
 #include "vecmat.h"
 #include "aistruct_external.h"
 #include "room.h"
+#include <cstdint>
 
 //-------------------------------------------------
 // GLOBAL Info and Constants for AI
@@ -760,12 +761,13 @@ struct ai_frame {
   float last_sound_time[MAX_AI_SOUNDS];
   int16_t last_played_sound_index;
 
-  int8_t movement_type, movement_subtype;
+  uint8_t movement_type;
+  uint8_t movement_subtype;
 
-  int8_t animation_type;
-  char next_animation_type;
+  uint8_t animation_type;
+  uint8_t next_animation_type;
 
-  char next_movement; // For queueing actions  :)
+  uint8_t next_movement; // For queueing actions  :)
   char current_wb_firing;
   char last_special_wb_firing;
 

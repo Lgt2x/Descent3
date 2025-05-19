@@ -455,7 +455,6 @@ int MainMultiplayerMenu() {
   DLLNewUIWindowLoadBackgroundImage(main_wnd, "multimain.ogf");
   DLLNewUIWindowOpen(main_wnd);
   *DLLNum_network_games_known = 0;
-  int lastgamesfound = 0;
   int itemp;
   int looklocal = 1;
   void *selti = NULL;
@@ -474,7 +473,6 @@ int MainMultiplayerMenu() {
         // We found a new game!
         *DLLMulti_Gamelist_changed = false;
         selti = NULL;
-        lastgamesfound = itemp;
         // Get the currently selected item
         // char * psel = DLLListGetItem(main_list,DLLListGetSelectedIndex(main_list))				;
         // selno = DLLListGetSelectedIndex(main_list);
@@ -527,7 +525,6 @@ int MainMultiplayerMenu() {
       DLLSearchForLocalGamesTCP(0xffffffffl, htons(DEFAULT_GAME_PORT));
       //*DLLNum_network_games_known = 0;
       // DLLListRemoveAll(main_list);
-      lastgamesfound = 0;
       lastpoll = DLLtimer_GetTime();
       selno = DLLListGetSelectedIndex(main_list);
       if (selno >= 0)
@@ -594,7 +591,6 @@ int MainMultiplayerMenu() {
       *DLLMulti_Gamelist_changed = true;
       *DLLNum_network_games_known = 0;
       looklocal = 1;
-      lastgamesfound = 0;
       selno = DLLListGetSelectedIndex(main_list);
       if (selno >= 0)
         strcpy(selgame, DLLNetwork_games[selno].name);
@@ -614,7 +610,6 @@ int MainMultiplayerMenu() {
       uint16_t iport = DEFAULT_GAME_PORT;
       looklocal = 0;
       uint32_t iaddr;
-      lastgamesfound = 0;
       DLLEditGetText(edit_box, szdip, 25);
       // Make this IP the default
       DLLDatabaseWrite("DirectIP", szdip, strlen(szdip) + 1);

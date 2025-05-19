@@ -46,6 +46,7 @@
 #include <cstdint>
 #include <cstring>
 #include <plog/Log.h>
+#include <sys/types.h>
 
 #include "controller.h"
 #include "ddio.h"
@@ -135,10 +136,8 @@ void sdlgameController::poll() {
   }
 }
 
-// toggles use of deadzone for controllers. ctl can be 0 to ???
-// dead zone is from 0.0 to 0.5
-void sdlgameController::set_controller_deadzone(int ctl, float deadzone) {
-  if (ctl < 0 || ctl >= (m_ControlList.size() - 2)) {
+void sdlgameController::set_controller_deadzone(uint8_t ctl, float deadzone) {
+  if (ctl < 0 || ctl > (m_ControlList.size() - 2)) { // TODO: correct?
     return;
   }
 
@@ -176,7 +175,7 @@ const char *sdlgameController::get_binding_text(ct_type type, uint8_t ctrl, uint
   case ctAxis: {
     ASSERT(bind < NUM_AXISBINDSTRINGS);
     str = Ctltext_AxisBindings[bind];
-    if ((ctrl - 2) > 0) {
+    if (ctrl  > 2) {
       snprintf(binding_text, sizeof(binding_text), "J%d:%s", (ctrl - 2) + 1, str);
     } else {
       return str;
@@ -192,7 +191,7 @@ const char *sdlgameController::get_binding_text(ct_type type, uint8_t ctrl, uint
   case ctButton: {
     ASSERT(bind < NUM_BTNBINDSTRINGS);
     str = Ctltext_BtnBindings[bind];
-    if ((ctrl - 2) > 0) {
+    if (ctrl > 2) {
       snprintf(binding_text, sizeof(binding_text), "J%d:%s", (ctrl - 2) + 1, str);
     } else {
       return str;
@@ -285,8 +284,8 @@ ct_config_data sdlgameController::get_controller_value(ct_type type_req) {
     break;
 
   case ctButton:
-    for (int i = 2; i < m_ControlList.size(); i++) {
-      for (int j = 0; j < m_ControlList[i].info.num_btns; j++) {
+    for (size_t i = 2; i < m_ControlList.size(); i++) {
+      for (uint8_t j = 0; j < m_ControlList[i].info.num_btns; j++) {
         if (m_ExtCtlStates[m_ControlList[i].id].btn_pos[j].btnpresses) {
           val = MAKE_CONFIG_DATA(CONTROLLER_CTL_INFO(i, NULL_CONTROLLER), CONTROLLER_CTL_VALUE(j + 1, NULL_BINDING));
           return val;
@@ -306,8 +305,8 @@ ct_config_data sdlgameController::get_controller_value(ct_type type_req) {
     break;
 
   case ctAxis:
-    for (int controllerId = 2; controllerId < m_ControlList.size(); controllerId++) {
-      for (int axis = 0; axis < m_ControlList[controllerId].info.num_axis; axis++) {
+    for (size_t controllerId = 2; controllerId < m_ControlList.size(); controllerId++) {
+      for (uint8_t axis = 0; axis < m_ControlList[controllerId].info.num_axis; axis++) {
         if (!joy_AxisIsTrigger(controllerId - 2, axis)) {
           get_controller_axis_value(controllerId, axis, &val);
         }
@@ -315,8 +314,8 @@ ct_config_data sdlgameController::get_controller_value(ct_type type_req) {
     }
     break;
   case ctAnalogTrigger:
-    for (int controllerId = 2; controllerId < m_ControlList.size(); controllerId++) {
-      for (int axis = 0; axis < m_ControlList[controllerId].info.num_axis; axis++) {
+    for (size_t controllerId = 2; controllerId < m_ControlList.size(); controllerId++) {
+      for (uint8_t axis = 0; axis < m_ControlList[controllerId].info.num_axis; axis++) {
         if (joy_AxisIsTrigger(controllerId - 2, axis)) {
           get_controller_trigger_value(controllerId, axis, &val);
         }
@@ -344,7 +343,7 @@ ct_config_data sdlgameController::get_controller_value(ct_type type_req) {
     } else {
       pov_n = (type_req - ctPOV2) + 1;
     }
-    for (int i = 2; i < m_ControlList.size(); i++) {
+    for (size_t i = 2; i < m_ControlList.size(); i++) {
       if (m_ControlList[i].info.num_povs <= pov_n) {
         break;
       }
@@ -674,7 +673,7 @@ void sdlgameController::mask_controllers(bool joystick, bool mouse) {
       }
 
       m_ExtCtlStates[dev].pos.buttons = 0;
-      for (uint8_t i = 0; i < m_ControlList[ctr].info.num_btns; i++) {
+      for (uint8_t i = 0; i < m_ControlList[ctl].info.num_btns; i++) {
         m_ExtCtlStates[dev].btn_pos[i].btnpresses = 0;
         m_ExtCtlStates[dev].btn_pos[i].btntimes = 0.0f;
         m_ExtCtlStates[dev].btn_pos[i].btnstarts = 0.0f;

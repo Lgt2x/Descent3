@@ -118,6 +118,7 @@
 
 #include <cstdint>
 
+#include "joystick.h"
 #include "pstypes.h"
 #include "Macros.h"
 
@@ -253,14 +254,7 @@ public:
   virtual int get_mouse_raw_values(int *x, int *y) = 0;
   virtual unsigned int get_joy_buttons() = 0;
 
-  //	toggles use of deadzone for controllers. ctl can be 0 to ???
-  // dead zone is from 0.0 to 0.5
-  virtual void set_controller_deadzone(int ctl, float deadzone){};
-  virtual float get_controller_deadzone(int ctl) { return 0; };
-
-  // toggles use of axis on controllers. ctl can be 0 to ???
-  //	axis is a CT_?_AXIS value
-  void toggle_controller_axis(int ctl, int axis, bool toggle){};
+  virtual void set_controller_deadzone(uint8_t ctl, float deadzone) = 0;
 };
 
 gameController *CreateController(int num_funcs, ct_function *funcs);
