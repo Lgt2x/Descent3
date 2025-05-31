@@ -118,7 +118,6 @@
 
 #include <cstdint>
 
-#include "joystick.h"
 #include "pstypes.h"
 #include "Macros.h"
 

@@ -575,9 +575,10 @@ void InitControls() {
   Controller->mask_controllers((Current_pilot.read_controller & READF_JOY) ? true : false,
                                (Current_pilot.read_controller & READF_MOUSE) ? true : false);
 
-  Controller->set_axis_sensitivity(ctMouseAxis, CT_X_AXIS, Current_pilot.mouse_sensitivity[0]);
+  // TODO: iterate over controllers
+                               Controller->set_axis_sensitivity(ctMouseAxis, CT_X_AXIS, Current_pilot.mouse_sensitivity[0]);
   Controller->set_axis_sensitivity(ctMouseAxis, CT_Y_AXIS, Current_pilot.mouse_sensitivity[1]);
-  Controller->set_axis_sensitivity(ctMouseAxis, CT_Z_AXIS, Current_pilot.mouse_sensitivity[0]);
+
   Controller->set_axis_sensitivity(ctAxis, CT_X_AXIS, Current_pilot.joy_sensitivity[0]);
   Controller->set_axis_sensitivity(ctAxis, CT_Y_AXIS, Current_pilot.joy_sensitivity[1]);
   Controller->set_axis_sensitivity(ctAxis, CT_Z_AXIS, Current_pilot.joy_sensitivity[2]);

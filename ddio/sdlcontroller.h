@@ -24,11 +24,11 @@
 #include "joystick.h"
 #include <cstdint>
 
-#define NULL_LNXCONTROLLER ((int8_t)NULL_CONTROLLER)
+#define NULL_LNXCONTROLLER ((uint8_t)NULL_CONTROLLER)
 
 //	rules for adding controllers
 //		any nonstandard special controllers should be added to the below list
-enum CTID { INVALID = -3, MOUSE = -2, KEYBOARD = -1, JOYSTICK = 0 };
+enum class CTID { INVALID, MOUSE, KEYBOARD, JOYSTICK };
 
 class sdlgameController final : public gameController {
 public:
@@ -85,14 +85,15 @@ public:
   unsigned int get_joy_buttons() override;
 
   // retrieves binding text for desired function, binding, etc.
-  const char *get_binding_text(ct_type type, uint8_t ctrl, uint8_t bind) override;
+  const char *get_binding_text(ct_type type, uint8_t controller, uint8_t bind) override;
 
   // toggles use of deadzone for controllers
-  void set_controller_deadzone(uint8_t ctl, float deadzone) override;
+  void set_controller_deadzone(uint8_t controller, float deadzone) override;
 
 private:
   struct t_controller {
-    int8_t id = CTID::INVALID;
+    CTID type = CTID::INVALID;
+    uint8_t id = 0;
     tJoyInfo info;
     uint32_t btnmask = 0; // Remove?
     std::vector<float> normalizer;
@@ -103,7 +104,7 @@ private:
 
   struct ct_element {
     ct_format format{};
-    int8_t ctl[CTLBINDS_PER_FUNC]{};    // Reference to a t_controller id
+    uint8_t ctl_id[CTLBINDS_PER_FUNC]{}; // Reference to a t_controller id
     uint8_t value[CTLBINDS_PER_FUNC]{};
     ct_type ctype[CTLBINDS_PER_FUNC]{};
     uint8_t flags[2]{};
@@ -143,25 +144,25 @@ private:
   void assign_element(int id, ct_element *elem);
 
   //	this returns an index into the control list.
-  int8_t get_axis_controller(uint8_t axis);
+  uint8_t get_axis_controller(uint8_t axis);
 
   //	returns controller with specified button
-  int8_t get_button_controller(uint8_t btn);
+  uint8_t get_button_controller(uint8_t btn);
 
   //	returns the controller with a pov hat
-  int8_t get_pov_controller(uint8_t pov);
+  uint8_t get_pov_controller(uint8_t pov);
 
   //	note controller is index into ControlList.
-  float get_axis_value(int8_t controller, uint8_t axis, ct_format format, bool invert = false);
+  float get_axis_value(uint8_t controller, uint8_t axis, ct_format format, bool invert = false);
 
   // get value of analog button/trigger
-  float get_trigger_value(int8_t controller, uint8_t axis, ct_format format);
+  float get_trigger_value(uint8_t controller, uint8_t axis, ct_format format);
 
   //	get value of button in  seconds, presses, etc.
-  float get_button_value(int8_t controller, ct_format format, uint8_t button);
+  float get_button_value(uint8_t controller, ct_format format, uint8_t button);
 
   //	get value of pov (using JOYPOV values)
-  float get_pov_value(int8_t controller, ct_format format, uint8_t pov_number, uint8_t pov);
+  float get_pov_value(uint8_t controller, ct_format format, uint8_t pov_number, uint8_t pov);
 
   //	get keyboard info
   float get_key_value(int key, ct_format format);
@@ -171,8 +172,9 @@ private:
   int m_Suspended = 0;                             // is controller polling suspended?
   bool m_JoyActive = false, m_MouseActive = false; // enables or disables mouse, joystick control
 
-  std::vector<t_controller> m_ControlList; // Available controllers and their config. The first 2 are respectively keyboard and mouse
-  std::vector<t_extctlstate> m_ExtCtlStates; // State
+  std::vector<t_controller>
+      m_ControlList; // Available controllers and their config. The first 2 are respectively keyboard and mouse
+  std::vector<t_extctlstate> m_ExtCtlStates;                      // Controller state
   std::array<ct_element, NUM_CONTROLLER_FUNCTIONS> m_ElementList; // Bindings of gameplay
 
   //	thread info.

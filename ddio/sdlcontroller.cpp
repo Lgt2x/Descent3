@@ -69,7 +69,6 @@
 #define MOUSE_DEADZONE 0.00f
 
 static float WinControllerTimer = 0.0f;
-static int64_t g_last_frame_timer_ms = -1;
 static float g_accum_frame_time = 0.0f;
 
 sdlgameController::sdlgameController(int num_funcs, ct_function *funcs) : gameController(num_funcs, funcs) {
@@ -83,7 +82,6 @@ sdlgameController::sdlgameController(int num_funcs, ct_function *funcs) : gameCo
   m_Suspended = 0;
   m_frame_timer_ms = -1;
   m_frame_time = 1.0f;
-  g_last_frame_timer_ms = -1;
   g_accum_frame_time = 0.0f;
 
   sdlgameController::flush();
@@ -114,7 +112,6 @@ void sdlgameController::poll() {
   if (m_frame_timer_ms == -1) {
     // don't poll this frame.
     m_frame_timer_ms = cur_frame_timer_ms;
-    g_last_frame_timer_ms = cur_frame_timer_ms;
     g_accum_frame_time = 0.0f;
     return;
   }
@@ -128,25 +125,17 @@ void sdlgameController::poll() {
   }
 
   for (t_controller &ctrl : m_ControlList) {
-    if (ctrl.id >= CTID::JOYSTICK) {
+    if (ctrl.type == CTID::JOYSTICK) {
       extctl_getpos(ctrl.id);
-    } else if (ctrl.id == CTID::MOUSE) {
+    } else if (ctrl.type == CTID::MOUSE) {
       mouse_geteval();
     }
   }
 }
 
 void sdlgameController::set_controller_deadzone(uint8_t ctl, float deadzone) {
-  if (ctl < 0 || ctl > (m_ControlList.size() - 2)) { // TODO: correct?
-    return;
-  }
-
-  if (deadzone < 0.0f)
-    deadzone = 0.0f;
-  if (deadzone > 0.9f)
-    deadzone = 0.9f;
-
-  m_ControlList[ctl + 2].deadzone = deadzone;
+  deadzone = std::clamp(deadzone, 0.0f, 0.9f);
+  m_ControlList[ctl].deadzone = deadzone;
 }
 
 char Ctltext_AxisBindings[][16] = {"", "X-axis", "Y-axis", "Z-axis", "R-axis", "U-axis", "V-axis"};
@@ -175,7 +164,7 @@ const char *sdlgameController::get_binding_text(ct_type type, uint8_t ctrl, uint
   case ctAxis: {
     ASSERT(bind < NUM_AXISBINDSTRINGS);
     str = Ctltext_AxisBindings[bind];
-    if (ctrl  > 2) {
+    if (ctrl > 2) {
       snprintf(binding_text, sizeof(binding_text), "J%d:%s", (ctrl - 2) + 1, str);
     } else {
       return str;
@@ -325,7 +314,7 @@ ct_config_data sdlgameController::get_controller_value(ct_type type_req) {
   case ctMouseAxis: {
     float pos = 0.0f;
     int ctl = CONTROLLER_CTL_INFO(1, NULL_CONTROLLER), id = 1;
-    ASSERT(m_ControlList[id].id == CTID::MOUSE);
+    ASSERT(m_ControlList[id].type == CTID::MOUSE);
     for (int axis = 0; axis < m_ControlList[id].info.num_axis; axis++) {
       pos = get_axis_value(id, CT_X_AXIS, ctAnalog);
       if (std::abs(pos) >= 0.90f) {
@@ -396,14 +385,14 @@ void sdlgameController::set_controller_function(int id, const ct_type *type, ct_
 
   // auto assign keyboard controller if type is key.
   if (type[0] == ctKey)
-    elem.ctl[0] = CONTROLLER_CTL1_INFO(0);
+    elem.ctl_id[0] = CONTROLLER_CTL1_INFO(0);
   else
-    elem.ctl[0] = CONTROLLER_CTL1_INFO(CONTROLLER_INFO(value));
+    elem.ctl_id[0] = CONTROLLER_CTL1_INFO(CONTROLLER_INFO(value));
 
   if (type[1] == ctKey)
-    elem.ctl[1] = CONTROLLER_CTL2_INFO(0);
+    elem.ctl_id[1] = CONTROLLER_CTL2_INFO(0);
   else
-    elem.ctl[1] = CONTROLLER_CTL2_INFO(CONTROLLER_INFO(value));
+    elem.ctl_id[1] = CONTROLLER_CTL2_INFO(CONTROLLER_INFO(value));
 
   elem.ctype[0] = type[0];
   elem.ctype[1] = type[1];
@@ -415,10 +404,10 @@ void sdlgameController::set_controller_function(int id, const ct_type *type, ct_
   elem.enabled = m_ElementList[id].enabled;
 
   //	if controller doesn't exist, set it to invalid.
-  if (elem.ctl[0] > m_ControlList.size())
-    elem.ctl[0] = NULL_LNXCONTROLLER;
-  if (elem.ctl[1] >= m_ControlList.size())
-    elem.ctl[1] = NULL_LNXCONTROLLER;
+  if (elem.ctl_id[0] > m_ControlList.size())
+    elem.ctl_id[0] = NULL_LNXCONTROLLER;
+  if (elem.ctl_id[1] >= m_ControlList.size())
+    elem.ctl_id[1] = NULL_LNXCONTROLLER;
 
   assign_element(id, &elem);
 }
@@ -427,7 +416,7 @@ void sdlgameController::set_controller_function(int id, const ct_type *type, ct_
 void sdlgameController::get_controller_function(int id, ct_type *type, ct_config_data *value, uint8_t *flags) {
   type[0] = m_ElementList[id].ctype[0];
   type[1] = m_ElementList[id].ctype[1];
-  *value = makeword(CONTROLLER_CTL_INFO(m_ElementList[id].ctl[0], m_ElementList[id].ctl[1]),
+  *value = makeword(CONTROLLER_CTL_INFO(m_ElementList[id].ctl_id[0], m_ElementList[id].ctl_id[1]),
                     CONTROLLER_CTL_VALUE(m_ElementList[id].value[0], m_ElementList[id].value[1]));
   flags[0] = m_ElementList[id].flags[0];
   flags[1] = m_ElementList[id].flags[1];
@@ -455,9 +444,9 @@ bool sdlgameController::get_packet(int id, ct_packet *packet, ct_format alt_form
   //	check if the element's controller is valid.
   for (uint8_t i = 0; i < CTLBINDS_PER_FUNC; i++) {
     uint8_t value = m_ElementList[id].value[i];
-    int8_t controller = m_ElementList[id].ctl[i];
+    int8_t controller = m_ElementList[id].ctl_id[i];
 
-    if (controller == -1 || m_ControlList[controller].id == CTID::INVALID) {
+    if (controller == -1 || m_ControlList[controller].type == CTID::INVALID) {
       continue;
     }
     switch (m_ElementList[id].ctype[i]) {
@@ -537,8 +526,6 @@ float sdlgameController::get_axis_sensitivity(ct_type axis_type, uint8_t axis) {
 
 // sets sensitivity of axis item
 void sdlgameController::set_axis_sensitivity(ct_type axis_type, uint8_t axis, float val) {
-  int i;
-
   axis--;
   ASSERT(axis < CT_NUM_AXES);
 
@@ -547,7 +534,7 @@ void sdlgameController::set_axis_sensitivity(ct_type axis_type, uint8_t axis, fl
     m_ControlList[1].sens[axis] = val;
     break;
   case ctAxis:
-    for (i = 2; i < m_ControlList.size(); i++)
+    for (int i = 2; i < m_ControlList.size(); i++)
       m_ControlList[i].sens[axis] = val;
     break;
   default:
@@ -561,29 +548,29 @@ int sdlgameController::assign_function(ct_function *func) {
   ct_element elem;
 
   for (int i = 0; i < CTLBINDS_PER_FUNC; i++) {
-    elem.ctl[i] = NULL_LNXCONTROLLER;
+    elem.ctl_id[i] = NULL_LNXCONTROLLER;
 
     switch (func->ctype[i]) {
     case ctNone:
       break;
     case ctKey:
-      elem.ctl[i] = 0; // Keyboard has id 0
+      elem.ctl_id[i] = 0; // Keyboard has id 0
       break;
     case ctAnalogTrigger:
     case ctAxis:
-      elem.ctl[i] = get_axis_controller(func->value[i]);
+      elem.ctl_id[i] = get_axis_controller(func->value[i]);
       break;
     case ctButton:
-      elem.ctl[i] = get_button_controller(func->value[i]);
+      elem.ctl_id[i] = get_button_controller(func->value[i]);
       break;
     case ctMouseAxis:
-      elem.ctl[i] = 1; // Mouse has id 0
+      elem.ctl_id[i] = 1; // Mouse has id 0
       break;
     case ctMouseButton:
       //	find a free mouse button.
       if ((m_ControlList[1].btnmask & (1 << (func->value[i] - 1))) &&
           ((func->value[i] - 1) < m_ControlList[1].info.num_btns)) {
-        elem.ctl[i] = 1;
+        elem.ctl_id[i] = 1;
       }
       break;
     case ctPOV:
@@ -596,7 +583,7 @@ int sdlgameController::assign_function(ct_function *func) {
       else
         pov_n = (func->ctype[i] - ctPOV2) + 1;
 
-      elem.ctl[i] = get_pov_controller(pov_n);
+      elem.ctl_id[i] = get_pov_controller(pov_n);
       break;
     }
     }
@@ -655,7 +642,11 @@ void sdlgameController::mask_controllers(bool joystick, bool mouse) {
   }
 
   if (!m_JoyActive) {
-    for (size_t ctl = 2; ctl < m_ControlList.size(); ctl++) {
+    for (size_t ctl = 0; ctl < m_ControlList.size(); ctl++) {
+      if (m_ControlList[ctl].type != CTID::JOYSTICK) {
+        continue;
+      }
+      
       uint8_t dev = m_ControlList[ctl].id;
       for (uint8_t axis = 0; axis < m_ControlList[ctl].info.num_axis; axis++) {
         m_ExtCtlStates[dev].pos.axis[axis] = m_ControlList[ctl].normalizer[axis];
@@ -760,7 +751,9 @@ void sdlgameController::mouse_geteval() {
 bool sdlgameController::init_controllers() {
   //	Add keyboard controller
   m_ControlList.push_back(t_controller{});
-  m_ControlList.back().id = CTID::KEYBOARD;
+  m_ControlList.back().type = CTID::KEYBOARD;
+  m_ControlList.back().id = 0;
+  m_ExtCtlStates.emplace_back(t_extctlstate{});
 
   //	add mouse controller
   int left, top, right, bottom, zmin, zmax; // btns, axes,
@@ -770,10 +763,14 @@ bool sdlgameController::init_controllers() {
 
   // we will try to support a mouse with 3 axis and N_MSEBTNS buttons.
   m_ControlList.push_back(t_controller{});
-  m_ControlList.back().id = CTID::MOUSE;
+  m_ControlList.back().type = CTID::MOUSE;
+  m_ControlList.back().id = 1;
   m_ControlList.back().info.num_btns = nbtns;
   m_ControlList.back().info.num_axis = naxis;
+  m_ControlList.back().sens.resize(naxis);
   m_ControlList.back().btnmask = btnmask;
+  m_ExtCtlStates.emplace_back(t_extctlstate{});
+
   // normalizer is the "available area" in dots - this is the max we expect ANY mouse to EVER travel in 1.0s
   // if a mouse is faster than (normalizer / frame_time), rot speed will be clamped to 1 rev/sec
   m_ControlList.back().normalizer.resize(naxis, 10000.0f);
@@ -788,7 +785,8 @@ bool sdlgameController::init_controllers() {
     }
     tJoyInfo jc = joy_GetJoyInfo((tJoystick_id)joyId);
     m_ControlList.push_back(t_controller{});
-    m_ControlList.back().id = joyId;
+    m_ControlList.back().type = CTID::JOYSTICK;
+    m_ControlList.back().id = joyId + 2;
     m_ControlList.back().info = jc;
     m_ControlList.back().btnmask = 0;
 
@@ -803,7 +801,9 @@ bool sdlgameController::init_controllers() {
 
     m_ExtCtlStates.emplace_back(t_extctlstate{});
     m_ExtCtlStates.back().pov_pos.resize(jc.num_povs);
-    m_ExtCtlStates.back().pov_pos.resize(jc.num_btns);
+    m_ExtCtlStates.back().btn_pos.resize(jc.num_btns);
+    m_ExtCtlStates.back().pos.axis.resize(jc.num_axis);
+    m_ExtCtlStates.back().pos.pov.resize(jc.num_povs);
   }
 
   sdlgameController::flush();
@@ -812,19 +812,19 @@ bool sdlgameController::init_controllers() {
 }
 
 //	returns the controller with a pov hat
-int8_t sdlgameController::get_pov_controller(uint8_t pov) {
+uint8_t sdlgameController::get_pov_controller(uint8_t pov) {
   //	start from controller 2 because 0, and 1 are reserved for keyboard and mouse
   // uint16_t pov_flag = CTF_POV << (pov);
 
   // TODO: Use mapping
   // for (int i = 2; i < m_ControlList.size(); i++)
-  //   if ((m_ControlList[i].flags & pov_flag) && m_ControlList[i].id != CTID::INVALID)
+  //   if ((m_ControlList[i].flags & pov_flag) && m_ControlList[i].type != CTID::INVALID)
   //     return i;
 
   return NULL_LNXCONTROLLER;
 }
 
-int8_t sdlgameController::get_button_controller(uint8_t btn) {
+uint8_t sdlgameController::get_button_controller(uint8_t btn) {
   //	buttons range from 1-CT_MAX_BUTTONS
   ASSERT(btn <= CT_MAX_BUTTONS);
   if (btn == NULL_BINDING)
@@ -836,7 +836,7 @@ int8_t sdlgameController::get_button_controller(uint8_t btn) {
   //   //@@		if (((unsigned)btn < m_ControlList[i].buttons) && !(m_ControlList[i].btnmask & mask) &&
   //   //(m_ControlList[i].id
   //   //!= CTID::INVALID)) {
-  //   if (((unsigned)btn < m_ControlList[i].num_buttons) && (m_ControlList[i].id != CTID::INVALID)) {
+  //   if (((unsigned)btn < m_ControlList[i].num_buttons) && (m_ControlList[i].type != CTID::INVALID)) {
   //     //@@			m_ControlList[i].btnmask |= mask;
   //     return i;
   //   }
@@ -844,7 +844,7 @@ int8_t sdlgameController::get_button_controller(uint8_t btn) {
   return NULL_LNXCONTROLLER;
 }
 
-int8_t sdlgameController::get_axis_controller(uint8_t axis) {
+uint8_t sdlgameController::get_axis_controller(uint8_t axis) {
   //	start from controller 2 because 0, and 1 are reserved for keyboard and mouse
   if (axis == NULL_BINDING)
     return NULL_LNXCONTROLLER;
@@ -853,7 +853,7 @@ int8_t sdlgameController::get_axis_controller(uint8_t axis) {
   // int axis_mask = (1 << (axis - 1));
 
   // for (int i=0; i < m_ControlList.size(); i++) {
-  //   if ((m_ControlList[i+2].flags & axis_mask) && m_ControlList[i+2].id != CTID::INVALID &&
+  //   if ((m_ControlList[i+2].flags & axis_mask) && m_ControlList[i+2].type != CTID::INVALID &&
   //       !(m_ControlList[i+2].axis_is_trigger & axis_mask)) {
   //     return i;
   //   }
@@ -869,18 +869,18 @@ void sdlgameController::assign_element(int id, ct_element *elem) {
 
   //	look through each controller and validate each element
   for (int i = 0; i < CTLBINDS_PER_FUNC; i++) {
-    m_ElementList[id].ctl[i] = elem->ctl[i];
+    m_ElementList[id].ctl_id[i] = elem->ctl_id[i];
     m_ElementList[id].value[i] = elem->value[i];
     m_ElementList[id].ctype[i] = elem->ctype[i];
 
-    if (m_ElementList[id].ctl[i] != NULL_LNXCONTROLLER) {
+    if (m_ElementList[id].ctl_id[i] != NULL_LNXCONTROLLER) {
       // this function shouldn't do any error checking!!!!  keep same controller values and bindings unless
       // bindings are truly bogus.
       switch (m_ElementList[id].ctype[i]) {
       case ctMouseButton:
       case ctButton:
         if (elem->value[i] > CT_MAX_BUTTONS) {
-          m_ElementList[id].ctl[i] = NULL_LNXCONTROLLER;
+          m_ElementList[id].ctl_id[i] = NULL_LNXCONTROLLER;
           m_ElementList[id].value[i] = NULL_BINDING;
         }
         break;
@@ -895,7 +895,7 @@ void sdlgameController::assign_element(int id, ct_element *elem) {
         break;
       default:
         m_ElementList[id].value[i] = NULL_BINDING;
-        m_ElementList[id].ctl[i] = NULL_LNXCONTROLLER;
+        m_ElementList[id].ctl_id[i] = NULL_LNXCONTROLLER;
       }
     } else {
       m_ElementList[id].value[i] = NULL_BINDING;
@@ -903,13 +903,13 @@ void sdlgameController::assign_element(int id, ct_element *elem) {
   }
 }
 
-float sdlgameController::get_button_value(int8_t controller, ct_format format, uint8_t button) {
+float sdlgameController::get_button_value(uint8_t controller, ct_format format, uint8_t button) {
   float val = 0.0f;
 
   if (controller <= NULL_LNXCONTROLLER || static_cast<size_t>(controller) >= m_ControlList.size()) {
     return 0.0f;
   }
-  if (m_ControlList[controller].id == CTID::INVALID) {
+  if (m_ControlList[controller].type == CTID::INVALID) {
     return 0.0f;
   }
 
@@ -928,7 +928,7 @@ float sdlgameController::get_button_value(int8_t controller, ct_format format, u
   switch (format) {
     //	note we take care of mouse controls and external controls here
   case ctDownCount:
-    if (m_ControlList[controller].id == CTID::MOUSE) {
+    if (m_ControlList[controller].type == CTID::MOUSE) {
       val = (float)ddio_MouseBtnDownCount(button);
     } else {
       val = (float)m_ExtCtlStates[m_ControlList[controller].id].btn_pos[button].btnpresses;
@@ -937,7 +937,7 @@ float sdlgameController::get_button_value(int8_t controller, ct_format format, u
     break;
 
   case ctTime:
-    if (m_ControlList[controller].id == CTID::MOUSE) {
+    if (m_ControlList[controller].type == CTID::MOUSE) {
       val = ddio_MouseBtnDownTime(button);
     } else {
       if (!(m_ExtCtlStates[m_ControlList[controller].id].pos.buttons & (1 << button))) {
@@ -954,7 +954,7 @@ float sdlgameController::get_button_value(int8_t controller, ct_format format, u
 
   case ctDigital:
   case ctAnalog:
-    if (m_ControlList[controller].id == CTID::MOUSE) {
+    if (m_ControlList[controller].type == CTID::MOUSE) {
       if (m_MseState.btnmask & (1 << button))
         val = 1.0f;
     } else if (m_ExtCtlStates[m_ControlList[controller].id].pos.buttons & (1 << button)) {
@@ -975,17 +975,17 @@ static constexpr angle rotationToFixAngle(double rot) {
 }
 
 //	note controller is index into ControlList.
-float sdlgameController::get_axis_value(int8_t controller, uint8_t axis, ct_format format, bool invert) {
+float sdlgameController::get_axis_value(uint8_t controller, uint8_t axis, ct_format format, bool invert) {
   if (controller <= NULL_LNXCONTROLLER || static_cast<size_t>(controller) >= m_ControlList.size()) {
     return 0.0f;
   }
 
   const t_controller &ctldev = m_ControlList[controller];
-  if (ctldev.id == CTID::INVALID) {
+  if (ctldev.type == CTID::INVALID) {
     return 0.0f;
   }
 
-  if (m_ControlList[controller].id == CTID::KEYBOARD) {
+  if (m_ControlList[controller].type == CTID::KEYBOARD) {
     LOG_ERROR << "Cannot get axis value from keyboard input";
     Int3();
     return 0.0f;
@@ -998,7 +998,7 @@ float sdlgameController::get_axis_value(int8_t controller, uint8_t axis, ct_form
 
   //	get raw value
   float axisval = 0.0f;
-  if (ctldev.id == CTID::MOUSE) {
+  if (ctldev.type == CTID::MOUSE) {
     switch (axis) {
     case CT_X_AXIS:
       axisval = m_MseState.x;
@@ -1009,16 +1009,15 @@ float sdlgameController::get_axis_value(int8_t controller, uint8_t axis, ct_form
     default:
       LOG_ERROR << "Invalid mouse axis " << axis;
       break;
-    }      
-    } else {
-    axisval = static_cast<float>(m_ExtCtlStates[ctldev.id].pos.axis.at(axis - 1));
-
     }
+  } else {
+    axisval = static_cast<float>(m_ExtCtlStates[ctldev.id].pos.axis.at(axis - 1));
+  }
 
   // create normalizer
   axis--;
   float nullzone, normalizer;
-  if (ctldev.id == CTID::MOUSE) {
+  if (ctldev.type == CTID::MOUSE) {
     if (m_frame_time < 0.005f)
       m_frame_time = 0.005f; // to trap potential errors.
     normalizer = ctldev.normalizer[axis] * m_frame_time;
@@ -1030,7 +1029,7 @@ float sdlgameController::get_axis_value(int8_t controller, uint8_t axis, ct_form
   }
 
   float val = axisval / normalizer;
-  val = val - ((ctldev.id == CTID::MOUSE) ? 0.0f : 1.0f); // joystick needs to be normalized to -1.0 to 1.0
+  val = val - ((ctldev.type == CTID::MOUSE) ? 0.0f : 1.0f); // joystick needs to be normalized to -1.0 to 1.0
 
   //	calculate adjusted value
   if (val > nullzone) {
@@ -1074,7 +1073,7 @@ float sdlgameController::get_axis_value(int8_t controller, uint8_t axis, ct_form
           Players[Player_num].guided_obj)) {
     axis++;
 
-    if ((axis == CT_X_AXIS) && (ctldev.id == CTID::MOUSE) && (std::abs(val) > SDL_FLT_EPSILON)) {
+    if ((axis == CT_X_AXIS) && (ctldev.type == CTID::MOUSE) && (std::abs(val) > SDL_FLT_EPSILON)) {
       matrix orient;
 
       if (!(Players[Player_num].controller_bitflags & PCBF_HEADINGLEFT)) {
@@ -1100,7 +1099,7 @@ float sdlgameController::get_axis_value(int8_t controller, uint8_t axis, ct_form
       ObjSetOrient(&Objects[Players[Player_num].objnum], &Objects[Players[Player_num].objnum].orient);
       return 0;
     }
-    if ((axis == CT_Y_AXIS) && (ctldev.id == CTID::MOUSE) && (std::abs(val) > SDL_FLT_EPSILON)) {
+    if ((axis == CT_Y_AXIS) && (ctldev.type == CTID::MOUSE) && (std::abs(val) > SDL_FLT_EPSILON)) {
       matrix orient;
 
       if (!(Players[Player_num].controller_bitflags & PCBF_PITCHUP)) {
@@ -1127,15 +1126,15 @@ float sdlgameController::get_axis_value(int8_t controller, uint8_t axis, ct_form
   return val;
 }
 
-float sdlgameController::get_trigger_value(int8_t controller, uint8_t axis, ct_format format) {
+float sdlgameController::get_trigger_value(uint8_t controller, uint8_t axis, ct_format format) {
   float normalizer, axisval = 0, nullzone; //, senszone;
 
   if (controller <= NULL_LNXCONTROLLER || static_cast<size_t>(controller) >= m_ControlList.size()) {
     return 0.0f;
   }
 
-  const t_controller& ctldev = m_ControlList[controller];
-  if (ctldev.id == CTID::INVALID) {
+  const t_controller &ctldev = m_ControlList[controller];
+  if (ctldev.type == CTID::INVALID) {
     return 0.0f;
   }
 
@@ -1153,7 +1152,7 @@ float sdlgameController::get_trigger_value(int8_t controller, uint8_t axis, ct_f
   nullzone = (m_ControlList[controller].deadzone < 0.05f) ? 0.05f : m_ControlList[controller].deadzone;
 
   float val = axisval / normalizer;
-  val = val - ((ctldev.id == CTID::MOUSE) ? 0.0f : 1.0f); // joystick needs to be normalized to -1.0 to 1.0
+  val = val - ((ctldev.type == CTID::MOUSE) ? 0.0f : 1.0f); // joystick needs to be normalized to -1.0 to 1.0
 
   //	calculate adjusted value
   if (val > nullzone) {
@@ -1184,16 +1183,16 @@ float sdlgameController::get_trigger_value(int8_t controller, uint8_t axis, ct_f
   return val;
 }
 //	do some pov stuff
-float sdlgameController::get_pov_value(int8_t controller, ct_format format, uint8_t pov_number, uint8_t pov) {
+float sdlgameController::get_pov_value(uint8_t controller, ct_format format, uint8_t pov_number, uint8_t pov) {
   float val = 0.0f;
 
   if (controller <= NULL_LNXCONTROLLER || static_cast<size_t>(controller) >= m_ControlList.size()) {
     return val;
   }
-  if (m_ControlList[controller].id == CTID::INVALID) {
+  if (m_ControlList[controller].type == CTID::INVALID) {
     return val;
   }
-  if (m_ControlList[controller].id == CTID::KEYBOARD) {
+  if (m_ControlList[controller].type == CTID::KEYBOARD) {
     Int3();
     return 0.0f;
   }
@@ -1278,18 +1277,7 @@ float sdlgameController::get_key_value(int key, ct_format format) {
 }
 
 //	CTL file parser
-enum CTLCMD {
-  NAME = 0,
-  AXIS = 1,
-  SX = 3,
-  DEAD = 2,
-  SZ = 5,
-  SY = 4,
-  SU = 7,
-  SR = 6,
-  SV = 8,
-  N_CTLCMDS = 9
-};
+enum CTLCMD { NAME = 0, AXIS = 1, SX = 3, DEAD = 2, SZ = 5, SY = 4, SU = 7, SR = 6, SV = 8, N_CTLCMDS = 9 };
 
 const char *CTLCommands[N_CTLCMDS] = {"name",     "axis",     "deadzone", "sensmodx", "sensmody",
                                       "sensmodz", "sensmodr", "sensmodu", "sensmodv"};
