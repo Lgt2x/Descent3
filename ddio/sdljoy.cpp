@@ -66,9 +66,11 @@
  * $NoKeywords: $
  */
 
+#include <SDL3/SDL_init.h>
 #include <cstdlib>
 #include <cstring>
 #include <SDL3/SDL.h>
+#include <iostream>
 
 // rcg06182000 need this for specific joystick stuff.
 #include "args.h"
@@ -96,11 +98,13 @@ static bool joy_InitStick(tJoystick joy, char *server_adr);
 //	---------------------------------------------------------------------------
 //	functions
 
+SDL_Gamepad *GyroGamepad;
+
 //	joystick system initialization
 bool joy_Init() {
   //	reinitialize joystick if already initialized.
   joy_Close();
-  if (!SDL_InitSubSystem(SDL_INIT_JOYSTICK)) {
+  if (!SDL_InitSubSystem(SDL_INIT_GAMEPAD | SDL_INIT_JOYSTICK | SDL_INIT_SENSOR)) {
     LOG_ERROR << "Could not initialize Joystick";
     return false;
   }
@@ -110,16 +114,35 @@ bool joy_Init() {
     return false;
   }
 
-  // rcg06182000 specific joystick support.
-  if (specificJoy >= 0) {
-    joy_InitStick((tJoystick)specificJoy, nullptr);
-  } // if
-  else {
-    //	initialize joystick list
-    for (int i = 0; i < MAX_JOYSTICKS; i++) {
-      joy_InitStick((tJoystick)i, nullptr);
+  int32_t joyCount = 0;
+  SDL_JoystickID *joystickIds = SDL_GetJoysticks(&joyCount);
+  joy_InitStick((tJoystick)3, nullptr);
+
+  // Find gamepad with gyro
+  int count = 0;
+  SDL_JoystickID *ids = SDL_GetGamepads(&count);
+
+  bool found_gyro = false;
+  for (int i = 0; i < count; i++) {
+    GyroGamepad = SDL_OpenGamepad(ids[i]);
+    std::cout << "Trying " << SDL_GetGamepadName(GyroGamepad) << std::endl;
+
+    if (SDL_GamepadHasSensor(GyroGamepad, SDL_SENSOR_GYRO)) {
+      found_gyro = true;
+      break;
     }
-  } // else
+  }
+  if (!found_gyro) {
+    return false;
+    std::cout << "no gyro" << std::endl;
+  }
+  
+  std::cout << "Using " << SDL_GetGamepadName(GyroGamepad) << std::endl;
+  SDL_SetGamepadSensorEnabled(GyroGamepad, SDL_SENSOR_GYRO, true);
+
+
+
+
   return true;
 }
 
@@ -273,6 +296,7 @@ static inline uint32_t map_hat(Uint8 value) {
 
 //	returns the state of a stick, remote or otherwise
 void joy_GetPos(tJoystick joy, tJoyPos *pos) {
+  joy = 3;
   SDL_Joystick *stick;
   int i;
 
@@ -316,29 +340,7 @@ void joy_GetPos(tJoystick joy, tJoyPos *pos) {
 }
 
 static int joyGetNumDevs(void) {
-  int found = 0;
-
-  int joyCount = 0;
-  SDL_JoystickID *joysticks = SDL_GetJoysticks(&joyCount);
-
-  // rcg06182000 add support for specific joydev.
-  int rc = FindArgChar("-joystick", 'j');
-  specificJoy = -1;
-  if ((rc > 0) && (GameArgs[rc + 1] != NULL)) {
-    specificJoy = atoi(GameArgs[rc + 1]);
-    if ((specificJoy >= 0) && (specificJoy < joyCount)) {
-      found = 1;
-    } else {
-      specificJoy = -1;
-    }
-  }
-  if (specificJoy < 0) {
-    found = joyCount;
-  }
-
-  LOG_INFO.printf("Joystick: Found %d joysticks.", found);
-  SDL_free(joysticks);
-  return found;
+  return 4;
 }
 
 void ddio_InternalJoyFrame(void) {

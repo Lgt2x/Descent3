@@ -1,5 +1,5 @@
 /*
-* Descent 3 
+* Descent 3
 * Copyright (C) 2024 Parallax Software
 *
 * This program is free software: you can redistribute it and/or modify
@@ -405,6 +405,7 @@
  */
 
 #include <cstdlib>
+#include <plog/Log.h>
 
 #include "controls.h"
 
@@ -870,6 +871,8 @@ void DoKeyboardMovement(game_controls *controls) {
 //	handler.  So we adjust those values in this function based off of the remaining
 //	controller element stataes.
 
+extern SDL_Gamepad *GyroGamepad;
+
 void DoControllerMovement(game_controls *controls) {
   ct_packet ctl_x, ctl_y, ctl_z, ctl_p, ctl_b, ctl_h;
   ct_packet ctl_povl, ctl_povr, ctl_povu, ctl_povd, ctl_fb, ctl_rb;
@@ -921,10 +924,35 @@ void DoControllerMovement(game_controls *controls) {
     }
   }
 
+  std::array<float, 3> gyro_values;
+  const float factor = 0.0003f;
+  const float threshold = 0.1f;
+
+  SDL_UpdateGamepads();
+  SDL_GetGamepadSensorData(GyroGamepad, SDL_SENSOR_GYRO, gyro_values.data(), 3);
+  // LOG_DEBUG <<"Gyro " << gyro_values[1] << " " << gyro_values[0];
+
+  static std::chrono::time_point<std::chrono::steady_clock> m_start_tstamp = std::chrono::steady_clock::now();
+  long delta_us =
+      std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - m_start_tstamp).count();
+  m_start_tstamp = std::chrono::steady_clock::now();
+
+
+    if (std::abs(gyro_values[1]) < threshold) {
+      gyro_values[1] = 0.0f;
+    }
+    if (std::abs(gyro_values[0]) < threshold) {
+      gyro_values[0] = 0.0f;
+    }
+
+
+    float p = static_cast<float>(delta_us) * factor * -gyro_values[1];
+    float h = static_cast<float>(delta_us) * factor * -gyro_values[0];
+
   // do standard pitch and heading.
   if (!controls->toggle_slide && !controls->toggle_bank) {
-    controls->pitch_thrust += -ctl_p.value;
-    controls->heading_thrust += ctl_h.value;
+    controls->pitch_thrust += h;
+    controls->heading_thrust += p;
   }
 
   //	do afterburn button control
